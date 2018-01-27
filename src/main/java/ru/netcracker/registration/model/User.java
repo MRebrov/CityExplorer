@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Может сохраняться в БД и загружаться из БД через репозиторий
  */
 @Entity
-@Table(name="nc_user")
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

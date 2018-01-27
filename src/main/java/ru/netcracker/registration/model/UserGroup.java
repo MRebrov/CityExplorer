@@ -3,7 +3,7 @@ package ru.netcracker.registration.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="user_group")
+@Table(name="user_groups")
 public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

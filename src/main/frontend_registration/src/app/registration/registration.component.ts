@@ -72,7 +72,7 @@ export class RegistrationComponent implements OnInit {
     this.userService.addUser(tUser).catch((response:Response) => {
       this.writeError(response.text()); //если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe(()=>this.writeError("User registered successfully")); //Если ошибки нет, сказать что регистрация прошла
+    }).subscribe(()=>this.writeError("User registered successfully. We have sent you confirmation link on your email.")); //Если ошибки нет, сказать что регистрация прошла
   }
 
   /**

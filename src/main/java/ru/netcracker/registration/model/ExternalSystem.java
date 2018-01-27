@@ -3,7 +3,7 @@ package ru.netcracker.registration.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="external_system")
+@Table(name="external_systems")
 public class ExternalSystem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
