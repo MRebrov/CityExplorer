@@ -1,0 +1,31 @@
+<h3 class="center-align">Sign in</h3>
+<div id="signInForm">
+  <form>
+    <div class="row">
+      <div class="input-field col s12 m6 offset-m3" id="signInFormEmail">
+        <i class="small material-icons prefix">email</i>
+        <label for="email">Email</label>
+        <input type="text" id="email" required
+               [(ngModel)]="login" name="email" class="validate">
+      </div>
+
+      <div class="input-field col s12 m6 offset-m3" sid="signInFormPassword">
+        <i class="small material-icons prefix">lock</i>
+        <label for="password">Password</label>
+        <input type="password" id="password" required
+               [(ngModel)]="password" name="password" class="validate">
+      </div>
+    </div>
+
+    <div class="center-align" id="signInFormSubmit">
+      <a (click)="onFormSubmit($event)" class="waves-effect waves-light btn"><i class="material-icons left">chevron_right</i>Sign in</a>
+    </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col s6 offset-s3">
+    <div id="errorHolder" class="card-panel teal scale-transition scale-out">
+      <span class="white-text">{{errorMsg}}</span>
+    </div>
+  </div>
+</div>

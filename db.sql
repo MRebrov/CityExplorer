@@ -527,7 +527,6 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 COPY photos (id, url, user_id, spot_id, upload_date) FROM stdin;
-\.
 
 
 --
@@ -537,7 +536,6 @@ COPY photos (id, url, user_id, spot_id, upload_date) FROM stdin;
 --
 
 COPY quests (id, name, description, spot_id, original_photo_id, upload_date) FROM stdin;
-\.
 
 
 --
@@ -547,7 +545,6 @@ COPY quests (id, name, description, spot_id, original_photo_id, upload_date) FRO
 --
 
 COPY spots (id, location, name, original_photo_id, upload_date) FROM stdin;
-\.
 
 
 --
@@ -557,7 +554,6 @@ COPY spots (id, location, name, original_photo_id, upload_date) FROM stdin;
 --
 
 COPY user_groups (id, name) FROM stdin;
-\.
 
 
 --
@@ -567,7 +563,6 @@ COPY user_groups (id, name) FROM stdin;
 --
 
 COPY user_progress (user_id, quest_id, quest_status, date_complete) FROM stdin;
-\.
 
 
 --
@@ -577,7 +572,6 @@ COPY user_progress (user_id, quest_id, quest_status, date_complete) FROM stdin;
 --
 
 COPY users (id, group_id, first_name, last_name, birthday, email, registration_date, password, ex_id) FROM stdin;
-\.
 
 
 --

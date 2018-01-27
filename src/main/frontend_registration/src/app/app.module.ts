@@ -6,18 +6,21 @@ import { MaterializeModule } from "angular2-materialize";
 
 import { AppComponent } from './app.component';
 import { RegistrationComponent} from "./registration/registration.component";
-import {UserService} from "./registration/user.service";
+import { AppRoutingModule } from './/app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MaterializeModule,
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,7 @@ import {User} from "./user.model";
 import {Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import * as CryptoJS from 'crypto-js';
+import {AppComponent} from "../app.component";
 
 /**
  * Основной компонент приложения
@@ -15,8 +16,8 @@ import * as CryptoJS from 'crypto-js';
 })
 export class RegistrationComponent implements OnInit {
   user: User;
-  errorMsg: String;
   confirmPassword: string;
+  errorMsg: String;
 
   constructor(private userService: UserService) {
 
@@ -71,7 +72,7 @@ export class RegistrationComponent implements OnInit {
     this.userService.addUser(tUser).catch((response:Response) => {
       this.writeError(response.text()); //если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe(()=>this.writeError("User registered successfully")); //Если ошибки нет, сказать что регистрация прошла
+    }).subscribe(()=>this.writeError("User registered successfully. We have sent you confirmation link on your email.")); //Если ошибки нет, сказать что регистрация прошла
   }
 
   /**

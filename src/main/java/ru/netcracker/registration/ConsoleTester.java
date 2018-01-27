@@ -20,7 +20,7 @@ public class ConsoleTester  implements CommandLineRunner {
     public UserGroupRepository groupRepository;
     @Override
     public void run(String... args) throws Exception{
-        System.out.println("gtdfgdfgdfgdfgdfgdfdfg");
+/*
         UserGroup group = new UserGroup();
         group.setName("Unconfirmed");
         groupRepository.save(group);
@@ -38,6 +38,6 @@ public class ConsoleTester  implements CommandLineRunner {
         userDTO.setGroupID(group);
         userDTO.setRegistrationDate("12-08-1901");
 
-        userService.add(userDTO);
+        userService.add(userDTO);*/
     }
 }
