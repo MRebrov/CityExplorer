@@ -121,8 +121,8 @@ public class VKController {
                     .execute();
             Photo photo = photoList.get(0);
             String attachId = "photo" + photo.getOwnerId() + "_" + photo.getId();
-
-            vk.wall().post(actor).attachments(attachId).message("#cityexplorer").execute();
+            //нет доступа
+            // vk.wall().post(actor).attachments(attachId).message("#cityexplorer").execute();
 
 
         } catch (ApiException | ClientException e) {

@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bd04285-d38e-4422-b3df-e9f5efc25b02" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registration.iml" afterPath="$PROJECT_DIR$/registration.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored mask="*.class" />
@@ -78,11 +74,21 @@
       <file leaf-file-name="VKController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+            <state relative-caret-position="268">
+              <caret line="124" column="15" lean-forward="false" selection-start-line="124" selection-start-column="15" selection-end-line="124" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/ViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -92,7 +98,51 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-170">
               <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding />
+              <folding>
+                <marker date="1517086344668" expanded="true" signature="354:438" ph="@{...}" />
+                <marker date="1517086344668" expanded="true" signature="587:688" ph="@{...}" />
+                <marker date="1517086344668" expanded="true" signature="779:889" ph="@{...}" />
+                <marker date="1517086344668" expanded="true" signature="994:1057" ph="@{...}" />
+                <marker date="1517086344668" expanded="true" signature="1094:1153" ph="@{...}" />
+                <marker date="1517086344668" expanded="false" signature="1212:1223" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1233:1239" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1271:1282" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1295:1301" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1335:1346" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1363:1369" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1417:1428" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1455:1461" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1494:1505" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1521:1527" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1573:1584" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1609:1615" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1648:1658" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1709:1715" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1751:1762" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1778:1784" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1833:1844" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1867:1873" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1903:1914" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="1927:1933" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="1973:1984" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2003:2009" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2053:2064" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2088:2094" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2159:2170" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2209:2215" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2248:2259" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2275:2281" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2327:2338" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2363:2369" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2404:2415" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2430:2436" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2483:2494" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2517:2523" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2560:2571" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2583:2589" ph=" }" />
+                <marker date="1517086344668" expanded="false" signature="2635:2646" ph=" { " />
+                <marker date="1517086344668" expanded="false" signature="2663:2669" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -100,7 +150,7 @@
       <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1145">
+            <state relative-caret-position="-72">
               <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
               <folding />
             </state>
@@ -186,6 +236,51 @@
             <path>
               <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
               <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="VKtests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
@@ -326,15 +421,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1516872799061</updated>
-      <workItem from="1516872801621" duration="29658000" />
+      <workItem from="1516872801621" duration="30312000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29658000" />
+    <option name="totallyTimeSpent" value="30312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="26" width="1372" height="745" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -347,7 +443,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -395,7 +491,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java</url>
-          <line>124</line>
+          <line>123</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
@@ -457,15 +553,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-170">
           <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1145">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
+          <folding>
+            <marker date="1517086344668" expanded="true" signature="354:438" ph="@{...}" />
+            <marker date="1517086344668" expanded="true" signature="587:688" ph="@{...}" />
+            <marker date="1517086344668" expanded="true" signature="779:889" ph="@{...}" />
+            <marker date="1517086344668" expanded="true" signature="994:1057" ph="@{...}" />
+            <marker date="1517086344668" expanded="true" signature="1094:1153" ph="@{...}" />
+            <marker date="1517086344668" expanded="false" signature="1212:1223" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1233:1239" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1271:1282" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1295:1301" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1335:1346" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1363:1369" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1417:1428" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1455:1461" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1494:1505" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1521:1527" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1573:1584" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1609:1615" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1648:1658" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1709:1715" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1751:1762" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1778:1784" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1833:1844" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1867:1873" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1903:1914" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="1927:1933" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="1973:1984" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2003:2009" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2053:2064" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2088:2094" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2159:2170" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2209:2215" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2248:2259" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2275:2281" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2327:2338" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2363:2369" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2404:2415" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2430:2436" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2483:2494" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2517:2523" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2560:2571" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2583:2589" ph=" }" />
+            <marker date="1517086344668" expanded="false" signature="2635:2646" ph=" { " />
+            <marker date="1517086344668" expanded="false" signature="2663:2669" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -509,10 +641,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/ViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-72">
+          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+        <state relative-caret-position="268">
+          <caret line="124" column="15" lean-forward="false" selection-start-line="124" selection-start-column="15" selection-end-line="124" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
