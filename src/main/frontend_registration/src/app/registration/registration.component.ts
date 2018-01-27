@@ -4,6 +4,7 @@ import {User} from "./user.model";
 import {Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import * as CryptoJS from 'crypto-js';
+import {AppComponent} from "../app.component";
 
 /**
  * Основной компонент приложения
@@ -15,8 +16,8 @@ import * as CryptoJS from 'crypto-js';
 })
 export class RegistrationComponent implements OnInit {
   user: User;
-  errorMsg: String;
   confirmPassword: string;
+  errorMsg: String;
 
   constructor(private userService: UserService) {
 
