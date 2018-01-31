@@ -2,52 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bd04285-d38e-4422-b3df-e9f5efc25b02" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/WebSecurityConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/SecurityService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/UserDetailsServiceImpl.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/static/polyfills.61df7d7ec492d95bb0b2.bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/static/scripts.e043572f44dd724670c1.bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/static/polyfills.61df7d7ec492d95bb0b2.bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/static/scripts.e043572f44dd724670c1.bundle.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/ConsoleTester.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/ConsoleTester.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/UserController.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/VKtests/VKController.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/VKtests/VKController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/ExternalSystem.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/ExternalSystem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/User.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/UserGroup.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/UserGroup.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/inline.e9d2b389961307b75487.bundle.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/main.39919258df75d6718ab4.bundle.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/polyfills.f9cb0996f410126eb943.bundle.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/scripts.577b6bb4630d8a5fdeca.bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sql" afterPath="$PROJECT_DIR$/db.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registration.iml" afterPath="$PROJECT_DIR$/registration.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/mkdirp" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/mkdirp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/rimraf" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/rimraf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/.travis.yml" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/.travis.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/chmod.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/chmod.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/clobber.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/clobber.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/mkdirp.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/mkdirp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs_sync.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm_sync.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/race.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/race.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/rel.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/rel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return_sync.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/root.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/root.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/sync.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask_sync.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/package-lock.json" afterPath="$PROJECT_DIR$/src/main/frontend_registration/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/package.json" afterPath="$PROJECT_DIR$/src/main/frontend_registration/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/3rdpartylicenses.txt" afterPath="$PROJECT_DIR$/src/main/resources/static/3rdpartylicenses.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/styles.3a059cce12d8292bdbfa.bundle.css" afterPath="$PROJECT_DIR$/src/main/resources/static/styles.3a059cce12d8292bdbfa.bundle.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/3rdpartylicenses.txt" afterPath="$PROJECT_DIR$/target/classes/static/3rdpartylicenses.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/index.html" afterPath="$PROJECT_DIR$/target/classes/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/styles.3a059cce12d8292bdbfa.bundle.css" afterPath="$PROJECT_DIR$/target/classes/static/styles.3a059cce12d8292bdbfa.bundle.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored mask="*.class" />
@@ -96,12 +56,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SecurityService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SecurityService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/SecurityService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
               <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="0">
+                <caret line="6" column="70" lean-forward="false" selection-start-line="6" selection-start-column="70" selection-end-line="6" selection-end-column="70" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -145,6 +118,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/frontend_registration/package.json" />
         <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/WebSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -213,33 +187,7 @@
               <item name="registration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="registration" type="b2602c69:ProjectViewProjectNode" />
@@ -247,23 +195,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -410,47 +341,55 @@
       <workItem from="1516872801621" duration="30312000" />
       <workItem from="1517217614050" duration="761000" />
       <workItem from="1517218484758" duration="9299000" />
-      <workItem from="1517389532796" duration="519000" />
+      <workItem from="1517389532796" duration="1077000" />
     </task>
+    <task id="LOCAL-00001" summary="some issues">
+      <created>1517390112540</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1517390112540</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40891000" />
+    <option name="totallyTimeSpent" value="41449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29288027" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40614888" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.48487142" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.4924357" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33055976" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930514" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3381877" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40614888" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.48487142" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.4924357" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33055976" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -486,6 +425,12 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="some issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="some issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -556,6 +501,17 @@
         <state relative-caret-position="85">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="6" column="70" lean-forward="false" selection-start-line="6" selection-start-column="70" selection-end-line="6" selection-end-column="70" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
