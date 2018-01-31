@@ -804,3 +804,8 @@ ALTER TABLE ONLY user_progress
 --
 -- PostgreSQL database dump complete
 --
+
+--Insert data
+INSERT INTO user_groups values(1, 'Unconfirmed');
+INSERT INTO user_groups values(2, 'Default');
+INSERT INTO user_groups values(3, 'Admin');

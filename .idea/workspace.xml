@@ -2,7 +2,52 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bd04285-d38e-4422-b3df-e9f5efc25b02" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/WebSecurityConfig.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/SecurityService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/UserDetailsServiceImpl.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/static/polyfills.61df7d7ec492d95bb0b2.bundle.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/static/scripts.e043572f44dd724670c1.bundle.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/static/polyfills.61df7d7ec492d95bb0b2.bundle.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/static/scripts.e043572f44dd724670c1.bundle.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/ConsoleTester.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/ConsoleTester.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/UserController.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/VKtests/VKController.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/controller/VKtests/VKController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/ExternalSystem.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/ExternalSystem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/User.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/User.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/UserGroup.class" afterPath="$PROJECT_DIR$/target/classes/ru/netcracker/registration/model/UserGroup.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sql" afterPath="$PROJECT_DIR$/db.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/registration.iml" afterPath="$PROJECT_DIR$/registration.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/mkdirp" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/mkdirp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/rimraf" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/.bin/rimraf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/.travis.yml" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/.travis.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/chmod.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/chmod.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/clobber.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/clobber.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/mkdirp.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/mkdirp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/opts_fs_sync.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/perm_sync.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/race.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/race.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/rel.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/rel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/return_sync.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/root.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/root.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/sync.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask_sync.js" afterPath="$PROJECT_DIR$/src/main/frontend_registration/node_modules/mkdirp/test/umask_sync.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/package-lock.json" afterPath="$PROJECT_DIR$/src/main/frontend_registration/package-lock.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/frontend_registration/package.json" afterPath="$PROJECT_DIR$/src/main/frontend_registration/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/3rdpartylicenses.txt" afterPath="$PROJECT_DIR$/src/main/resources/static/3rdpartylicenses.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/styles.3a059cce12d8292bdbfa.bundle.css" afterPath="$PROJECT_DIR$/src/main/resources/static/styles.3a059cce12d8292bdbfa.bundle.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/3rdpartylicenses.txt" afterPath="$PROJECT_DIR$/target/classes/static/3rdpartylicenses.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/index.html" afterPath="$PROJECT_DIR$/target/classes/static/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/styles.3a059cce12d8292bdbfa.bundle.css" afterPath="$PROJECT_DIR$/target/classes/static/styles.3a059cce12d8292bdbfa.bundle.css" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored mask="*.class" />
@@ -41,127 +86,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RegistrationApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/RegistrationApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="33" lean-forward="false" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
+            <state relative-caret-position="51">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VKController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="124" column="15" lean-forward="false" selection-start-line="124" selection-start-column="15" selection-end-line="124" selection-end-column="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/ViewController.java">
+      <file leaf-file-name="SecurityService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/SecurityService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/model/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-170">
-              <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding>
-                <marker date="1517086344668" expanded="true" signature="354:438" ph="@{...}" />
-                <marker date="1517086344668" expanded="true" signature="587:688" ph="@{...}" />
-                <marker date="1517086344668" expanded="true" signature="779:889" ph="@{...}" />
-                <marker date="1517086344668" expanded="true" signature="994:1057" ph="@{...}" />
-                <marker date="1517086344668" expanded="true" signature="1094:1153" ph="@{...}" />
-                <marker date="1517086344668" expanded="false" signature="1212:1223" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1233:1239" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1271:1282" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1295:1301" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1335:1346" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1363:1369" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1417:1428" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1455:1461" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1494:1505" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1521:1527" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1573:1584" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1609:1615" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1648:1658" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1709:1715" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1751:1762" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1778:1784" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1833:1844" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1867:1873" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1903:1914" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="1927:1933" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="1973:1984" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2003:2009" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2053:2064" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2088:2094" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2159:2170" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2209:2215" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2248:2259" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2275:2281" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2327:2338" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2363:2369" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2404:2415" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2430:2436" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2483:2494" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2517:2523" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2560:2571" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2583:2589" ph=" }" />
-                <marker date="1517086344668" expanded="false" signature="2635:2646" ph=" { " />
-                <marker date="1517086344668" expanded="false" signature="2663:2669" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-72">
-              <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/9c8354dc-c13a-4660-a93e-6a32330f4647/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -172,9 +111,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>/log</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -187,10 +133,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java" />
+        <option value="$PROJECT_DIR$/db.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/SecurityService.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/UserDetailsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/test.html" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/ViewController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/frontend_registration/package.json" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/WebSecurityConfig.java" />
       </list>
     </option>
   </component>
@@ -210,6 +164,12 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/src/main/frontend_registration/node_modules" />
   </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="54" />
+    <option name="y" value="-16" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -226,65 +186,85 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="registration" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
               <item name="registration" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NCProj" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="registration" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
-              <item name="VKtests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NCProj" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="registration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -296,17 +276,20 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/frontend_registration/node_modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="RequestMappingsPanelOrder2" value="2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pasha\IdeaProjects\registration\src\main\resources\static" />
       <recent name="$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests" />
     </key>
   </component>
@@ -414,6 +397,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\pasha\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="7bd04285-d38e-4422-b3df-e9f5efc25b02" name="Default" comment="" />
@@ -422,49 +408,81 @@
       <option name="presentableId" value="Default" />
       <updated>1516872799061</updated>
       <workItem from="1516872801621" duration="30312000" />
+      <workItem from="1517217614050" duration="761000" />
+      <workItem from="1517218484758" duration="9299000" />
+      <workItem from="1517389532796" duration="519000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30312000" />
+    <option name="totallyTimeSpent" value="40891000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="26" width="1372" height="745" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930514" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29288027" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40614888" sideWeight="0.49394855" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.48487142" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.4924357" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33055976" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930514" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60708535" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3381877" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -520,150 +538,24 @@
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="18" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/RegistrationApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/9c8354dc-c13a-4660-a93e-6a32330f4647/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="33" lean-forward="false" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-170">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <marker date="1517086344668" expanded="true" signature="354:438" ph="@{...}" />
-            <marker date="1517086344668" expanded="true" signature="587:688" ph="@{...}" />
-            <marker date="1517086344668" expanded="true" signature="779:889" ph="@{...}" />
-            <marker date="1517086344668" expanded="true" signature="994:1057" ph="@{...}" />
-            <marker date="1517086344668" expanded="true" signature="1094:1153" ph="@{...}" />
-            <marker date="1517086344668" expanded="false" signature="1212:1223" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1233:1239" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1271:1282" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1295:1301" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1335:1346" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1363:1369" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1417:1428" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1455:1461" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1494:1505" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1521:1527" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1573:1584" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1609:1615" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1648:1658" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1709:1715" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1751:1762" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1778:1784" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1833:1844" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1867:1873" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1903:1914" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="1927:1933" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="1973:1984" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2003:2009" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2053:2064" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2088:2094" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2159:2170" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2209:2215" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2248:2259" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2275:2281" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2327:2338" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2363:2369" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2404:2415" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2430:2436" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2483:2494" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2517:2523" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2560:2571" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2583:2589" ph=" }" />
-            <marker date="1517086344668" expanded="false" signature="2635:2646" ph=" { " />
-            <marker date="1517086344668" expanded="false" signature="2663:2669" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.13.RELEASE/spring-webmvc-4.3.13.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.13.RELEASE/spring-webmvc-4.3.13.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="530" column="0" lean-forward="false" selection-start-line="530" selection-start-column="0" selection-end-line="530" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.13.RELEASE/spring-web-4.3.13.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="33" column="33" lean-forward="false" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/ViewController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/service/SecurityService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/netcracker/registration/controller/VKtests/VKController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="124" column="15" lean-forward="false" selection-start-line="124" selection-start-column="15" selection-end-line="124" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

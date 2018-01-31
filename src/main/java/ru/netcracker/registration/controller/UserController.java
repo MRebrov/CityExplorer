@@ -9,6 +9,7 @@ import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.mail.mailer.GmailSender;
 import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.model.UserGroup;
+import ru.netcracker.registration.service.SecurityService;
 import ru.netcracker.registration.service.UserGroupService;
 import ru.netcracker.registration.service.UserService;
 
@@ -24,6 +25,8 @@ public class UserController {
     private final UserService userService;
     @Autowired
     private UserGroupService groupService;
+    @Autowired
+    private SecurityService securityService;
 
     public UserController(UserService service) {
         userService = service;
@@ -89,6 +92,7 @@ public class UserController {
             userDTO.setRegistrationDate(LocalDate.now().toString(DateTimeFormat.forPattern("d-M-YYYY")));
             userDTO.setGroupID(groupService.get("Unconfirmed"));
             userService.add(userDTO);
+            securityService.AutoLogin(userDTO.getEmail(), userDTO.getPassword());
 
             GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
             String link = BurningLinksManager.getInstance().addNew(userDTO.getEmail());
@@ -108,12 +112,26 @@ public class UserController {
         }
     }
 
+    @PostMapping("/authorize/{email}/{password}")
+    public ResponseEntity<?> authorize(@PathVariable String email, @PathVariable String password) {
+        try {
+            securityService.AutoLogin(email, password);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
     /**
      * Удалить пользователя с указанным email
      * @param email - email пользователя
      * @return - HTTP статус OK или BAD REQUEST
      */
-    @DeleteMapping("/deleteByEmail/{email:.+}")
+    @DeleteMapping("/delete/byEmail/{email:.+}")
     public ResponseEntity<?> delete(@PathVariable String email) {
         try {
             userService.delete(email);
@@ -131,7 +149,7 @@ public class UserController {
      * @param id - ID пользователя
      * @return - HTTP статус OK или BAD REQUEST
      */
-    @DeleteMapping("/deleteByID/{id}")
+    @DeleteMapping("/delete/byID/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
             userService.delete(id);
