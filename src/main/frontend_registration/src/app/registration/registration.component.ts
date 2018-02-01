@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {UserService} from "./user.service";
-import {User} from "./user.model";
+import {UserService} from "../user/user.service";
+import {User} from "../user/user.model";
 import {Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import * as CryptoJS from 'crypto-js';

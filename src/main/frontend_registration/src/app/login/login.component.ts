@@ -1,16 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import * as CryptoJS from 'crypto-js';
+import {UserService} from "../user/user.service";
+import {Http, Response} from '@angular/http';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  providers: [UserService]
 })
 export class LoginComponent implements OnInit {
   login: string;
   password: string;
   errorMsg: string;
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -32,6 +36,11 @@ export class LoginComponent implements OnInit {
     var iv = CryptoJS.enc.Base64.parse("#base64IV#");
 
     let encrypted: string = CryptoJS.AES.encrypt(this.password, key, {iv: iv}).toString();
+
+    this.userService.authorize(this.login, encrypted).catch((response:Response) => {
+      this.writeError(response.text()); //если ошибка, вывести её
+      return Observable.throw(response);
+    }).subscribe(()=>this.writeError("User authorized successfully."));
 
   }
 

@@ -34,6 +34,7 @@ public class UserController {
 
     /**
      * Вернёт в json формате пользователя с указанным ID
+     *
      * @param id - ID пользователя
      * @return Запрашиваемый пользователь
      */
@@ -53,6 +54,7 @@ public class UserController {
 
     /**
      * Вернёт в json формате пользователя с указанным email
+     *
      * @param email - Email пользователя
      * @return Запрашиваемый пользователь
      */
@@ -72,6 +74,7 @@ public class UserController {
 
     /**
      * Вернёт в json формате массив всех пользователей
+     *
      * @return Массив всех пользователей
      */
     @GetMapping()
@@ -83,6 +86,7 @@ public class UserController {
     /**
      * Добавить нового пользователя
      * Тело запроса в формате Json содержит информацию о пользователе
+     *
      * @param userDTO Json автоматически распарсится и станет объектом userDTO
      * @return Вернёт только что созданного пользователя
      */
@@ -112,13 +116,34 @@ public class UserController {
         }
     }
 
-    @PostMapping("/authorize/{email}/{password}")
-    public ResponseEntity<?> authorize(@PathVariable String email, @PathVariable String password) {
-        try {
-            securityService.AutoLogin(email, password);
-            return new ResponseEntity<>(HttpStatus.OK);
+    private static class AuthForm {
+        String username;
+
+        public String getUsername() {
+            return username;
         }
-        catch (Exception e) {
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        String password;
+    }
+
+    @PostMapping("/authorize")
+    public ResponseEntity<?> authorize(@RequestBody AuthForm authForm) {
+        try {
+            securityService.AutoLogin(authForm.username, authForm.password);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
                     HttpStatus.BAD_REQUEST
@@ -128,6 +153,7 @@ public class UserController {
 
     /**
      * Удалить пользователя с указанным email
+     *
      * @param email - email пользователя
      * @return - HTTP статус OK или BAD REQUEST
      */
@@ -146,6 +172,7 @@ public class UserController {
 
     /**
      * Удалить пользователя с указанным ID
+     *
      * @param id - ID пользователя
      * @return - HTTP статус OK или BAD REQUEST
      */
@@ -164,7 +191,8 @@ public class UserController {
 
     /**
      * Сменить имя пользователю
-     * @param id ID пользователя
+     *
+     * @param id   ID пользователя
      * @param name Новое имя
      * @return HTTP статус OK или BAD REQUEST
      */
@@ -185,7 +213,8 @@ public class UserController {
 
     /**
      * Сменить фамилию пользоватею
-     * @param id ID пользователя
+     *
+     * @param id   ID пользователя
      * @param name Новая фамилия
      * @return HTTP статус OK или BAD REQUEST
      */
@@ -206,7 +235,8 @@ public class UserController {
 
     /**
      * Сменить email пользователю
-     * @param id ID пользователя
+     *
+     * @param id    ID пользователя
      * @param email Новый email
      * @return HTTP статус OK или BAD REQUEST
      */
@@ -227,7 +257,8 @@ public class UserController {
 
     /**
      * Сменить пользователю пароль
-     * @param id ID пользователя
+     *
+     * @param id       ID пользователя
      * @param password Новый пароль
      * @return HTTP статус OK или BAD REQUEST
      */
@@ -248,7 +279,8 @@ public class UserController {
 
     /**
      * Сменить дату рождения
-     * @param id ID пользователя
+     *
+     * @param id       ID пользователя
      * @param birthday Новая дата рождения
      * @return HTTP статус OK или BAD REQUEST
      */
@@ -269,7 +301,8 @@ public class UserController {
 
     /**
      * Присвоить пользователю новый group ID
-     * @param id ID пользователя
+     *
+     * @param id      ID пользователя
      * @param groupID Новый group ID
      * @return HTTP статус OK или BAD REQUEST
      */

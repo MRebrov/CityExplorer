@@ -25,4 +25,8 @@ export class UserService {
   addUser(user: User) {
     return this.http.post('userapi/add', user).map(res=>res.json);
   }
+
+  authorize(username:string, password:string) {
+    return this.http.post('userapi/authorize', {username:username, password:password}).map(res=>res.json);
+  }
 }

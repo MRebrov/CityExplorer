@@ -15,15 +15,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/delete","/edit").authenticated()
-                .anyRequest().permitAll()
+                    .antMatchers("/protected").hasAuthority("Default")
+                    .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .loginPage("/login").permitAll()
                 .and()
-                .logout()
-                .permitAll()
-                .and().csrf().disable();
+                .logout().permitAll()
+                .and()
+                .csrf()
+                    .disable();
     }
 }
