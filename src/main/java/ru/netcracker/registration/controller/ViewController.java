@@ -43,7 +43,6 @@ public class ViewController {
     @GetMapping("/testName")
     public ResponseEntity<?> getName() {
         try {
-            securityService.findLoggedInEmail();
             return new ResponseEntity<Object>(
                     securityService.findLoggedInEmail(),
                     HttpStatus.OK
