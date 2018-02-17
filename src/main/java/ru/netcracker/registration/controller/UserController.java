@@ -5,15 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.netcracker.registration.security.TokenUtils;
 import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.mail.mailer.GmailSender;
 import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.model.UserGroup;
-import ru.netcracker.registration.service.SecurityService;
+import ru.netcracker.registration.security.service.SecurityService;
 import ru.netcracker.registration.service.UserGroupService;
 import ru.netcracker.registration.service.UserService;
 
 import org.joda.time.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Контроллер, предоставляет набор REST методов, с помощью которых можно работать с базой пользователей
@@ -28,6 +31,7 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+
     public UserController(UserService service) {
         userService = service;
     }
@@ -38,7 +42,7 @@ public class UserController {
      * @param id - ID пользователя
      * @return Запрашиваемый пользователь
      */
-    @GetMapping("/getByID/{id}")
+    @GetMapping("/get/byID/{id}")
     public @ResponseBody
     ResponseEntity<?> get(@PathVariable long id) {
         try {
@@ -58,7 +62,7 @@ public class UserController {
      * @param email - Email пользователя
      * @return Запрашиваемый пользователь
      */
-    @GetMapping("/getByEmail/{email:.+}")
+    @GetMapping("/get/byEmail/{email:.+}")
     public @ResponseBody
     ResponseEntity<?> get(@PathVariable String email) {
         try {
@@ -77,7 +81,7 @@ public class UserController {
      *
      * @return Массив всех пользователей
      */
-    @GetMapping()
+    @GetMapping("/get/all")
     public @ResponseBody
     Iterable<UserDTO> getAll() {
         return userService.getAll();
@@ -96,7 +100,7 @@ public class UserController {
             userDTO.setRegistrationDate(LocalDate.now().toString(DateTimeFormat.forPattern("d-M-YYYY")));
             userDTO.setGroupID(groupService.get("Unconfirmed"));
             userService.add(userDTO);
-            securityService.AutoLogin(userDTO.getEmail(), userDTO.getPassword());
+            String token= securityService.login(userDTO.getEmail(), userDTO.getPassword());
 
             GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
             String link = BurningLinksManager.getInstance().addNew(userDTO.getEmail());
@@ -107,7 +111,7 @@ public class UserController {
             );
             sender.sendMail("Confirm registration", body, "netcracker", userDTO.getEmail());
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok(new AuthResponse(token));
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
@@ -138,11 +142,41 @@ public class UserController {
         String password;
     }
 
+    private static class AuthResponse{
+        public AuthResponse(String token) {
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        String token;
+    }
+
     @PostMapping("/authorize")
     public ResponseEntity<?> authorize(@RequestBody AuthForm authForm) {
         try {
-            securityService.AutoLogin(authForm.username, authForm.password);
-            return new ResponseEntity<>(HttpStatus.OK);
+            String token = securityService.login(authForm.username, authForm.password);
+            return ResponseEntity.ok(new AuthResponse(token));
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @RequestMapping(value = "/refresh", method = RequestMethod.GET)
+    public ResponseEntity<?> authenticationRequest(HttpServletRequest request) {
+        try {
+            String token = request.getHeader(TokenUtils.tokenHeader);
+            String newToken = securityService.refresh(token);
+            return ResponseEntity.ok(new AuthResponse(newToken));
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),

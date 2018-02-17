@@ -1,4 +1,4 @@
-package ru.netcracker.registration.service;
+package ru.netcracker.registration.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.repository.UserRepository;
+import ru.netcracker.registration.security.model.SpringSecurityUser;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,10 +29,16 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
             grantedAuthorities.add(new SimpleGrantedAuthority(user.getGroupID().getName()));
 
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
+            return new SpringSecurityUser(
+                    user.getId(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    null,
+                    grantedAuthorities
+            );
         }
         else{
-            throw new UsernameNotFoundException("Wrong username");
+            throw new UsernameNotFoundException(String.format("No User found with username '%s'.", email));
         }
     }
 }
