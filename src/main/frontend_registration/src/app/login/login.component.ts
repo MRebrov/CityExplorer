@@ -3,6 +3,7 @@ import * as CryptoJS from 'crypto-js';
 import {UserService} from '../user/user.service';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {AuthObject} from '../authForm';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,11 @@ export class LoginComponent implements OnInit {
     this.userService.authorize(this.login, encrypted).catch((response: Response) => {
       this.writeError(response.text()); // если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe(() => this.writeError('User authorized successfully.'));
+    }).subscribe((obj: any) => {
+      const authObject: AuthObject = obj;
+      localStorage.setItem('token', authObject.token);
+      this.writeError('User authorized successfully.');
+    });
 
   }
 

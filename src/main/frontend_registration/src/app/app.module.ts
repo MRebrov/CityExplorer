@@ -18,8 +18,8 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     AuthModule,
+    HttpModule,
     MaterializeModule,
     AppRoutingModule,
   ],

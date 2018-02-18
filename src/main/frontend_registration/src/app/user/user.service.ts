@@ -28,6 +28,8 @@ export class UserService {
   }
 
   authorize(username: string, password: string) {
-    return this.authHttp.post('userapi/authorize', {username: username, password: password}).map(res => res.json);
+    return this.authHttp.post('userapi/authorize', {username: username, password: password}).map((response: Response) => {
+      return response.json();
+    });
   }
 }
