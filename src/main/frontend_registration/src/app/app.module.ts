@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent} from './registration/registration.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { VkComponent } from './vk/vk.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    VkComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,7 @@ import { LoginComponent } from './login/login.component';
     AuthModule,
     HttpModule,
     MaterializeModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

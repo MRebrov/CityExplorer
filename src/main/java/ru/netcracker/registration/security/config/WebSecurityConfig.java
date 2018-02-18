@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/userapi/delete/**", "/userapi/edit/**").authenticated()
+                .antMatchers("/userapi/get/**", "/userapi/delete/**", "/userapi/edit/**").authenticated()
                 .anyRequest().permitAll();
 
         // Custom JWT based authentication

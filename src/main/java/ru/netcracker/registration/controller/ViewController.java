@@ -14,25 +14,21 @@ public class ViewController {
     @Autowired
     private SecurityService securityService;
 
-
     @RequestMapping(value = "/login")
     public String login() {
         return "forward:/registrationAndLogin.html";
     }
 
-    @RequestMapping(value = "/registration")
-    public String registration() {
+    @RequestMapping(value = "/vk")
+    public String vk() {
         return "forward:/registrationAndLogin.html";
     }
 
-    @RequestMapping(value = "/userpage")
-    public String userPage() {
-        return "forward:/userpage.html";
-    }
 
-    @RequestMapping(value = "/")
-    public String home() {
-        return "redirect:/login";
+
+    @RequestMapping(value = "/registration")
+    public String registration() {
+        return "forward:/registrationAndLogin.html";
     }
 
     @RequestMapping(value = "/{[path:[^\\.]*}")
