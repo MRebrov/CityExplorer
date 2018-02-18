@@ -1,5 +1,6 @@
 package ru.netcracker.registration.controller.VKtests;
 
+import com.vk.api.sdk.callback.CallbackApi;
 import com.vk.api.sdk.client.ClientResponse;
 import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,11 +27,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/userapi")
 public class VKController {
 
     private static final int APP_ID = 6346913;
@@ -41,6 +45,7 @@ public class VKController {
     private static int id;
     private VkApiClient vk;
     private UserActor actor;
+    private static String TOKEN = "access_token=d6b2671d883049f82d7d6f5d3c96193cee0f02f797684d1871178d0314069317a9cca8a2a40bd4e61da58";
 
 
     public VKController(){
@@ -74,22 +79,28 @@ public class VKController {
     @GetMapping("/signin")
     public void signIn(HttpServletResponse response) {
 
-        if(id >0 && !accessToken.isEmpty()) {
+        if(!code.isEmpty()) {
+            UserAuthResponse authResponse;
             try {
-//            UserAuthResponse authResponse = vk.oauth()
-//                    .userAuthorizationCodeFlow(APP_ID, SECURE_KEY, "http://localhost:8081/callback", code)
-//                    .execute();
-                //actor = new UserActor(authResponse.getUserId(), authResponse.getAccessToken());
-                actor = new UserActor(id, accessToken);
+            authResponse = vk.oauth()
+                    .userAuthorizationCodeFlow(APP_ID, SECURE_KEY, "http://localhost:8081/callback", code)
+                    .execute();
+                actor = new UserActor(authResponse.getUserId(), authResponse.getAccessToken());
+                //actor = new UserActor(id, TOKEN);
+
                 response.sendRedirect("/photo");
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ApiException e) {
+                e.printStackTrace();
+            } catch (ClientException e) {
                 e.printStackTrace();
             }
         }
         else {
             try {
                 //return new ModelAndView("redirect:https://oauth.vk.com/authorize?client_id=6346913&display=page&redirect_uri=http://localhost:8081/callback&scope=friends,wall,photos&response_type=code&v=5.71");
-                response.sendRedirect("https://oauth.vk.com/authorize?client_id="+APP_ID+"&display=page&redirect_uri=http://localhost:8081/callback&scope=friends,wall,photos&response_type=token&v=5.71&state=12345");
+                response.sendRedirect("https://oauth.vk.com/authorize?client_id="+APP_ID+"&display=page&redirect_uri=http://localhost:8081/callback&scope=friends,wall,photos&response_type=code&v=5.71&state=12345");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -97,19 +108,20 @@ public class VKController {
     }
 
     @GetMapping("/callback")
-    public String callBack(HttpServletRequest request, HttpServletResponse response) {
-        //code = request.getQueryString().split("=")[1];
+    public ModelAndView callBack(HttpServletRequest request, HttpServletResponse response) {
+        code = request.getQueryString().split("=")[1];
 //        String query = request.getQueryString();
-//        accessToken = query.split("=")[1];
+//        accessToken = response.getHeader("Location");
 //        id = Integer.valueOf(query.split("=")[5]);
-        return "1";
-        //return new ModelAndView("redirect:/signin");
+        Collection<String> headers = response.getHeaderNames();
+        //return "1";
+        return new ModelAndView("redirect:/signin");
     }
 
     @GetMapping("/upload")
-    public void uploadPhoto() {
+    public void uploadPhoto(HttpServletResponse response) {
         try {
-            File picture = new File("../ru/netcracker/registration/controller/VKtests/Logo.png");
+            File picture = new File("/home/typhoon/labs/JavaLabs/netcracker/CityExplorer/src/main/java/ru/netcracker/registration/controller/VKtests/Logo.png");
             PhotoUpload serverResponse = vk.photos().getWallUploadServer(actor).execute();
             WallUploadResponse uploadResponse = vk.upload().photoWall(serverResponse.getUploadUrl(), picture).execute();
             // vk.wall().post(actor).message("#cityexplorer").
@@ -122,11 +134,13 @@ public class VKController {
             Photo photo = photoList.get(0);
             String attachId = "photo" + photo.getOwnerId() + "_" + photo.getId();
             //нет доступа
-            // vk.wall().post(actor).attachments(attachId).message("#cityexplorer").execute();
+             vk.wall().post(actor).attachments(attachId).message("#cityexplorer").confirm(true).execute();
+            //sdd
 
+            response.getHeaderNames();
 
         } catch (ApiException | ClientException e) {
-            e.printStackTrace();
+            e.getLocalizedMessage();
         }
     }
 }

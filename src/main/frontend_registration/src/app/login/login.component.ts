@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
     //Зашифровка пароля
     var key = CryptoJS.enc.Base64.parse("#base64Key#");
     var iv = CryptoJS.enc.Base64.parse("#base64IV#");
-
     let encrypted: string = CryptoJS.AES.encrypt(this.password, key, {iv: iv}).toString();
 
     this.userService.authorize(this.login, encrypted).catch((response:Response) => {

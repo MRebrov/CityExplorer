@@ -3,7 +3,7 @@ import {UserService} from "../user/user.service";
 import {User} from "../user/user.model";
 import {Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
-import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from "crypto-js"
 import {AppComponent} from "../app.component";
 
 /**
@@ -51,6 +51,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     //Зашифровка пароля
+
     var key = CryptoJS.enc.Base64.parse("#base64Key#");
     var iv  = CryptoJS.enc.Base64.parse("#base64IV#");
 
