@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterializeModule } from "angular2-materialize";
-
+import { AuthModule} from './/auth.module';
+import { MaterializeModule } from 'angular2-materialize';
 import { AppComponent } from './app.component';
-import { RegistrationComponent} from "./registration/registration.component";
+import { RegistrationComponent} from './registration/registration.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 
@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    AuthModule,
     MaterializeModule,
     AppRoutingModule,
   ],

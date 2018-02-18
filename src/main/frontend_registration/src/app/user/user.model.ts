@@ -2,7 +2,6 @@
  * Класс пользователя на frontend
  */
 export class User {
-  
   public firstName: string;
   public lastName: string;
   public birthday: string;

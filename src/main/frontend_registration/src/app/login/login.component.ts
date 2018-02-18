@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import * as CryptoJS from 'crypto-js';
-import {UserService} from "../user/user.service";
+import {UserService} from '../user/user.service';
 import {Http, Response} from '@angular/http';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',
@@ -21,26 +21,26 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmit(event) {
-    //Проверка корректности заполненных полей
-    if (!document.getElementById('email').classList.contains("valid")) {
-      this.writeError("Invalid email");
+    // Проверка корректности заполненных полей
+    if (!document.getElementById('email').classList.contains('valid')) {
+      this.writeError('Invalid email');
       return;
     }
-    if (!document.getElementById('password').classList.contains("valid")) {
-      this.writeError("Invalid password");
+    if (!document.getElementById('password').classList.contains('valid')) {
+      this.writeError('Invalid password');
       return;
     }
 
-    //Зашифровка пароля
-    var key = CryptoJS.enc.Base64.parse("#base64Key#");
-    var iv = CryptoJS.enc.Base64.parse("#base64IV#");
+    // Зашифровка пароля
+    const key = CryptoJS.enc.Base64.parse('#base64Key#');
+    const iv = CryptoJS.enc.Base64.parse('#base64IV#');
 
-    let encrypted: string = CryptoJS.AES.encrypt(this.password, key, {iv: iv}).toString();
+    const encrypted: string = CryptoJS.AES.encrypt(this.password, key, {iv: iv}).toString();
 
-    this.userService.authorize(this.login, encrypted).catch((response:Response) => {
-      this.writeError(response.text()); //если ошибка, вывести её
+    this.userService.authorize(this.login, encrypted).catch((response: Response) => {
+      this.writeError(response.text()); // если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe(()=>this.writeError("User authorized successfully."));
+    }).subscribe(() => this.writeError('User authorized successfully.'));
 
   }
 
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
    * @param error текст сообщения или ошибки
    */
   writeError(error) {
-    document.getElementById('errorHolder').classList.add("scale-in");
+    document.getElementById('errorHolder').classList.add('scale-in');
     this.errorMsg = error;
   }
 }

@@ -1,11 +1,12 @@
-import {Http, Response} from "@angular/http";
-import "rxjs/Rx";
+import {Http, Response} from '@angular/http';
+import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import {User} from "./user.model";
-import {EventEmitter, Injectable} from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {User} from './user.model';
+import {EventEmitter, Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {AuthHttp} from 'angular2-jwt';
 
 /**
  * Сервис на frontend
@@ -14,7 +15,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) {
+  constructor(public authHttp: AuthHttp) {
   }
 
   /**
@@ -23,10 +24,10 @@ export class UserService {
    * @returns {Observable<any>}
    */
   addUser(user: User) {
-    return this.http.post('userapi/add', user).map(res=>res.json);
+    return this.authHttp.post('userapi/add', user).map(res => res.json);
   }
 
-  authorize(username:string, password:string) {
-    return this.http.post('userapi/authorize', {username:username, password:password}).map(res=>res.json);
+  authorize(username: string, password: string) {
+    return this.authHttp.post('userapi/authorize', {username: username, password: password}).map(res => res.json);
   }
 }
