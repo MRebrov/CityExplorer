@@ -110,7 +110,6 @@ public class UserController {
                     link
             );
             sender.sendMail("Confirm registration", body, "netcracker", userDTO.getEmail());
-
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (Exception e) {
             return new ResponseEntity<Object>(

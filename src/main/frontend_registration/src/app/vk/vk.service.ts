@@ -13,7 +13,13 @@ export class VkService {
   }
 
   login() {
-   this.http.get("/signin");
+    window.location.href = "https://oauth.vk.com/authorize?client_id="+this.APP_ID+"&display=page&redirect_uri=http://localhost:8081/vk&scope=friends,wall,photos&response_type=token&v=5.71&state=12345";
   }
+  sendCode(code:string){
+    return this.http.get("/userapi/signin/"+code).map((response:Response) =>{
+      return response.json();
+    });
+  }
+
 
 }
