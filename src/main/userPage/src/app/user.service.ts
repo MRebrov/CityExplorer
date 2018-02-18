@@ -14,7 +14,9 @@ export class UserService {
   }
 
   getUser(email: string) {
-    return this.http.get('userapi/get/byEmail/' + email).map(res=>res.json);
+    return this.http.get('userapi/get/byEmail/' + email).map((response: Response) => {
+      return response.json();
+    });
   }
 
 }

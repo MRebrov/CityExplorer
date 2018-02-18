@@ -11,13 +11,12 @@ import {Http, Response} from '@angular/http';
 })
 export class UserPageComponentComponent implements OnInit {
 
-  user: User;
+  user: User= new User("","","","","","");
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    //this.user = new User("Ivan", "Ivanov", "17.02.18", "ivan@ivanov.ru", "ivanrules", "18.02.18");
     this.userService.getUser('ivanko@mail.ru')
       .subscribe(
         (user: any) => {

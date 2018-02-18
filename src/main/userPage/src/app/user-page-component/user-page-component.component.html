@@ -1,56 +1,63 @@
-<form>
+
+<form class="form-horizontal">
   <div class="form-group">
     <label for="exampleFormControlFile1">Photo</label>
     <input type="file" class="form-control-file" id="exampleFormControlFile1">
   </div>
 </form>
-<form>
-  <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="firstName" class="col-sm-2 control-label">First name</label>
     <div class="col-sm-10">
-      <input type="text" readonly [(ngModel)]="user.email" class="form-control-plaintext" id="staticEmail" name="staticEmail">
+      <input type="text" [(ngModel)]="user.firstName" class="form-control" id="firstName" name="firstName"
+             placeholder="Password">
     </div>
   </div>
-  <div class="form-group row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Registration date</label>
+
+  <div class="form-group">
+    <label for="lastName" class="col-sm-2 control-label">Last name</label>
     <div class="col-sm-10">
-      <input type="text" readonly [(ngModel)]="user.registrationDate" class="form-control-plaintext" id="staticRegistrationDate" name="staticRegistrationDate" value="18.02.18">
+      <input type="text" [(ngModel)]="user.lastName" class="form-control" id="lastName" name="lastName">
     </div>
   </div>
-  <form>
-    <div class="row">
-      <div class="col">
-        <input type="text" [(ngModel)]="user.firstName" name= "firstName" class="form-control" placeholder="First name">
-      </div>
+
+  <div class="form-group">
+    <label for="birthday" class="col-sm-2 control-label">Birthday</label>
+    <div class="col-sm-10">
+      <input type="text" [(ngModel)]="user.birthday" class="form-control" id="birthday" name="birthday">
     </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" [(ngModel)]="user.lastName" name="lastName" class="form-control" placeholder="Last name">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <input type="text" [(ngModel)]="user.birthday" name="birthday" class="form-control" placeholder="Birthday">
-      </div>
-    </div>
-  </form>
+  </div>
+</form>
+
+<p class="lead"><strong>Email:</strong> {{user.email}}</p>
+
+<p class="lead"><strong>Registration date:</strong> {{user.registrationDate}}</p>
+
+<h3>Change password</h3>
+
+<form class="form-horizontal">
   <div class="form-group row">
     <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
       <input type="password" class="form-control" id="inputPassword" placeholder="Password">
     </div>
   </div>
+
   <div class="form-group row">
-    <label for="inputNewPassword" class="col-sm-2 col-form-label">NewPassword</label>
+    <label for="inputNewPassword" class="col-sm-2 col-form-label">New password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputNewPassword" placeholder="NewPassword">
+      <input type="password" class="form-control" id="inputNewPassword" placeholder="New password">
     </div>
   </div>
+
   <div class="form-group row">
-    <label for="confirmNewPassword" class="col-sm-2 col-form-label">ConfirmNewPassword</label>
+    <label for="confirmNewPassword" class="col-sm-2 col-form-label">Confirm new password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="confirmNewPassword" placeholder="ConfirmNewPassword">
+      <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm new password">
     </div>
   </div>
-  <button type="submit" class="btn btn-primary mb-2">SaveNewPassword</button>
+
+  <button type="submit" class="btn btn-primary mb-2">Save new password</button>
 </form>
+
