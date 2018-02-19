@@ -5,13 +5,13 @@ import { HttpModule } from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { UserPageComponentComponent } from './user-page-component/user-page-component.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserPageComponentComponent
+    UserPageComponent
   ],
   imports: [
     NgbModule.forRoot(),

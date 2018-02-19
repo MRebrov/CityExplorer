@@ -4,12 +4,12 @@ import {UserService} from "../user.service";
 import {Http, Response} from '@angular/http';
 
 @Component({
-  selector: 'app-user-page-component',
-  templateUrl: './user-page-component.component.html',
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
   providers: [UserService],
-  styleUrls: ['./user-page-component.component.css']
+  styleUrls: ['./user-page.component.css']
 })
-export class UserPageComponentComponent implements OnInit {
+export class UserPageComponent implements OnInit {
 
   user: User= new User("","","","","","");
 
