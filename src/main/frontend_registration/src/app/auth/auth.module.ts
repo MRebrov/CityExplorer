@@ -5,7 +5,7 @@ import {AuthHttp, AuthConfig} from 'angular2-jwt';
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     headerName: 'X-Auth-Token',
-    tokenName: 'token',
+    tokenName: 'id_token',
     noJwtError: true
   }), http, options);
 }

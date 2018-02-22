@@ -15,7 +15,7 @@ import {AuthHttp} from 'angular2-jwt';
 @Injectable()
 export class UserService {
 
-  constructor(public authHttp: AuthHttp) {
+  constructor(public authHttp: AuthHttp, public http: Http) {
   }
 
   /**
@@ -24,12 +24,18 @@ export class UserService {
    * @returns {Observable<any>}
    */
   addUser(user: User) {
-    return this.authHttp.post('userapi/add', user).map(res => res.json);
+    return this.http.post('userapi/add', user).map(res => res.json);
   }
 
   authorize(username: string, password: string) {
-    return this.authHttp.post('userapi/authorize', {username: username, password: password}).map((response: Response) => {
-      return response.json();
+    return this.http.post('userapi/authorize', {username: username, password: password}).map((response: Response) => {
+      return response;
+    });
+  }
+
+  getName() {
+    return this.authHttp.get('/userapi/testName').map((response: Response) => {
+      return response.text();
     });
   }
 }

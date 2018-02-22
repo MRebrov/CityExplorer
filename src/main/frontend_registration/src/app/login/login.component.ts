@@ -3,7 +3,7 @@ import * as CryptoJS from 'crypto-js';
 import {UserService} from '../user/user.service';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {AuthObject} from '../authForm';
+import {AuthObject} from '../auth/authForm';
 
 @Component({
   selector: 'app-login',
@@ -42,11 +42,16 @@ export class LoginComponent implements OnInit {
       this.writeError(response.text()); // если ошибка, вывести её
       return Observable.throw(response);
     }).subscribe((obj: any) => {
-      const authObject: AuthObject = obj;
-      localStorage.setItem('token', authObject.token);
+      const authObject: AuthObject = obj.json();
+      localStorage.setItem('id_token', authObject.token);
       this.writeError('User authorized successfully.');
     });
+  }
 
+  lalala() {
+    this.userService.getName().subscribe((obj: any) => {
+      this.writeError(obj);
+    });
   }
 
   /**

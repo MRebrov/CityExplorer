@@ -36,6 +36,22 @@ public class UserController {
         userService = service;
     }
 
+
+    @GetMapping("/testName")
+    public ResponseEntity<?> getName() {
+        try {
+            return new ResponseEntity<Object>(
+                    securityService.findLoggedInEmail(),
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
     /**
      * Вернёт в json формате пользователя с указанным ID
      *
@@ -164,7 +180,7 @@ public class UserController {
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (Exception e) {
             return new ResponseEntity<Object>(
-                    e.getMessage(),
+                    "Wrong email or password",
                     HttpStatus.BAD_REQUEST
             );
         }

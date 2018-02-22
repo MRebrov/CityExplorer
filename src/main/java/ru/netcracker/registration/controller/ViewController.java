@@ -42,18 +42,4 @@ public class ViewController {
         return new ResponseEntity<>("okay", HttpStatus.OK);
     }
 
-    @GetMapping("/testName")
-    public ResponseEntity<?> getName() {
-        try {
-            return new ResponseEntity<Object>(
-                    securityService.findLoggedInEmail(),
-                    HttpStatus.OK
-            );
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
 }

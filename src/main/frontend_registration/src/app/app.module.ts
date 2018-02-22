@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AuthModule} from './/auth.module';
+import { AuthModule} from './auth/auth.module';
 import { MaterializeModule } from 'angular2-materialize';
 import { AppComponent } from './app.component';
 import { RegistrationComponent} from './registration/registration.component';
