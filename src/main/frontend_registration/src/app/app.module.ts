@@ -9,13 +9,18 @@ import { RegistrationComponent} from './registration/registration.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { VkComponent } from './vk/vk.component';
+import {MapComponent} from "./map/map.component";
+import {AgmCoreModule} from '@agm/core';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    VkComponent
+    VkComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +28,10 @@ import { VkComponent } from './vk/vk.component';
     AuthModule,
     HttpModule,
     MaterializeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB50v0zwR77xBBodMAILSKbUrqay6txODg',
+    }),
   ],
   bootstrap: [AppComponent]
 })

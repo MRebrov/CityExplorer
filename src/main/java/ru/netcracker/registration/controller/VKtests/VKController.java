@@ -88,7 +88,22 @@ public class VKController {
 
             UserXtrCounters userInfo = vk.users().get(actor).userIds(code.split("~")[1]).fields(UserField.CITY).execute().get(0);
             VkUserDTO vkUser = new VkUserDTO();
-            vkUser.setPhotoUrl(vk.photos().get(actor).albumId("profile").rev(true).execute().getItems().get(0).getPhoto604());
+
+            File picture = new File("/home/typhoon/labs/JavaLabs/netcracker/CityExplorer/src/main/java/ru/netcracker/registration/controller/VKtests/Logo.png");
+            PhotoUpload serverResponse = vk.photos().getWallUploadServer(actor).execute();
+            WallUploadResponse uploadResponse = vk.upload().photoWall(serverResponse.getUploadUrl(), picture).execute();
+            // vk.wall().post(actor).message("#cityexplorer").
+
+            List<Photo> photoList = vk.photos()
+                    .saveWallPhoto(actor, uploadResponse.getPhoto())
+                    .server(uploadResponse.getServer())
+                    .hash(uploadResponse.getHash())
+                    .execute();
+            Photo photo = photoList.get(0);
+
+
+            vkUser.setPhotoUrl(photo.getPhoto604());
+            //vkUser.setPhotoUrl(vk.photos().get(actor).albumId("profile").rev(true).execute().getItems().get(0).getPhoto604());
             vkUser.setFirstName(userInfo.getFirstName());
             vkUser.setLastName(userInfo.getLastName());
             vkUser.setCity(userInfo.getCity().getTitle());
