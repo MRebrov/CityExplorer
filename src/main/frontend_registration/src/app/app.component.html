@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
-  <!-- Dropdown Structure -->
-  <ul id="dropdown1" class="dropdown-content">
+
+  <!--<ul id="dropdown1" class="dropdown-content">
     <li><a routerLink="/login">Sign in</a></li>
     <li><a routerLink="/registration">Sign up</a></li>
     <li><a routerLink="/vk">VK test</a></li>
@@ -11,10 +11,39 @@
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo"></a>
       <ul class="right hide-on-med-and-down">
-        <!-- Dropdown Trigger -->
+
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+    </div>
+  </nav>-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#!">City Explorer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/map">Home <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/vk">Vk test</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/login">Login</a>
+            <a class="dropdown-item" routerLink="/registration">Registration</a>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
   <router-outlet></router-outlet>
+
+
+
 </div>

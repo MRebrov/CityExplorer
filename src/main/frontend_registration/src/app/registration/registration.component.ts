@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/user.model';
 import {Http, Response} from '@angular/http';
@@ -32,20 +32,23 @@ export class RegistrationComponent implements OnInit {
    * @param event
    */
   onFormSubmit(event) {
+    document.getElementById('regForm').classList.add('was-validated');
     //Проверка корректности заполненных полей
-    if (!document.getElementById('firstName').classList.contains('valid')) {
+    if ((<HTMLInputElement>document.getElementById('firstName')).value === '') {
+      document.getElementById('firstName').classList.add('is-invalid');
       this.writeError('Invalid first name');
       return;
     }
-    if (!document.getElementById('lastName').classList.contains('valid')) {
+    if ((<HTMLInputElement>document.getElementById('lastName')).value === '') {
       this.writeError('Invalid last name');
       return;
     }
-    if (!document.getElementById('email').classList.contains('valid')) {
+    const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    if (!regexp.test((<HTMLInputElement>document.getElementById('email')).value)) {
       this.writeError('Invalid email');
       return;
     }
-    if (!document.getElementById('password').classList.contains('valid')) {
+    if ((<HTMLInputElement>document.getElementById('password')).value === '') {
       this.writeError('Invalid password');
       return;
     }
@@ -81,7 +84,7 @@ export class RegistrationComponent implements OnInit {
    * @param error текст сообщения или ошибки
    */
   writeError(error) {
-    document.getElementById('errorHolder').classList.add('scale-in');
+    document.getElementById('collapseMessage').classList.add('show');
     this.errorMsg = error;
   }
 }

@@ -8,7 +8,7 @@ import {MapComponent} from "./map/map.component";
 const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/map', pathMatch: 'full' },
   { path: 'vk', component: VkComponent },
   {path: 'map', component: MapComponent},
 ];
