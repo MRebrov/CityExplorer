@@ -52,6 +52,21 @@ public class UserController {
         }
     }
 
+    @GetMapping("/get/loggedIn")
+    public ResponseEntity<?> getLoggedIn() {
+        try {
+            return new ResponseEntity<Object>(
+                    userService.get(securityService.findLoggedInEmail()),
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
     /**
      * Вернёт в json формате пользователя с указанным ID
      *
