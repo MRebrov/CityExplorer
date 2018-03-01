@@ -871,6 +871,11 @@ ALTER TABLE ONLY user_progress
 ALTER TABLE ONLY user_spot_progress
     ADD CONSTRAINT user_progress_id FOREIGN KEY (user_progress_id) REFERENCES user_progress(user_progress_id);
 
+--Insert data
+	INSERT INTO user_groups values(1, 'Unconfirmed');
+	INSERT INTO user_groups values(2, 'Default');
+	INSERT INTO user_groups values(3, 'Admin');
+	
 
 -- Completed on 2018-03-01 00:32:14
 
