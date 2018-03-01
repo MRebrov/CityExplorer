@@ -23,11 +23,12 @@ export class LoginComponent implements OnInit {
 
   onFormSubmit(event) {
     // Проверка корректности заполненных полей
-    if (!document.getElementById('email').classList.contains('valid')) {
+    const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    if (!regexp.test((<HTMLInputElement>document.getElementById('email')).value)) {
       this.writeError('Invalid email');
       return;
     }
-    if (!document.getElementById('password').classList.contains('valid')) {
+    if ((<HTMLInputElement>document.getElementById('password')).value === '') {
       this.writeError('Invalid password');
       return;
     }
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit {
    * @param error текст сообщения или ошибки
    */
   writeError(error) {
-    document.getElementById('errorHolder').classList.add('scale-in');
+    document.getElementById('collapseMessage').classList.add('show');
     this.errorMsg = error;
   }
 }

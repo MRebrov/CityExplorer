@@ -76,7 +76,10 @@ export class RegistrationComponent implements OnInit {
     this.userService.addUser(tUser).catch((response: Response) => {
       this.writeError(response.text()); //если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe(() => this.writeError('User registered successfully. We have sent you confirmation link on your email.')); //Если ошибки нет, сказать что регистрация прошла
+    }).subscribe(() => {
+      this.writeError('User registered successfully. We have sent you confirmation link on your email.');
+      this.showLink();
+    }); //Если ошибки нет, сказать что регистрация прошла
   }
 
   /**
@@ -86,5 +89,9 @@ export class RegistrationComponent implements OnInit {
   writeError(error) {
     document.getElementById('collapseMessage').classList.add('show');
     this.errorMsg = error;
+  }
+
+  showLink() {
+    document.getElementById('collapseLink').classList.add('show');
   }
 }
