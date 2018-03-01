@@ -29,11 +29,19 @@ public class ViewController {
         return "forward:/registrationAndLogin.html";
     }
 
-
+    @RequestMapping(value ="/userPage")
+    public String userPage(){
+        return "forward:/registrationAndLogin.html";
+    }
 
     @RequestMapping(value = "/registration")
     public String registration() {
         return "forward:/registrationAndLogin.html";
+    }
+
+    @RequestMapping(value = "/")
+    public String index() {
+        return "redirect:/map";
     }
 
     @RequestMapping(value = "/{[path:[^\\.]*}")

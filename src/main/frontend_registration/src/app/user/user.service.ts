@@ -38,4 +38,10 @@ export class UserService {
       return response.text();
     });
   }
+
+  getCurrentUser() {
+    return this.authHttp.get('userapi/get/loggedIn').map((response: Response) => {
+      return response.json();
+    });
+  }
 }

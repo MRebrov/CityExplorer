@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { VkComponent } from './vk/vk.component';
 import {MapComponent} from "./map/map.component";
 import {AgmCoreModule} from '@agm/core';
+import {UserPageComponent} from './user-page/user-page.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {AgmCoreModule} from '@agm/core';
     LoginComponent,
     VkComponent,
     MapComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
