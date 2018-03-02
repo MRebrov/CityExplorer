@@ -35,7 +35,6 @@ export class RegistrationComponent implements OnInit {
     document.getElementById('regForm').classList.add('was-validated');
     //Проверка корректности заполненных полей
     if ((<HTMLInputElement>document.getElementById('firstName')).value === '') {
-      document.getElementById('firstName').classList.add('is-invalid');
       this.writeError('Invalid first name');
       return;
     }

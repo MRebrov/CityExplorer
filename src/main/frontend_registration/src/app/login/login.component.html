@@ -1,27 +1,29 @@
-<h3 class="center-align">Sign in</h3>
-<div id="signInFormDiv">
-
-  <form id="signInForm" novalidate>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" class="form-control" id="email" name="email" value=""
-             [(ngModel)]="login" required>
+<div class="container">
+  <div id="signInFormDiv">
+    <div class="row">
+      <h1 class="center-align col-6 offset-3">Sign in</h1>
     </div>
-    <div class="form-group">
-      <label for="password">Last name</label>
-      <input type="text" class="form-control" id="password" name="password"
-             [(ngModel)]="password" required>
+    <form id="signInForm" novalidate>
+      <div class="form-group col-6 offset-3">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value=""
+               [(ngModel)]="login" required>
+      </div>
+      <div class="form-group col-6 offset-3">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password" name="password"
+               [(ngModel)]="password" required>
+      </div>
+    </form>
+  </div>
+  <div class="row offset-3">
+    <div class="col-md-2 col-sm-12">
+      <button type="submit" class="btn btn-primary offset-md-3" (click)="onFormSubmit($event)">Login</button>
     </div>
-
-    <button type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Login</button>
-  </form>
-</div>
-
-<div class="collapse" id="collapseMessage">
-  <div class="alert alert-primary" role="alert">
-    {{errorMsg}}
+    <div class="collapse col-md-4 col-sm-12" id="collapseMessage">
+      <div class="alert alert-primary" role="alert">
+        {{errorMsg}}
+      </div>
+    </div>
   </div>
 </div>
-
-
-<a (click)="lalala()">check authorization (get login)</a>

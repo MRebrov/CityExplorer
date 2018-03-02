@@ -4,6 +4,7 @@ import {UserService} from '../user/user.service';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {AuthObject} from '../auth/authForm';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +16,14 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMsg: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
   onFormSubmit(event) {
+    document.getElementById('signInForm').classList.add('was-validated');
     // Проверка корректности заполненных полей
     const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     if (!regexp.test((<HTMLInputElement>document.getElementById('email')).value)) {
@@ -46,12 +48,7 @@ export class LoginComponent implements OnInit {
       const authObject: AuthObject = obj.json();
       localStorage.setItem('id_token', authObject.token);
       this.writeError('User authorized successfully.');
-    });
-  }
-
-  lalala() {
-    this.userService.getName().subscribe((obj: any) => {
-      this.writeError(obj);
+      this.router.navigate(['/userPage']);
     });
   }
 

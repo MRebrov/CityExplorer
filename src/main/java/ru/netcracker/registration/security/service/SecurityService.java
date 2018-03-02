@@ -45,7 +45,7 @@ public class SecurityService {
         return null;
     }
 
-    public String refresh(String token) throws Exception{
+    public String refresh(String token) throws Exception {
         String username = this.tokenUtils.getUsernameFromToken(token);
         SpringSecurityUser user = (SpringSecurityUser) this.userDetailsService.loadUserByUsername(username);
         if (this.tokenUtils.canTokenBeRefreshed(token, user.getLastPasswordReset())) {

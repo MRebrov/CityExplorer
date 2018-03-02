@@ -1,99 +1,57 @@
-<h3 class="center-align">Registration</h3>
-<div id="regFormDiv">
-  <form id="regForm" novalidate>
-    <div class="form-group">
-      <label for="firstName">First name</label>
-      <input type="text" class="form-control" id="firstName" name="firstName" value=""
-             [(ngModel)]="user.firstName" required>
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last name</label>
-      <input type="text" class="form-control" id="lastName" name="lastName"
-             [(ngModel)]="user.lastName" required>
-    </div>
-    <div class="form-group">
-      <label for="email">Email address</label>
-      <input type="email" class="form-control" id="email" name="email"
-             [(ngModel)]="user.email" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" name="password"
-             [(ngModel)]="user.password" required>
-    </div>
-    <div class="form-group">
-      <label for="confirmPassword">Confirm password</label>
-      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-             [(ngModel)]="confirmPassword" required>
-    </div>
-    <div class="form-group">
-      <label for="birthday">Birthday</label>
-      <input type="date" class="form-control" id="birthday" name="birthday"
-             [(ngModel)]="user.birthday" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
-
-
-    <!--<div class="row">
-      <div class="input-field col s12 m6" id="regFormFistName">
-        <i class="small material-icons prefix">account_circle</i>
-        <label for="firstName">First name</label>
-        <input type="text" id="firstName" required
-               [(ngModel)]="user.firstName" name="firstName" class="validate">
+<h1 class="center-align">Sign up</h1>
+<div class="container">
+  <div id="regFormDiv">
+    <form id="regForm" novalidate>
+      <div class="row">
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="firstName">First name</label>
+          <input type="text" class="form-control" id="firstName" name="firstName" value=""
+                 [(ngModel)]="user.firstName" required>
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="lastName">Last name</label>
+          <input type="text" class="form-control" id="lastName" name="lastName"
+                 [(ngModel)]="user.lastName" required>
+        </div>
       </div>
+      <div class="row">
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email"
+                 [(ngModel)]="user.email" required>
+        </div>
 
-      <div class="input-field col s12 m6" id="regFormSecondName">
-        <i class="small material-icons prefix">account_circle</i>
-        <label for="lastName">Last name</label>
-        <input type="text" id="lastName" required
-               [(ngModel)]="user.lastName" name="lastName" class="validate">
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="birthday">Birthday</label>
+          <input type="date" class="form-control" id="birthday" name="birthday"
+                 [(ngModel)]="user.birthday" required>
+        </div>
       </div>
-
-      <div class="input-field col s12 m12" id="regFormEmail">
-        <i class="small material-icons prefix">email</i>
-        <label for="email">Email</label>
-        <input type="email" id="email" required
-               [(ngModel)]="user.email" name="email" class="validate">
+      <div class="row">
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password"
+                 [(ngModel)]="user.password" required>
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                 [(ngModel)]="confirmPassword" required>
+        </div>
       </div>
-
-      <div class="input-field col s12 m6" sid="regFormPassword">
-        <i class="small material-icons prefix">lock</i>
-        <label for="password">Password</label>
-        <input type="password" id="password" required
-               [(ngModel)]="user.password" name="password" class="validate">
+    </form>
+    <div class="row">
+      <div class="col-md-2 col-sm-12">
+        <button type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
       </div>
-
-      <div class="input-field col s12 m6" sid="regFormConfirmPassword">
-        <i class="small material-icons prefix">lock</i>
-        <label for="confirmPassword">Confirm password</label>
-        <input type="password" id="confirmPassword" required
-               [(ngModel)]="confirmPassword" name="confirmPassword" class="validate">
+      <div class="collapse col-md-10 col-sm-12" id="collapseMessage">
+        <div class="alert alert-primary" role="alert">
+          {{errorMsg}}
+        </div>
       </div>
-
-      <div class="input-field col s12 m12" id="regFormBirthday">
-        <i class="small material-icons prefix">date_range</i>
-        <label for="birthday">Birthday</label>
-        <input type="text" materialize="pickadate" id="birthday" required
-               [(ngModel)]="user.birthday" name="birthday"
-               [materializeParams]="[{format: 'dd-mm-yyyy', selectMonths: true ,selectYears: 200}]
-        ">
-      </div>
-
     </div>
-
-    <div class="center-align" id="regFormSubmit">
-      <a (click)="onFormSubmit($event)" class="waves-effect waves-light btn"><i class="material-icons left">check</i>Submit</a>
+    <div class="collapse" id="collapseLink">
+      <a class="btn btn-link" routerLink="/login">Go to login page <span class="sr-only"></span></a>
     </div>
-    -->
-  </form>
-  <div class="collapse" id="collapseMessage">
-    <div class="alert alert-primary" role="alert">
-      {{errorMsg}}
-    </div>
-  </div>
-  <div class="collapse" id="collapseLink">
-    <a class="btn btn-link" routerLink="/login">Go to login page <span class="sr-only"></span></a>
   </div>
 </div>
-
