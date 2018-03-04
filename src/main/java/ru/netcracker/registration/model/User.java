@@ -11,11 +11,11 @@ import javax.persistence.*;
  * Может сохраняться в БД и загружаться из БД через репозиторий
  */
 @Entity
-@Table(name="users")
+@Table(name="users", schema = "nc_project")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private long id;
 
     @Column(name="first_name")
