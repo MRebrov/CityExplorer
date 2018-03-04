@@ -11,6 +11,9 @@ import { VkComponent } from './vk/vk.component';
 import {MapComponent} from "./map/map.component";
 import {AgmCoreModule} from '@agm/core';
 import {UserPageComponent} from './user-page/user-page.component';
+import { QuestComponent } from './quest/quest.component';
+import {HttpClientModule} from "@angular/common/http";
+import {QuestService} from "./quest/quest.service";
 
 
 @NgModule({
@@ -20,18 +23,21 @@ import {UserPageComponent} from './user-page/user-page.component';
     LoginComponent,
     VkComponent,
     MapComponent,
-    UserPageComponent
+    UserPageComponent,
+    QuestComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AuthModule,
     HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB50v0zwR77xBBodMAILSKbUrqay6txODg',
     }),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [QuestService]
 })
 export class AppModule { }

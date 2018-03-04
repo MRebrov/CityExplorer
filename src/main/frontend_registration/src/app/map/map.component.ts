@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
 
 }
 
-interface marker {
+export interface marker {
   lat: number;
   lng: number;
   label?: string;

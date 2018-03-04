@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {VkComponent} from './vk/vk.component';
 import {MapComponent} from './map/map.component';
 import {UserPageComponent} from './user-page/user-page.component';
+import {QuestComponent} from "./quest/quest.component";
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: '', redirectTo: '/map', pathMatch: 'full'},
   {path: 'vk', component: VkComponent},
   {path: 'map', component: MapComponent},
-  {path: 'userPage', component: UserPageComponent}
+  {path: 'userPage', component: UserPageComponent},
+  {path: 'newquest', component: QuestComponent}
 ];
 
 @NgModule({
