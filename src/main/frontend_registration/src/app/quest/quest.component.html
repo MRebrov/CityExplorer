@@ -50,7 +50,7 @@
               <button class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload
               </button>
             </div>
-            <div class="col-12">
+            <div class="col-8">
               <div *ngIf="questPhoto" class="progress">
                 <div class="progress-bar progress-bar-info progress-bar-striped"
                      role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
@@ -63,5 +63,8 @@
         </div>
       </div>
     </form>
+    <div class="col-md-2 col-sm-12">
+      <button type="submit" class="btn btn-primary offset-md-3" (click)="createQuest($event)">Login</button>
+    </div>
   </div>
 </div>

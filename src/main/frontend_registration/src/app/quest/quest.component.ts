@@ -3,6 +3,7 @@ import {marker} from '../map/map.component';
 import {Quest} from "./quest.model";
 import {QuestService} from "./quest.service";
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
+import {Observable} from "rxjs/Observable";
 @Component({
   selector: 'app-quest',
   templateUrl: './quest.component.html',
@@ -40,18 +41,27 @@ export class QuestComponent implements OnInit {
   upload(){
     this.progress.percentage = 0;
     this.questPhoto = this.photos.item(0);
-    this.questService.loadFile(this.questPhoto).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
+    this.questService.postPhoto(this.questPhoto).catch((response: Response) => {
+      this.writeMsg(response.text()); //если ошибка, вывести её
+      return Observable.throw(response);
+    }).subscribe(() => {
+      this.writeMsg('User registered successfully. We have sent you confirmation link on your email.');
+      //this.showLink();
     });
     this.photos = undefined
   }
 
   selectFile(event){
     this.photos = event.target.files;
+  }
+
+  writeMsg(error) {
+    document.getElementById('collapseMessage').classList.add('show');
+    this.errorMsg = error;
+  }
+
+  createQuest(event){
+
   }
 
 }
