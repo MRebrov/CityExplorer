@@ -1,0 +1,67 @@
+<div class="container">
+  <h2 align="center">Create your own quest</h2>
+</div>
+<div class="collapse col-md-4 col-sm-12" id="collapseMessage">
+  <div class="alert alert-primary" role="alert">
+    {{errorMsg}}
+  </div>
+</div>
+<div class="row">
+  <div class="col col-md-7 col-xs-12">
+    <agm-map [latitude]="questPlace.lat" [longitude]="questPlace.lng">
+      <agm-marker [latitude]="questPlace.lat"
+                  [longitude]="questPlace.lng"
+                  [markerDraggable]="true"
+                  [label]="questPlace.label"
+                  (dragEnd)="getPos($event)"
+      >
+
+      </agm-marker>
+    </agm-map>
+  </div>
+
+  <div class="col-md-5 col-xs-12">
+    <form id="newQuestForm" novalidate>
+      <div class="form-group">
+        <label for="questName">Name</label>
+        <input type="text" class="form-control" id="questName" name="questName" value=""
+               [(ngModel)]="quest.name" required>
+      </div>
+      <div class="form-group">
+        <label for="questDescription">Description</label>
+        <textarea rows="8" cols="80" placeholder="Enter a short description of your quest..." class="form-control"
+                  id="questDescription" name="questDescription"
+                  [(ngModel)]="quest.description" required> </textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-3">
+          <label for="questReward">Reward</label>
+          <input type="number" class="form-control" id="questReward" name="questReward" value=""
+                 [(ngModel)]="quest.reward" required>
+        </div>
+
+
+        <div class="form-group col-9">
+          <label for="questPhoto">Photo</label>
+          <input type="file" placeholder="Choose file" class="form-control-file" id="questPhoto" name="questPhoto"
+                 (change)="selectFile($event)" required>
+          <div class="row">
+            <div class="col-4">
+              <button class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload
+              </button>
+            </div>
+            <div class="col-12">
+              <div *ngIf="questPhoto" class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped"
+                     role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                     aria-valuemin="0" aria-valuemax="100"
+                     [ngStyle]="{width:progress.percentage+'%'}">
+                  {{progress.percentage}}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
