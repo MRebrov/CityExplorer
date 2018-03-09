@@ -1,0 +1,6 @@
+<div *ngIf="userService.isAuthenticatedObs | async; else elseBlock">
+  <app-header-authorized></app-header-authorized>
+</div>
+<ng-template #elseBlock>
+  <app-header-unauthorized></app-header-unauthorized>
+</ng-template>

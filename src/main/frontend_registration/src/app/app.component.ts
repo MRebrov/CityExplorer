@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {QuestService} from './quest/quest.service';
 
 @Component({
   selector: 'app-root',

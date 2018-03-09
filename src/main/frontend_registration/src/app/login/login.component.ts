@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  providers: [UserService]
+  providers: []
 })
 export class LoginComponent implements OnInit {
   login: string;
@@ -45,10 +45,8 @@ export class LoginComponent implements OnInit {
       this.writeError(response.text()); // если ошибка, вывести её
       return Observable.throw(response);
     }).subscribe((obj: any) => {
-      const authObject: AuthObject = obj.json();
-      localStorage.setItem('id_token', authObject.token);
       this.writeError('User authorized successfully.');
-      this.router.navigate(['/userPage']);
+      this.showLink();
     });
   }
 
@@ -59,5 +57,9 @@ export class LoginComponent implements OnInit {
   writeError(error) {
     document.getElementById('collapseMessage').classList.add('show');
     this.errorMsg = error;
+  }
+
+  showLink() {
+    document.getElementById('collapseLink').classList.add('show');
   }
 }

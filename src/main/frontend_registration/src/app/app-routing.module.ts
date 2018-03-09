@@ -5,7 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {VkComponent} from './vk/vk.component';
 import {MapComponent} from './map/map.component';
 import {UserPageComponent} from './user-page/user-page.component';
-import {QuestComponent} from "./quest/quest.component";
+import {QuestComponent} from './quest/quest.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
