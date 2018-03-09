@@ -44,8 +44,9 @@ export class QuestComponent implements OnInit {
     this.questService.postPhoto(this.questPhoto).catch((response: Response) => {
       this.writeMsg(response.text()); //если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe(() => {
-      this.writeMsg('User registered successfully. We have sent you confirmation link on your email.');
+    }).subscribe((obj: any) => {
+      const msg:string = obj.toString();
+      this.writeMsg(msg);
       //this.showLink();
     });
     this.photos = undefined
