@@ -12,12 +12,12 @@ import {AppComponent} from '../app.component';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  providers: [UserService]
+  providers: []
 })
 export class RegistrationComponent implements OnInit {
-  user: User;
+  user: User;e
   confirmPassword: string;
-  errorMsg: String;
+  errorMsg: string;
 
   constructor(private userService: UserService) {
 

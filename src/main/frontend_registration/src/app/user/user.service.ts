@@ -7,6 +7,8 @@ import {User} from './user.model';
 import {EventEmitter, Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {AuthHttp} from 'angular2-jwt';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {AuthObject} from '../auth/authForm';
 
 /**
  * Сервис на frontend
@@ -15,7 +17,18 @@ import {AuthHttp} from 'angular2-jwt';
 @Injectable()
 export class UserService {
 
+  private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
+
   constructor(public authHttp: AuthHttp, public http: Http) {
+    this.getCurrentUser()
+      .subscribe(
+        () => {
+          this._isAuthenticatedSubject.next(true);
+        },
+        (error) => {
+          this._isAuthenticatedSubject.next(false);
+        });
   }
 
   /**
@@ -28,7 +41,21 @@ export class UserService {
   }
 
   authorize(username: string, password: string) {
-    return this.http.post('userapi/authorize', {username: username, password: password}).map((response: Response) => {
+    const resp = this.http.post('userapi/authorize', {username: username, password: password}).map((response: Response) => {
+      return response;
+    });
+    resp.subscribe((obj: any) => {
+      this._isAuthenticatedSubject.next(true);
+      const authObject: AuthObject = obj.json();
+      localStorage.setItem('id_token', authObject.token);
+    });
+    return resp;
+  }
+
+  logout() {
+    this._isAuthenticatedSubject.next(false);
+    localStorage.setItem('id_token', null);
+    return this.http.post('userapi/logout', {}).map((response: Response) => {
       return response;
     });
   }

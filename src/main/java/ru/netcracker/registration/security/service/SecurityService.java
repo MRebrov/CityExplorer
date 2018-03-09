@@ -30,6 +30,10 @@ public class SecurityService {
         return null;
     }
 
+    public void logout(){
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+    }
+
     public String login(String email, String password) throws Exception {
         UserDetails userDetails;
         UsernamePasswordAuthenticationToken authenticationToken =

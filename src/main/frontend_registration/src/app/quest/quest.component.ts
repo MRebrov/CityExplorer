@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {marker} from '../map/map.component';
-import {Quest} from "./quest.model";
-import {QuestService} from "./quest.service";
-import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
-import {Observable} from "rxjs/Observable";
+import {Quest} from './quest.model';
+import {QuestService} from './quest.service';
+import {HttpClient, HttpResponse, HttpEventType} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+
 @Component({
   selector: 'app-quest',
   templateUrl: './quest.component.html',
   styleUrls: ['./quest.component.css'],
-  providers:[QuestService]
+  providers: [QuestService]
 })
 export class QuestComponent implements OnInit {
 
-  errorMsg:string;
-  quest:Quest;
-  photos:FileList;
-  questPhoto:File;
-  progress: { percentage: number } = { percentage: 0 }
+  errorMsg: string;
+  quest: Quest;
+  photos: FileList;
+  questPhoto: File;
+  progress: { percentage: number } = {percentage: 0};
 
-  questPlace:marker = {
+  questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
     lng: 7.890,
     label: 'Q',
@@ -27,18 +28,19 @@ export class QuestComponent implements OnInit {
   };
 
 
-  constructor(private questService:QuestService) { }
+  constructor(private questService: QuestService) {
+  }
 
   ngOnInit() {
   }
 
-  getPos($event){
+  getPos($event) {
     this.questPlace.lng = $event.coords.lng;
     this.questPlace.lat = $event.coords.lat;
     //console.log(event.latLng.lng(), "   ", event.latLng.lat() );
   }
 
-  upload(){
+  upload() {
     this.progress.percentage = 0;
     this.questPhoto = this.photos.item(0);
     this.questService.postPhoto(this.questPhoto).catch((response: Response) => {
@@ -48,10 +50,10 @@ export class QuestComponent implements OnInit {
       this.writeMsg('User registered successfully. We have sent you confirmation link on your email.');
       //this.showLink();
     });
-    this.photos = undefined
+    this.photos = undefined;
   }
 
-  selectFile(event){
+  selectFile(event) {
     this.photos = event.target.files;
   }
 
@@ -60,7 +62,7 @@ export class QuestComponent implements OnInit {
     this.errorMsg = error;
   }
 
-  createQuest(event){
+  createQuest(event) {
 
   }
 
