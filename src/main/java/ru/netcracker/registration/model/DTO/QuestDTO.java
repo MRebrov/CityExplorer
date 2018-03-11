@@ -1,21 +1,32 @@
 package ru.netcracker.registration.model.DTO;
 
 import java.sql.Date;
+import java.util.List;
 
 public class QuestDTO {
-    private Long questId;
     private String name;
     private String description;
     private Date uploadDate;
     private Integer reward;
+    private String lat;
+    private String lng;
 
-    public Long getQuestId() {
-        return questId;
+    public String getLng() {
+        return lng;
     }
 
-    public void setQuestId(Long questId) {
-        this.questId = questId;
+    public void setLng(String lng) {
+        this.lng = lng;
     }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
 
     public String getName() {
         return name;

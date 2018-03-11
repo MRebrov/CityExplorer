@@ -4,6 +4,11 @@ import {Quest} from './quest.model';
 import {QuestService} from './quest.service';
 import {HttpClient, HttpResponse, HttpEventType} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {FileUploader} from "ng2-file-upload";
+
+
+const URL = 'http://localhost:8081/userapi/upload-photo/';
+
 
 @Component({
   selector: 'app-quest',
@@ -14,7 +19,7 @@ import {Observable} from 'rxjs/Observable';
 export class QuestComponent implements OnInit {
 
   errorMsg: string;
-  quest: Quest;
+  quest: Quest = new Quest('', '', null, 0, '', '');
   photos: FileList;
   questPhoto: File;
   progress: { percentage: number } = {percentage: 0};
@@ -37,7 +42,7 @@ export class QuestComponent implements OnInit {
   getPos($event) {
     this.questPlace.lng = $event.coords.lng;
     this.questPlace.lat = $event.coords.lat;
-    //console.log(event.latLng.lng(), "   ", event.latLng.lat() );
+    console.log(this.questPlace.lng, "   ",this.questPlace.lat);
   }
 
   upload() {
@@ -46,16 +51,17 @@ export class QuestComponent implements OnInit {
     this.questService.postPhoto(this.questPhoto).catch((response: Response) => {
       this.writeMsg(response.text()); //если ошибка, вывести её
       return Observable.throw(response);
-    }).subscribe((obj: any) => {
-      const msg:string = obj.toString();
-      this.writeMsg(msg);
+    }).subscribe((data) => {
+      this.writeMsg(data);
       //this.showLink();
     });
     this.photos = undefined;
+    this.questPhoto = undefined;
   }
 
   selectFile(event) {
     this.photos = event.target.files;
+    this.questPhoto = this.photos[0];
   }
 
   writeMsg(error) {
@@ -64,7 +70,17 @@ export class QuestComponent implements OnInit {
   }
 
   createQuest(event) {
-
+    console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward);
+    this.quest.lat = this.questPlace.lat.toString();
+    this.quest.lng = this.questPlace.lng.toString();
+    this.quest.uploadDate = new Date();
+    this.questService.postQuestInfo(this.quest).catch((response: Response) => {
+      this.writeMsg(response.text());
+      return Observable.throw(response)
+    }).subscribe((data) =>{
+      this.writeMsg(data);
+    });
+    this.quest = new Quest('', '', null, 0, '', '');
   }
 
 }

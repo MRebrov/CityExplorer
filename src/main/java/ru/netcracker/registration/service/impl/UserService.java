@@ -1,4 +1,4 @@
-package ru.netcracker.registration.service;
+package ru.netcracker.registration.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.User;
@@ -23,6 +23,11 @@ public class UserService {
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
+
+    public User getByEmail(String email){
+        return repository.findByEmail(email);
+    }
+
 
     /**
      * Добавить пользователя в БД

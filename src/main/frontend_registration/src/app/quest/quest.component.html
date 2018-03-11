@@ -1,7 +1,7 @@
 <div class="container">
   <h2 align="center">Create your own quest</h2>
 </div>
-<div class="collapse col-md-4 col-sm-12" id="collapseMessage">
+<div class="collapse col-md-12 col-sm-12" id="collapseMessage">
   <div class="alert alert-primary" role="alert">
     {{errorMsg}}
   </div>
@@ -43,28 +43,33 @@
 
         <div class="form-group col-9">
           <label for="questPhoto">Photo</label>
-          <input type="file" placeholder="Choose file" class="form-control-file" id="questPhoto" name="questPhoto"
-                 (change)="selectFile($event)" required>
-          <div class="row">
+          <input type="file" placeholder="+" class="form-control-file" id="questPhoto" name="questPhoto"
+                 (change)="selectFile($event)" accept=".jpeg, .jpg, .img, .png" required>
+          <div class="row row-upload">
             <div class="col-4">
               <button class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload
               </button>
             </div>
-            <div class="col-8">
-              <div *ngIf="questPhoto" class="progress">
+            <!--todo: fix progress bar-->
+            <div class="col-md-8 col-sm-7">
+              <div class="progress">
                 <div class="progress-bar progress-bar-info progress-bar-striped"
                      role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
                      aria-valuemin="0" aria-valuemax="100"
                      [ngStyle]="{width:progress.percentage+'%'}">
-                  {{progress.percentage}}%</div>
+                  {{progress.percentage}}%
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary btn-block" (click)="createQuest($event)">Create</button>
+        </div>
+      </div>
     </form>
-    <div class="col-md-2 col-sm-12">
-      <button type="submit" class="btn btn-primary offset-md-3" (click)="createQuest($event)">Login</button>
-    </div>
   </div>
+
 </div>

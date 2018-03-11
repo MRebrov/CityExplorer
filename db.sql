@@ -41,10 +41,10 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 185 (class 1259 OID 16394)
--- Name: photos; Type: TABLE; Schema: public; Owner: postgres
+-- Name: photo; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE photos (
+CREATE TABLE photo (
     photo_id bigint NOT NULL,
     url character varying(250) NOT NULL,
     user_id bigint NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE photos (
 );
 
 
-ALTER TABLE photos OWNER TO postgres;
+ALTER TABLE photo OWNER TO postgres;
 
 --
 -- TOC entry 186 (class 1259 OID 16397)
@@ -76,7 +76,7 @@ ALTER TABLE photos_id_seq OWNER TO postgres;
 -- Name: photos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE photos_id_seq OWNED BY photos.photo_id;
+ALTER SEQUENCE photos_id_seq OWNED BY photo.photo_id;
 
 
 --
@@ -100,7 +100,7 @@ ALTER TABLE photos_spot_id_seq OWNER TO postgres;
 -- Name: photos_spot_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE photos_spot_id_seq OWNED BY photos.spot_id;
+ALTER SEQUENCE photos_spot_id_seq OWNED BY photo.spot_id;
 
 
 --
@@ -124,15 +124,15 @@ ALTER TABLE photos_user_id_seq OWNER TO postgres;
 -- Name: photos_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE photos_user_id_seq OWNED BY photos.user_id;
+ALTER SEQUENCE photos_user_id_seq OWNED BY photo.user_id;
 
 
 --
 -- TOC entry 189 (class 1259 OID 16403)
--- Name: quests; Type: TABLE; Schema: public; Owner: postgres
+-- Name: quest; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE quests (
+CREATE TABLE quest (
     quest_id bigint NOT NULL,
     name character varying(250) NOT NULL,
     description character varying(250) NOT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE quests (
 );
 
 
-ALTER TABLE quests OWNER TO postgres;
+ALTER TABLE quest OWNER TO postgres;
 
 --
 -- TOC entry 190 (class 1259 OID 16409)
@@ -164,15 +164,15 @@ ALTER TABLE quests_id_seq OWNER TO postgres;
 -- Name: quests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE quests_id_seq OWNED BY quests.quest_id;
+ALTER SEQUENCE quests_id_seq OWNED BY quest.quest_id;
 
 
 --
 -- TOC entry 191 (class 1259 OID 16415)
--- Name: spots; Type: TABLE; Schema: public; Owner: postgres
+-- Name: spot; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE spots (
+CREATE TABLE spot (
     spot_id bigint NOT NULL,
     location character varying(250) NOT NULL,
     name character varying(250) NOT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE spots (
 );
 
 
-ALTER TABLE spots OWNER TO postgres;
+ALTER TABLE spot OWNER TO postgres;
 
 --
 -- TOC entry 192 (class 1259 OID 16421)
@@ -203,7 +203,7 @@ ALTER TABLE spots_id_seq OWNER TO postgres;
 -- Name: spots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE spots_id_seq OWNED BY spots.spot_id;
+ALTER SEQUENCE spots_id_seq OWNED BY spot.spot_id;
 
 
 --
@@ -576,42 +576,42 @@ ALTER SEQUENCE users_id_seq OWNED BY users.user_id;
 
 --
 -- TOC entry 2064 (class 2604 OID 16445)
--- Name: photos photo_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: photo photo_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY photos ALTER COLUMN photo_id SET DEFAULT nextval('photos_id_seq'::regclass);
+ALTER TABLE ONLY photo ALTER COLUMN photo_id SET DEFAULT nextval('photos_id_seq'::regclass);
 
 
 --
 -- TOC entry 2065 (class 2604 OID 16446)
--- Name: photos user_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: photo user_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY photos ALTER COLUMN user_id SET DEFAULT nextval('photos_user_id_seq'::regclass);
+ALTER TABLE ONLY photo ALTER COLUMN user_id SET DEFAULT nextval('photos_user_id_seq'::regclass);
 
 
 --
 -- TOC entry 2066 (class 2604 OID 16447)
--- Name: photos spot_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: photo spot_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY photos ALTER COLUMN spot_id SET DEFAULT nextval('photos_spot_id_seq'::regclass);
+ALTER TABLE ONLY photo ALTER COLUMN spot_id SET DEFAULT nextval('photos_spot_id_seq'::regclass);
 
 
 --
 -- TOC entry 2067 (class 2604 OID 16448)
--- Name: quests quest_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: quest quest_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY quests ALTER COLUMN quest_id SET DEFAULT nextval('quests_id_seq'::regclass);
+ALTER TABLE ONLY quest ALTER COLUMN quest_id SET DEFAULT nextval('quests_id_seq'::regclass);
 
 
 --
 -- TOC entry 2068 (class 2604 OID 16451)
--- Name: spots spot_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: spot spot_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY spots ALTER COLUMN spot_id SET DEFAULT nextval('spots_id_seq'::regclass);
+ALTER TABLE ONLY spot ALTER COLUMN spot_id SET DEFAULT nextval('spots_id_seq'::regclass);
 
 
 --
@@ -721,19 +721,19 @@ ALTER TABLE ONLY user_spot_progress
 
 --
 -- TOC entry 2082 (class 2606 OID 16458)
--- Name: photos photos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: photo photos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY photos
+ALTER TABLE ONLY photo
     ADD CONSTRAINT photos_pkey PRIMARY KEY (photo_id);
 
 
 --
 -- TOC entry 2084 (class 2606 OID 16460)
--- Name: quests quests_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: quest quests_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY quests
+ALTER TABLE ONLY quest
     ADD CONSTRAINT quests_pkey PRIMARY KEY (quest_id);
 
 
@@ -748,10 +748,10 @@ ALTER TABLE ONLY spots_in_quests
 
 --
 -- TOC entry 2086 (class 2606 OID 16462)
--- Name: spots spots_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: spot spots_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY spots
+ALTER TABLE ONLY spot
     ADD CONSTRAINT spots_pkey PRIMARY KEY (spot_id);
 
 
@@ -797,7 +797,7 @@ ALTER TABLE ONLY users
 --
 
 ALTER TABLE ONLY spots_in_quests
-    ADD CONSTRAINT photo_id FOREIGN KEY (photo_id) REFERENCES photos(photo_id);
+    ADD CONSTRAINT photo_id FOREIGN KEY (photo_id) REFERENCES photo(photo_id);
 
 
 --
@@ -806,7 +806,7 @@ ALTER TABLE ONLY spots_in_quests
 --
 
 ALTER TABLE ONLY user_progress
-    ADD CONSTRAINT quest_id FOREIGN KEY (quest_id) REFERENCES quests(quest_id);
+    ADD CONSTRAINT quest_id FOREIGN KEY (quest_id) REFERENCES quest(quest_id);
 
 
 --
@@ -815,16 +815,16 @@ ALTER TABLE ONLY user_progress
 --
 
 ALTER TABLE ONLY spots_in_quests
-    ADD CONSTRAINT quest_id FOREIGN KEY (quest_id) REFERENCES quests(quest_id);
+    ADD CONSTRAINT quest_id FOREIGN KEY (quest_id) REFERENCES quest(quest_id);
 
 
 --
 -- TOC entry 2097 (class 2606 OID 16484)
--- Name: photos spot_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: photo spot_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY photos
-    ADD CONSTRAINT spot_id FOREIGN KEY (spot_id) REFERENCES spots(spot_id);
+ALTER TABLE ONLY photo
+    ADD CONSTRAINT spot_id FOREIGN KEY (spot_id) REFERENCES spot(spot_id);
 
 
 --
@@ -833,7 +833,7 @@ ALTER TABLE ONLY photos
 --
 
 ALTER TABLE ONLY spots_in_quests
-    ADD CONSTRAINT spot_id FOREIGN KEY (spot_id) REFERENCES spots(spot_id);
+    ADD CONSTRAINT spot_id FOREIGN KEY (spot_id) REFERENCES spot(spot_id);
 
 
 --
@@ -847,10 +847,10 @@ ALTER TABLE ONLY user_spot_progress
 
 --
 -- TOC entry 2098 (class 2606 OID 16494)
--- Name: photos user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: photo user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY photos
+ALTER TABLE ONLY photo
     ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 

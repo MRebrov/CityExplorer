@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Quest} from "./quest.model";
 import {Http, Response} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class QuestService {
@@ -26,11 +27,11 @@ export class QuestService {
     let formdata: FormData = new FormData();
 
     formdata.append('file', file);
-    return this.http.post('/upload-photo', formdata);
+    return this.http.post('userapi/upload-photo', formdata).map(res => res.text());
   }
 
   postQuestInfo(quest: Quest){
-    return this.http.post('/upload-info', quest);
+    return this.http.post('userapi/upload-info', quest).map(res=>res.text());
   }
   // loadQuestInfo(quest:Quest){
   //   const req = new HttpRequest('POST', 'userapi/add-quest', quest, {

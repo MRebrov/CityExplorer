@@ -3,10 +3,8 @@ package ru.netcracker.registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import ru.netcracker.registration.model.DTO.UserDTO;
-import ru.netcracker.registration.model.UserGroup;
 import ru.netcracker.registration.repository.UserGroupRepository;
-import ru.netcracker.registration.service.UserService;
+import ru.netcracker.registration.service.impl.UserService;
 
 /**
  * Класс для проверки работы

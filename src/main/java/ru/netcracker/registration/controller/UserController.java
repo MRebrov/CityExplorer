@@ -11,8 +11,8 @@ import ru.netcracker.registration.mail.mailer.GmailSender;
 import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.model.UserGroup;
 import ru.netcracker.registration.security.service.SecurityService;
-import ru.netcracker.registration.service.UserGroupService;
-import ru.netcracker.registration.service.UserService;
+import ru.netcracker.registration.service.impl.UserGroupService;
+import ru.netcracker.registration.service.impl.UserService;
 
 import org.joda.time.*;
 

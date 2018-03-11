@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.model.DTO.UserDTO;
-import ru.netcracker.registration.service.UserGroupService;
-import ru.netcracker.registration.service.UserService;
+import ru.netcracker.registration.service.impl.UserGroupService;
+import ru.netcracker.registration.service.impl.UserService;
 
 @Controller
 @RequestMapping("/confirm")

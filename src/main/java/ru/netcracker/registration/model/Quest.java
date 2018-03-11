@@ -2,14 +2,27 @@ package ru.netcracker.registration.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
-public class Quests {
+@Table(name= "quest",schema = "nc_project")
+public class Quest {
     private Long questId;
     private String name;
     private String description;
     private Date uploadDate;
     private Integer reward;
+    private Collection<SpotInQuest> spotInQuests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.PERSIST)
+    public Collection<SpotInQuest> getSpotInQuests() {
+        return spotInQuests;
+    }
+
+    public void setSpotInQuests(Collection<SpotInQuest> spotInQuests) {
+        this.spotInQuests = spotInQuests;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,13 +80,13 @@ public class Quests {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Quests quests = (Quests) o;
+        Quest quest = (Quest) o;
 
-        if (questId != null ? !questId.equals(quests.questId) : quests.questId != null) return false;
-        if (name != null ? !name.equals(quests.name) : quests.name != null) return false;
-        if (description != null ? !description.equals(quests.description) : quests.description != null) return false;
-        if (uploadDate != null ? !uploadDate.equals(quests.uploadDate) : quests.uploadDate != null) return false;
-        if (reward != null ? !reward.equals(quests.reward) : quests.reward != null) return false;
+        if (questId != null ? !questId.equals(quest.questId) : quest.questId != null) return false;
+        if (name != null ? !name.equals(quest.name) : quest.name != null) return false;
+        if (description != null ? !description.equals(quest.description) : quest.description != null) return false;
+        if (uploadDate != null ? !uploadDate.equals(quest.uploadDate) : quest.uploadDate != null) return false;
+        if (reward != null ? !reward.equals(quest.reward) : quest.reward != null) return false;
 
         return true;
     }

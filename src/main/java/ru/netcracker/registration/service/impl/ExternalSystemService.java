@@ -1,4 +1,4 @@
-package ru.netcracker.registration.service;
+package ru.netcracker.registration.service.impl;
 
 import org.springframework.stereotype.Service;
 

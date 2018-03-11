@@ -2,8 +2,9 @@ package ru.netcracker.registration.model;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Класс Entity пользователя
@@ -11,7 +12,7 @@ import javax.persistence.*;
  * Может сохраняться в БД и загружаться из БД через репозиторий
  */
 @Entity
-@Table(name="users", schema = "nc_project")
+@Table(name= "user", schema = "nc_project")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +47,16 @@ public class User {
     @JoinColumn(name = "ex_id", nullable = true)
     private ExternalSystem exID;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Photo> photos;
+
+    public Collection<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(Collection<Photo> photos) {
+        this.photos = photos;
+    }
 
     public long getId() {
         return id;
