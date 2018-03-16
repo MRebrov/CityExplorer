@@ -59,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/userapi/get/all/**").hasAuthority("Admin")
                 .antMatchers("/userapi/get/**", "/userapi/delete/**", "/userapi/edit/**").authenticated()
                 .anyRequest().permitAll();
 

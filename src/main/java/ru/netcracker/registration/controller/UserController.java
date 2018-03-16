@@ -67,17 +67,15 @@ public class UserController {
         }
     }
 
-    /**
-     * Вернёт в json формате пользователя с указанным ID
-     *
-     * @param id - ID пользователя
-     * @return Запрашиваемый пользователь
-     */
+    /*
     @GetMapping("/get/byID/{id}")
     public @ResponseBody
     ResponseEntity<?> get(@PathVariable long id) {
         try {
             UserDTO userDTO = userService.get(id);
+            if(!userDTO.getEmail().equals(securityService.findLoggedInEmail())){
+                userDTO.setPassword("");
+            }
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(
@@ -85,7 +83,7 @@ public class UserController {
                     HttpStatus.BAD_REQUEST
             );
         }
-    }
+    }*/
 
     /**
      * Вернёт в json формате пользователя с указанным email
@@ -98,6 +96,9 @@ public class UserController {
     ResponseEntity<?> get(@PathVariable String email) {
         try {
             UserDTO userDTO = userService.get(email);
+            if (!userDTO.getEmail().equals(securityService.findLoggedInEmail())) {
+                userDTO.setPassword("");
+            }
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(
@@ -131,7 +132,7 @@ public class UserController {
             userDTO.setRegistrationDate(LocalDate.now().toString(DateTimeFormat.forPattern("d-M-YYYY")));
             userDTO.setGroupID(groupService.get("Unconfirmed"));
             userService.add(userDTO);
-            String token= securityService.login(userDTO.getEmail(), userDTO.getPassword());
+            //String token = securityService.login(userDTO.getEmail(), userDTO.getPassword());
 
             GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
             String link = BurningLinksManager.getInstance().addNew(userDTO.getEmail());
@@ -141,7 +142,8 @@ public class UserController {
                     link
             );
             sender.sendMail("Confirm registration", body, "netcracker", userDTO.getEmail());
-            return ResponseEntity.ok(new AuthResponse(token));
+            //return ResponseEntity.ok(new AuthResponse(token));
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
@@ -172,7 +174,7 @@ public class UserController {
         String password;
     }
 
-    private static class AuthResponse{
+    private static class AuthResponse {
         public AuthResponse(String token) {
             this.token = token;
         }
@@ -191,6 +193,13 @@ public class UserController {
     @PostMapping("/authorize")
     public ResponseEntity<?> authorize(@RequestBody AuthForm authForm) {
         try {
+            UserDTO userDTO = userService.get(authForm.username);
+            if(userDTO.getGroupID().getName().equals("Unconfirmed")){
+                return new ResponseEntity<Object>(
+                        "Please confirm your email first.",
+                        HttpStatus.BAD_REQUEST
+                );
+            }
             String token = securityService.login(authForm.username, authForm.password);
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (Exception e) {
@@ -237,8 +246,11 @@ public class UserController {
     @DeleteMapping("/delete/byEmail/{email:.+}")
     public ResponseEntity<?> delete(@PathVariable String email) {
         try {
-            userService.delete(email);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if (email.equals(securityService.findLoggedInEmail())) {
+                userService.delete(email);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else throw new Exception("Access denied: you can delete only your personal account");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
@@ -247,12 +259,7 @@ public class UserController {
         }
     }
 
-    /**
-     * Удалить пользователя с указанным ID
-     *
-     * @param id - ID пользователя
-     * @return - HTTP статус OK или BAD REQUEST
-     */
+    /*
     @DeleteMapping("/delete/byID/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         try {
@@ -264,14 +271,17 @@ public class UserController {
                     HttpStatus.BAD_REQUEST
             );
         }
-    }
+    }*/
 
 
     @PostMapping("/edit/personalInfo")
     public ResponseEntity<?> editUser(@RequestBody UserDTO userDTO) {
         try {
-            userService.editPersonalInfo(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if (userDTO.getEmail().equals(securityService.findLoggedInEmail())) {
+                userService.editPersonalInfo(userDTO);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else
+                throw new Exception("Access denied: can edit only your own account data");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
@@ -312,8 +322,10 @@ public class UserController {
     @PostMapping("/edit/password")
     public ResponseEntity<?> editPassword(@RequestBody ChangePasswordForm form) {
         try {
-            userService.editPassword(form.getEmail(), form.getOldPassword(), form.getNewPassword());
-            return new ResponseEntity<>(HttpStatus.OK);
+            if (form.getEmail().equals(securityService.findLoggedInEmail())) {
+                userService.editPassword(form.getEmail(), form.getOldPassword(), form.getNewPassword());
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else throw new Exception("Access denied: can edit only your own account data");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
