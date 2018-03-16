@@ -96,8 +96,10 @@ public class UserService {
      */
     public void edit(UserDTO userDTO) throws Exception{
         User oldUser = repository.findByEmail(userDTO.getEmail());
+        long id= oldUser.getId();
         if (oldUser != null) {
             oldUser=UserConverter.convertToEntity(userDTO, oldUser);
+            oldUser.setId(id);
             repository.save(oldUser);
         }
         else{

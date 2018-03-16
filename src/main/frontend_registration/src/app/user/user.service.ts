@@ -40,6 +40,18 @@ export class UserService {
     return this.http.post('userapi/add', user).map(res => res.json);
   }
 
+  editUser(user: User) {
+    return this.http.post('userapi/edit', user).map((response: Response) => {
+      return response;
+    });
+  }
+
+  editPassword(email:String, password:String) {
+    return this.http.post('userapi/edit/password/'+email+'/'+password, {}).map((response: Response) => {
+      return response;
+    });
+  }
+
   authorize(username: string, password: string) {
     const resp = this.http.post('userapi/authorize', {username: username, password: password}).map((response: Response) => {
       return response;

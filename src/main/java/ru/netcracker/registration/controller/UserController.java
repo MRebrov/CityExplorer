@@ -266,106 +266,11 @@ public class UserController {
         }
     }
 
-    /**
-     * Сменить имя пользователю
-     *
-     * @param id   ID пользователя
-     * @param name Новое имя
-     * @return HTTP статус OK или BAD REQUEST
-     */
-    @PostMapping("/edit/firstName/{id}/{name}")
-    public ResponseEntity<?> editFirstName(@PathVariable long id, @PathVariable String name) {
+    @PostMapping("/edit/password/{email}/{password}")
+    public ResponseEntity<?> editPassword(@PathVariable String email, @PathVariable String password) {
         try {
-            UserDTO userDTO = userService.get(id);
-            userDTO.setFirstName(name);
-            userService.edit(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
-
-    /**
-     * Сменить фамилию пользоватею
-     *
-     * @param id   ID пользователя
-     * @param name Новая фамилия
-     * @return HTTP статус OK или BAD REQUEST
-     */
-    @PostMapping("/edit/lastName/{id}/{name}")
-    public ResponseEntity<?> editLastName(@PathVariable long id, @PathVariable String name) {
-        try {
-            UserDTO userDTO = userService.get(id);
-            userDTO.setLastName(name);
-            userService.edit(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
-
-    /**
-     * Сменить email пользователю
-     *
-     * @param id    ID пользователя
-     * @param email Новый email
-     * @return HTTP статус OK или BAD REQUEST
-     */
-    @PostMapping("/edit/email/{id}/{email:.+}")
-    public ResponseEntity<?> editEmail(@PathVariable long id, @PathVariable String email) {
-        try {
-            UserDTO userDTO = userService.get(id);
-            userDTO.setEmail(email);
-            userService.edit(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
-
-    /**
-     * Сменить пользователю пароль
-     *
-     * @param id       ID пользователя
-     * @param password Новый пароль
-     * @return HTTP статус OK или BAD REQUEST
-     */
-    @PostMapping("/edit/password/{id}/{password}")
-    public ResponseEntity<?> editPassword(@PathVariable long id, @PathVariable String password) {
-        try {
-            UserDTO userDTO = userService.get(id);
+            UserDTO userDTO = userService.get(email);
             userDTO.setPassword(password);
-            userService.edit(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
-
-    /**
-     * Сменить дату рождения
-     *
-     * @param id       ID пользователя
-     * @param birthday Новая дата рождения
-     * @return HTTP статус OK или BAD REQUEST
-     */
-    @PostMapping("/edit/birthday/{id}/{birthday}")
-    public ResponseEntity<?> editBirthday(@PathVariable long id, @PathVariable String birthday) {
-        try {
-            UserDTO userDTO = userService.get(id);
-            userDTO.setBirthday(birthday);
             userService.edit(userDTO);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
@@ -379,16 +284,29 @@ public class UserController {
     /**
      * Присвоить пользователю новый group ID
      *
-     * @param id      ID пользователя
+     * @param email      email пользователя
      * @param groupID Новый group ID
      * @return HTTP статус OK или BAD REQUEST
      */
-    @PostMapping("/edit/groupID/{id}/{groupID}")
-    public ResponseEntity<?> editBirthday(@PathVariable long id, @PathVariable long groupID) {
+    @PostMapping("/edit/groupID/{email}/{groupID}")
+    public ResponseEntity<?> editBirthday(@PathVariable String email, @PathVariable long groupID) {
         try {
-            UserDTO userDTO = userService.get(id);
+            UserDTO userDTO = userService.get(email);
             UserGroup group = groupService.get(groupID);
             userDTO.setGroupID(group);
+            userService.edit(userDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> editUser(@RequestBody UserDTO userDTO) {
+        try {
             userService.edit(userDTO);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
