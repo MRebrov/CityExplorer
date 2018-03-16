@@ -266,48 +266,53 @@ public class UserController {
         }
     }
 
-    @PostMapping("/edit/password/{email}/{password}")
-    public ResponseEntity<?> editPassword(@PathVariable String email, @PathVariable String password) {
-        try {
-            UserDTO userDTO = userService.get(email);
-            userDTO.setPassword(password);
-            userService.edit(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
 
-    /**
-     * Присвоить пользователю новый group ID
-     *
-     * @param email      email пользователя
-     * @param groupID Новый group ID
-     * @return HTTP статус OK или BAD REQUEST
-     */
-    @PostMapping("/edit/groupID/{email}/{groupID}")
-    public ResponseEntity<?> editBirthday(@PathVariable String email, @PathVariable long groupID) {
-        try {
-            UserDTO userDTO = userService.get(email);
-            UserGroup group = groupService.get(groupID);
-            userDTO.setGroupID(group);
-            userService.edit(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-    }
-
-    @PostMapping("/edit")
+    @PostMapping("/edit/personalInfo")
     public ResponseEntity<?> editUser(@RequestBody UserDTO userDTO) {
         try {
-            userService.edit(userDTO);
+            userService.editPersonalInfo(userDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    private static class ChangePasswordForm {
+        public String getOldPassword() {
+            return oldPassword;
+        }
+
+        public void setOldPassword(String oldPassword) {
+            this.oldPassword = oldPassword;
+        }
+
+        public String getNewPassword() {
+            return newPassword;
+        }
+
+        public void setNewPassword(String newPassword) {
+            this.newPassword = newPassword;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        String email, oldPassword, newPassword;
+
+    }
+
+    @PostMapping("/edit/password")
+    public ResponseEntity<?> editPassword(@RequestBody ChangePasswordForm form) {
+        try {
+            userService.editPassword(form.getEmail(), form.getOldPassword(), form.getNewPassword());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<Object>(

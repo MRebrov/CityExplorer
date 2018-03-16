@@ -15,7 +15,7 @@ import {AppComponent} from '../app.component';
   providers: []
 })
 export class RegistrationComponent implements OnInit {
-  user: User;e
+  user: User;
   confirmPassword: string;
   errorMsg: string;
 

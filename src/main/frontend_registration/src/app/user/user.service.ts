@@ -41,13 +41,17 @@ export class UserService {
   }
 
   editUser(user: User) {
-    return this.http.post('userapi/edit', user).map((response: Response) => {
+    return this.http.post('userapi/edit/personalInfo', user).map((response: Response) => {
       return response;
     });
   }
 
-  editPassword(email:String, password:String) {
-    return this.http.post('userapi/edit/password/'+email+'/'+password, {}).map((response: Response) => {
+  editPassword(email: String, oldPassword: String, newPassword: String) {
+    return this.http.post('userapi/edit/password/', {
+      email: email,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    }).map((response: Response) => {
       return response;
     });
   }

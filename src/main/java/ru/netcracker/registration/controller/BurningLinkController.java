@@ -29,7 +29,7 @@ public class BurningLinkController {
             String email = linksManager.getEmailAndBurnLink(code);
             UserDTO userDTO = userService.get(email);
             userDTO.setGroupID(groupService.get("Default"));
-            userService.edit(userDTO);
+            userService.editPersonalInfo(userDTO);
 
             return new ResponseEntity<>("User email confirmed successfully", HttpStatus.OK);
         } catch (Exception e) {

@@ -94,13 +94,38 @@ public class UserService {
      * @param userDTO Обновлённый пользователь
      * @throws Exception
      */
-    public void edit(UserDTO userDTO) throws Exception{
+    public void editPersonalInfo(UserDTO userDTO) throws Exception{
         User oldUser = repository.findByEmail(userDTO.getEmail());
         long id= oldUser.getId();
+        String password = oldUser.getPassword();
         if (oldUser != null) {
             oldUser=UserConverter.convertToEntity(userDTO, oldUser);
             oldUser.setId(id);
+            oldUser.setPassword(password);
             repository.save(oldUser);
+        }
+        else{
+            throw new Exception("Trying to edit user that is not registered");
+        }
+    }
+
+    /**
+     * Обновить пароль
+     * @param email email пользователя
+     * @param oldPassword старый пароль
+     * @param newPassword новый пароль
+     * @throws Exception
+     */
+    public void editPassword(String email, String oldPassword, String newPassword) throws Exception{
+        User oldUser = repository.findByEmail(email);
+        if (oldUser != null) {
+            if(oldUser.getPassword().equals(oldPassword)){
+                oldUser.setPassword(newPassword);
+                repository.save(oldUser);
+            }
+            else{
+                throw new Exception("Old password is not correct");
+            }
         }
         else{
             throw new Exception("Trying to edit user that is not registered");
