@@ -8,15 +8,20 @@
 </div>
 <div class="row">
   <div class="col col-md-7 col-xs-12">
-    <agm-map [latitude]="questPlace.lat" [longitude]="questPlace.lng">
-      <agm-marker [latitude]="questPlace.lat"
-                  [longitude]="questPlace.lng"
-                  [markerDraggable]="true"
-                  [label]="questPlace.label"
-                  (dragEnd)="getPos($event)"
+    <agm-map [latitude]="questPlace.lat" [longitude]="questPlace.lng" (mapReady)="mapReady($event)">
+      <agm-marker *ngFor="let spot of spots; let i = index"
+                  [latitude]="spot.lat"
+                  [longitude]="spot.lng"
+                  [markerDraggable]="spot.draggable"
+                  [label]="spot.label"
+                  (dragEnd)="getPos($event, i)"
+                  [iconUrl]="spot.iconUrl"
       >
 
       </agm-marker>
+      <button id="newMarker" type="button" class="btn btn-info" (click)="addMarker()">
+        + marker
+      </button>
     </agm-map>
   </div>
 
@@ -47,7 +52,7 @@
                  (change)="selectFile($event)" accept=".jpeg, .jpg, .img, .png" required>
           <div class="row row-upload">
             <div class="col-4">
-              <button class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload
+              <button type="submit" class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload
               </button>
             </div>
             <!--todo: fix progress bar-->
@@ -63,13 +68,20 @@
             </div>
           </div>
         </div>
+        <button type="submit" class="btn btn-primary btn-block" (click)="createQuest()" style="margin-top: 2%">Create</button>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <button type="submit" class="btn btn-primary btn-block" (click)="createQuest($event)">Create</button>
-        </div>
-      </div>
-    </form>
-  </div>
 
-</div>
+      <!--<div class="col-5">-->
+      <!--<template #parent>-->
+      <!--</template>-->
+      <!--<div>-->
+      <!--<button type="button" (click)="addForm()" class="btn btn-toolbar" style="margin-top: 2%">-->
+      <!--add spot-->
+      <!--</button>-->
+      <!--<div class="row">-->
+      <!--<div class="col-12">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+

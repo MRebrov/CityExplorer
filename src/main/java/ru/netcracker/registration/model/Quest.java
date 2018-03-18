@@ -15,7 +15,7 @@ public class Quest {
     private Integer reward;
     private Collection<SpotInQuest> spotInQuests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "quest", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL)
     public Collection<SpotInQuest> getSpotInQuests() {
         return spotInQuests;
     }

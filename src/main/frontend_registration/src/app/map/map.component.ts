@@ -21,13 +21,15 @@ export class MapComponent implements OnInit {
       lng: 7.888,
       label: 'Top1',
       iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFzPTtaVLS7029u35BpMoJP-7RdfA8GH3mCD50ge12uD2XXTwi',
-      description: 'This is top 1 place in rating'
+      description: 'This is top 1 place in rating',
+      draggable: false,
     },
     {
       lat: 51.679,
       lng: 7.990,
       label: 'Top2',
-      iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFzPTtaVLS7029u35BpMoJP-7RdfA8GH3mCD50ge12uD2XXTwi'
+      iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFzPTtaVLS7029u35BpMoJP-7RdfA8GH3mCD50ge12uD2XXTwi',
+      draggable: false,
     }
   ]
 
@@ -41,4 +43,5 @@ export interface marker {
   label?: string;
   iconUrl: string;
   description?:string;
+  draggable: boolean;
 }

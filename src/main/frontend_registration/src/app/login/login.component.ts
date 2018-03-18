@@ -5,6 +5,7 @@ import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {AuthObject} from '../auth/authForm';
 import {Router} from '@angular/router';
+import {AppRoutingModule} from "../app-routing.module";
 
 @Component({
   selector: 'app-login',

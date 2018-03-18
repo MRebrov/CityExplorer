@@ -1,5 +1,6 @@
 package ru.netcracker.registration.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.UserActor;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.model.Photo;
 import ru.netcracker.registration.model.Quest;
 import ru.netcracker.registration.model.Spot;
@@ -62,10 +64,13 @@ public class QuestController {
     }
 
     @PostMapping("/upload-photo")
-    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file,
+                                         @RequestParam("quest") String questDTO) {
         String message = "";
         try {
-
+            ObjectMapper mapper = new ObjectMapper();
+            QuestDTO quest = mapper.readValue(questDTO, QuestDTO.class);
+            quest.getName();
             File convertFile = new File(file.getOriginalFilename());
             convertFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(convertFile);
@@ -92,8 +97,8 @@ public class QuestController {
             spotPhoto.setUrl(photo.getPhoto604());
             SpotInQuest spotInQuest = new SpotInQuest();
             spotInQuest.setPhotoByPhotoId(spotPhoto);
-            pendingQuest.getSpotInQuests().add(spotInQuest);
-
+            //pendingQuest.getSpotInQuests().add(spotInQuest);
+            questService.save(quest, spotPhoto, userService.getByEmail(securityService.findLoggedInEmail()));
             message = "You successfully uploaded " + file.getOriginalFilename() + "!";
             return ResponseEntity.ok(message);
         } catch (Exception e) {
@@ -130,5 +135,12 @@ public class QuestController {
         } catch (Exception e) {
             return new ResponseEntity<Object>("failed to add the quest", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/get-quests")
+    public @ResponseBody
+    Iterable<QuestDTO> getQuests() {
+        List<QuestDTO> re = questService.getAllToDTO();
+        return questService.getAllToDTO();
     }
 }

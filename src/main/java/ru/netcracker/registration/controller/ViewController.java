@@ -14,6 +14,11 @@ public class ViewController {
     @Autowired
     private SecurityService securityService;
 
+    @RequestMapping(value = "/quests")
+    public String quests() {
+        return "forward:/registrationAndLogin.html";
+    }
+
     @RequestMapping(value = "/login")
     public String login() {
         return "forward:/registrationAndLogin.html";

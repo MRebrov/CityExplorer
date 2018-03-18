@@ -1,25 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, Directive} from '@angular/core';
 import {marker} from '../map/map.component';
-import {Quest} from './quest.model';
+import {QuestDTO} from './quest.model';
 import {QuestService} from './quest.service';
 import {HttpClient, HttpResponse, HttpEventType} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {FileUploader} from "ng2-file-upload";
+import {InputFormComponent} from "./input-form/input-form.component";
 
 
 const URL = 'http://localhost:8081/userapi/upload-photo/';
+declare const google: any;
 
+const redMarker = 'https://maps.google.com/mapfiles/ms/icons/red-dot.png';
+const greenMarker = 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
 
 @Component({
   selector: 'app-quest',
   templateUrl: './quest.component.html',
   styleUrls: ['./quest.component.css'],
-  providers: [QuestService]
+  providers: [QuestService],
 })
 export class QuestComponent implements OnInit {
 
+
+  map:any;
+  forms: Array<number> = [];
   errorMsg: string;
-  quest: Quest = new Quest('', '', null, 0, '', '');
+  quest: QuestDTO = new QuestDTO('', '', null, 0, '', '');
   photos: FileList;
   questPhoto: File;
   progress: { percentage: number } = {percentage: 0};
@@ -27,28 +33,67 @@ export class QuestComponent implements OnInit {
   questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
     lng: 7.890,
-    label: 'Q',
-    iconUrl: null,
+    label: '^',
+    iconUrl: greenMarker,
     description: null,
+    draggable: true,
   };
 
+  spots:marker[] = [this.questPlace];
 
-  constructor(private questService: QuestService) {
+
+  @ViewChild('parent', {read : ViewContainerRef}) container: ViewContainerRef;
+  @ViewChild(InputFormComponent) inputForm: InputFormComponent;
+
+
+  constructor(private questService: QuestService, private cfr:ComponentFactoryResolver) {
   }
 
   ngOnInit() {
   }
 
-  getPos($event) {
-    this.questPlace.lng = $event.coords.lng;
-    this.questPlace.lat = $event.coords.lat;
-    console.log(this.questPlace.lng, "   ",this.questPlace.lat);
+  addMarker(){
+    console.log(this.inputForm.quest.name);
+  }
+
+  addForm(){
+
+    var comp = this.cfr.resolveComponentFactory(InputFormComponent);
+    var expComponent = this.container.createComponent(comp);
+    expComponent.instance._ref = expComponent;
+    for(var i=0; i< this.spots.length; i++){
+      this.spots[i].label = '✖';
+      this.spots[i].draggable = false;
+      this.spots[i].iconUrl = redMarker;
+    }
+    var newMarker: marker = {
+      lat: this.map.getCenter().lat(), //inital post (might be initialized being based on browser geoposition)
+      lng: this.map.getCenter().lng(),
+      label: 'O',
+      iconUrl: greenMarker,
+      description: null,
+      draggable: true
+    };
+    this.spots.push(newMarker);
+  }
+
+  getPos($event, i) {
+    this.spots[i].lng = $event.coords.lng;
+    this.spots[i].lat = $event.coords.lat;
+    console.log(this.questPlace.lng, "   ", this.questPlace.lat);
   }
 
   upload() {
+    console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward);
+    this.quest.lat = this.questPlace.lat.toString();
+    this.quest.lng = this.questPlace.lng.toString();
+    this.quest.uploadDate = new Date();
+
+
     this.progress.percentage = 0;
     this.questPhoto = this.photos.item(0);
-    this.questService.postPhoto(this.questPhoto).catch((response: Response) => {
+
+    this.questService.postPhoto(this.questPhoto, this.quest).catch((response: Response) => {
       this.writeMsg(response.text()); //если ошибка, вывести её
       return Observable.throw(response);
     }).subscribe((data) => {
@@ -57,6 +102,7 @@ export class QuestComponent implements OnInit {
     });
     this.photos = undefined;
     this.questPhoto = undefined;
+    this.quest = new QuestDTO('', '', null, 0, '', '');
   }
 
   selectFile(event) {
@@ -69,7 +115,7 @@ export class QuestComponent implements OnInit {
     this.errorMsg = error;
   }
 
-  createQuest(event) {
+  createQuest() {
     console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward);
     this.quest.lat = this.questPlace.lat.toString();
     this.quest.lng = this.questPlace.lng.toString();
@@ -77,10 +123,15 @@ export class QuestComponent implements OnInit {
     this.questService.postQuestInfo(this.quest).catch((response: Response) => {
       this.writeMsg(response.text());
       return Observable.throw(response)
-    }).subscribe((data) =>{
+    }).subscribe((data) => {
       this.writeMsg(data);
     });
-    this.quest = new Quest('', '', null, 0, '', '');
+    this.quest = new QuestDTO('', '', null, 0, '', '');
+  }
+
+  mapReady(event){
+    this.map = event;
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById("newMarker"));
   }
 
 }

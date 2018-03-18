@@ -1,15 +1,33 @@
 package ru.netcracker.registration.model.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Date;
 import java.util.List;
 
 public class QuestDTO {
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("uploadDate")
     private Date uploadDate;
+    @JsonProperty("reward")
     private Integer reward;
+    @JsonProperty("lat")
     private String lat;
+    @JsonProperty("lng")
     private String lng;
+    @JsonProperty("photoURL")
+    private String photoURL;
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
 
     public String getLng() {
         return lng;

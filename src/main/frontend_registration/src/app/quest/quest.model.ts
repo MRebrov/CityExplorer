@@ -1,7 +1,7 @@
 /**
  * Класс квеста на frontend
  */
-export class Quest {
+export class QuestDTO {
 
   public name: string;
   public description: string;
@@ -10,7 +10,7 @@ export class Quest {
   public reward: number;
   public lat:string;
   public lng:string;
-
+  public photoURL?: string;
 
   constructor(name: string, description: string, uploadDate: Date, reward: number, posLat: string, posLng: string) {
     this.name = name;
