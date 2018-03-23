@@ -1,6 +1,8 @@
 /**
  * Класс квеста на frontend
  */
+import {SpotDTO} from './spot.model';
+
 export class QuestDTO {
 
   public name: string;
@@ -11,6 +13,7 @@ export class QuestDTO {
   public lat:string;
   public lng:string;
   public photoURL?: string;
+  public spots: SpotDTO[];
 
   constructor(name: string, description: string, uploadDate: Date, reward: number, posLat: string, posLng: string) {
     this.name = name;

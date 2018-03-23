@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.converter.QuestConverter;
 import ru.netcracker.registration.repository.QuestRepository;
 import ru.netcracker.registration.service.QuestService;
+import ru.netcracker.registration.service.SpotService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,9 @@ public class QuestServiceImpl implements QuestService {
 
     @Autowired
     QuestRepository questRepository;
+
+    @Autowired
+    SpotService spotService;
 
     @Override
     public Quest getById(Integer id) {
@@ -75,16 +80,21 @@ public class QuestServiceImpl implements QuestService {
     public List<QuestDTO> getAllToDTO() {
         List<QuestDTO> res = new ArrayList<>();
         for (Quest q: questRepository.findAll()){
-            QuestDTO toAdd = new QuestDTO();
-            toAdd.setName(q.getName());
-            toAdd.setDescription(q.getDescription());
-            toAdd.setReward(q.getReward());
-            toAdd.setUploadDate(q.getUploadDate());
-            toAdd.setPhotoURL(q.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().getUrl());
-            toAdd.setLat(q.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLat().toString());
-            toAdd.setLng(q.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLng().toString());
-            res.add(toAdd);
+            res.add(QuestConverter.convertToDTO(q));
         }
         return res;
     }
+
+    @Override
+    public List<QuestDTO> getAllInRange(double lat, double lng, double range) {
+        List<Quest> quests = getAll();
+        List<QuestDTO> res=new ArrayList<>();
+        for(Quest quest: quests){
+            Spot spot = quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId();
+            if(spotService.distFrom(lat, lng, spot)<=range)
+                res.add(QuestConverter.convertToDTO(quest));
+        }
+        return res;
+    }
+
 }

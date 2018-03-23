@@ -1,6 +1,6 @@
 package ru.netcracker.registration.repository;
 
-import jdk.internal.dynalink.linker.LinkerServices;
+//import jdk.internal.dynalink.linker.LinkerServices;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.netcracker.registration.model.Quest;

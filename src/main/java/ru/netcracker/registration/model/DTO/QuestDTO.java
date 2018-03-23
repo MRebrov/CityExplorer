@@ -20,6 +20,9 @@ public class QuestDTO {
     private String lng;
     @JsonProperty("photoURL")
     private String photoURL;
+    @JsonProperty("spots")
+    private List<SpotDTO> spots;
+
 
     public String getPhotoURL() {
         return photoURL;
@@ -76,5 +79,13 @@ public class QuestDTO {
 
     public void setReward(Integer reward) {
         this.reward = reward;
+    }
+
+    public List<SpotDTO> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<SpotDTO> spots) {
+        this.spots = spots;
     }
 }

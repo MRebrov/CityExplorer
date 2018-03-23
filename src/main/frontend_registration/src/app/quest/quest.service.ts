@@ -47,4 +47,10 @@ export class QuestService {
   //   return this.http.request(req);
   // }
 
+  getQuestsInRange(lat:number, lng:number, range:number){
+    return this.http.get('userapi/get-closest-quests/'+lat+'/'+lng+'/'+range).map((response: Response) => {
+      return response.json();
+    });
+  }
+
 }

@@ -17,5 +17,5 @@ public interface QuestService {
     Quest save(Quest quest);
     void save(QuestDTO questDTO, Photo photo, User user);
     List<QuestDTO> getAllToDTO();
-
+    List<QuestDTO> getAllInRange(double lat, double lng, double range);
 }
