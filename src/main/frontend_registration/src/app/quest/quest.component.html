@@ -25,63 +25,64 @@
     </agm-map>
   </div>
 
-  <div class="col-md-5 col-xs-12">
-    <form id="newQuestForm" novalidate>
-      <div class="form-group">
-        <label for="questName">Name</label>
-        <input type="text" class="form-control" id="questName" name="questName" value=""
-               [(ngModel)]="quest.name" required>
-      </div>
-      <div class="form-group">
-        <label for="questDescription">Description</label>
-        <textarea rows="8" cols="80" placeholder="Enter a short description of your quest..." class="form-control"
-                  id="questDescription" name="questDescription"
-                  [(ngModel)]="quest.description" required> </textarea>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-3">
-          <label for="questReward">Reward</label>
-          <input type="number" class="form-control" id="questReward" name="questReward" value=""
-                 [(ngModel)]="quest.reward" required>
+  <!--<div class="col-md-5 col-xs-12">-->
+  <!--<form id="newQuestForm" novalidate>-->
+  <!--<div class="form-group">-->
+  <!--<label for="questName">Name</label>-->
+  <!--<input type="text" class="form-control" id="questName" name="questName" value=""-->
+  <!--[(ngModel)]="quest.name" required>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+  <!--<label for="questDescription">Description</label>-->
+  <!--<textarea rows="8" cols="80" placeholder="Enter a short description of your quest..." class="form-control"-->
+  <!--id="questDescription" name="questDescription"-->
+  <!--[(ngModel)]="quest.description" required> </textarea>-->
+  <!--</div>-->
+  <!--<div class="form-row">-->
+  <!--<div class="form-group col-3">-->
+  <!--<label for="questReward">Reward</label>-->
+  <!--<input type="number" class="form-control" id="questReward" name="questReward" value=""-->
+  <!--[(ngModel)]="quest.reward" required>-->
+  <!--</div>-->
+
+
+  <!--<div class="form-group col-9">-->
+  <!--<label for="questPhoto">Photo</label>-->
+  <!--<input type="file" placeholder="+" class="form-control-file" id="questPhoto" name="questPhoto"-->
+  <!--(change)="selectFile($event)" accept=".jpeg, .jpg, .img, .png" required>-->
+  <!--<div class="row row-upload">-->
+  <!--<div class="col-4">-->
+  <!--<button type="submit" class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--&lt;!&ndash;todo: fix progress bar&ndash;&gt;-->
+  <!--<div class="col-md-8 col-sm-7">-->
+  <!--<div class="progress">-->
+  <!--<div class="progress-bar progress-bar-info progress-bar-striped"-->
+  <!--role="progressbar" attr.aria-valuenow="{{progress.percentage}}"-->
+  <!--aria-valuemin="0" aria-valuemax="100"-->
+  <!--[ngStyle]="{width:progress.percentage+'%'}">-->
+  <!--{{progress.percentage}}%-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<button type="submit" class="btn btn-primary btn-block" (click)="createQuest()" style="margin-top: 2%">Create</button>-->
+  <!--</div>-->
+
+  <div class="col-5">
+    <template #parent>
+    </template>
+    <div>
+      <button type="button" (click)="addForm()" class="btn btn-toolbar" style="margin-top: 2%">
+        add spot
+      </button>
+      <div class="row">
+        <div class="col-12">
         </div>
-
-
-        <div class="form-group col-9">
-          <label for="questPhoto">Photo</label>
-          <input type="file" placeholder="+" class="form-control-file" id="questPhoto" name="questPhoto"
-                 (change)="selectFile($event)" accept=".jpeg, .jpg, .img, .png" required>
-          <div class="row row-upload">
-            <div class="col-4">
-              <button type="submit" class="btn btn-success" [disabled]="!questPhoto" (click)="upload()">Upload
-              </button>
-            </div>
-            <!--todo: fix progress bar-->
-            <div class="col-md-8 col-sm-7">
-              <div class="progress">
-                <div class="progress-bar progress-bar-info progress-bar-striped"
-                     role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-                     aria-valuemin="0" aria-valuemax="100"
-                     [ngStyle]="{width:progress.percentage+'%'}">
-                  {{progress.percentage}}%
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" (click)="createQuest()" style="margin-top: 2%">Create</button>
       </div>
-
-      <!--<div class="col-5">-->
-      <!--<template #parent>-->
-      <!--</template>-->
-      <!--<div>-->
-      <!--<button type="button" (click)="addForm()" class="btn btn-toolbar" style="margin-top: 2%">-->
-      <!--add spot-->
-      <!--</button>-->
-      <!--<div class="row">-->
-      <!--<div class="col-12">-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
+    </div>
+  </div>
+</div>
 

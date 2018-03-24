@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let quest of quests" >
+    {{quest.name}}, {{quest.description}}, lat= {{quest.lat}}, lng={{quest.lng}}
+    <img src="{{quest.photoURL}}" alt="">
+  </li>
+</ul>
