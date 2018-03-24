@@ -4,7 +4,7 @@ import {QuestDTO} from './quest.model';
 import {QuestService} from './quest.service';
 import {HttpClient, HttpResponse, HttpEventType} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {InputFormComponent} from "./input-form/input-form.component";
+//import {InputFormComponent} from "./input-form/input-form.component";
 
 
 const URL = 'http://localhost:8081/userapi/upload-photo/';
@@ -37,13 +37,14 @@ export class QuestComponent implements OnInit {
     iconUrl: greenMarker,
     description: null,
     draggable: true,
+    quests:[]
   };
 
   spots:marker[] = [this.questPlace];
 
 
   @ViewChild('parent', {read : ViewContainerRef}) container: ViewContainerRef;
-  @ViewChild(InputFormComponent) inputForm: InputFormComponent;
+  //@ViewChild(InputFormComponent) inputForm: InputFormComponent;
 
 
   constructor(private questService: QuestService, private cfr:ComponentFactoryResolver) {
@@ -53,10 +54,10 @@ export class QuestComponent implements OnInit {
   }
 
   addMarker(){
-    console.log(this.inputForm.quest.name);
+    //console.log(this.inputForm.quest.name);
   }
 
-  addForm(){
+  /*addForm(){
 
     var comp = this.cfr.resolveComponentFactory(InputFormComponent);
     var expComponent = this.container.createComponent(comp);
@@ -75,7 +76,7 @@ export class QuestComponent implements OnInit {
       draggable: true
     };
     this.spots.push(newMarker);
-  }
+  }*/
 
   getPos($event, i) {
     this.spots[i].lng = $event.coords.lng;

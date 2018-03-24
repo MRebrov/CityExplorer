@@ -143,4 +143,12 @@ public class QuestController {
         List<QuestDTO> re = questService.getAllToDTO();
         return questService.getAllToDTO();
     }
+
+
+    @GetMapping("/get-closest-quests/{lat}/{lng}/{range}")
+    public @ResponseBody
+    Iterable<QuestDTO> getQuests(@PathVariable double lat, @PathVariable double lng, @PathVariable double range) {
+        List<QuestDTO> res = questService.getAllInRange(lat,lng, range);
+        return res;
+    }
 }

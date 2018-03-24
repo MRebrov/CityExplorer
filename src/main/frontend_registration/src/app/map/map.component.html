@@ -4,7 +4,7 @@
     First 'col' word is only for compatibility with map.component.css file
     Bootstrap uses classes like 'col-xx-nn'
     -->
-    <div class="col col-sm-10">
+    <div class="col-sm-12 col-md-8">
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="12">
         <agm-marker *ngFor="let m of markers; let i=index"
                     [latitude]="m.lat"
@@ -12,32 +12,58 @@
                     [label]="m.label"
         >
           <agm-info-window>
-            <div class="row">
-              <div class="col s6">
-                <label for="image">{{m.description}}</label>
-                <img id="image" src="{{m.iconUrl}}" alt="">
+
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{m.label}}</h5>
+                <img class="card-img img-thumbnail" src="{{m.iconUrl}}" alt="">
+                <p class="card-text">{{m.description}}</p>
+                <h6>Available in quests</h6>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let quest of m.quests">{{quest.name}}</li>
+                </ul>
               </div>
             </div>
           </agm-info-window>
+
         </agm-marker>
       </agm-map>
 
     </div>
-    <div class="col col-sm-2">
-      <ul class="list-group">
-        <li class="list-group-item">
-          top1 place
-        </li>
-        <li class="list-group-item">
-          top2 place
-        </li>
-        <li class="list-group-item">
-          etc
-        </li>
-      </ul>
+    <div class="col-sm-12 col-md-4">
+      <h5>Quests nearby</h5>
+      <div id="accordion">
+        <div class="card" *ngFor="let quest of quests">
+          <div class="card-header" [id]="'heading'+quest.name">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse"
+                      attr.data-target="{{'#collapse'+quest.name}}" attr.aria-expanded="false"
+                      attr.aria-controls="{{'#collapse'+quest.name}}">
+                {{quest.name}}
+              </button>
+            </h5>
+          </div>
+
+          <div [id]="'collapse'+quest.name" class="collapse" attr.aria-labelledby="{{'heading'+quest.name}}"
+               data-parent="#accordion">
+            <div class="card-body">
+              <img class="card-img img-thumbnail" src="{{quest.photoURL}}" alt="">
+              <p class="card-text">{{quest.description}}</p>
+              <p class="card-text">Consists of <span class="badge badge-secondary">{{quest.spots.length}}</span> spots</p>
+              <div class="row">
+                <div class = 'col-8'>
+                  Reward: <span class="badge badge-warning">{{quest.reward}}</span>
+                </div>
+                <div class="col-4">
+                  <button type="button" class="btn btn-outline-primary">Join</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="row">
-    <span>Current quest</span>
-  </div>
 </div>
+
