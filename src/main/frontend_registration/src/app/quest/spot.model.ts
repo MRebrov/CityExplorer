@@ -7,6 +7,7 @@ export class SpotDTO {
   public lat: string;
   public lng: string;
   public photos: PhotoDTO[];
+  public mainPhoto: PhotoDTO;
 
   constructor(name: string, lat: string, lng: string) {
     this.name = name;

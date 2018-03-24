@@ -18,7 +18,6 @@ public class PhotoConverter {
         dto.setUrl(photo.getUrl());
         dto.setPhotoType(photo.getPhotoTypeByTypeId().getName());
         dto.setUploadDate(photo.getUploadDate());
-        dto.setUser(UserConverter.convertToDTO(photo.getUser()));
         return dto;
     }
 }

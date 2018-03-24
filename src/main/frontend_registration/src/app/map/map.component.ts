@@ -4,6 +4,8 @@ import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {QuestService} from '../quest/quest.service';
 import {forEach} from '@angular/router/src/utils/collection';
+import {PhotoDTO} from '../quest/photo.model';
+import {SpotDTO} from '../quest/spot.model';
 
 @Component({
   selector: 'app-map',
@@ -39,7 +41,7 @@ export class MapComponent implements OnInit {
         error => {
           switch (error.code) {
             case 1:
-              console.log('Permission Denied')
+              console.log('Permission Denied');
               alert('We strongly recommend you to allow location detection or you will not be able to see quests that are available near you. Once you did, please reload page.');
               break;
             case 2:
@@ -71,7 +73,7 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let quest of this.quests) {
       for (let spot of quest.spots) {
-        let existingMarker=this.markers.find(m => this.distFrom(
+        let existingMarker = this.markers.find(m => this.distFrom(
           m.lat,
           m.lng,
           parseFloat(spot.lat),
@@ -82,14 +84,16 @@ export class MapComponent implements OnInit {
             lat: parseFloat(spot.lat),
             lng: parseFloat(spot.lng),
             label: spot.name,
-            iconUrl: spot.photos[0].url,
+            iconUrl: spot.mainPhoto.url,
             description: 'Database does not still support description for spots',
             draggable: false,
-            quests: [quest]
+            quests: [quest],
+            photos: spot.photos
           });
         }
-        else{
+        else {
           existingMarker.quests.push(quest);
+          existingMarker.photos = existingMarker.photos.concat(spot.photos);
         }
       }
     }
@@ -112,6 +116,19 @@ export class MapComponent implements OnInit {
     return degrees * Math.PI / 180;
   };
 
+  howManyUserPhotosInQuest(questDTO: QuestDTO): number {
+    let res = 0;
+    for (let spot of questDTO.spots) {
+
+
+      res += this.howManyUserPhotosInSpot(spot);
+    }
+    return res;
+  }
+
+  howManyUserPhotosInSpot(spotDTO: SpotDTO):number {
+    return spotDTO.photos.length - 1;
+  }
 }
 
 export interface marker {
@@ -121,5 +138,6 @@ export interface marker {
   iconUrl: string;
   description?: string;
   draggable: boolean;
+  photos: PhotoDTO[];
   quests: QuestDTO[];
 }

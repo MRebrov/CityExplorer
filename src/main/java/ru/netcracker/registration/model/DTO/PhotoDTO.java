@@ -13,16 +13,6 @@ public class PhotoDTO {
     private String url;
     private Date uploadDate;
     private String photoType;
-    private UserDTO user;
-
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
 
     public String getUrl() {
         return url;

@@ -27,9 +27,13 @@ public class QuestConverter {
         dto.setPhotoURL(quest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().getUrl());
         dto.setLat(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLat().toString());
         dto.setLng(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLng().toString());
+
+        SpotDTO tempSpotDTO;
         List<SpotDTO> spots = new ArrayList<>();
         for(SpotInQuest spotInQuest: quest.getSpotInQuests()){
-            spots.add(SpotConverter.convertToDTO(spotInQuest.getSpotBySpotId()));
+            tempSpotDTO=SpotConverter.convertToDTO(spotInQuest.getSpotBySpotId());
+            tempSpotDTO.setMainPhoto(PhotoConverter.convertToDTO(spotInQuest.getPhotoByPhotoId()));
+            spots.add(tempSpotDTO);
         }
         dto.setSpots(spots);
 
