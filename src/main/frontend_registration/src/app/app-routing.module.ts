@@ -6,7 +6,7 @@ import {VkComponent} from './vk/vk.component';
 import {MapComponent} from './map/map.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {QuestComponent} from './quest/quest.component';
-//import {QuestListComponent} from "./quest/quest-list/quest-list.component";
+import {QuestListComponent} from "./quest/quest-list/quest-list.component";
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'map', component: MapComponent},
   {path: 'userPage', component: UserPageComponent},
   {path: 'newquest', component: QuestComponent},
-  //{path: 'quests', component: QuestListComponent}
+  {path: 'quests', component: QuestListComponent}
 ];
 
 @NgModule({

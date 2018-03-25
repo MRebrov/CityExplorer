@@ -18,9 +18,10 @@ import {HeaderComponent} from './header/header.component';
 import {HeaderAuthorizedComponent} from './header/header-authorized/header-authorized.component';
 import {HeaderUnauthorizedComponent} from './header/header-unauthorized/header-unauthorized.component';
 import {UserService} from './user/user.service';
-//import { InputFormComponent } from './quest/input-form/input-form.component';
-//import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-//import { QuestListComponent } from './quest/quest-list/quest-list.component';
+import { InputFormComponent } from './quest/input-form/input-form.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { QuestListComponent } from './quest/quest-list/quest-list.component';
+import {LoaderService} from "./quest/loader.service";
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import {UserService} from './user/user.service';
     HeaderComponent,
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
-    //InputFormComponent,
-    //QuestListComponent
+    InputFormComponent,
+    QuestListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,10 +48,10 @@ import {UserService} from './user/user.service';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB50v0zwR77xBBodMAILSKbUrqay6txODg',
     }),
-    //NgbModule.forRoot()
+    NgbModule.forRoot()
   ],
   bootstrap: [AppComponent],
-  providers: [QuestService, UserService],
+  providers: [QuestService, UserService, LoaderService],
   //entryComponents: [InputFormComponent]
 })
 export class AppModule {
