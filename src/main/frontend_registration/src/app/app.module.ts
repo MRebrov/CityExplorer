@@ -22,6 +22,10 @@ import { InputFormComponent } from './quest/input-form/input-form.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { QuestListComponent } from './quest/quest-list/quest-list.component';
 import {LoaderService} from "./quest/loader.service";
+import { UserQuestListComponent } from './user-quest-list/user-quest-list.component';
+//import { InputFormComponent } from './quest/input-form/input-form.component';
+//import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+//import { QuestListComponent } from './quest/quest-list/quest-list.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,9 @@ import {LoaderService} from "./quest/loader.service";
     HeaderComponent,
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
+    UserQuestListComponent,
+    //InputFormComponent,
+    //QuestListComponent
     InputFormComponent,
     QuestListComponent
   ],

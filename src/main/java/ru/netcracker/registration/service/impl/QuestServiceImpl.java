@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.converter.QuestConverter;
+import ru.netcracker.registration.model.converter.UserProgressConverter;
 import ru.netcracker.registration.repository.QuestRepository;
+import ru.netcracker.registration.repository.UserProgressRepository;
+import ru.netcracker.registration.repository.UserRepository;
 import ru.netcracker.registration.service.QuestService;
 import ru.netcracker.registration.service.SpotService;
 
@@ -20,6 +24,12 @@ public class QuestServiceImpl implements QuestService {
 
     @Autowired
     SpotService spotService;
+
+    @Autowired
+    UserProgressRepository userProgressRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public Quest getById(Integer id) {
@@ -95,6 +105,17 @@ public class QuestServiceImpl implements QuestService {
                 res.add(QuestConverter.convertToDTO(quest));
         }
         return res;
+    }
+
+    @Override
+    public List<UserProgressDTO> getUserProgressByUser(String email) {
+        User user = userRepository.findByEmail(email);
+        List<UserProgress> userProgressList = userProgressRepository.findAllByUserByUserId(user);
+        List<UserProgressDTO> userProgressDTOList = new ArrayList<>();
+        for(UserProgress userProgress:userProgressList) {
+            userProgressDTOList.add(UserProgressConverter.convertToDTO(userProgress));
+        }
+        return userProgressDTOList;
     }
 
 }

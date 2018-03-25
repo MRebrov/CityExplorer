@@ -1,0 +1,7 @@
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let progress of userProgressList">
+    {{progress.quest.name}}
+    <span class="badge badge-success" *ngIf="progress.dateComplete != null">completed</span>
+  </li>
+</ul>
+
