@@ -4,12 +4,14 @@ import {Observable} from "rxjs/Observable";
 import {QuestDTO} from "./quest.model";
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {AuthHttp} from 'angular2-jwt';
 
 @Injectable()
 export class QuestService {
 
-  constructor(private http: Http) { }
-  //
+  constructor(public authHttp: AuthHttp, public http: Http) {}
+
+    //
   // loadFile(file: File):Observable<HttpEvent<{}>>{
   //   let formdata: FormData = new FormData();
   //
@@ -49,6 +51,12 @@ export class QuestService {
 
   getQuestsInRange(lat:number, lng:number, range:number){
     return this.http.get('userapi/get-closest-quests/'+lat+'/'+lng+'/'+range).map((response: Response) => {
+      return response.json();
+    });
+  }
+
+  getUserProgressForCurrentUser(){
+    return this.authHttp.get('userapi/get-progresses-by-user/').map((response: Response) => {
       return response.json();
     });
   }

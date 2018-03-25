@@ -51,7 +51,7 @@ public class UserProgress {
         return userByUserId;
     }
 
-    public void setUseByUserId(User useByUserId) {
+    public void setUserByUserId(User useByUserId) {
         this.userByUserId = useByUserId;
     }
 

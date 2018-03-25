@@ -2,6 +2,7 @@ package ru.netcracker.registration.service;
 
 
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.Photo;
 import ru.netcracker.registration.model.Quest;
 import ru.netcracker.registration.model.User;
@@ -18,4 +19,5 @@ public interface QuestService {
     void save(QuestDTO questDTO, Photo photo, User user);
     List<QuestDTO> getAllToDTO();
     List<QuestDTO> getAllInRange(double lat, double lng, double range);
+    List<UserProgressDTO> getUserProgressByUser(String email);
 }

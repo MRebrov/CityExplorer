@@ -6,6 +6,7 @@ import {VkComponent} from './vk/vk.component';
 import {MapComponent} from './map/map.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {QuestComponent} from './quest/quest.component';
+import {UserQuestListComponent} from "./user-quest-list/user-quest-list.component";
 //import {QuestListComponent} from "./quest/quest-list/quest-list.component";
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'map', component: MapComponent},
   {path: 'userPage', component: UserPageComponent},
   {path: 'newquest', component: QuestComponent},
+  {path: 'userquests', component: UserQuestListComponent},
   //{path: 'quests', component: QuestListComponent}
 ];
 

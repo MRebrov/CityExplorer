@@ -12,13 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
-import ru.netcracker.registration.model.DTO.UserDTO;
-import ru.netcracker.registration.model.Photo;
-import ru.netcracker.registration.model.Quest;
-import ru.netcracker.registration.model.Spot;
-import ru.netcracker.registration.model.SpotInQuest;
-import ru.netcracker.registration.model.converter.UserConverter;
+import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.storage_emulation.QuestStorage;
 import ru.netcracker.registration.security.service.SecurityService;
 import ru.netcracker.registration.service.PhotoService;
@@ -148,7 +144,14 @@ public class QuestController {
     @GetMapping("/get-closest-quests/{lat}/{lng}/{range}")
     public @ResponseBody
     Iterable<QuestDTO> getQuests(@PathVariable double lat, @PathVariable double lng, @PathVariable double range) {
-        List<QuestDTO> res = questService.getAllInRange(lat,lng, range);
+        List<QuestDTO> res = questService.getAllInRange(lat, lng, range);
         return res;
+    }
+
+    @GetMapping("/get-progresses-by-user/")
+    public @ResponseBody
+    Iterable<UserProgressDTO> getProgressByUser() {
+        String email = securityService.findLoggedInEmail();
+        return questService.getUserProgressByUser(email);
     }
 }
