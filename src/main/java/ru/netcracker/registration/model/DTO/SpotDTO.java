@@ -14,7 +14,7 @@ public class SpotDTO {
     private Double lat;
     private Double lng;
     private Collection<PhotoDTO> photos = new ArrayList<>();
-
+    private PhotoDTO mainPhoto;
 
     public String getName() {
         return name;
@@ -54,5 +54,13 @@ public class SpotDTO {
 
     public void setPhotos(Collection<PhotoDTO> photos) {
         this.photos = photos;
+    }
+
+    public PhotoDTO getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(PhotoDTO mainPhoto) {
+        this.mainPhoto = mainPhoto;
     }
 }

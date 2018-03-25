@@ -39,7 +39,8 @@ export class QuestComponent implements OnInit {
     iconUrl: greenMarker,
     description: null,
     draggable: true,
-    quests:[]
+    quests:[],
+    photos: []
   };
 
     markers:marker[] = [];
