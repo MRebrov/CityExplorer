@@ -7,6 +7,7 @@ import {MapComponent} from './map/map.component';
 import {UserPageComponent} from './user-page/user-page.component';
 import {QuestComponent} from './quest/quest.component';
 import {UserQuestListComponent} from "./user-quest-list/user-quest-list.component";
+import {QuestListComponent} from "./quest/quest-list/quest-list.component";
 //import {QuestListComponent} from "./quest/quest-list/quest-list.component";
 
 const routes: Routes = [

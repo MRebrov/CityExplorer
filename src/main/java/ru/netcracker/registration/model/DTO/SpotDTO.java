@@ -1,5 +1,6 @@
 package ru.netcracker.registration.model.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.netcracker.registration.model.Photo;
 import ru.netcracker.registration.model.SpotInQuest;
 
@@ -9,11 +10,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SpotDTO {
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("uploadDate")
     private Date uploadDate;
+
+    @JsonProperty("lat")
     private Double lat;
+
+    @JsonProperty("lng")
     private Double lng;
+
+    @JsonProperty("photos")
     private Collection<PhotoDTO> photos = new ArrayList<>();
+
+    @JsonProperty("mainPhoto")
     private PhotoDTO mainPhoto;
 
     public String getName() {

@@ -39,6 +39,12 @@ export class QuestService {
     return this.http.post('userapi/upload-photo', formdata).map(res => res.text());
   }
 
+  uploadSpotPhoto(file: File){
+    let formdata: FormData = new FormData();
+    formdata.append('file', file);
+    return this.http.post('userapi/upload-photo', formdata).map(res=> res.text());
+  }
+
   postQuestInfo(quest: QuestDTO){
     return this.http.post('userapi/upload-info', quest).map(res=>res.text());
   }

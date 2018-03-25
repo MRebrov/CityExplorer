@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.SpotDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.converter.QuestConverter;
 import ru.netcracker.registration.model.converter.UserProgressConverter;
+import ru.netcracker.registration.repository.PhotoTypeRepository;
 import ru.netcracker.registration.repository.QuestRepository;
 import ru.netcracker.registration.repository.UserProgressRepository;
 import ru.netcracker.registration.repository.UserRepository;
@@ -30,6 +32,9 @@ public class QuestServiceImpl implements QuestService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PhotoTypeRepository photoTypeRepository;
 
     @Override
     public Quest getById(Integer id) {
@@ -73,8 +78,8 @@ public class QuestServiceImpl implements QuestService {
         quest.setDescription(questDTO.getDescription());
         quest.setName(questDTO.getName());
         spot.getPhotoBySpotId().add(photo);
-        spot.setLng(Double.valueOf(questDTO.getLng()));
-        spot.setLat(Double.valueOf(questDTO.getLat()));
+        //spot.setLng(Double.valueOf(questDTO.getLng()));
+        //spot.setLat(Double.valueOf(questDTO.getLat()));
         spot.setName(questDTO.getName());
         spot.setUploadDate(questDTO.getUploadDate());
         photo.setSpotBySpotId(spot);
@@ -84,6 +89,35 @@ public class QuestServiceImpl implements QuestService {
         quest.getSpotInQuests().add(spotInQuest);
         questRepository.save(quest);
 
+    }
+
+    @Override
+    public void save(QuestDTO questDTO, User user) {
+        Quest quest = new Quest();
+        quest.setName(questDTO.getName());
+        quest.setDescription(questDTO.getDescription());
+        quest.setReward(questDTO.getReward());
+        quest.setUploadDate(questDTO.getUploadDate());
+        for(SpotDTO spotDTO: questDTO.getSpots()){
+            Spot spot = new Spot();
+            SpotInQuest spotInQuest = new SpotInQuest();
+            spot.setUploadDate(questDTO.getUploadDate());
+            spot.setName(spotDTO.getName());
+            spot.setLat(spotDTO.getLat());
+            spot.setLng(spotDTO.getLng());
+            Photo photo = new Photo();
+            photo.setUrl(spotDTO.getPhotos().stream().findFirst().get().getUrl());
+            photo.setUploadDate(questDTO.getUploadDate());
+            photo.setUser(user);
+            photo.setSpotBySpotId(spot);
+            photo.setPhotoTypeByTypeId(photoTypeRepository.findByName("spot"));
+            spot.getPhotoBySpotId().add(photo);
+            spotInQuest.setQuest(quest);
+            spotInQuest.setSpotBySpotId(spot);
+            spotInQuest.setPhotoByPhotoId(spot.getPhotoBySpotId().stream().findFirst().get());
+            quest.getSpotInQuests().add(spotInQuest);
+        }
+        questRepository.save(quest);
     }
 
     @Override

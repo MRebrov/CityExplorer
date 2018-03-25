@@ -10,18 +10,16 @@ export class QuestDTO {
   //public photo: File;
   public uploadDate: Date;
   public reward: number;
-  public lat:string;
-  public lng:string;
+  // public lat:string;
+  // public lng:string;
   public photoURL?: string;
   public spots: SpotDTO[];
 
-  constructor(name: string, description: string, uploadDate: Date, reward: number, posLat: string, posLng: string) {
+  constructor(name: string, description: string, uploadDate: Date, reward: number) {
     this.name = name;
     this.description = description;
    // this.photo = photo;
     this.uploadDate = uploadDate;
     this.reward = reward;
-    this.lat = posLat;
-    this.lng = posLng;
   }
 }

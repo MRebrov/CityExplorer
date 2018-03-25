@@ -60,13 +60,12 @@ public class QuestController {
     }
 
     @PostMapping("/upload-photo")
-    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file,
-                                         @RequestParam("quest") String questDTO) {
+    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            QuestDTO quest = mapper.readValue(questDTO, QuestDTO.class);
-            quest.getName();
+            //ObjectMapper mapper = new ObjectMapper();
+            //QuestDTO quest = mapper.readValue(questDTO, QuestDTO.class);
+            //quest.getName();
             File convertFile = new File(file.getOriginalFilename());
             convertFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(convertFile);
@@ -86,17 +85,18 @@ public class QuestController {
                     .hash(uploadResponse.getHash())
                     .execute();
             com.vk.api.sdk.objects.photos.Photo photo = photoList.get(0);
-
-            spotPhoto.setPhotoTypeByTypeId(photoTypeService.getByType("spot"));
-            spotPhoto.setUser(userService.getByEmail(securityService.findLoggedInEmail()));
-            spotPhoto.setUploadDate(Date.valueOf(LocalDate.now()));
-            spotPhoto.setUrl(photo.getPhoto604());
-            SpotInQuest spotInQuest = new SpotInQuest();
-            spotInQuest.setPhotoByPhotoId(spotPhoto);
-            //pendingQuest.getSpotInQuests().add(spotInQuest);
-            questService.save(quest, spotPhoto, userService.getByEmail(securityService.findLoggedInEmail()));
-            message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-            return ResponseEntity.ok(message);
+            convertFile.delete();
+//
+//            spotPhoto.setPhotoTypeByTypeId(photoTypeService.getByType("spot"));
+//            spotPhoto.setUser(userService.getByEmail(securityService.findLoggedInEmail()));
+//            spotPhoto.setUploadDate(Date.valueOf(LocalDate.now()));
+//            spotPhoto.setUrl(photo.getPhoto604());
+//            SpotInQuest spotInQuest = new SpotInQuest();
+//            spotInQuest.setPhotoByPhotoId(spotPhoto);
+//            //pendingQuest.getSpotInQuests().add(spotInQuest);
+//            questService.save(quest, spotPhoto, userService.getByEmail(securityService.findLoggedInEmail()));
+//            message = "You successfully uploaded " + file.getOriginalFilename() + "!";
+            return ResponseEntity.ok(photo.getPhoto604());
         } catch (Exception e) {
             message = "FAIL to upload " + file.getOriginalFilename() + "!";
             return new ResponseEntity<Object>(message, HttpStatus.BAD_REQUEST);
@@ -105,27 +105,8 @@ public class QuestController {
 
     @PostMapping("/upload-info")
     public ResponseEntity<?> uploadInfo(@RequestBody QuestDTO questDTO) {
-        System.out.println(questDTO.getName() + "\n" +
-                questDTO.getDescription() + "\n" +
-                questDTO.getReward() + "\n" +
-                questDTO.getUploadDate() + "\n" +
-                questDTO.getLat() + "\n" +
-                questDTO.getLng() + "\n");
-        pendingQuest.setName(questDTO.getName());
-        pendingQuest.setDescription(questDTO.getDescription());
-        pendingQuest.setReward(questDTO.getReward());
-        pendingQuest.setUploadDate(questDTO.getUploadDate());
-
-        Spot spot = new Spot();
-        spot.setLat(Double.valueOf(questDTO.getLat()));
-        spot.setLng(Double.valueOf(questDTO.getLng()));
-        spot.setName(questDTO.getName());
-        spot.setUploadDate(questDTO.getUploadDate());
-        //spot.getPhotoBySpotId().add(pendingQuest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId());
-        pendingQuest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().setSpotBySpotId(spot);
-        pendingQuest.getSpotInQuests().stream().findFirst().get().setSpotBySpotId(spot);
-        questService.save(pendingQuest);
-
+        User user = userService.getByEmail(securityService.findLoggedInEmail());
+        questService.save(questDTO, user);
         try {
             return ResponseEntity.ok("added successfully");
         } catch (Exception e) {

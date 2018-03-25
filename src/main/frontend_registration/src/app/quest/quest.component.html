@@ -69,9 +69,10 @@
         <div class="form-row" *ngFor="let spot of spots; let i = index">
           <div class="col-5">
             <label for="spotName">Spot name</label>
-            <input type="text" class="form-control"
+            <input #spotName type="text" class="form-control"
                    id="spotName" name="spotName"
-                   value="" [(ngModel)]="spot.name"
+                   placeholder="{{spot.name}}"
+                   [(ngModel)]="spots[i].name"
                    (focus)="activateMarker(i)"
             >
           </div>
@@ -81,11 +82,13 @@
                    id="spotPhoto"
                    class="form-control-file"
                    name="spotPhoto"
-                   [(ngModel)]="spot.photos">
+                   (change)="selectFile($event, i)"
+                   required
+            >
           </div>
           <div class="col-2">
             <label for="uploadBtn"> &nbsp;</label>
-            <button id="uploadBtn" class="btn btn-info" type="button" (click)="uploadSpotPhoto()">
+            <button id="uploadBtn" class="btn btn-info" type="button" [disabled] = "!photoAdded[i]" (click)="uploadSpotPhoto(spotName.value,i)">
               upload
             </button>
           </div>

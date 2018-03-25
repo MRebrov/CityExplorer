@@ -14,10 +14,6 @@ public class QuestDTO {
     private Date uploadDate;
     @JsonProperty("reward")
     private Integer reward;
-    @JsonProperty("lat")
-    private String lat;
-    @JsonProperty("lng")
-    private String lng;
     @JsonProperty("photoURL")
     private String photoURL;
     @JsonProperty("spots")
@@ -31,23 +27,6 @@ public class QuestDTO {
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
     }
-
-    public String getLng() {
-        return lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
 
     public String getName() {
         return name;

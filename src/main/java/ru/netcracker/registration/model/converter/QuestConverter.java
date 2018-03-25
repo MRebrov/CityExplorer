@@ -25,8 +25,8 @@ public class QuestConverter {
         dto.setReward(quest.getReward());
         dto.setUploadDate(quest.getUploadDate());
         dto.setPhotoURL(quest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().getUrl());
-        dto.setLat(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLat().toString());
-        dto.setLng(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLng().toString());
+        //dto.setLat(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLat().toString());
+        //dto.setLng(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLng().toString());
 
         SpotDTO tempSpotDTO;
         List<SpotDTO> spots = new ArrayList<>();
