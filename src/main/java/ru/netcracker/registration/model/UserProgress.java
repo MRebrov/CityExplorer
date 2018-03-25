@@ -7,6 +7,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "user_progress", schema = "nc_project", catalog = "vrbqprvx")
 public class UserProgress {
+    private User userByUserId;
+    private Quest questByQuestId;
     private Date dateComplete;
     private Date takingDate;
     private Integer userProgressId;
@@ -41,6 +43,26 @@ public class UserProgress {
 
     public void setUserProgressId(Integer userProgressId) {
         this.userProgressId = userProgressId;
+    }
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    public User getUserByUserId() {
+        return userByUserId;
+    }
+
+    public void setUseByUserId(User useByUserId) {
+        this.userByUserId = useByUserId;
+    }
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "quest_id", referencedColumnName = "quest_id", nullable = false)
+    public Quest getQuestByQuestId() {
+        return questByQuestId;
+    }
+
+    public void setQuestByQuestId(Quest questByQuestId) {
+        this.questByQuestId = questByQuestId;
     }
 
     @Override
