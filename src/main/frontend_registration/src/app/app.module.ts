@@ -18,14 +18,10 @@ import {HeaderComponent} from './header/header.component';
 import {HeaderAuthorizedComponent} from './header/header-authorized/header-authorized.component';
 import {HeaderUnauthorizedComponent} from './header/header-unauthorized/header-unauthorized.component';
 import {UserService} from './user/user.service';
-import { InputFormComponent } from './quest/input-form/input-form.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { QuestListComponent } from './quest/quest-list/quest-list.component';
 import {LoaderService} from "./quest/loader.service";
 import { UserQuestListComponent } from './user-quest-list/user-quest-list.component';
-//import { InputFormComponent } from './quest/input-form/input-form.component';
-//import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-//import { QuestListComponent } from './quest/quest-list/quest-list.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +36,6 @@ import { UserQuestListComponent } from './user-quest-list/user-quest-list.compon
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
     UserQuestListComponent,
-    //InputFormComponent,
-    //QuestListComponent
-    InputFormComponent,
     QuestListComponent
   ],
   imports: [

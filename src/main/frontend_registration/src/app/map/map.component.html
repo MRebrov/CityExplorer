@@ -5,18 +5,19 @@
     Bootstrap uses classes like 'col-xx-nn'
     -->
     <div class="col-sm-12 col-md-8">
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="12">
+      <agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="12">
         <agm-marker *ngFor="let m of markers; let i=index"
                     [latitude]="m.lat"
                     [longitude]="m.lng"
                     [label]="m.label"
+                    (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow;"
         >
-          <agm-info-window>
+          <agm-info-window #infoWindow>
 
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">{{m.label}}</h5>
-                <div id="{{'carouselExampleControls'+markers.indexOf(m)}}" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
                       <img class="w-100" src="{{m.photos[0].url}}" alt="">
@@ -25,11 +26,11 @@
                       <img class="w-100" src="{{photo.url}}" alt="">
                     </div>
                   </div>
-                  <a class="carousel-control-prev" href="#{{'carouselExampleControls'+markers.indexOf(m)}}" role="button" data-slide="prev">
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                   </a>
-                  <a class="carousel-control-next" href="#{{'carouselExampleControls'+markers.indexOf(m)}}" role="button" data-slide="next">
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                   </a>
