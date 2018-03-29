@@ -14,6 +14,7 @@ public class Quest {
     private Date uploadDate;
     private Integer reward;
     private Collection<SpotInQuest> spotInQuests = new ArrayList<>();
+    private User ownerId;
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL)
     public Collection<SpotInQuest> getSpotInQuests() {
@@ -73,6 +74,16 @@ public class Quest {
 
     public void setReward(Integer reward) {
         this.reward = reward;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
+    public User getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(User ownerId) {
+        this.ownerId = ownerId;
     }
 
     @Override

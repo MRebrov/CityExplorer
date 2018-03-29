@@ -63,6 +63,14 @@ public class UserDTO {
         this.groupID = groupID;
     }
 
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
     String firstName;
     String lastName;
     String email;
@@ -70,4 +78,5 @@ public class UserDTO {
     String birthday;
     String registrationDate;
     UserGroup groupID;
+    Long balance;
 }

@@ -67,4 +67,5 @@ public class QuestDTO {
     public void setSpots(List<SpotDTO> spots) {
         this.spots = spots;
     }
+
 }

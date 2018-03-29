@@ -87,8 +87,8 @@ public class QuestServiceImpl implements QuestService {
         spotInQuest.setSpotBySpotId(spot);
         spotInQuest.setPhotoByPhotoId(photo);
         quest.getSpotInQuests().add(spotInQuest);
+        quest.setOwnerId(user);
         questRepository.save(quest);
-
     }
 
     @Override
@@ -98,6 +98,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setDescription(questDTO.getDescription());
         quest.setReward(questDTO.getReward());
         quest.setUploadDate(questDTO.getUploadDate());
+        quest.setOwnerId(user);
         for(SpotDTO spotDTO: questDTO.getSpots()){
             Spot spot = new Spot();
             SpotInQuest spotInQuest = new SpotInQuest();

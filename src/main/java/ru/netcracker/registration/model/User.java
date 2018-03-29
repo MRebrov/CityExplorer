@@ -39,6 +39,9 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Column(name = "balance")
+    private long balance;
+
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private UserGroup groupID;
@@ -49,6 +52,17 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Collection<Photo> photos;
+
+    @OneToMany(mappedBy = "ownerId")
+    private Collection<Quest> quests;
+
+    public Collection<Quest> getQuests() {
+        return quests;
+    }
+
+    public void setQuests(Collection<Quest> quests) {
+        this.quests = quests;
+    }
 
     public Collection<Photo> getPhotos() {
         return photos;
@@ -132,6 +146,14 @@ public class User {
 
     public void setExID(ExternalSystem exID) {
         this.exID = exID;
+    }
+
+    public long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
     }
 
 }
