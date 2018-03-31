@@ -52,7 +52,7 @@
       </agm-map>
 
     </div>
-    <div class="col-sm-12 col-md-4">
+    <div class="col-sm-12 col-md-4" *ngIf="quests.length>0">
       <h5>Quests nearby</h5>
       <div id="accordion">
         <div class="card" *ngFor="let quest of quests">
@@ -72,13 +72,13 @@
               <img class="card-img img-thumbnail" src="{{quest.photoURL}}" alt="">
               <p class="card-text">{{quest.description}}</p>
               <p class="card-text">Consists of <span class="badge badge-secondary">{{quest.spots.length}}</span> spots</p>
-              <p class="card-text">Uploaded <span class="badge badge-secondary">{{this.howManyUserPhotosInQuest(quest)}}</span>  photos</p>
+              <p class="card-text">Uploaded <span class="badge badge-secondary">{{questService.howManyUserPhotosInQuest(quest)}}</span>  photos</p>
               <div class="row">
                 <div class = 'col-8'>
                   Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
                 </div>
                 <div class="col-4">
-                  <button type="button" class="btn btn-outline-primary">Join</button>
+                  <button type="button" [routerLink]="['/questpage', quest.name]" class="btn btn-outline-primary">Details</button>
                 </div>
               </div>
             </div>

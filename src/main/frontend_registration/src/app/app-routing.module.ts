@@ -8,7 +8,7 @@ import {UserPageComponent} from './user-page/user-page.component';
 import {QuestComponent} from './quest/quest.component';
 import {UserQuestListComponent} from "./user-quest-list/user-quest-list.component";
 import {QuestListComponent} from "./quest/quest-list/quest-list.component";
-//import {QuestListComponent} from "./quest/quest-list/quest-list.component";
+import {QuestPageComponent} from './quest-page/quest-page.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
@@ -19,8 +19,8 @@ const routes: Routes = [
   {path: 'userPage', component: UserPageComponent},
   {path: 'newquest', component: QuestComponent},
   {path: 'userquests', component: UserQuestListComponent},
-  //{path: 'quests', component: QuestListComponent}
-  {path: 'quests', component: QuestListComponent}
+  {path: 'quests', component: QuestListComponent},
+  {path: 'questpage/:quest-name', component: QuestPageComponent}
 ];
 
 @NgModule({

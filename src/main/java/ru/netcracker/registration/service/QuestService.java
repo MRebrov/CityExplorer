@@ -12,6 +12,7 @@ import java.util.List;
 public interface QuestService {
     Quest getById(Integer id);
     List<Quest> getByName(String name);
+    QuestDTO getOneByName(String name);
     List<Quest> getAll();
     boolean delete(Integer id);
     boolean delete(Quest quest);
@@ -22,4 +23,5 @@ public interface QuestService {
     List<QuestDTO> getAllToDTO();
     List<QuestDTO> getAllInRange(double lat, double lng, double range);
     List<UserProgressDTO> getUserProgressByUser(String email);
+    UserProgressDTO getUserProgressByUserAndQuestName(String email, String questName);
 }

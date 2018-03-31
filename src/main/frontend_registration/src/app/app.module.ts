@@ -22,6 +22,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { QuestListComponent } from './quest/quest-list/quest-list.component';
 import {LoaderService} from "./quest/loader.service";
 import { UserQuestListComponent } from './user-quest-list/user-quest-list.component';
+import { QuestPageComponent } from './quest-page/quest-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UserQuestListComponent } from './user-quest-list/user-quest-list.compon
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
     UserQuestListComponent,
-    QuestListComponent
+    QuestListComponent,
+    QuestPageComponent
   ],
   imports: [
     BrowserModule,

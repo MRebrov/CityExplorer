@@ -11,7 +11,7 @@ public class UserProgressDTO {
     private QuestDTO quest;
     private Date dateComplete;
     private Date takingDate;
-    //private Collection<UserSpotProgressDTO> userSpotProgresses;
+    private Collection<UserSpotProgressDTO> userSpotProgresses;
 
 
     public UserDTO getUser() {
@@ -44,5 +44,13 @@ public class UserProgressDTO {
 
     public void setTakingDate(Date takingDate) {
         this.takingDate = takingDate;
+    }
+
+    public Collection<UserSpotProgressDTO> getUserSpotProgresses() {
+        return userSpotProgresses;
+    }
+
+    public void setUserSpotProgresses(Collection<UserSpotProgressDTO> userSpotProgresses) {
+        this.userSpotProgresses = userSpotProgresses;
     }
 }

@@ -5,6 +5,7 @@ import {QuestDTO} from "./quest.model";
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {AuthHttp} from 'angular2-jwt';
+import {SpotDTO} from './spot.model';
 
 @Injectable()
 export class QuestService {
@@ -67,4 +68,29 @@ export class QuestService {
     });
   }
 
+  getUserProgressByQuestName(name: string){
+    return this.authHttp.get('userapi/get-progress-by-quest-name/'+name).map((response: Response) => {
+      return response.json();
+    });
+  }
+
+  getQuestByName(name: string){
+    return this.authHttp.get('userapi/get-quest-by-name/'+name).map((response: Response) => {
+      return response.json();
+    });
+  }
+
+  howManyUserPhotosInQuest(questDTO: QuestDTO): number {
+    let res = 0;
+    for (let spot of questDTO.spots) {
+
+
+      res += this.howManyUserPhotosInSpot(spot);
+    }
+    return res;
+  }
+
+  howManyUserPhotosInSpot(spotDTO: SpotDTO):number {
+    return spotDTO.photos.length - 1;
+  }
 }

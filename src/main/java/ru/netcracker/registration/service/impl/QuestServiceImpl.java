@@ -47,6 +47,23 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
+    public QuestDTO getOneByName(String name) {
+        Quest quest = getOneByNameNotDTO(name);
+        if(quest != null)
+            return QuestConverter.convertToDTO(quest);
+        return null;
+    }
+
+
+    private Quest getOneByNameNotDTO(String name) {
+        List<Quest> quests = questRepository.findAllByName(name);
+        if(quests != null && quests.size()>0) {
+            return quests.get(0);
+        }
+        return null;
+    }
+
+    @Override
     public List<Quest> getAll() {
         return (List<Quest>) questRepository.findAll();
     }
@@ -151,6 +168,17 @@ public class QuestServiceImpl implements QuestService {
             userProgressDTOList.add(UserProgressConverter.convertToDTO(userProgress));
         }
         return userProgressDTOList;
+    }
+
+    @Override
+    public UserProgressDTO getUserProgressByUserAndQuestName(String email, String questName) {
+        User user = userRepository.findByEmail(email);
+        Quest quest = getOneByNameNotDTO(questName);
+        if(quest!= null) {
+            UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
+            return UserProgressConverter.convertToDTO(userProgress);
+        }
+        return null;
     }
 
 }

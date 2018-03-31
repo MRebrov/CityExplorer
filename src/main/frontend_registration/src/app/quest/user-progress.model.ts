@@ -1,5 +1,6 @@
 import {User} from "../user/user.model";
 import {QuestDTO} from "./quest.model";
+import {UserSpotProgressDTO} from './user-spot-progress.model';
 
 
 export class UserProgressDTO {
@@ -8,6 +9,7 @@ export class UserProgressDTO {
   public quest: QuestDTO;
   public dateComplete: Date;
   public takingDate: Date;
+  public userSpotProgresses: UserSpotProgressDTO[];
 
   constructor(user: User, quest: QuestDTO) {
     this.user = user;

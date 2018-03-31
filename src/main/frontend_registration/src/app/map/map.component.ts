@@ -17,11 +17,11 @@ export class MapComponent implements OnInit {
   lat: number = 55.75222;
   lng: number = 37.6155600;
 
-  quests: QuestDTO[];
+  quests: QuestDTO[] = [];
 
   markers: marker[] = [];
 
-  constructor(private questService: QuestService) {
+  constructor(public questService: QuestService) {
   }
 
   ngOnInit() {
@@ -31,6 +31,10 @@ export class MapComponent implements OnInit {
 
   loadLocation() {
     if (window.navigator && window.navigator.geolocation) {
+      let options = {
+        enableHighAccuracy: true,
+        timeout: 30000
+      };
       window.navigator.geolocation.getCurrentPosition(
         position => {
           this.lat = position.coords.latitude;
@@ -43,19 +47,26 @@ export class MapComponent implements OnInit {
             case 1:
               console.log('Permission Denied');
               alert('We strongly recommend you to allow location detection or you will not be able to see quests that are available near you. Once you did, please reload page.');
+              this.loadQuests();
               break;
             case 2:
               console.log('Position Unavailable');
+              this.loadQuests();
               break;
             case 3:
               console.log('Timeout');
+              alert('We do not know why, but your location can not be identified. We will try to reload page')
+              location.reload();
               break;
           }
-          this.loadQuests();
-        }
+        },
+        options
       );
     }
-    ;
+    else {
+      console.log('No navigator or geoposition object found');
+      this.loadQuests();
+    }
   }
 
   loadQuests() {
@@ -116,19 +127,7 @@ export class MapComponent implements OnInit {
     return degrees * Math.PI / 180;
   };
 
-  howManyUserPhotosInQuest(questDTO: QuestDTO): number {
-    let res = 0;
-    for (let spot of questDTO.spots) {
 
-
-      res += this.howManyUserPhotosInSpot(spot);
-    }
-    return res;
-  }
-
-  howManyUserPhotosInSpot(spotDTO: SpotDTO):number {
-    return spotDTO.photos.length - 1;
-  }
 }
 
 export interface marker {

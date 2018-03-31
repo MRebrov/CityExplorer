@@ -17,9 +17,9 @@ export class UserPageComponent implements OnInit {
   errorMsgInfo: string;
   errorMsgPassword: string;
 
-  oldPassword:string;
-  newPassword:string;
-  confirmNewPassword:string;
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
 
   constructor(private userService: UserService, private router: Router) {
   }
@@ -97,7 +97,7 @@ export class UserPageComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe((obj: any) => {
       this.writeErrorPassword('Password changed successfully');
-      this.user.password=encryptedNew;
+      this.user.password = encryptedNew;
     });
   }
 
@@ -105,6 +105,7 @@ export class UserPageComponent implements OnInit {
     document.getElementById('collapseMessageInfo').classList.add('show');
     this.errorMsgInfo = error;
   }
+
   writeErrorPassword(error) {
     document.getElementById('collapseMessagePassword').classList.add('show');
     this.errorMsgPassword = error;

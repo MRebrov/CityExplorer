@@ -1,0 +1,65 @@
+<div *ngIf="quest.uploadDate!=null">
+  <div class="container">
+    <h1 class="display-4">Quest page</h1>
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{quest.name}}</h3>
+        <p class="card-text">{{quest.description}}</p>
+        <p class="card-text">
+          Uploaded <span class="badge badge-secondary">{{questService.howManyUserPhotosInQuest(quest)}}</span> photos
+        </p>
+        <p class="card-text">
+          Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
+        </p>
+
+        <div *ngIf="userProgress.takingDate==null; else progressBlock">
+          <button type="button" class="btn btn-success">Join</button>
+        </div>
+        <ng-template #progressBlock>
+          <div *ngIf="userProgress.dateComplete==null; else completedBlock">
+            <div class="alert alert-primary" role="alert">
+              You are in process of completing this quest!
+            </div>
+          </div>
+          <ng-template #completedBlock>
+            <div class="alert alert-success" role="alert">
+              You have already completed this quest!
+            </div>
+          </ng-template>
+        </ng-template>
+      </div>
+    </div>
+
+    <h1 class="display-4">Spots list</h1>
+    <div>
+      Quest consists of <span class="badge badge-secondary">{{quest.spots.length}}</span> spots
+    </div>
+    <div *ngFor="let spot of quest.spots">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{spot.name}}</h5>
+          <p class="card-text">{{spot.photos.length}} photos</p>
+          <p class="card-text">Spot description will be here when we update the database to support it</p>
+          <div id="carousel{{spot.name}}" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="w-100" src="{{spot.photos[0].url}}" alt="">
+              </div>
+              <div class="carousel-item" *ngFor="let photo of spot.photos.slice(1)">
+                <img class="w-100" src="{{photo.url}}" alt="">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel{{spot.name}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel{{spot.name}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

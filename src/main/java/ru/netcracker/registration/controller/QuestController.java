@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
+import ru.netcracker.registration.model.DTO.UserSpotProgressDTO;
 import ru.netcracker.registration.model.storage_emulation.QuestStorage;
 import ru.netcracker.registration.security.service.SecurityService;
 import ru.netcracker.registration.service.PhotoService;
@@ -134,5 +135,40 @@ public class QuestController {
     Iterable<UserProgressDTO> getProgressByUser() {
         String email = securityService.findLoggedInEmail();
         return questService.getUserProgressByUser(email);
+    }
+
+    @GetMapping("/get-progress-by-quest-name/{questName}")
+    public @ResponseBody
+    ResponseEntity<?>  getProgressByName(@PathVariable String questName) {
+        try {
+            String email = securityService.findLoggedInEmail();
+            UserProgressDTO userProgressDTO = questService.getUserProgressByUserAndQuestName(email, questName);
+            return new ResponseEntity<Object>(
+                    userProgressDTO,
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @GetMapping("/get-quest-by-name/{questName}")
+    public @ResponseBody
+    ResponseEntity<?>  getQuestByName(@PathVariable String questName) {
+        try {
+            QuestDTO questDTO = questService.getOneByName(questName);
+            return new ResponseEntity<Object>(
+                    questDTO,
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
     }
 }

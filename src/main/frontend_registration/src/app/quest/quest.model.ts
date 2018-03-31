@@ -21,5 +21,6 @@ export class QuestDTO {
    // this.photo = photo;
     this.uploadDate = uploadDate;
     this.reward = reward;
+    this.spots=[];
   }
 }
