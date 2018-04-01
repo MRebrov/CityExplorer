@@ -39,6 +39,11 @@ public class ViewController {
         return "forward:/registrationAndLogin.html";
     }
 
+    @RequestMapping(value = "/questpage/*")
+    public String questPage() {
+        return "forward:/registrationAndLogin.html";
+    }
+
     @RequestMapping(value = "/registration")
     public String registration() {
         return "forward:/registrationAndLogin.html";
