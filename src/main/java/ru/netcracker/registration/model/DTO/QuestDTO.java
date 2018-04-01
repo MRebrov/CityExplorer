@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.util.List;
 
 public class QuestDTO {
+    @JsonProperty("questId")
+    private Long questId;
     @JsonProperty("name")
     private String name;
     @JsonProperty("description")
@@ -19,6 +21,13 @@ public class QuestDTO {
     @JsonProperty("spots")
     private List<SpotDTO> spots;
 
+    public Long getQuestId() {
+        return questId;
+    }
+
+    public void setQuestId(Long questId) {
+        this.questId = questId;
+    }
 
     public String getPhotoURL() {
         return photoURL;

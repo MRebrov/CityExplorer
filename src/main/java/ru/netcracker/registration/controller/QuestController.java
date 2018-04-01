@@ -137,12 +137,12 @@ public class QuestController {
         return questService.getUserProgressByUser(email);
     }
 
-    @GetMapping("/get-progress-by-quest-name/{questName}")
+    @GetMapping("/get-progress-for-quest/{questId}")
     public @ResponseBody
-    ResponseEntity<?>  getProgressByName(@PathVariable String questName) {
+    ResponseEntity<?>  getProgressByName(@PathVariable Long questId) {
         try {
             String email = securityService.findLoggedInEmail();
-            UserProgressDTO userProgressDTO = questService.getUserProgressByUserAndQuestName(email, questName);
+            UserProgressDTO userProgressDTO = questService.getUserProgressByUserAndQuest(email, questId);
             return new ResponseEntity<Object>(
                     userProgressDTO,
                     HttpStatus.OK
@@ -155,15 +155,29 @@ public class QuestController {
         }
     }
 
-    @GetMapping("/get-quest-by-name/{questName}")
+    @GetMapping("/get-quest-by-id/{questId}")
     public @ResponseBody
-    ResponseEntity<?>  getQuestByName(@PathVariable String questName) {
+    ResponseEntity<?>  getQuestByName(@PathVariable Long questId) {
         try {
-            QuestDTO questDTO = questService.getOneByName(questName);
+            QuestDTO questDTO = questService.getById(questId);
             return new ResponseEntity<Object>(
                     questDTO,
                     HttpStatus.OK
             );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @PostMapping("/join-quest/{questId}")
+    public @ResponseBody
+    ResponseEntity<?>  joinQuest(@PathVariable Long questId) {
+        try {
+            questService.userJoinQuest(securityService.findLoggedInEmail(), questId);
+            return ResponseEntity.ok("User joined quest");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),

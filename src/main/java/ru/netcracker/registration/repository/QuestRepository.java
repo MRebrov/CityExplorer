@@ -8,6 +8,6 @@ import ru.netcracker.registration.model.Quest;
 import java.util.List;
 
 @Repository
-public interface QuestRepository extends CrudRepository<Quest, Integer> {
+public interface QuestRepository extends CrudRepository<Quest, Long> {
     List<Quest> findAllByName(String name);
 }

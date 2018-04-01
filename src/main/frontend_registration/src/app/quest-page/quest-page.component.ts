@@ -19,7 +19,7 @@ export class QuestPageComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.questService.getUserProgressByQuestName(params['quest-name'])
+      this.questService.getUserProgressByQuest(+params['quest-id'])
         .subscribe(
           (progress: any) => {
             this.userProgress = progress;
@@ -28,7 +28,7 @@ export class QuestPageComponent implements OnInit {
             console.log(error);
           });
 
-      this.questService.getQuestByName(params['quest-name'])
+      this.questService.getQuestById(params['quest-id'])
         .subscribe(
           (quest: any) => {
             this.quest = quest;
@@ -38,6 +38,18 @@ export class QuestPageComponent implements OnInit {
             this.router.navigate(['/map']);
           });
     });
+  }
+
+  joinQuest(){
+    this.questService.joinQuest(this.quest.questId)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          location.reload();
+        },
+        (error) => {
+          console.log(error);
+        });
   }
 
 }

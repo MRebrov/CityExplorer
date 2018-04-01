@@ -20,6 +20,7 @@ public class QuestConverter {
     public static QuestDTO convertToDTO(Quest quest) {
         QuestDTO dto = new QuestDTO();
 
+        dto.setQuestId(quest.getQuestId());
         dto.setName(quest.getName());
         dto.setDescription(quest.getDescription());
         dto.setReward(quest.getReward());

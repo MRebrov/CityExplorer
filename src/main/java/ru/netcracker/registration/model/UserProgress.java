@@ -11,7 +11,7 @@ public class UserProgress {
     private Quest questByQuestId;
     private Date dateComplete;
     private Date takingDate;
-    private Integer userProgressId;
+    private Long userProgressId;
     private Collection<UserSpotProgress> userSpotProgressesByUserProgressId;
 
     @Basic
@@ -37,11 +37,11 @@ public class UserProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_progress_id")
-    public Integer getUserProgressId() {
+    public Long getUserProgressId() {
         return userProgressId;
     }
 
-    public void setUserProgressId(Integer userProgressId) {
+    public void setUserProgressId(Long userProgressId) {
         this.userProgressId = userProgressId;
     }
 

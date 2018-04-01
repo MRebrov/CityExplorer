@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'newquest', component: QuestComponent},
   {path: 'userquests', component: UserQuestListComponent},
   {path: 'quests', component: QuestListComponent},
-  {path: 'questpage/:quest-name', component: QuestPageComponent}
+  {path: 'questpage/:quest-id', component: QuestPageComponent}
 ];
 
 @NgModule({

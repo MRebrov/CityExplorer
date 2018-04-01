@@ -6,6 +6,7 @@ public class UserSpotProgressDTO {
     private long id;
     private String spotStatus;
     private Date dateComplete;
+    private long spotId;
 
     public long getId() {
         return id;
@@ -31,4 +32,11 @@ public class UserSpotProgressDTO {
         this.dateComplete = dateComplete;
     }
 
+    public long getSpotId() {
+        return spotId;
+    }
+
+    public void setSpotId(long spotId) {
+        this.spotId = spotId;
+    }
 }

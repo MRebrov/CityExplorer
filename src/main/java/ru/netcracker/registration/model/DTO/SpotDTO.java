@@ -1,15 +1,15 @@
 package ru.netcracker.registration.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ru.netcracker.registration.model.Photo;
-import ru.netcracker.registration.model.SpotInQuest;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class SpotDTO {
+    @JsonProperty("spotId")
+    private long spotId;
+
     @JsonProperty("name")
     private String name;
 
@@ -74,5 +74,13 @@ public class SpotDTO {
 
     public void setMainPhoto(PhotoDTO mainPhoto) {
         this.mainPhoto = mainPhoto;
+    }
+
+    long getSpotId() {
+        return spotId;
+    }
+
+    public void setSpotId(long spotId) {
+        this.spotId = spotId;
     }
 }

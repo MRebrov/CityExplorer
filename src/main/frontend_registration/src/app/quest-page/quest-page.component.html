@@ -13,17 +13,23 @@
         </p>
 
         <div *ngIf="userProgress.takingDate==null; else progressBlock">
-          <button type="button" class="btn btn-success">Join</button>
+          <button type="button" class="btn btn-success"
+                  (click)="joinQuest()">
+            Join
+          </button>
         </div>
         <ng-template #progressBlock>
           <div *ngIf="userProgress.dateComplete==null; else completedBlock">
-            <div class="alert alert-primary" role="alert">
-              You are in process of completing this quest!
+            <div class="alert alert-primary col-md-8 col-sm-12" role="alert">
+              <h4>You are in process of completing this quest!</h4>
+              <hr>
+              {{questService.howManySpotsCompleted(userProgress)}}/{{questService.howManySpotsInQuest(quest)}} spots
+              ({{questService.getUserProgressInPercents(userProgress)}}%) completed
             </div>
           </div>
           <ng-template #completedBlock>
             <div class="alert alert-success" role="alert">
-              You have already completed this quest!
+              <h4>You have already completed this quest!</h4>
             </div>
           </ng-template>
         </ng-template>
@@ -32,7 +38,8 @@
 
     <h1 class="display-4">Spots list</h1>
     <div>
-      Quest consists of <span class="badge badge-secondary">{{quest.spots.length}}</span> spots
+      Quest consists of <span class="badge badge-secondary">{{questService.howManySpotsInQuest(quest)}}</span>
+      spots
     </div>
     <div *ngFor="let spot of quest.spots">
       <div class="card">
@@ -58,6 +65,33 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          <div class="form-group"
+               *ngIf="userProgress.takingDate!=null && !questService.isSpotCompleted(spot, userProgress); else noUploadBlock">
+            <div class="form-row">
+              <div class="col-md-5 col-sm-12">
+                <label for="spotPhoto{{spot.name}}">Upload your photo</label>
+                <input type="file"
+                       id="spotPhoto{{spot.name}}"
+                       class="form-control-file"
+                       name="spotPhoto{{spot.name}}"
+                       required
+                >
+              </div>
+              <div class="col-md-2 col-sm-12">
+                <br>
+                <button id="uploadBtn{{spot.name}}" class="btn btn-info" type="button">
+                  Upload
+                </button>
+              </div>
+            </div>
+          </div>
+          <ng-template #noUploadBlock>
+            <div *ngIf="userProgress.takingDate != null">
+              <div class="alert alert-success" role="alert">
+                <h4>You have already completed this spot!</h4>
+              </div>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

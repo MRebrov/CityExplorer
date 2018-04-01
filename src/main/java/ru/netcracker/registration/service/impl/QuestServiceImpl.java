@@ -15,7 +15,10 @@ import ru.netcracker.registration.repository.UserRepository;
 import ru.netcracker.registration.service.QuestService;
 import ru.netcracker.registration.service.SpotService;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service("QuestService")
@@ -37,8 +40,8 @@ public class QuestServiceImpl implements QuestService {
     PhotoTypeRepository photoTypeRepository;
 
     @Override
-    public Quest getById(Integer id) {
-        return questRepository.findOne(id);
+    public QuestDTO getById(Long id) {
+        return QuestConverter.convertToDTO(questRepository.findOne(id));
     }
 
     @Override
@@ -69,7 +72,7 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         questRepository.delete(id);
         return true;
     }
@@ -171,14 +174,24 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public UserProgressDTO getUserProgressByUserAndQuestName(String email, String questName) {
+    public UserProgressDTO getUserProgressByUserAndQuest(String email, Long questId) {
         User user = userRepository.findByEmail(email);
-        Quest quest = getOneByNameNotDTO(questName);
+        Quest quest = questRepository.findOne(questId);
         if(quest!= null) {
             UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
             return UserProgressConverter.convertToDTO(userProgress);
         }
         return null;
+    }
+
+    @Override
+    public void userJoinQuest(String email, Long questId){
+        UserProgress progress = new UserProgress();
+        progress.setUserByUserId(userRepository.findByEmail(email));
+        progress.setQuestByQuestId(questRepository.findOne(questId));
+        progress.setTakingDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+
+        userProgressRepository.save(progress);
     }
 
 }

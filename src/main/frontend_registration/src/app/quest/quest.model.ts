@@ -5,6 +5,7 @@ import {SpotDTO} from './spot.model';
 
 export class QuestDTO {
 
+  public questId: number;
   public name: string;
   public description: string;
   //public photo: File;

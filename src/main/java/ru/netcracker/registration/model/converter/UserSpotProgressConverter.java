@@ -18,6 +18,7 @@ public class UserSpotProgressConverter {
         dto.setDateComplete(userSpotProgress.getDateComplete());
         dto.setSpotStatus(userSpotProgress.getSpotStatus());
         dto.setId(userSpotProgress.getId());
+        dto.setSpotId(userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId().getSpotId());
         return dto;
     }
 }

@@ -1,7 +1,7 @@
 import {PhotoDTO} from './photo.model';
 
 export class SpotDTO {
-
+  public spotId: number;
   public name: string;
   public uploadDate: Date;
   public lat: string;
