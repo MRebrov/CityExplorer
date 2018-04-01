@@ -7,6 +7,6 @@ import ru.netcracker.registration.model.Spot;
 import java.util.List;
 
 @Repository
-public interface SpotRepository extends CrudRepository<Spot, Integer> {
+public interface SpotRepository extends CrudRepository<Spot, Long> {
     List<Spot> findAllByName(String name);
 }

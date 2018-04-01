@@ -20,7 +20,7 @@ public class SpotServiceImpl implements SpotService {
     SpotRepository spotRepository;
 
     @Override
-    public Spot getById(Integer id) {
+    public Spot getById(Long id) {
         return spotRepository.findOne(id);
     }
 
@@ -35,7 +35,7 @@ public class SpotServiceImpl implements SpotService {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
         spotRepository.delete(id);
         return true;
     }

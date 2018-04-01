@@ -39,7 +39,11 @@
                 <p class="card-text">{{m.description}}</p>
                 <h6>Available in quests</h6>
                 <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let quest of m.quests">{{quest.name}}</li>
+                  <li class="list-group-item" *ngFor="let quest of m.quests">
+                    <a [routerLink]="['/questpage', quest.questId]">
+                      {{quest.name}}
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

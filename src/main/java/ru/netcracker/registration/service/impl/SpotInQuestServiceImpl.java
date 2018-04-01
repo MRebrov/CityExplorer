@@ -2,10 +2,13 @@ package ru.netcracker.registration.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.netcracker.registration.model.Quest;
 import ru.netcracker.registration.model.SpotInQuest;
+import ru.netcracker.registration.repository.QuestRepository;
 import ru.netcracker.registration.repository.SpotInQuestRepository;
 import ru.netcracker.registration.repository.SpotRepository;
 import ru.netcracker.registration.service.SpotInQuestService;
+import ru.netcracker.registration.model.Spot;
 
 import java.util.List;
 
@@ -15,6 +18,10 @@ public class SpotInQuestServiceImpl implements SpotInQuestService{
 
     @Autowired
     SpotInQuestRepository spotInQuestRepository;
+    @Autowired
+    SpotRepository spotRepository;
+    @Autowired
+    QuestRepository questRepository;
 
     @Override
     public SpotInQuest getById(Integer id) {
@@ -24,6 +31,13 @@ public class SpotInQuestServiceImpl implements SpotInQuestService{
     @Override
     public List<SpotInQuest> getAll() {
         return (List<SpotInQuest>) spotInQuestRepository.findAll();
+    }
+
+    @Override
+    public SpotInQuest getBySpotAndQuest(Long spotId, Long questId){
+        Quest quest = questRepository.findOne(questId);
+        Spot spot = spotRepository.findOne(spotId);
+        return spotInQuestRepository.findBySpotBySpotIdAndAndQuest(spot, quest);
     }
 
     @Override

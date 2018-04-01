@@ -139,7 +139,7 @@ public class QuestController {
 
     @GetMapping("/get-progress-for-quest/{questId}")
     public @ResponseBody
-    ResponseEntity<?>  getProgressByName(@PathVariable Long questId) {
+    ResponseEntity<?> getProgressByName(@PathVariable Long questId) {
         try {
             String email = securityService.findLoggedInEmail();
             UserProgressDTO userProgressDTO = questService.getUserProgressByUserAndQuest(email, questId);
@@ -157,7 +157,7 @@ public class QuestController {
 
     @GetMapping("/get-quest-by-id/{questId}")
     public @ResponseBody
-    ResponseEntity<?>  getQuestByName(@PathVariable Long questId) {
+    ResponseEntity<?> getQuestByName(@PathVariable Long questId) {
         try {
             QuestDTO questDTO = questService.getById(questId);
             return new ResponseEntity<Object>(
@@ -174,10 +174,57 @@ public class QuestController {
 
     @PostMapping("/join-quest/{questId}")
     public @ResponseBody
-    ResponseEntity<?>  joinQuest(@PathVariable Long questId) {
+    ResponseEntity<?> joinQuest(@PathVariable Long questId) {
         try {
             questService.userJoinQuest(securityService.findLoggedInEmail(), questId);
             return ResponseEntity.ok("User joined quest");
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+
+    private static class PostSpotPhotoForm {
+        private String url;
+        private Long questId;
+        private Long spotId;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public Long getQuestId() {
+            return questId;
+        }
+
+        public void setQuestId(Long questId) {
+            this.questId = questId;
+        }
+
+        public Long getSpotId() {
+            return spotId;
+        }
+
+        public void setSpotId(Long spotId) {
+            this.spotId = spotId;
+        }
+    }
+
+    @PostMapping("/post-spot-photo")
+    public @ResponseBody
+    ResponseEntity<?> postSpotPhoto(@RequestBody PostSpotPhotoForm form) {
+        try {
+            String email = securityService.findLoggedInEmail();
+            photoService.save(email, form.url, form.questId, form.spotId);
+            questService.userCompleteSpot(email, form.questId, form.spotId);
+            return ResponseEntity.ok("Photo was posted");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),

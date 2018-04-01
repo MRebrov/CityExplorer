@@ -8,11 +8,9 @@ import ru.netcracker.registration.model.DTO.SpotDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.converter.QuestConverter;
 import ru.netcracker.registration.model.converter.UserProgressConverter;
-import ru.netcracker.registration.repository.PhotoTypeRepository;
-import ru.netcracker.registration.repository.QuestRepository;
-import ru.netcracker.registration.repository.UserProgressRepository;
-import ru.netcracker.registration.repository.UserRepository;
+import ru.netcracker.registration.repository.*;
 import ru.netcracker.registration.service.QuestService;
+import ru.netcracker.registration.service.SpotInQuestService;
 import ru.netcracker.registration.service.SpotService;
 
 import java.sql.Date;
@@ -26,18 +24,19 @@ public class QuestServiceImpl implements QuestService {
 
     @Autowired
     QuestRepository questRepository;
-
-    @Autowired
-    SpotService spotService;
-
     @Autowired
     UserProgressRepository userProgressRepository;
-
+    @Autowired
+    UserSpotProgressRepository userSpotProgressRepository;
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     PhotoTypeRepository photoTypeRepository;
+
+    @Autowired
+    SpotInQuestService spotInQuestService;
+    @Autowired
+    SpotService spotService;
 
     @Override
     public QuestDTO getById(Long id) {
@@ -52,7 +51,7 @@ public class QuestServiceImpl implements QuestService {
     @Override
     public QuestDTO getOneByName(String name) {
         Quest quest = getOneByNameNotDTO(name);
-        if(quest != null)
+        if (quest != null)
             return QuestConverter.convertToDTO(quest);
         return null;
     }
@@ -60,7 +59,7 @@ public class QuestServiceImpl implements QuestService {
 
     private Quest getOneByNameNotDTO(String name) {
         List<Quest> quests = questRepository.findAllByName(name);
-        if(quests != null && quests.size()>0) {
+        if (quests != null && quests.size() > 0) {
             return quests.get(0);
         }
         return null;
@@ -119,7 +118,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setReward(questDTO.getReward());
         quest.setUploadDate(questDTO.getUploadDate());
         quest.setOwnerId(user);
-        for(SpotDTO spotDTO: questDTO.getSpots()){
+        for (SpotDTO spotDTO : questDTO.getSpots()) {
             Spot spot = new Spot();
             SpotInQuest spotInQuest = new SpotInQuest();
             spot.setUploadDate(questDTO.getUploadDate());
@@ -144,7 +143,7 @@ public class QuestServiceImpl implements QuestService {
     @Override
     public List<QuestDTO> getAllToDTO() {
         List<QuestDTO> res = new ArrayList<>();
-        for (Quest q: questRepository.findAll()){
+        for (Quest q : questRepository.findAll()) {
             res.add(QuestConverter.convertToDTO(q));
         }
         return res;
@@ -153,10 +152,10 @@ public class QuestServiceImpl implements QuestService {
     @Override
     public List<QuestDTO> getAllInRange(double lat, double lng, double range) {
         List<Quest> quests = getAll();
-        List<QuestDTO> res=new ArrayList<>();
-        for(Quest quest: quests){
+        List<QuestDTO> res = new ArrayList<>();
+        for (Quest quest : quests) {
             Spot spot = quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId();
-            if(spotService.distFrom(lat, lng, spot)<=range)
+            if (spotService.distFrom(lat, lng, spot) <= range)
                 res.add(QuestConverter.convertToDTO(quest));
         }
         return res;
@@ -167,7 +166,7 @@ public class QuestServiceImpl implements QuestService {
         User user = userRepository.findByEmail(email);
         List<UserProgress> userProgressList = userProgressRepository.findAllByUserByUserId(user);
         List<UserProgressDTO> userProgressDTOList = new ArrayList<>();
-        for(UserProgress userProgress:userProgressList) {
+        for (UserProgress userProgress : userProgressList) {
             userProgressDTOList.add(UserProgressConverter.convertToDTO(userProgress));
         }
         return userProgressDTOList;
@@ -177,7 +176,7 @@ public class QuestServiceImpl implements QuestService {
     public UserProgressDTO getUserProgressByUserAndQuest(String email, Long questId) {
         User user = userRepository.findByEmail(email);
         Quest quest = questRepository.findOne(questId);
-        if(quest!= null) {
+        if (quest != null) {
             UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
             return UserProgressConverter.convertToDTO(userProgress);
         }
@@ -185,13 +184,36 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public void userJoinQuest(String email, Long questId){
+    public void userJoinQuest(String email, Long questId) {
         UserProgress progress = new UserProgress();
         progress.setUserByUserId(userRepository.findByEmail(email));
         progress.setQuestByQuestId(questRepository.findOne(questId));
         progress.setTakingDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 
         userProgressRepository.save(progress);
+    }
+
+    @Override
+    public void userCompleteSpot(String email, Long questId, Long spotId) {
+        SpotInQuest spotInQuest = spotInQuestService.getBySpotAndQuest(spotId, questId);
+        User user = userRepository.findByEmail(email);
+        Quest quest = questRepository.findOne(questId);
+        UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
+
+        Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        UserSpotProgress userSpotProgress = new UserSpotProgress();
+        userSpotProgress.setDateComplete(currentDate);
+        userSpotProgress.setSpotsInQuestsBySpotInQuestId(spotInQuest);
+        userSpotProgress.setSpotStatus("Completed");
+        userSpotProgress.setUserProgressByUserProgressId(userProgress);
+
+        userProgress.getUserSpotProgressesByUserProgressId().add(userSpotProgress);
+        userSpotProgressRepository.save(userSpotProgress);
+        if(userProgress.getQuestByQuestId().getSpotInQuests().size() == userProgress.getUserSpotProgressesByUserProgressId().size()){
+            userProgress.setDateComplete(currentDate);
+        }
+
+        userProgressRepository.save(userProgress);
     }
 
 }

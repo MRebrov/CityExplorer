@@ -24,4 +24,5 @@ public interface QuestService {
     List<UserProgressDTO> getUserProgressByUser(String email);
     UserProgressDTO getUserProgressByUserAndQuest(String email, Long questId);
     void userJoinQuest(String email, Long questId);
+    void userCompleteSpot(String email, Long questId, Long spotId);
 }

@@ -127,4 +127,10 @@ export class QuestService {
       return response;
     });
   }
+
+  postSpotPhoto(url: string, questId: number, spotId: number) {
+    return this.authHttp.post('userapi/post-spot-photo/',{url:url, questId:questId, spotId: spotId}).map((response: Response) => {
+      return response;
+    });
+  }
 }

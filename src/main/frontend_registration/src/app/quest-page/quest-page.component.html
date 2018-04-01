@@ -29,7 +29,7 @@
           </div>
           <ng-template #completedBlock>
             <div class="alert alert-success" role="alert">
-              <h4>You have already completed this quest!</h4>
+              <h4>You have completed this quest!</h4>
             </div>
           </ng-template>
         </ng-template>
@@ -74,12 +74,13 @@
                        id="spotPhoto{{spot.name}}"
                        class="form-control-file"
                        name="spotPhoto{{spot.name}}"
+                       (change)="selectFile($event, spot.spotId)"
                        required
                 >
               </div>
               <div class="col-md-2 col-sm-12">
                 <br>
-                <button id="uploadBtn{{spot.name}}" class="btn btn-info" type="button">
+                <button id="uploadBtn{{spot.name}}" class="btn btn-info" (click)="postPhoto(spot.spotId)" type="button">
                   Upload
                 </button>
               </div>
@@ -88,7 +89,7 @@
           <ng-template #noUploadBlock>
             <div *ngIf="userProgress.takingDate != null">
               <div class="alert alert-success" role="alert">
-                <h4>You have already completed this spot!</h4>
+                <h4>You have completed this spot!</h4>
               </div>
             </div>
           </ng-template>

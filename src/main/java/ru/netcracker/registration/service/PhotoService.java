@@ -12,4 +12,5 @@ public interface PhotoService {
     boolean delete(Integer id);
     boolean delete(Photo photo);
     Photo save(Photo photo);
+    void save (String email, String url, Long questId, Long spotId);
 }
