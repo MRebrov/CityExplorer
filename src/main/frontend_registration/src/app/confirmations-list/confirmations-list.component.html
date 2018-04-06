@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="collapse col-md-12 col-sm-12" id="collapseMessage">
+    <div class="alert alert-primary" role="alert">
+      {{errorMsg}}
+    </div>
+  </div>
+  <div class="card" *ngFor="let confirmation of spotConfirmations">
+    <h5 class="card-header">Spot "{{confirmation.spotName}}" in quest "{{confirmation.questName}}"</h5>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="col-12">
+            <h5>Original photo</h5>
+          </div>
+          <div class="col-12">
+            <img class="img-fluid" src="{{confirmation.mainPhotoURL}}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="col-12">
+            <h5>User photo</h5>
+          </div>
+          <div class="col-12">
+            <img class="img-fluid" src="{{confirmation.photoURL}}" alt="">
+          </div>
+        </div>
+      </div>
+      <p class="card-text">Uploaded on {{confirmation.uploadDate.toDateString()}}</p>
+      <div class="row">
+        <div>
+          <button class="btn btn-success" (click)="doConfirmOrReject(confirmation, true)">Confirm</button>
+          <button class="btn btn-danger" (click)="doConfirmOrReject(confirmation, false)">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,14 +21,6 @@ export class UserService {
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
 
   constructor(public authHttp: AuthHttp, public http: Http) {
-    this.getCurrentUser()
-      .subscribe(
-        () => {
-          this._isAuthenticatedSubject.next(true);
-        },
-        (error) => {
-          this._isAuthenticatedSubject.next(false);
-        });
   }
 
   /**
@@ -85,6 +77,17 @@ export class UserService {
   getCurrentUser() {
     return this.authHttp.get('userapi/get/loggedIn').map((response: Response) => {
       return response.json();
+    });
+  }
+
+  initAuth() {
+    console.log('Checking authentication...');
+    this.getCurrentUser().subscribe((obj: any) => {
+      this._isAuthenticatedSubject.next(true);
+      console.log('App is authenticated');
+    }, (error: any) => {
+      this._isAuthenticatedSubject.next(false);
+      console.log('App is not authenticated');
     });
   }
 }

@@ -23,6 +23,7 @@ import { QuestListComponent } from './quest/quest-list/quest-list.component';
 import {LoaderService} from "./quest/loader.service";
 import { UserQuestListComponent } from './user-quest-list/user-quest-list.component';
 import { QuestPageComponent } from './quest-page/quest-page.component';
+import { ConfirmationsListComponent } from './confirmations-list/confirmations-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { QuestPageComponent } from './quest-page/quest-page.component';
     HeaderUnauthorizedComponent,
     UserQuestListComponent,
     QuestListComponent,
-    QuestPageComponent
+    QuestPageComponent,
+    ConfirmationsListComponent
   ],
   imports: [
     BrowserModule,

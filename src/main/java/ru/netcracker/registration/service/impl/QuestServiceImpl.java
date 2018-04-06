@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
 import ru.netcracker.registration.model.DTO.SpotDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.converter.QuestConverter;
@@ -30,6 +31,8 @@ public class QuestServiceImpl implements QuestService {
     UserSpotProgressRepository userSpotProgressRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PhotoRepository photoRepository;
     @Autowired
     PhotoTypeRepository photoTypeRepository;
 
@@ -204,16 +207,56 @@ public class QuestServiceImpl implements QuestService {
         UserSpotProgress userSpotProgress = new UserSpotProgress();
         userSpotProgress.setDateComplete(currentDate);
         userSpotProgress.setSpotsInQuestsBySpotInQuestId(spotInQuest);
-        userSpotProgress.setSpotStatus("Completed");
+        userSpotProgress.setSpotStatus("Unconfirmed");
         userSpotProgress.setUserProgressByUserProgressId(userProgress);
 
         userProgress.getUserSpotProgressesByUserProgressId().add(userSpotProgress);
         userSpotProgressRepository.save(userSpotProgress);
-        if(userProgress.getQuestByQuestId().getSpotInQuests().size() == userProgress.getUserSpotProgressesByUserProgressId().size()){
+        if (userProgress.getQuestByQuestId().getSpotInQuests().size() == userProgress.getUserSpotProgressesByUserProgressId().size()) {
             userProgress.setDateComplete(currentDate);
         }
 
         userProgressRepository.save(userProgress);
+    }
+
+    public List<SpotConfirmationDTO> getSpotConfirmationsForOwner(String email) {
+        User owner = userRepository.findByEmail(email);
+        List<UserSpotProgress> progresses = userSpotProgressRepository.getAllUnconfirmedByQuestOwner(owner);
+        List<SpotConfirmationDTO> confirmationDTOS = new ArrayList<>();
+        for (UserSpotProgress progress : progresses) {
+            if (!progress.getUserProgressByUserProgressId().getUserByUserId().equals(owner)) {
+                SpotConfirmationDTO confirmationDTO = new SpotConfirmationDTO();
+                confirmationDTO.setUserSpotProgressId(progress.getId());
+                confirmationDTO.setUploadDate(progress.getDateComplete());
+                confirmationDTO.setMainPhotoURL(progress.getSpotsInQuestsBySpotInQuestId().getPhotoByPhotoId().getUrl());
+                confirmationDTO.setQuestName(progress.getSpotsInQuestsBySpotInQuestId().getQuest().getName());
+                confirmationDTO.setSpotName(progress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId().getName());
+
+                Photo photo = photoRepository.findByUserAndAndSpotBySpotId(progress.getUserProgressByUserProgressId().getUserByUserId(), progress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId());
+                confirmationDTO.setPhotoURL(photo.getUrl());
+
+                confirmationDTOS.add(confirmationDTO);
+            }
+        }
+
+        return confirmationDTOS;
+    }
+
+    public void setConfirmation(String email, Long userSpotProgressId, Boolean confirm) throws Exception {
+        UserSpotProgress userSpotProgress = userSpotProgressRepository.findOne(userSpotProgressId);
+        User owner = userSpotProgress.getSpotsInQuestsBySpotInQuestId().getQuest().getOwnerId();
+        if (!owner.getEmail().equals(email)) {
+            throw new Exception("User is not owner of the quest");
+        }
+
+        if (confirm) {
+            userSpotProgress.setSpotStatus("Confirmed");
+            userSpotProgressRepository.save(userSpotProgress);
+        } else {
+            Photo photo = photoRepository.findByUserAndAndSpotBySpotId(userSpotProgress.getUserProgressByUserProgressId().getUserByUserId(), userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId());
+            userSpotProgressRepository.delete(userSpotProgress);
+            photoRepository.delete(photo);
+        }
     }
 
 }

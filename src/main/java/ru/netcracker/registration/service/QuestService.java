@@ -2,6 +2,7 @@ package ru.netcracker.registration.service;
 
 
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.Photo;
 import ru.netcracker.registration.model.Quest;
@@ -25,4 +26,6 @@ public interface QuestService {
     UserProgressDTO getUserProgressByUserAndQuest(String email, Long questId);
     void userJoinQuest(String email, Long questId);
     void userCompleteSpot(String email, Long questId, Long spotId);
+    List<SpotConfirmationDTO> getSpotConfirmationsForOwner(String email);
+    void setConfirmation(String email, Long userSpotProgressId, Boolean confirm) throws Exception;
 }

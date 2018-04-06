@@ -6,7 +6,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "user_spot_progress", schema = "nc_project", catalog = "vrbqprvx")
 public class UserSpotProgress {
-    private Integer id;
+    private Long id;
     private String spotStatus;
     private Date dateComplete;
     private SpotInQuest spotsInQuestsBySpotInQuestId;
@@ -15,11 +15,11 @@ public class UserSpotProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

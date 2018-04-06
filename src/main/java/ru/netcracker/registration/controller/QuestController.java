@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
+import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.DTO.UserSpotProgressDTO;
 import ru.netcracker.registration.model.storage_emulation.QuestStorage;
@@ -225,6 +226,50 @@ public class QuestController {
             photoService.save(email, form.url, form.questId, form.spotId);
             questService.userCompleteSpot(email, form.questId, form.spotId);
             return ResponseEntity.ok("Photo was posted");
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @GetMapping("/get-all-confirmations")
+    public @ResponseBody
+    ResponseEntity<?> getAllConfirmations() {
+        try {
+            String email = securityService.findLoggedInEmail();
+            List<SpotConfirmationDTO> confirmationDTOS =questService.getSpotConfirmationsForOwner(email);
+            return new ResponseEntity<Object>(
+                    confirmationDTOS,
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    private static class ConfirmationWrap{
+        private boolean confirm;
+
+        public boolean isConfirm() {
+            return confirm;
+        }
+
+        public void setConfirm(boolean confirm) {
+            this.confirm = confirm;
+        }
+    }
+    @PostMapping("/confirmation-request/{userSpotProgressId}")
+    public @ResponseBody
+    ResponseEntity<?> confirmationRequest(@PathVariable Long userSpotProgressId, @RequestBody ConfirmationWrap confirm) {
+        try {
+            String email = securityService.findLoggedInEmail();
+            questService.setConfirmation(email, userSpotProgressId, confirm.confirm);
+            return ResponseEntity.ok("Confirmation/denial was executed");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),

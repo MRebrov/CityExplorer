@@ -14,8 +14,8 @@ import {SpotDTO} from '../quest/spot.model';
 })
 export class MapComponent implements OnInit {
 
-  lat: number = 55.75222;
-  lng: number = 37.6155600;
+  lat: number = 51.6495355;
+  lng: number = 39.150856499999996;
 
   quests: QuestDTO[] = [];
 
@@ -39,7 +39,7 @@ export class MapComponent implements OnInit {
         position => {
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
-          console.log(position);
+          console.log('Position loaded: ' + position.coords.latitude+ ' '+position.coords.longitude);
           this.loadQuests();
         },
         error => {
@@ -76,7 +76,7 @@ export class MapComponent implements OnInit {
     }).subscribe((obj: any[]) => {
       this.quests = obj;
       this.updateMarkers();
-      console.log('Quests loaded successfully');
+      console.log('Quests for current position loaded successfully');
     });
   }
 

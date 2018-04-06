@@ -9,6 +9,7 @@ import {QuestComponent} from './quest/quest.component';
 import {UserQuestListComponent} from "./user-quest-list/user-quest-list.component";
 import {QuestListComponent} from "./quest/quest-list/quest-list.component";
 import {QuestPageComponent} from './quest-page/quest-page.component';
+import {ConfirmationsListComponent} from './confirmations-list/confirmations-list.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'newquest', component: QuestComponent},
   {path: 'userquests', component: UserQuestListComponent},
   {path: 'quests', component: QuestListComponent},
+  {path: 'confirmations', component: ConfirmationsListComponent},
   {path: 'questpage/:quest-id', component: QuestPageComponent}
 ];
 

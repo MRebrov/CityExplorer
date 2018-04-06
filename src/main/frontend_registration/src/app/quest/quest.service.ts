@@ -133,4 +133,15 @@ export class QuestService {
       return response;
     });
   }
+
+  getConfirmationsList(){
+    return this.authHttp.get('userapi/get-all-confirmations/',{}).map((response: Response) => {
+      return response.json();
+    });
+  }
+  confirmationRequest(userProgressId: number, confirm: Boolean) {
+    return this.authHttp.post('userapi/confirmation-request/'+userProgressId, {confirm:confirm}).map((response: Response) => {
+      return response;
+    });
+  }
 }
