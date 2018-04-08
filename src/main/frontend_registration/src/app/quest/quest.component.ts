@@ -117,9 +117,9 @@ export class QuestComponent implements OnInit {
   }*/
 
   getPos($event, i) {
-    this.markers[i].lng = $event.coords.lng;
-    this.markers[i].lat = $event.coords.lat;
-    console.log(this.questPlace.lng, "   ", this.questPlace.lat);
+    this.spots[i].lng = $event.coords.lng;
+    this.spots[i].lat = $event.coords.lat;
+    console.log(this.spots[i].lng, "   ", this.spots[i].lat);
   }
 
   // upload() {
@@ -198,4 +198,11 @@ export class QuestComponent implements OnInit {
       });
   }
 
+  deleteForm(i){
+    this.spots.splice(i,1);
+    this.markers.splice(i,1);
+    if(this.questPhotos[i] != null){
+      this.questPhotos.splice(i,1);
+    }
+  }
 }

@@ -76,7 +76,7 @@
                    (focus)="activateMarker(i)"
             >
           </div>
-          <div class="col-5">
+          <div class="col-4">
             <label for="spotPhoto">Photo</label>
             <input type="file"
                    id="spotPhoto"
@@ -88,8 +88,15 @@
           </div>
           <div class="col-2">
             <label for="uploadBtn"> &nbsp;</label>
-            <button id="uploadBtn" class="btn btn-info" type="button" [disabled] = "!photoAdded[i]" (click)="uploadSpotPhoto(spotName.value,i)">
+            <button id="uploadBtn" class="btn btn-info" type="button" [disabled]="!photoAdded[i]"
+                    (click)="uploadSpotPhoto(spotName.value,i)">
               upload
+            </button>
+          </div>
+          <div class="col-1">
+            <label for="deleteBtn"> &nbsp;</label>
+            <button id="deleteBtn" class="btn btn-warning" type="button" (click)="deleteForm(i)">
+              x
             </button>
           </div>
         </div>
