@@ -9,6 +9,8 @@ import {Observable} from 'rxjs/Observable';
 import {AuthHttp} from 'angular2-jwt';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {AuthObject} from '../auth/authForm';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 /**
  * Сервис на frontend
@@ -20,7 +22,24 @@ export class UserService {
   private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
 
+  private serverSocketUrl = '/socket'
+  private stompClient;
+
   constructor(public authHttp: AuthHttp, public http: Http) {
+  }
+
+  initializeWebSocketConnection(){
+    let ws = new SockJS(this.serverSocketUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+    this.stompClient.connect({}, function(frame) {
+      that.stompClient.subscribe("/user/confirmation", (message) => {
+        if(message.body) {
+          alert(message.body);
+        }
+      });
+    });
+
   }
 
   /**
@@ -56,16 +75,19 @@ export class UserService {
       this._isAuthenticatedSubject.next(true);
       const authObject: AuthObject = obj.json();
       localStorage.setItem('id_token', authObject.token);
+      this.initializeWebSocketConnection();
     });
     return resp;
   }
 
   logout() {
     this._isAuthenticatedSubject.next(false);
-    localStorage.setItem('id_token', null);
+    localStorage.removeItem('id_token');
+    this.stompClient.disconnect();
     return this.http.post('userapi/logout', {}).map((response: Response) => {
       return response;
     });
+
   }
 
   getName() {
@@ -84,6 +106,7 @@ export class UserService {
     console.log('Checking authentication...');
     this.getCurrentUser().subscribe((obj: any) => {
       this._isAuthenticatedSubject.next(true);
+      this.initializeWebSocketConnection();
       console.log('App is authenticated');
     }, (error: any) => {
       this._isAuthenticatedSubject.next(false);

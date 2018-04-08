@@ -78,7 +78,7 @@ export class QuestService {
   }
 
   getQuestById(id: number) {
-    return this.authHttp.get('userapi/get-quest-by-id/' + id).map((response: Response) => {
+    return this.http.get('userapi/get-quest-by-id/' + id).map((response: Response) => {
       return response.json();
     });
   }

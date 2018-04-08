@@ -3,6 +3,7 @@ import {QuestService} from './quest/quest.service';
 import {UserService} from './user/user.service';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,8 +12,14 @@ import {Router} from '@angular/router';
 export class AppComponent {
   title = 'app';
 
+
+
   constructor(private userService: UserService) {
+
+
   }
+
+
 
   ngOnInit() {
     this.userService.initAuth();
