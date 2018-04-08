@@ -14,7 +14,7 @@ export class QuestPageComponent implements OnInit {
   private sub: any;
   quest: QuestDTO = new QuestDTO('', '', null, 0);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
-  private photosToUpload: string[]=[];
+  private photosToUpload: string[] = [];
 
   constructor(private route: ActivatedRoute, public questService: QuestService, private router: Router) {
   }
@@ -25,6 +25,9 @@ export class QuestPageComponent implements OnInit {
         .subscribe(
           (progress: any) => {
             this.userProgress = progress;
+            this.userProgress.takingDate = new Date(this.userProgress.takingDate);
+            if (this.userProgress.dateComplete != null)
+              this.userProgress.dateComplete = new Date(this.userProgress.dateComplete);
           },
           (error) => {
             console.log(error);
@@ -34,6 +37,7 @@ export class QuestPageComponent implements OnInit {
         .subscribe(
           (quest: any) => {
             this.quest = quest;
+            this.quest.uploadDate = new Date(this.quest.uploadDate);
           },
           (error) => {
             console.log(error);
@@ -57,18 +61,18 @@ export class QuestPageComponent implements OnInit {
   selectFile(event, spotId: number) {
     console.log('selected ' + spotId);
     this.questService.uploadSpotPhoto(event.target.files[0]).catch((response) => {
-      return Observable.throw(response)
+      return Observable.throw(response);
     }).subscribe((data) => {
         console.log(data);
         this.photosToUpload[spotId] = data;
       },
       (error) => {
-        console.log(error)
+        console.log(error);
       });
   }
 
   postPhoto(spotId: number) {
-    if(this.photosToUpload[spotId]!=null){
+    if (this.photosToUpload[spotId] != null) {
       this.questService.postSpotPhoto(this.photosToUpload[spotId], this.quest.questId, spotId)
         .subscribe(
           (response: any) => {
@@ -79,7 +83,7 @@ export class QuestPageComponent implements OnInit {
             console.log(error);
           });
     }
-    else{
+    else {
       console.log('no file loaded');
     }
   }

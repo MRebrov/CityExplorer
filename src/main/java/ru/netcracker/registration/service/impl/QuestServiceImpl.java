@@ -210,13 +210,7 @@ public class QuestServiceImpl implements QuestService {
         userSpotProgress.setSpotStatus("Unconfirmed");
         userSpotProgress.setUserProgressByUserProgressId(userProgress);
 
-        userProgress.getUserSpotProgressesByUserProgressId().add(userSpotProgress);
         userSpotProgressRepository.save(userSpotProgress);
-        if (userProgress.getQuestByQuestId().getSpotInQuests().size() == userProgress.getUserSpotProgressesByUserProgressId().size()) {
-            userProgress.setDateComplete(currentDate);
-        }
-
-        userProgressRepository.save(userProgress);
     }
 
     public List<SpotConfirmationDTO> getSpotConfirmationsForOwner(String email) {
@@ -245,6 +239,8 @@ public class QuestServiceImpl implements QuestService {
     public void setConfirmation(String email, Long userSpotProgressId, Boolean confirm) throws Exception {
         UserSpotProgress userSpotProgress = userSpotProgressRepository.findOne(userSpotProgressId);
         User owner = userSpotProgress.getSpotsInQuestsBySpotInQuestId().getQuest().getOwnerId();
+        User user = userSpotProgress.getUserProgressByUserProgressId().getUserByUserId();
+        Quest quest = userSpotProgress.getUserProgressByUserProgressId().getQuestByQuestId();
         if (!owner.getEmail().equals(email)) {
             throw new Exception("User is not owner of the quest");
         }
@@ -252,11 +248,34 @@ public class QuestServiceImpl implements QuestService {
         if (confirm) {
             userSpotProgress.setSpotStatus("Confirmed");
             userSpotProgressRepository.save(userSpotProgress);
+            //if quest is totally completed and confirmed
+            if(isQuestConfirmedAndCompleted(user, quest)) {
+                user.setBalance(user.getBalance() + quest.getReward());
+                userRepository.save(user);
+                Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                UserProgress userProgress = userSpotProgress.getUserProgressByUserProgressId();
+                userProgress.setDateComplete(currentDate);
+                userProgressRepository.save(userProgress);
+            }
         } else {
-            Photo photo = photoRepository.findByUserAndAndSpotBySpotId(userSpotProgress.getUserProgressByUserProgressId().getUserByUserId(), userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId());
+            Photo photo = photoRepository.findByUserAndAndSpotBySpotId(user, userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId());
             userSpotProgressRepository.delete(userSpotProgress);
             photoRepository.delete(photo);
         }
+    }
+
+    private boolean isQuestConfirmedAndCompleted(User user, Quest quest){
+        UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
+        int count=0;
+        if(userProgress.getQuestByQuestId().getSpotInQuests().size()==userProgress.getUserSpotProgressesByUserProgressId().size()){
+            for(UserSpotProgress usp: userProgress.getUserSpotProgressesByUserProgressId()){
+                if(usp.getSpotStatus().equals("Confirmed"))
+                    count++;
+            }
+            if(count==userProgress.getUserSpotProgressesByUserProgressId().size())
+                return true;
+        }
+        return false;
     }
 
 }

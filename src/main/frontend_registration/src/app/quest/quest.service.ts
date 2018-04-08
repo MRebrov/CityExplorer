@@ -122,6 +122,14 @@ export class QuestService {
     return false;
   }
 
+  isSpotConfirmed(spot: SpotDTO, userProgress: UserProgressDTO): boolean{
+    for(let spotProgress of userProgress.userSpotProgresses){
+      if(spotProgress.spotId == spot.spotId && spotProgress.spotStatus=='Confirmed')
+        return true;
+    }
+    return false;
+  }
+
   joinQuest(questId: number) {
     return this.authHttp.post('userapi/join-quest/' + questId,{}).map((response: Response) => {
       return response;

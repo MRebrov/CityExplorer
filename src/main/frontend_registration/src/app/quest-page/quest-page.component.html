@@ -11,6 +11,9 @@
         <p class="card-text">
           Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
         </p>
+        <p class="card-text">
+          Created on {{quest.uploadDate.toDateString()}}
+        </p>
 
         <div *ngIf="userProgress.takingDate==null; else progressBlock">
           <button type="button" class="btn btn-success"
@@ -29,7 +32,7 @@
           </div>
           <ng-template #completedBlock>
             <div class="alert alert-success" role="alert">
-              <h4>You have completed this quest!</h4>
+              <h4>You have completed this quest on {{userProgress.dateComplete.toDateString()}}!</h4>
             </div>
           </ng-template>
         </ng-template>
@@ -88,9 +91,16 @@
           </div>
           <ng-template #noUploadBlock>
             <div *ngIf="userProgress.takingDate != null">
-              <div class="alert alert-success" role="alert">
-                <h4>You have completed this spot!</h4>
+              <div *ngIf="questService.isSpotConfirmed(spot, userProgress); else unconfirmedBlock">
+                <div class="alert alert-success" role="alert">
+                  <h4>You have completed this spot!</h4>
+                </div>
               </div>
+              <ng-template #unconfirmedBlock>
+                <div class="alert alert-warning" role="alert">
+                  <h4>Spot is completed, but not confirmed by quest owner yet!</h4>
+                </div>
+              </ng-template>
             </div>
           </ng-template>
         </div>

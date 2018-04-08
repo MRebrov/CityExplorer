@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {QuestDTO} from "../quest/quest.model";
-import {UserService} from "../user/user.service";
-import {QuestService} from "../quest/quest.service";
-import {Router} from "@angular/router";
-import {UserProgressDTO} from "../quest/user-progress.model";
+import {Component, OnInit} from '@angular/core';
+import {QuestDTO} from '../quest/quest.model';
+import {UserService} from '../user/user.service';
+import {QuestService} from '../quest/quest.service';
+import {Router} from '@angular/router';
+import {UserProgressDTO} from '../quest/user-progress.model';
 
 @Component({
   selector: 'app-user-quest-list',
@@ -14,13 +14,31 @@ export class UserQuestListComponent implements OnInit {
 
   userProgressList: UserProgressDTO[];
 
-  constructor(private questService: QuestService, private router: Router) { }
+  constructor(private questService: QuestService, private router: Router) {
+  }
 
   ngOnInit() {
     this.questService.getUserProgressForCurrentUser()
       .subscribe(
         (progresses: any[]) => {
           this.userProgressList = progresses;
+          for (let userProgress of this.userProgressList) {
+            if (userProgress.dateComplete != null)
+              userProgress.dateComplete = new Date(userProgress.dateComplete);
+            userProgress.takingDate = new Date(userProgress.takingDate);
+          }
+          this.userProgressList.sort((a, b) => {
+            if (a.dateComplete == null && b.dateComplete != null)
+              return -1;
+            else if (a.dateComplete != null && b.dateComplete == null)
+              return 1;
+            else {
+              if (a.takingDate > b.takingDate)
+                return -1;
+              else
+                return 1;
+            }
+          });
           console.log('Progresses loaded successfully');
         },
         (error) => {
