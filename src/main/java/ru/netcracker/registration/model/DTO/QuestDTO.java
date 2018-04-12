@@ -20,6 +20,8 @@ public class QuestDTO {
     private String photoURL;
     @JsonProperty("spots")
     private List<SpotDTO> spots;
+    @JsonProperty("ownerEmail")
+    private String ownerEmail;
 
     public Long getQuestId() {
         return questId;
@@ -77,4 +79,11 @@ public class QuestDTO {
         this.spots = spots;
     }
 
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
 }

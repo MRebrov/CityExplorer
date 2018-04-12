@@ -23,6 +23,7 @@ public class QuestConverter {
         dto.setQuestId(quest.getQuestId());
         dto.setName(quest.getName());
         dto.setDescription(quest.getDescription());
+        dto.setOwnerEmail(quest.getOwnerId().getEmail());
         dto.setReward(quest.getReward());
         dto.setUploadDate(quest.getUploadDate());
         dto.setPhotoURL(quest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().getUrl());

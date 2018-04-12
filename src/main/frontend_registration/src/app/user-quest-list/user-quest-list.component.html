@@ -1,10 +1,21 @@
-<h1 class="display-4">My quests</h1>
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let progress of userProgressList">
-    <a [routerLink]="['/questpage', progress.quest.questId]">
-      {{progress.quest.name}}
-      <span class="badge badge-success" *ngIf="progress.dateComplete != null">completed</span>
-    </a>
-  </li>
-</ul>
-
+<div class="container">
+  <h1 class="display-4">My quests</h1>
+  <div *ngIf="userProgressList != null && userProgressList.length>0; else noDataBlock">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let progress of userProgressList">
+        <a [routerLink]="['/questpage', progress.quest.questId]">
+          {{progress.quest.name}}
+          <span class="badge badge-success" *ngIf="progress.dateComplete != null">completed</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <ng-template #noDataBlock>
+    <div *ngIf="userProgressList == null; else noQuestsBlock">
+      <h5>Loading active quests...</h5>
+    </div>
+    <ng-template #noQuestsBlock>
+      <h5>You have no active quests</h5>
+    </ng-template>
+  </ng-template>
+</div>

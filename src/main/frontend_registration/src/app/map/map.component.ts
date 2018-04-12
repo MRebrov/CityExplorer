@@ -21,6 +21,8 @@ export class MapComponent implements OnInit {
 
   markers: marker[] = [];
 
+  loaded: boolean = false;
+
   constructor(public questService: QuestService) {
   }
 
@@ -82,8 +84,9 @@ export class MapComponent implements OnInit {
         return this.questService.howManyUserPhotosInQuest(b) -
           this.questService.howManyUserPhotosInQuest(a);
       });
-      this.updateMarkers();
+      this.loaded=true;
       console.log('Quests for current position loaded successfully');
+      this.updateMarkers();
     });
   }
 

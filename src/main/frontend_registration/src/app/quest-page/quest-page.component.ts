@@ -4,6 +4,7 @@ import {QuestDTO} from '../quest/quest.model';
 import {UserProgressDTO} from '../quest/user-progress.model';
 import {QuestService} from '../quest/quest.service';
 import {Observable} from 'rxjs/Observable';
+import {Status} from 'tslint/lib/runner';
 
 @Component({
   selector: 'app-quest-page',
@@ -15,6 +16,7 @@ export class QuestPageComponent implements OnInit {
   quest: QuestDTO = new QuestDTO('', '', null, 0);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
   private photosToUpload: string[] = [];
+  errorMsg: string;
 
   constructor(private route: ActivatedRoute, public questService: QuestService, private router: Router) {
   }
@@ -47,14 +49,17 @@ export class QuestPageComponent implements OnInit {
   }
 
   joinQuest() {
-    this.questService.joinQuest(this.quest.questId)
+    this.questService.joinQuest(this.quest.questId).catch((response: Response) => {
+      if (response.status == 401)
+        this.router.navigate(['/login']);
+      else
+        this.writeError(response.text());
+      return Observable.throw(response);
+    })
       .subscribe(
         (response: any) => {
           console.log(response);
           location.reload();
-        },
-        (error) => {
-          console.log(error);
         });
   }
 
@@ -86,6 +91,11 @@ export class QuestPageComponent implements OnInit {
     else {
       console.log('no file loaded');
     }
+  }
+
+  writeError(error) {
+    document.getElementById('collapseMessage').classList.add('show');
+    this.errorMsg = error;
   }
 
 }

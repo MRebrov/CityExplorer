@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {QuestService} from './quest/quest.service';
 import {UserService} from './user/user.service';
 import {Router} from '@angular/router';
+import {LoginRedirectionService} from './login/login-redirection-service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent {
 
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private loginRedirectionService: LoginRedirectionService) {
 
 
   }
@@ -23,6 +24,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.userService.initAuth();
+    this.loginRedirectionService.init();
   }
 }
 

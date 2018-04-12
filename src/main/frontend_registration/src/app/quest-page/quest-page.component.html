@@ -1,6 +1,7 @@
-<div *ngIf="quest.uploadDate!=null">
-  <div class="container">
-    <h1 class="display-4">Quest page</h1>
+<div class="container">
+  <h1 class="display-4">Quest page</h1>
+  <div *ngIf="quest.uploadDate!=null; else loadingBlock">
+
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">{{quest.name}}</h3>
@@ -25,7 +26,7 @@
           <div *ngIf="userProgress.dateComplete==null; else completedBlock">
             <div class="alert alert-primary col-md-8 col-sm-12" role="alert">
               <h4>You are in process of completing this quest!</h4>
-              <hr>
+              <br>
               {{questService.howManySpotsCompleted(userProgress)}}/{{questService.howManySpotsInQuest(quest)}} spots
               ({{questService.getUserProgressInPercents(userProgress)}}%) completed
             </div>
@@ -36,6 +37,12 @@
             </div>
           </ng-template>
         </ng-template>
+      </div>
+    </div>
+
+    <div class="collapse col-md-4 col-sm-12" id="collapseMessage">
+      <div class="alert alert-primary" role="alert">
+        {{errorMsg}}
       </div>
     </div>
 
@@ -107,4 +114,8 @@
       </div>
     </div>
   </div>
+
+  <ng-template #loadingBlock>
+    <h5>Loading quest info...</h5>
+  </ng-template>
 </div>
