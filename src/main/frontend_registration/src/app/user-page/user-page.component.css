@@ -1,0 +1,72 @@
+
+#personal {
+  position: relative;
+  left: 360px;
+  font-family: 'Vollkorn', cursive;
+
+
+}
+
+
+
+.color {
+  background-color: #F5F5F5;
+  height: 100%;
+}
+
+
+/*position pwd*/
+
+#pwd {
+  position: relative;
+  left: 400px;
+  top: -360px;
+}
+
+#newpwd {
+
+  position: relative;
+  left: 400px;
+  top: -360px;
+
+
+}
+
+#conpwd {
+
+  position: relative;
+  left: 400px;
+  top: -360px;
+
+
+}
+
+#chanpwd {
+
+  position: relative;
+  left: 650px;
+  top: -370px;
+
+
+}
+
+/*end*/
+
+#error {
+  width: 170px;
+  top: -10px;
+  left: 30px;
+
+
+
+}
+
+#error2 {
+
+  width: 280px;
+
+
+
+
+
+}

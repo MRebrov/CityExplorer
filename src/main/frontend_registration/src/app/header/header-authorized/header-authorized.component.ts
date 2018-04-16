@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-header-authorized',
   templateUrl: './header-authorized.component.html',
+  styleUrls: ['./header.aut.component.css'],
   providers: []
 })
 export class HeaderAuthorizedComponent implements OnInit {

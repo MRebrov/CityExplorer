@@ -1,3 +1,5 @@
+<app-header></app-header>
+<div class="color">
 <div class="container">
   <div class="row">
     <!--
@@ -55,9 +57,11 @@
         </agm-marker>
       </agm-map>
 
+
+
     </div>
-    <div class="col-sm-12 col-md-4" *ngIf="quests.length>0; else noQuestsBlock">
-      <h5>Quests nearby</h5>
+    <div  id="size" class="col-sm-12 col-md-4" *ngIf="quests.length>0; else noQuestsBlock">
+      <h5 id="questnea">Quests nearby</h5>
       <div id="accordion">
         <div class="card" *ngFor="let quest of quests">
           <div class="card-header" [id]="'heading'+quest.name">
@@ -89,11 +93,11 @@
           </div>
         </div>
       </div>
-
     </div>
+
     <ng-template #noQuestsBlock>
       <div *ngIf="!loaded; else noQuestsLoadedBlock">
-        <h4>Loading quests...</h4>
+        <h4 id="load" >Loading quests...</h4>
       </div>
       <ng-template #noQuestsLoadedBlock>
           <h4>No quests can be found in your location</h4>
@@ -101,4 +105,4 @@
     </ng-template>
   </div>
 </div>
-
+</div>

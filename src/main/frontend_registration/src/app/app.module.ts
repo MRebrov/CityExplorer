@@ -25,6 +25,9 @@ import { UserQuestListComponent } from './user-quest-list/user-quest-list.compon
 import { QuestPageComponent } from './quest-page/quest-page.component';
 import { ConfirmationsListComponent } from './confirmations-list/confirmations-list.component';
 import {LoginRedirectionService} from './login/login-redirection-service';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { MainpageComponent } from './mainpage/mainpage.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import {LoginRedirectionService} from './login/login-redirection-service';
     UserQuestListComponent,
     QuestListComponent,
     QuestPageComponent,
-    ConfirmationsListComponent
+    ConfirmationsListComponent,
+    NotfoundComponent,
+    MainpageComponent,
   ],
   imports: [
     BrowserModule,

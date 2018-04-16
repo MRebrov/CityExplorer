@@ -1,9 +1,12 @@
+
+
+<app-header></app-header>
 <div class="container">
-  <h1 class="display-4">Quest page</h1>
+  <h5 id="questpage" class="display-4">Quest page</h5>
   <div *ngIf="quest.uploadDate!=null; else loadingBlock">
 
     <div class="card">
-      <div class="card-body">
+      <div id="tests" class="card-body">
         <h3 class="card-title">{{quest.name}}</h3>
         <p class="card-text">{{quest.description}}</p>
         <p class="card-text">

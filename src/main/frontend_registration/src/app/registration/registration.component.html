@@ -1,10 +1,11 @@
+<div id="signupp">
 <div class="container">
-  <h1 class="display-4">Sign up</h1>
+  <h1  id="signup" class="display-4" routerLink="/mainpage">Sign up</h1>
   <div id="regFormDiv">
     <form id="regForm" novalidate>
       <div class="row">
         <div class="form-group col-md-6 col-sm-12">
-          <label for="firstName">First name</label>
+          <label id="name" for="firstName">First name</label>
           <input type="text" class="form-control" id="firstName" name="firstName" value=""
                  [(ngModel)]="user.firstName" required>
         </div>
@@ -42,7 +43,7 @@
     </form>
     <div class="row">
       <div class="col-md-2 col-sm-12">
-        <button type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
+        <button id="submit" type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
       </div>
       <div class="collapse col-md-10 col-sm-12" id="collapseMessage">
         <div class="alert alert-primary" role="alert">

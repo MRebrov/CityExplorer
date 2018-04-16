@@ -19,6 +19,17 @@ public class ViewController {
         return "forward:/registrationAndLogin.html";
     }
 
+    @RequestMapping(value = "/notfound")
+    public String notfound() {
+        return "forward:/registrationAndLogin.html";
+    }
+
+    @RequestMapping(value = "/mainpage")
+    public String mainpage() {
+        return "forward:/registrationAndLogin.html";
+    }
+
+
     @RequestMapping(value = "/login")
     public String login() {
         return "forward:/registrationAndLogin.html";
@@ -56,12 +67,12 @@ public class ViewController {
 
     @RequestMapping(value = "/")
     public String index() {
-        return "redirect:/map";
+        return "redirect:/mainpage";
     }
 
     @RequestMapping(value = "/{[path:[^\\.]*}")
     public String redirect() {
-        return "forward:/";
+        return "forward:/notfound";
     }
 
     @GetMapping(value = "/protected")
