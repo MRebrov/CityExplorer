@@ -24,6 +24,7 @@ import {LoaderService} from "./quest/loader.service";
 import { UserQuestListComponent } from './user-quest-list/user-quest-list.component';
 import { QuestPageComponent } from './quest-page/quest-page.component';
 import { ConfirmationsListComponent } from './confirmations-list/confirmations-list.component';
+import {LoginRedirectionService} from './login/login-redirection-service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { ConfirmationsListComponent } from './confirmations-list/confirmations-l
     NgbModule.forRoot()
   ],
   bootstrap: [AppComponent],
-  providers: [QuestService, UserService, LoaderService],
+  providers: [QuestService, UserService, LoaderService, LoginRedirectionService],
   //entryComponents: [InputFormComponent]
 })
 export class AppModule {

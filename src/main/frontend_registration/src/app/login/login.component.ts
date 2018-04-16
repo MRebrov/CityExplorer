@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthObject} from '../auth/authForm';
 import {Router} from '@angular/router';
 import {AppRoutingModule} from "../app-routing.module";
+import {LoginRedirectionService} from './login-redirection-service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMsg: string;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private loginRedicrectionService: LoginRedirectionService) {
   }
 
   ngOnInit() {
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe((obj: any) => {
       this.writeError('User authorized successfully.');
-      this.showLink();
+      this.successLogin();
     });
   }
 
@@ -60,7 +61,8 @@ export class LoginComponent implements OnInit {
     this.errorMsg = error;
   }
 
-  showLink() {
-    document.getElementById('collapseLink').classList.add('show');
+  successLogin() {
+    //document.getElementById('collapseLink').classList.add('show');
+    this.router.navigate([this.loginRedicrectionService.getPreviousUrl()]);
   }
 }

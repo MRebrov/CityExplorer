@@ -177,7 +177,17 @@ public class QuestController {
     public @ResponseBody
     ResponseEntity<?> joinQuest(@PathVariable Long questId) {
         try {
-            questService.userJoinQuest(securityService.findLoggedInEmail(), questId);
+            String email = securityService.findLoggedInEmail();
+            if(email == null){
+                return new ResponseEntity<Object>(
+                        "Must be authorized to join quest",
+                        HttpStatus.UNAUTHORIZED
+                );
+            }
+            if(questService.getById(questId).getOwnerEmail().equals(email)) {
+                throw new Exception("Quest owner can not join quest");
+            }
+            questService.userJoinQuest(email, questId);
             return ResponseEntity.ok("User joined quest");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
