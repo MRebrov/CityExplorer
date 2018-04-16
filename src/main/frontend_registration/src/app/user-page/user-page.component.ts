@@ -13,7 +13,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class UserPageComponent implements OnInit {
 
-  user: User = new User('', '', '', '', '', '');
+  user: User = new User('', '', '', '', '', '', 50);
   errorMsgInfo: string;
   errorMsgPassword: string;
 

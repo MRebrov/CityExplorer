@@ -16,6 +16,8 @@ public class QuestDTO {
     private Date uploadDate;
     @JsonProperty("reward")
     private Integer reward;
+    @JsonProperty("numberOfParticipants")
+    private Integer numberOfParticipants;
     @JsonProperty("photoURL")
     private String photoURL;
     @JsonProperty("spots")
@@ -77,4 +79,11 @@ public class QuestDTO {
         this.spots = spots;
     }
 
+    public Integer getNumberOfParticipants() {
+        return numberOfParticipants;
+    }
+
+    public void setNumberOfParticipants(Integer numberOfParticipants) {
+        this.numberOfParticipants = numberOfParticipants;
+    }
 }

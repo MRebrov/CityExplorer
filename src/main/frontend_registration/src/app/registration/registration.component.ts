@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = new User('', '', '', '', '', '');
+    this.user = new User('', '', '', '', '', '', 50);
   }
 
   /**

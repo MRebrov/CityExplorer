@@ -97,6 +97,7 @@ public class QuestServiceImpl implements QuestService {
         SpotInQuest spotInQuest = new SpotInQuest();
         quest.setUploadDate(questDTO.getUploadDate());
         quest.setReward(questDTO.getReward());
+        quest.setNumberOfParticipants(questDTO.getNumberOfParticipants());
         quest.setDescription(questDTO.getDescription());
         quest.setName(questDTO.getName());
         spot.getPhotoBySpotId().add(photo);
@@ -110,6 +111,7 @@ public class QuestServiceImpl implements QuestService {
         spotInQuest.setPhotoByPhotoId(photo);
         quest.getSpotInQuests().add(spotInQuest);
         quest.setOwnerId(user);
+        //user.setBalance(user.getBalance()-quest.getReward()*quest.getNumberOfParticipants());
         questRepository.save(quest);
     }
 
@@ -120,6 +122,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setDescription(questDTO.getDescription());
         quest.setReward(questDTO.getReward());
         quest.setUploadDate(questDTO.getUploadDate());
+        quest.setNumberOfParticipants(questDTO.getNumberOfParticipants());
         quest.setOwnerId(user);
         for (SpotDTO spotDTO : questDTO.getSpots()) {
             Spot spot = new Spot();
@@ -140,6 +143,7 @@ public class QuestServiceImpl implements QuestService {
             spotInQuest.setPhotoByPhotoId(spot.getPhotoBySpotId().stream().findFirst().get());
             quest.getSpotInQuests().add(spotInQuest);
         }
+        //user.setBalance(user.getBalance()-quest.getReward()*quest.getNumberOfParticipants()*quest.getSpotInQuests().size());
         questRepository.save(quest);
     }
 
@@ -257,6 +261,22 @@ public class QuestServiceImpl implements QuestService {
             userSpotProgressRepository.delete(userSpotProgress);
             photoRepository.delete(photo);
         }
+    }
+
+    public Long questCostCalculation(Quest quest) {
+        int k = quest.getSpotInQuests().size();
+        int n = 1;
+        switch(k) {
+            case 2: n = 2;
+            break;
+            case 3: n = 4;
+            break;
+            case 4: n = 7;
+            break;
+            case 5: n = 11;
+            break;
+        }
+        return Long.valueOf(quest.getNumberOfParticipants()*quest.getReward()*n);
     }
 
 }

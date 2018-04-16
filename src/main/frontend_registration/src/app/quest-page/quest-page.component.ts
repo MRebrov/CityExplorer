@@ -12,7 +12,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class QuestPageComponent implements OnInit {
   private sub: any;
-  quest: QuestDTO = new QuestDTO('', '', null, 0);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
   private photosToUpload: string[]=[];
 

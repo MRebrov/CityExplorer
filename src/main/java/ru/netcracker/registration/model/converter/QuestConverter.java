@@ -24,6 +24,7 @@ public class QuestConverter {
         dto.setName(quest.getName());
         dto.setDescription(quest.getDescription());
         dto.setReward(quest.getReward());
+        dto.setNumberOfParticipants(quest.getNumberOfParticipants());
         dto.setUploadDate(quest.getUploadDate());
         dto.setPhotoURL(quest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().getUrl());
         //dto.setLat(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLat().toString());

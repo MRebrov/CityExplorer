@@ -28,7 +28,7 @@ export class QuestComponent implements OnInit {
   map: any;
   forms: Array<number> = [];
   errorMsg: string;
-  quest: QuestDTO = new QuestDTO('', '', null, 0);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10);
   photos: FileList;
   questPhotos: File[] = [];
   progress: { percentage: number } = {percentage: 0};
@@ -156,7 +156,7 @@ export class QuestComponent implements OnInit {
   }
 
   createQuest() {
-    console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward);
+    console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward + ' ,' + this.quest.numberOfParticipants);
     this.quest.spots = this.spots;
     this.quest.photoURL = this.spots[0].photos[0].url;
     this.quest.uploadDate = new Date();
@@ -166,7 +166,7 @@ export class QuestComponent implements OnInit {
     }).subscribe((data) => {
       this.writeMsg(data);
     });
-    this.quest = new QuestDTO('', '', null, 0);
+    this.quest = new QuestDTO('', '', null, 0, 10);
     this.spots = [];
     this.questPhotos = [];
     this.markers = [];
