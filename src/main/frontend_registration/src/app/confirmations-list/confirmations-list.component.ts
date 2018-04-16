@@ -26,6 +26,12 @@ export class ConfirmationsListComponent implements OnInit {
           for (let confirmation of this.spotConfirmations) {
             confirmation.uploadDate = new Date(confirmation.uploadDate);
           }
+          this.spotConfirmations.sort((a,b)=>{
+            if(a.uploadDate> b.uploadDate)
+              return -1;
+            else
+              return 1;
+          });
         },
         (error) => {
           console.log(error);
@@ -39,7 +45,7 @@ export class ConfirmationsListComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe(
       (response: any) => {
-        this.writeMsg(confirm ? 'Confirmation' : 'Rejecton' + 'completed');
+        this.writeMsg((confirm ? 'Confirmation' : 'Rejecton') + 'completed');
         let index: number = this.spotConfirmations.indexOf(spotConfirmationDTO);
         this.spotConfirmations.splice(index, 1);
       });

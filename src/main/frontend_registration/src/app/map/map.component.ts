@@ -21,6 +21,8 @@ export class MapComponent implements OnInit {
 
   markers: marker[] = [];
 
+  loaded: boolean = false;
+
   constructor(public questService: QuestService) {
   }
 
@@ -39,7 +41,7 @@ export class MapComponent implements OnInit {
         position => {
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
-          console.log('Position loaded: ' + position.coords.latitude+ ' '+position.coords.longitude);
+          console.log('Position loaded: ' + position.coords.latitude + ' ' + position.coords.longitude);
           this.loadQuests();
         },
         error => {
@@ -55,7 +57,7 @@ export class MapComponent implements OnInit {
               break;
             case 3:
               console.log('Timeout');
-              alert('We do not know why, but your location can not be identified. We will try to reload page')
+              alert('We do not know why, but your location can not be identified. We will try to reload page');
               location.reload();
               break;
           }
@@ -75,8 +77,16 @@ export class MapComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe((obj: any[]) => {
       this.quests = obj;
-      this.updateMarkers();
+      for(let quest of this.quests){
+        quest.uploadDate = new Date(quest.uploadDate);
+      }
+      this.quests.sort((a, b) => {
+        return this.questService.howManyUserPhotosInQuest(b) -
+          this.questService.howManyUserPhotosInQuest(a);
+      });
+      this.loaded=true;
       console.log('Quests for current position loaded successfully');
+      this.updateMarkers();
     });
   }
 

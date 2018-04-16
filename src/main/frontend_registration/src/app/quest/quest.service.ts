@@ -78,7 +78,7 @@ export class QuestService {
   }
 
   getQuestById(id: number) {
-    return this.authHttp.get('userapi/get-quest-by-id/' + id).map((response: Response) => {
+    return this.http.get('userapi/get-quest-by-id/' + id).map((response: Response) => {
       return response.json();
     });
   }
@@ -117,6 +117,14 @@ export class QuestService {
   isSpotCompleted(spot: SpotDTO, userProgress: UserProgressDTO): boolean{
     for(let spotProgress of userProgress.userSpotProgresses){
       if(spotProgress.spotId == spot.spotId && spotProgress.dateComplete != null)
+        return true;
+    }
+    return false;
+  }
+
+  isSpotConfirmed(spot: SpotDTO, userProgress: UserProgressDTO): boolean{
+    for(let spotProgress of userProgress.userSpotProgresses){
+      if(spotProgress.spotId == spot.spotId && spotProgress.spotStatus=='Confirmed')
         return true;
     }
     return false;
