@@ -52,13 +52,13 @@ export class UserService {
   }
 
   editUser(user: User) {
-    return this.http.post('userapi/edit/personalInfo', user).map((response: Response) => {
+    return this.authHttp.post('userapi/edit/personalInfo', user).map((response: Response) => {
       return response;
     });
   }
 
   editPassword(email: String, oldPassword: String, newPassword: String) {
-    return this.http.post('userapi/edit/password/', {
+    return this.authHttp.post('userapi/edit/password/', {
       email: email,
       oldPassword: oldPassword,
       newPassword: newPassword
