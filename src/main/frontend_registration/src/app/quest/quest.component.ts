@@ -38,6 +38,7 @@ export class QuestComponent implements OnInit {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
     lng: 7.890,
     label: '^',
+    name: null,
     iconUrl: greenMarker,
     description: null,
     draggable: true,
@@ -85,6 +86,7 @@ export class QuestComponent implements OnInit {
       lat: this.map.getCenter().lat(), //inital post (might be initialized being based on browser geoposition)
       lng: this.map.getCenter().lng(),
       label: 'O',
+      name: null,
       iconUrl: greenMarker,
       description: null,
       draggable: true,
