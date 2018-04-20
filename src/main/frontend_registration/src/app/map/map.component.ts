@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
     if (window.navigator && window.navigator.geolocation) {
       let options = {
         enableHighAccuracy: true,
-        timeout: 30000
+        timeout: 10000
       };
       window.navigator.geolocation.getCurrentPosition(
         position => {
@@ -57,8 +57,7 @@ export class MapComponent implements OnInit {
               break;
             case 3:
               console.log('Timeout');
-              alert('We do not know why, but your location can not be identified. We will try to reload page');
-              location.reload();
+              this.loadQuests();
               break;
           }
         },
@@ -106,7 +105,8 @@ export class MapComponent implements OnInit {
             lng: parseFloat(spot.lng),
             label: spot.name,
             iconUrl: spot.mainPhoto.url,
-            description: 'Database does not still support description for spots',
+            //description: 'Database does not still support description for spots',
+            description: '',
             draggable: false,
             quests: [quest],
             photos: spot.photos

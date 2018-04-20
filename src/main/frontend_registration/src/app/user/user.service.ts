@@ -19,7 +19,7 @@ import * as SockJS from 'sockjs-client';
 @Injectable()
 export class UserService {
 
-  private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
 
   private serverSocketUrl = '/socket'

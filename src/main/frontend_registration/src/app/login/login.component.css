@@ -1,6 +1,6 @@
 #sign {
-  position: relative;
-  left: 160px;
+  /*position: relative;
+  left: 160px;*/
   font-family: 'Vollkorn', cursive;
 }
 .container {
@@ -12,7 +12,7 @@
   height: 650px;
 }
 
-#submit {
+/*#submit {
   position: relative;
   left: 420px;
-}
+}*/

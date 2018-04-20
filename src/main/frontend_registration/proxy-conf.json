@@ -1,10 +1,10 @@
 {
   "/userapi": {
-    "target": "http://localhost:8081",
+    "target": "https://localhost:8082",
     "secure": false
   },
   "/socket": {
-    "target": "http://localhost:8081",
+    "target": "https://localhost:8082",
     "secure": false
   }
 }
