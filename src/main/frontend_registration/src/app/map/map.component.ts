@@ -22,15 +22,15 @@ export class MapComponent implements OnInit {
   markers: marker[] = [];
 
   icons: string[] =[
-    'https://psv4.userapi.com/c834500/u32014097/docs/d11/b50e2136de86/blue.png',
-    'https://psv4.userapi.com/c834600/u32014097/docs/d1/ca527083e24e/lightblue.png',
-    'https://psv4.userapi.com/c834703/u32014097/docs/d11/e2db8a4ccbc9/salad.png',
-    'https://psv4.userapi.com/c834502/u32014097/docs/d15/d6fc8007c6ae/green.png',
-    'https://psv4.userapi.com/c834502/u32014097/docs/d18/a0b5ac71c7ec/yellowgreen.png',
-    'https://psv4.userapi.com/c834600/u32014097/docs/d11/cf82d9ddb7bc/yellow.png',
-    'https://psv4.userapi.com/c834604/u32014097/docs/d16/d5a486a47eeb/orangeyellow.png',
-    'https://psv4.userapi.com/c834703/u32014097/docs/d18/69c90189eb84/orange.png',
-    'https://psv4.userapi.com/c834704/u32014097/docs/d6/a158f001a3de/red.png'
+    'assets/markers/blue.png',
+    'assets/markers/lightblue.png',
+    'assets/markers/salad.png',
+    'assets/markers/green.png',
+    'assets/markers/yellowgreen.png',
+    'assets/markers/yellow.png',
+    'assets/markers/orangeyellow.png',
+    'assets/markers/orange.png',
+    'assets/markers/red.png'
     ];
 
   loaded: boolean = false;
