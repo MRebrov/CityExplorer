@@ -9,6 +9,7 @@ import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.css'],
   providers: []
 })
 export class UserPageComponent implements OnInit {

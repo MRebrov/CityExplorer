@@ -1,33 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/map">City Explorer</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/mainpage">ECity</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+          aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/map">Home <span class="sr-only"></span></a>
+
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/vk">Vk test</a>
+        <a id="vk" class="nav-link" routerLink="/vk">Vk</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/newquest">Create quest</a>
+        <a id="maplink" class="nav-link" routerLink="/map">Map</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/userquests">Active quests</a>
+        <a id="newquest" class="nav-link" routerLink="/newquest">Create quest</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/confirmations">Spot confirmations</a>
+        <a id="userquests" class="nav-link" routerLink="/userquests">My quests</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/userPage">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()">Logout</a>
+      <li>
+        <a id="confirmations" class="nav-link" routerLink="/confirmations">Spot confirmations</a>
       </li>
     </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <div class="row">
+        <div class="col-md col-sm-12">
+          <li>
+            <button id="profile" type="button" class="btn btn-primary" routerLink="/userPage">Profile</button>
+          </li>
+        </div>
+        <div class="col-md col-sm-12">
+          <li>
+            <a id="logout" class="nav-link" (click)="logout()">Logout</a>
+          </li>
+        </div>
+      </div>
+
+    </ul>
+
   </div>
 </nav>

@@ -11,6 +11,7 @@ import {LoginRedirectionService} from './login-redirection-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   providers: []
 })
 export class LoginComponent implements OnInit {
@@ -22,6 +23,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.userService._isAuthenticatedSubject.getValue()){
+      alert('You are authorized! You should log out first');
+      this.router.navigate(['/map']);
+    }
   }
 
   onFormSubmit(event) {
@@ -47,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.writeError(response.text()); // если ошибка, вывести её
       return Observable.throw(response);
     }).subscribe((obj: any) => {
-      this.writeError('User authorized successfully.');
+      this.writeError('User authorized successfully. You will be redirected now...');
       this.successLogin();
     });
   }
@@ -63,6 +68,10 @@ export class LoginComponent implements OnInit {
 
   successLogin() {
     //document.getElementById('collapseLink').classList.add('show');
-    this.router.navigate([this.loginRedicrectionService.getPreviousUrl()]);
+    setTimeout(() => {
+      this.router.navigate([this.loginRedicrectionService.getPreviousUrl()]);
+    }, 5000);
+    ;
+
   }
 }

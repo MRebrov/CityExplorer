@@ -21,6 +21,18 @@ export class MapComponent implements OnInit {
 
   markers: marker[] = [];
 
+  icons: string[] =[
+    'https://psv4.userapi.com/c834500/u32014097/docs/d11/b50e2136de86/blue.png',
+    'https://psv4.userapi.com/c834600/u32014097/docs/d1/ca527083e24e/lightblue.png',
+    'https://psv4.userapi.com/c834703/u32014097/docs/d11/e2db8a4ccbc9/salad.png',
+    'https://psv4.userapi.com/c834502/u32014097/docs/d15/d6fc8007c6ae/green.png',
+    'https://psv4.userapi.com/c834502/u32014097/docs/d18/a0b5ac71c7ec/yellowgreen.png',
+    'https://psv4.userapi.com/c834600/u32014097/docs/d11/cf82d9ddb7bc/yellow.png',
+    'https://psv4.userapi.com/c834604/u32014097/docs/d16/d5a486a47eeb/orangeyellow.png',
+    'https://psv4.userapi.com/c834703/u32014097/docs/d18/69c90189eb84/orange.png',
+    'https://psv4.userapi.com/c834704/u32014097/docs/d6/a158f001a3de/red.png'
+    ];
+
   loaded: boolean = false;
 
   constructor(public questService: QuestService) {
@@ -35,7 +47,7 @@ export class MapComponent implements OnInit {
     if (window.navigator && window.navigator.geolocation) {
       let options = {
         enableHighAccuracy: true,
-        timeout: 30000
+        timeout: 10000
       };
       window.navigator.geolocation.getCurrentPosition(
         position => {
@@ -57,8 +69,7 @@ export class MapComponent implements OnInit {
               break;
             case 3:
               console.log('Timeout');
-              alert('We do not know why, but your location can not be identified. We will try to reload page');
-              location.reload();
+              this.loadQuests();
               break;
           }
         },
@@ -77,14 +88,14 @@ export class MapComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe((obj: any[]) => {
       this.quests = obj;
-      for(let quest of this.quests){
+      for (let quest of this.quests) {
         quest.uploadDate = new Date(quest.uploadDate);
       }
       this.quests.sort((a, b) => {
         return this.questService.howManyUserPhotosInQuest(b) -
           this.questService.howManyUserPhotosInQuest(a);
       });
-      this.loaded=true;
+      this.loaded = true;
       console.log('Quests for current position loaded successfully');
       this.updateMarkers();
     });
@@ -104,9 +115,11 @@ export class MapComponent implements OnInit {
           this.markers.push({
             lat: parseFloat(spot.lat),
             lng: parseFloat(spot.lng),
-            label: spot.name,
-            iconUrl: spot.mainPhoto.url,
-            description: 'Database does not still support description for spots',
+            label: null,
+            name: spot.name,
+            iconUrl: null,
+            //description: 'Database does not still support description for spots',
+            description: '',
             draggable: false,
             quests: [quest],
             photos: spot.photos
@@ -116,6 +129,22 @@ export class MapComponent implements OnInit {
           existingMarker.quests.push(quest);
           existingMarker.photos = existingMarker.photos.concat(spot.photos);
         }
+      }
+    }
+    this.evaluateMarkers();
+
+  }
+
+  evaluateMarkers() {
+    if (this.markers.length > 0) {
+      this.markers.sort((a, b) => {
+        return a.photos.length - b.photos.length;
+      });
+      let min = this.markers[0].photos.length;
+      let max = this.markers[this.markers.length - 1].photos.length;
+      for (let m of this.markers) {
+        m.iconUrl = this.icons[Math.round((this.icons.length-1)*((m.photos.length - min) / (max - min)))];
+        m.label=m.photos.length.toString();
       }
     }
   }
@@ -144,6 +173,7 @@ export interface marker {
   lat: number;
   lng: number;
   label?: string;
+  name: string;
   iconUrl: string;
   description?: string;
   draggable: boolean;

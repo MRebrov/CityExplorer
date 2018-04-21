@@ -5,6 +5,7 @@ import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import * as CryptoJS from 'crypto-js';
 import {AppComponent} from '../app.component';
+import {Router} from '@angular/router';
 
 /**
  * Основной компонент приложения
@@ -12,6 +13,7 @@ import {AppComponent} from '../app.component';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css'],
   providers: []
 })
 export class RegistrationComponent implements OnInit {
@@ -19,11 +21,15 @@ export class RegistrationComponent implements OnInit {
   confirmPassword: string;
   errorMsg: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
 
   }
 
   ngOnInit() {
+    if(this.userService._isAuthenticatedSubject.getValue()){
+      alert('You are authorized! You should log out first');
+      this.router.navigate(['/map']);
+    }
     this.user = new User('', '', '', '', '', '');
   }
 
@@ -77,7 +83,11 @@ export class RegistrationComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe(() => {
       this.writeError('User registered successfully. We have sent you confirmation link on your email.');
-      this.showLink();
+      //this.showLink();
+      setTimeout(() => {
+        this.router.navigate(['/login'])
+      }, 5000);
+      ;
     }); //Если ошибки нет, сказать что регистрация прошла
   }
 

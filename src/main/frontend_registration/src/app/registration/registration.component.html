@@ -1,57 +1,63 @@
-<div class="container">
-  <h1 class="display-4">Sign up</h1>
-  <div id="regFormDiv">
-    <form id="regForm" novalidate>
-      <div class="row">
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="firstName">First name</label>
-          <input type="text" class="form-control" id="firstName" name="firstName" value=""
-                 [(ngModel)]="user.firstName" required>
+<app-header></app-header>
+<div id="signupp">
+  <div class="container">
+    <h1 id="signup" class="display-4 text-center" routerLink="/mainpage">Sign up</h1>
+    <div id="regFormDiv">
+      <form id="regForm" novalidate>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label id="name" for="firstName">First name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" value=""
+                   [(ngModel)]="user.firstName" required>
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label for="lastName">Last name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName"
+                   [(ngModel)]="user.lastName" required>
+          </div>
         </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="lastName">Last name</label>
-          <input type="text" class="form-control" id="lastName" name="lastName"
-                 [(ngModel)]="user.lastName" required>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email"
+                   [(ngModel)]="user.email" required>
+          </div>
+
+          <div class="form-group col-md-6 col-sm-12">
+            <label for="birthday">Birthday</label>
+            <input type="date" class="form-control" id="birthday" name="birthday"
+                   [(ngModel)]="user.birthday" required>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" name="email"
-                 [(ngModel)]="user.email" required>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password"
+                   [(ngModel)]="user.password" required>
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                   [(ngModel)]="confirmPassword" required>
+          </div>
+        </div>
+      </form>
+      <div class="row justify-content-between">
+        <div class="col-sm-11 col-12">
+          <div class="collapse" id="collapseMessage">
+            <div class="alert alert-primary" role="alert">
+              {{errorMsg}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1 col-12">
+          <button id="submit" type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
         </div>
 
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="birthday">Birthday</label>
-          <input type="date" class="form-control" id="birthday" name="birthday"
-                 [(ngModel)]="user.birthday" required>
-        </div>
       </div>
-      <div class="row">
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password"
-                 [(ngModel)]="user.password" required>
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="confirmPassword">Confirm password</label>
-          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                 [(ngModel)]="confirmPassword" required>
-        </div>
+      <div class="collapse" id="collapseLink">
+        <a class="btn btn-link" routerLink="/login">Go to login page <span class="sr-only"></span></a>
       </div>
-    </form>
-    <div class="row">
-      <div class="col-md-2 col-sm-12">
-        <button type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
-      </div>
-      <div class="collapse col-md-10 col-sm-12" id="collapseMessage">
-        <div class="alert alert-primary" role="alert">
-          {{errorMsg}}
-        </div>
-      </div>
-    </div>
-    <div class="collapse" id="collapseLink">
-      <a class="btn btn-link" routerLink="/login">Go to login page <span class="sr-only"></span></a>
     </div>
   </div>
 </div>

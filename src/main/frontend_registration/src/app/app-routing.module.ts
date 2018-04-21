@@ -10,11 +10,14 @@ import {UserQuestListComponent} from "./user-quest-list/user-quest-list.componen
 import {QuestListComponent} from "./quest/quest-list/quest-list.component";
 import {QuestPageComponent} from './quest-page/quest-page.component';
 import {ConfirmationsListComponent} from './confirmations-list/confirmations-list.component';
+import {MainpageComponent} from './mainpage/mainpage.component';
+import {NotfoundComponent} from './notfound/notfound.component';
+
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
-  {path: '', redirectTo: '/map', pathMatch: 'full'},
+  // {path: '', redirectTo: '/map', pathMatch: 'full'},
   {path: 'vk', component: VkComponent},
   {path: 'map', component: MapComponent},
   {path: 'userPage', component: UserPageComponent},
@@ -22,7 +25,11 @@ const routes: Routes = [
   {path: 'userquests', component: UserQuestListComponent},
   {path: 'quests', component: QuestListComponent},
   {path: 'confirmations', component: ConfirmationsListComponent},
-  {path: 'questpage/:quest-id', component: QuestPageComponent}
+  {path: 'questpage/:quest-id', component: QuestPageComponent},
+  {path: 'mainpage', component: MainpageComponent},
+  {path: '', redirectTo: '/mainpage', pathMatch: 'full'},
+  {path: "notfound", component: NotfoundComponent},
+  {path: '**', component:NotfoundComponent }
 ];
 
 @NgModule({

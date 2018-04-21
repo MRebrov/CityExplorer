@@ -72,7 +72,7 @@ public class DatabaseConfig {
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
-/*
+
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
@@ -99,6 +99,6 @@ public class DatabaseConfig {
         connector.setRedirectPort(8082);
 
         return connector;
-    }*/
+    }
 
 }

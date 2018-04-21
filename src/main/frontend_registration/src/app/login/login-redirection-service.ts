@@ -18,8 +18,10 @@ export class LoginRedirectionService {
     this.currentUrl = '/';
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.previousUrl = this.currentUrl;
-        this.currentUrl = event.url;
+        if(!event.url.includes('registration')) {
+          this.previousUrl = this.currentUrl;
+          this.currentUrl = event.url;
+        }
       };
     });
   }
