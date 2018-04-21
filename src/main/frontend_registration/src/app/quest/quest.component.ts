@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {SpotDTO} from "./spot.model";
 import {LoaderService} from "./loader.service";
 import {PhotoDTO} from "./photo.model";
+import {UserService} from "../user/user.service";
 //import {InputFormComponent} from "./input-form/input-form.component";
 
 
@@ -52,7 +53,7 @@ export class QuestComponent implements OnInit {
   //@ViewChild(InputFormComponent) inputForm: InputFormComponent;
 
 
-  constructor(private questService: QuestService, private loader: LoaderService) {
+  constructor(private questService: QuestService, private loader: LoaderService, private userService: UserService) {
   }
 
   ngOnInit() {
