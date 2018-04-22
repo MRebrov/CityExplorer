@@ -39,13 +39,15 @@
             <input type="number" class="form-control" id="questReward" name="questReward" value=""
                    [(ngModel)]="quest.reward" required>
           </div>
-          <div class="col-3">
+          <div class="col-5">
             <label for="numberOfParticipants">Number of participants</label>
             <input type="number" class="form-control" id="numberOfParticipants" name="numberOfParticipants" value=""
                    [(ngModel)]="quest.numberOfParticipants" required>
           </div>
         </div>
       </div>
+      <p>Quest cost:  {{quest.cost}}</p>
+      <p>Balance:  {{quest.balance}}</p>
       <div class="form-group">
         <ngb-accordion #acc="ngbAccordion">
           <ngb-panel title="Description">

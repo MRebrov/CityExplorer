@@ -2,6 +2,7 @@
  * Класс квеста на frontend
  */
 import {SpotDTO} from './spot.model';
+import {User} from "../user/user.model";
 
 export class QuestDTO {
 
@@ -16,6 +17,8 @@ export class QuestDTO {
   // public lng:string;
   public photoURL?: string;
   public spots: SpotDTO[];
+  public cost: number;
+  public balance: number;
 
   constructor(name: string, description: string, uploadDate: Date, reward: number, numberOfParticipants: number) {
     this.name = name;
@@ -25,5 +28,7 @@ export class QuestDTO {
     this.reward = reward;
     this.numberOfParticipants = numberOfParticipants;
     this.spots=[];
+    this.cost = this.spots.length * reward;
+    //this.balance = this.user.balance;
   }
 }

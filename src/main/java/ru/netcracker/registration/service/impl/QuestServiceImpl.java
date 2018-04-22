@@ -278,7 +278,7 @@ public class QuestServiceImpl implements QuestService {
         }
     }
 
-    public Long questCostCalculation(Quest quest) {
+    /*public Long questCostCalculation(Quest quest) {
         int k = quest.getSpotInQuests().size();
         int n = 1;
         switch(k) {
@@ -293,6 +293,7 @@ public class QuestServiceImpl implements QuestService {
         }
         return Long.valueOf(quest.getNumberOfParticipants()*quest.getReward()*n);
     }
+    */
 
     private boolean isQuestConfirmedAndCompleted(User user, Quest quest) {
         UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
