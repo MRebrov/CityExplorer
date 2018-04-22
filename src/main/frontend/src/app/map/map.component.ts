@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
 
   markers: marker[] = [];
 
-  icons: string[] =[
+  icons: string[] = [
     'assets/markers/blue.png',
     'assets/markers/lightblue.png',
     'assets/markers/salad.png',
@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
     'assets/markers/orangeyellow.png',
     'assets/markers/orange.png',
     'assets/markers/red.png'
-    ];
+  ];
 
   loaded: boolean = false;
 
@@ -39,7 +39,13 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadLocation();
+    if (this.questService.getLoadedQuests() == null)
+      this.loadLocation();
+    else{
+      console.log('Using pre-loaded quests');
+      this.quests = this.questService.getLoadedQuests();
+      this.updateMarkers();
+    }
 
   }
 
@@ -83,22 +89,13 @@ export class MapComponent implements OnInit {
   }
 
   loadQuests() {
-    this.questService.getQuestsInRange(this.lat, this.lng, 15000).catch((response: Response) => {
-      console.log(response.text());
-      return Observable.throw(response);
-    }).subscribe((obj: any[]) => {
-      this.quests = obj;
-      for (let quest of this.quests) {
-        quest.uploadDate = new Date(quest.uploadDate);
-      }
-      this.quests.sort((a, b) => {
-        return this.questService.howManyUserPhotosInQuest(b) -
-          this.questService.howManyUserPhotosInQuest(a);
-      });
+    this.questService.loadQuestsInRange(this.lat, this.lng, 15000).add(() => {
       this.loaded = true;
+      this.quests = this.questService.getLoadedQuests();
       console.log('Quests for current position loaded successfully');
       this.updateMarkers();
     });
+
   }
 
   updateMarkers() {
@@ -143,8 +140,8 @@ export class MapComponent implements OnInit {
       let min = this.markers[0].photos.length;
       let max = this.markers[this.markers.length - 1].photos.length;
       for (let m of this.markers) {
-        m.iconUrl = this.icons[Math.round((this.icons.length-1)*((m.photos.length - min) / (max - min)))];
-        m.label=m.photos.length.toString();
+        m.iconUrl = this.icons[Math.round((this.icons.length - 1) * ((m.photos.length - min) / (max - min)))];
+        m.label = m.photos.length.toString();
       }
     }
   }

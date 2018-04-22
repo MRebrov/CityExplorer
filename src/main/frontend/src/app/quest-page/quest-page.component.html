@@ -48,11 +48,30 @@
         </div>
       </div>
 
-      <h1 class="display-4">Spots list</h1>
+      <h1 class="display-4">Spots</h1>
       <div>
         Quest consists of <span class="badge badge-secondary">{{questService.howManySpotsInQuest(quest)}}</span>
         spots
       </div>
+
+      <div class="row">
+        <div class=col-12>
+          <agm-map [latitude]="mapLat" [longitude]="mapLng" [zoom]="15">
+            <agm-marker *ngFor="let m of markers"
+                        [latitude]="m.lat"
+                        [longitude]="m.lng"
+                        [label]="{
+			                  color: 'black',
+			                  fontWeight: 'bold',
+			                  fontSize: '10px',
+			                  text: m.label
+		  	              }"
+            >
+            </agm-marker>
+          </agm-map>
+        </div>
+      </div>
+
       <div *ngFor="let spot of quest.spots">
         <div class="card">
           <div class="card-body">

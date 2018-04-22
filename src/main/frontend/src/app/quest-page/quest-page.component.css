@@ -6,3 +6,9 @@
 .color {
   background-color: #F5F5F5;
 }
+
+agm-map{
+  height: 360px;
+
+  margin: 0% 10% 0% 0%;
+}

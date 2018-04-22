@@ -16,53 +16,53 @@ public class ViewController {
 
     @RequestMapping(value = "/userquests")
     public String quests() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/notfound")
     public String notfound() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/mainpage")
     public String mainpage() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
 
     @RequestMapping(value = "/login")
     public String login() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/vk")
     public String vk() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value ="/map")
     public String map(){
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value ="/userPage")
     public String userPage(){
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/questpage/*")
     public String questPage() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/confirmations")
     public String confirmations() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/registration")
     public String registration() {
-        return "forward:/registrationAndLogin.html";
+        return "forward:/index.html";
     }
 
     @RequestMapping(value = "/")

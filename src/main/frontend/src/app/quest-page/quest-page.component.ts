@@ -5,6 +5,7 @@ import {UserProgressDTO} from '../quest/user-progress.model';
 import {QuestService} from '../quest/quest.service';
 import {Observable} from 'rxjs/Observable';
 import {Status} from 'tslint/lib/runner';
+import {marker} from '../map/map.component';
 
 @Component({
   selector: 'app-quest-page',
@@ -13,6 +14,9 @@ import {Status} from 'tslint/lib/runner';
 })
 export class QuestPageComponent implements OnInit {
   private sub: any;
+  markers: marker[] = [];
+  mapLat: number = 51.0;
+  mapLng: number = 7.0;
   quest: QuestDTO = new QuestDTO('', '', null, 0);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
   private photosToUpload: string[] = [];
@@ -40,12 +44,31 @@ export class QuestPageComponent implements OnInit {
           (quest: any) => {
             this.quest = quest;
             this.quest.uploadDate = new Date(this.quest.uploadDate);
+            this.updateMarkers();
           },
           (error) => {
             console.log(error);
             this.router.navigate(['/map']);
           });
     });
+  }
+
+  updateMarkers() {
+    for (let spot of this.quest.spots) {
+      this.markers.push({
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
+        label: spot.name,
+        name: null,
+        iconUrl: null,
+        description: null,
+        draggable: false,
+        quests: null,
+        photos: null
+      });
+    }
+    this.mapLat = this.markers[0].lat;
+    this.mapLng = this.markers[0].lng;
   }
 
   joinQuest() {

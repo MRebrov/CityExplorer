@@ -11,6 +11,8 @@ import {UserProgressDTO} from './user-progress.model';
 @Injectable()
 export class QuestService {
 
+  private quests: QuestDTO[] = null;
+
   constructor(public authHttp: AuthHttp, public http: Http) {
   }
 
@@ -59,10 +61,26 @@ export class QuestService {
   //   return this.http.request(req);
   // }
 
-  getQuestsInRange(lat: number, lng: number, range: number) {
+  loadQuestsInRange(lat: number, lng: number, range: number) {
     return this.http.get('userapi/get-closest-quests/' + lat + '/' + lng + '/' + range).map((response: Response) => {
       return response.json();
+    }).catch((response: Response) => {
+      console.log(response.text());
+      return Observable.throw(response);
+    }).subscribe((obj: any[]) => {
+      this.quests = obj;
+      for (let quest of this.quests) {
+        quest.uploadDate = new Date(quest.uploadDate);
+      }
+      this.quests.sort((a, b) => {
+        return this.howManyUserPhotosInQuest(b) -
+          this.howManyUserPhotosInQuest(a);
+      });
     });
+  }
+
+  getLoadedQuests(): QuestDTO[]{
+    return this.quests;
   }
 
   getUserProgressForCurrentUser() {
