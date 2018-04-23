@@ -183,8 +183,8 @@ public class QuestServiceImpl implements QuestService {
     public UserProgressDTO getUserProgressByUserAndQuest(String email, Long questId) {
         User user = userRepository.findByEmail(email);
         Quest quest = questRepository.findOne(questId);
-        if (quest != null) {
-            UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
+        UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
+        if (userProgress != null) {
             return UserProgressConverter.convertToDTO(userProgress);
         }
         return null;
