@@ -23,7 +23,9 @@
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.js"
+        "../node_modules/jquery/dist/jquery.js",
+        "preloader.js"
+
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

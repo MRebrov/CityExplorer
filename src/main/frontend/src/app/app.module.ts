@@ -29,6 +29,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,7 @@ import { MainpageComponent } from './mainpage/mainpage.component';
     QuestPageComponent,
     ConfirmationsListComponent,
     NotfoundComponent,
-    MainpageComponent,
+    MainpageComponent
   ],
   imports: [
     BrowserModule,

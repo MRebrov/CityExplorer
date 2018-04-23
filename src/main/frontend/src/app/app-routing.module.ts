@@ -14,6 +14,7 @@ import {MainpageComponent} from './mainpage/mainpage.component';
 import {NotfoundComponent} from './notfound/notfound.component';
 
 
+
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
@@ -28,8 +29,10 @@ const routes: Routes = [
   {path: 'questpage/:quest-id', component: QuestPageComponent},
   {path: 'mainpage', component: MainpageComponent},
   {path: '', redirectTo: '/mainpage', pathMatch: 'full'},
-  {path: "notfound", component: NotfoundComponent},
-  {path: '**', component:NotfoundComponent }
+  {path: 'notfound', component: NotfoundComponent},
+  {path: '**', component: NotfoundComponent },
+
+
 ];
 
 @NgModule({

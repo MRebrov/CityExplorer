@@ -1,10 +1,7 @@
+.image {
 
-html,body{
-  height:100%
-}
-.conteiner {
   background-image: url("http://i66.tinypic.com/p87r4.jpg");
-  height: 641px;
+  height: 635px;
 }
 .logo {
   text-align: center;
@@ -60,8 +57,6 @@ html,body{
   }
 }
 
-
-/* follow me @nodws */
 #btn-twtr{
   clear:both;
   color:#fff;
@@ -83,6 +78,10 @@ html,body{
   background:rgba(0,0,0,0.2);
   box-shadow:0 0 0px 3px rgba(0,0,0,0.2);
   opacity:0.4
-}#btn-twtr:hover{color:#fff;opacity:1}
+
+}#btn-twtr:hover
+ {color:#fff;
+   opacity:1
+ }
 
 

@@ -1,13 +1,16 @@
 
 <app-header></app-header>
+<div class="color">
 <div class="container">
-  <h1 class="display-4">Create your own quest</h1>
+  <h1 id="font">Create your own quest</h1>
 </div>
 <div class="collapse col-md-12 col-sm-12" id="collapseMessage">
   <div class="alert alert-primary" role="alert">
     {{errorMsg}}
   </div>
 </div>
+
+
 <div class="row">
   <div class="col col-md-7 col-xs-12">
     <agm-map [latitude]="questPlace.lat" [longitude]="questPlace.lng" (mapReady)="mapReady($event)">
@@ -28,9 +31,9 @@
     <form id="newQuestForm" novalidate>
       <div class="form-group">
         <div class="form-row">
-          <div class="col-9">
-            <label for="questName">Name</label>
-            <input type="text" class="form-control" id="questName" name="questName" value=""
+          <div class="col-">
+            <label  for="questName">Name</label>
+            <input id="name" type="text" class="form-control" id="questName" name="questName" value=""
                    [(ngModel)]="quest.name" required>
           </div>
           <div class="col-3">
@@ -40,9 +43,9 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div  id="desc" class="form-group">
         <ngb-accordion #acc="ngbAccordion">
-          <ngb-panel title="Description">
+          <ngb-panel  title="Description">
             <ng-template ngbPanelContent>
               <textarea rows="8" cols="80" placeholder="Enter a short description for your quest..."
                         class="form-control"
@@ -64,9 +67,9 @@
           </div>
         </div>
       </div>
-      <div class="quest-col form-group">
+      <div id="form" class="quest-col form-group">
         <div class="form-row" *ngFor="let spot of spots; let i = index">
-          <div class="col-5">
+          <div class="col-3">
             <label for="spotName">Spot name</label>
             <input #spotName type="text" class="form-control"
                    id="spotName" name="spotName"
@@ -122,11 +125,12 @@
       <!--</div>-->
       <!--</div>-->
       <!--</div>-->
-      <button type="submit" class="btn btn-primary btn-block" (click)="createQuest()" style="margin-top: 2%">Create
-      </button>
+      <button id="submit" type="submit" class="btn btn-primary btn-block" (click)="createQuest()"> Create </button>
+
       <!--</div>-->
     </form>
   </div>
+</div>
 </div>
 <!--<div class="col-5">-->
 <!--<template #parent>-->

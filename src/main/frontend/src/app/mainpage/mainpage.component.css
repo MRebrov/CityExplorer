@@ -74,19 +74,6 @@ p {
 }
 
 #sign1 .sing-up-button>a {
-  color: #fff;
-  font-weight: 500;
-  display: inline-block;
-  border: 2px solid rgba(13, 58, 84, 1);
-  height: 50px;
-  min-width: 90px;
-  line-height: 46px;
-  text-align: center;
-  border-radius: 25px 25px 0px 25px;
-  text-decoration: none;
-}
-
-#sign2 .sing-up-button>a {
   color: rgb(236, 236, 236);
   font-weight: 500;
   display: inline-block;
@@ -96,14 +83,10 @@ p {
   line-height: 46px;
   text-align: center;
   border-radius: 25px 25px 25px 0px;
-  position: absolute;
-  width: 1px;
-  top: -24px;
-  right: -105px;
 }
 
-#sign2 .sing-up-button>a:hover {
-  background: rgba(141, 213, 60, 1);
+#sign1 .sing-up-button>a:hover {
+  background: #23C839;
   color: #fff;
   border-color: transparent;
   -webkit-transition-duration: 500ms;
@@ -112,7 +95,22 @@ p {
   text-decoration: none;
 }
 
-#sign1 .sing-up-button>a:hover {
+#sign2 .sing-up-button>a {
+  color: #fff;
+  font-weight: 500;
+  display: inline-block;
+  border: 2px solid whitesmoke;
+  height: 50px;
+  min-width: 90px;
+  line-height: 46px;
+  text-align: center;
+  border-radius: 25px 25px 0px 25px;
+  text-decoration: none;
+  position: relative;
+  left: 130px;
+}
+
+#sign2 .sing-up-button>a:hover {
   background: rgba(13, 58, 84, 1);
   color: #fff;
   border-color: transparent;
@@ -121,12 +119,16 @@ p {
   transition-duration: 500ms;
 }
 
+
+
+
 /* END */
 
 .wellcome_area {
-  background-image: url(https://wallpaperscraft.ru/image/neboskreby_noch_vid_sverkhu_ogni_goroda_megapolis_110547_1920x1080.jpg);
-  height: 900px;
-  position: relative;
+  background-image: url(https://img4.goodfon.ru/original/1920x1200/e/5b/gorod-ssha-niu-iork-doma.jpg);
+  height: 100%;
+  width: 100%;
+  position: fixed;
   z-index: 1;
   background-position: bottom center;
   background-size: cover;
@@ -158,8 +160,9 @@ p {
 
 .wellcome-heading > h2 {
   font-size: 90px;
-  color: #ffffff;
+  color: white;
   font-weight: 700;
+  top: 120px;
   position: relative;
   z-index: 3;
 }
@@ -171,15 +174,17 @@ p {
 .wellcome-heading>h3 {
   font-size: 332px;
   position: absolute;
-  top: -154px;
+  top: -10px;
   font-weight: 900;
   left: -2px;
   z-index: -1;
   color: rgb(255, 255, 255);
-  opacity: 0.2;
+  opacity: 0.3;
 
 }
 
 .wellcome-heading {
   margin-bottom: 100px;
+
 }
+
