@@ -13,10 +13,13 @@ textarea{
   height: 250px;
   overflow: auto;
 }
+
+
 #font {
   font-family: 'Vollkorn', cursive;
   position: relative;
-  /*left: 10px;*/
+  text-align: center;
+
 
 }
 #name {
@@ -25,7 +28,7 @@ textarea{
 }
 
 #desc {
-width: 64%;
+  width: 64%;
 
 }
 #submit{

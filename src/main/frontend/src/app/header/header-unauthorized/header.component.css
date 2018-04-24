@@ -1,14 +1,9 @@
 .navbar-brand {
   color: #ffffff;
-  font-family: 'Black Han Sans', sans-serif;
+  font-family: 'Kaushan Script', cursive;
 }
-/*
-#signin {
-  position: relative;
-  left: 1160px;
+
+#maplink {
+  font-family: 'Playfair Display SC', serif;
+  color: white;
 }
-#signup {
-  position: relative;
-  left: 990px;
-}
-*/
