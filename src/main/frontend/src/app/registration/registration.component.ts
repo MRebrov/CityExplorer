@@ -91,6 +91,11 @@ export class RegistrationComponent implements OnInit {
     }); //Если ошибки нет, сказать что регистрация прошла
   }
 
+  isValidMail(mail:string){
+    const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return regexp.test(mail);
+  }
+
   /**
    * Вывести сообщение или ошибку
    * @param error текст сообщения или ошибки
