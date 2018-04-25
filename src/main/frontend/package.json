@@ -37,6 +37,7 @@
     "mkdirp": "^0.5.1",
     "ng2-accordion": "0.0.15",
     "ng2-file-upload": "^1.3.0",
+    "ng2-password-strength-bar": "^1.2.0",
     "ngx-accordion": "0.0.17",
     "octicons": "^7.2.0",
     "preloader.css3": "^1.0.2",

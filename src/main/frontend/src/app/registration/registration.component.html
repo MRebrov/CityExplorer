@@ -3,44 +3,96 @@
   <div class="container">
     <h1 id="signup" class="display-4 text-center" routerLink="/mainpage">Sign up</h1>
     <div id="regFormDiv">
-      <form id="regForm" novalidate>
+      <form [formGroup]="form" id="regForm" novalidate >
         <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['firstName'].valid}">
             <label id="name" for="firstName">First name</label>
             <input type="text" class="form-control" id="firstName" name="firstName" value=""
-                   [(ngModel)]="user.firstName" required>
+                   [formControl]="form.controls['firstName']"
+            >
+            <div *ngIf="form.controls['firstName'].hasError('required') &&
+                        form.controls['firstName'].touched" class="alert alert-danger">
+              You must enter a first name.
+            </div>
+            <!--[(ngModel)]="user.firstName" -->
+            <!--required -->
           </div>
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['lastName'].valid}">
             <label for="lastName">Last name</label>
             <input type="text" class="form-control" id="lastName" name="lastName"
-                   [(ngModel)]="user.lastName" required>
+                   [formControl]="form.controls['lastName']"
+            >
+            <!--[(ngModel)]="user.lastName" -->
+            <!--required-->
           </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['email'].valid}">
             <label for="email">Email address</label>
             <input type="email" class="form-control" id="email" name="email"
-                   [(ngModel)]="user.email" required>
-          </div>
-          <div *ngIf="isValidMail(user.email)">
+                   [formControl]="form.controls['email']"
+            >
+            <div *ngIf="(form.controls['email'].hasError('required')||
+                        form.controls['email'].hasError('email')) &&
+                        form.controls['email'].touched
+                        " class="alert alert-danger">
+              You must enter a valid email.
+            </div>
 
+            <!--[(ngModel)]="user.email" -->
+            <!--required -->
           </div>
-          <div class="form-group col-md-6 col-sm-12">
+          <!--<div *ngIf="isValidMail(user.email)">-->
+
+          <!--</div>-->
+          <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['birthdate'].valid}">
             <label for="birthday">Birthday</label>
             <input type="date" class="form-control" id="birthday" name="birthday"
-                   [(ngModel)]="user.birthday" required>
+                   [formControl]="form.controls['birthdate']"
+            >
+
+            <!--[(ngModel)]="user.birthday" -->
+            <!--required-->
           </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['password'].valid}">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password"
-                   [(ngModel)]="user.password" required>
+                   [formControl]="form.controls['password']"
+            >
+            <div *ngIf="(form.controls['password'].hasError('maxlength') ||
+                        form.controls['password'].hasError('minlength') ||
+                        form.controls['password'].hasError('required')) &&
+                        form.controls['password'].touched
+                        " class="alert alert-danger">
+              Password has to be between 4 - 24 symbols length
+            </div>
+            <!--[(ngModel)]="user.password" -->
+            <!--required-->
           </div>
-          <div class="form-group col-md-6 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['confirmPassword'].valid}">
             <label for="confirmPassword">Confirm password</label>
             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                   [(ngModel)]="confirmPassword" required>
+                   [formControl]="form.controls['confirmPassword']"
+            >
+            <div *ngIf="(form.controls['confirmPassword'].errors||
+                        form.controls['confirmPassword'].hasError('required'))&&
+                        form.controls['confirmPassword'].touched
+                        " class="alert alert-danger">
+              Passwords do not match
+            </div>
+            <!--[(ngModel)]="confirmPassword" -->
+            <!--required-->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <ng2-password-strength-bar
+              [passwordToCheck]="form.controls['password'].value"
+              [barLabel]="barLabel"
+              [barColors]="myColors">
+            </ng2-password-strength-bar>
           </div>
         </div>
       </form>
@@ -53,7 +105,9 @@
           </div>
         </div>
         <div class="col-md-1 col-12">
-          <button id="submit" type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Submit</button>
+          <button id="submit" type="submit" class="btn btn-primary" [disabled] = "!form.valid"
+                  (click)="submitForm(form)">
+                   Submit</button>
         </div>
 
       </div>
