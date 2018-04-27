@@ -7,14 +7,21 @@ import 'rxjs/add/operator/map';
 import {AuthHttp} from 'angular2-jwt';
 import {SpotDTO} from './spot.model';
 import {UserProgressDTO} from './user-progress.model';
+import {SpotConfirmationDTO} from '../confirmations-list/spot-confirmation.model';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class QuestService {
 
   private quests: QuestDTO[] = null;
+  private confirmations: SpotConfirmationDTO[] = null;
+
+  public _confirmationsCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public confirmationsCountObs: Observable<number> = this._confirmationsCountSubject.asObservable();
 
   constructor(public authHttp: AuthHttp, public http: Http) {
   }
+
 
   //
   // loadFile(file: File):Observable<HttpEvent<{}>>{
@@ -79,12 +86,26 @@ export class QuestService {
     });
   }
 
-  getLoadedQuests(): QuestDTO[]{
+  getLoadedQuests(): QuestDTO[] {
     return this.quests;
+  }
+
+  getLoadedConfirmations(): SpotConfirmationDTO[] {
+    return this.confirmations;
+  }
+
+  removeLoadedConfirmations(){
+    this.confirmations=null;
   }
 
   getUserProgressForCurrentUser() {
     return this.authHttp.get('userapi/get-progresses-by-user/').map((response: Response) => {
+      return response.json();
+    });
+  }
+
+  getQuestsByOwner() {
+    return this.authHttp.get('userapi/get-quests-by-owner/').map((response: Response) => {
       return response.json();
     });
   }
@@ -119,54 +140,68 @@ export class QuestService {
     return quest.spots == null ? 0 : quest.spots.length;
   }
 
-  howManySpotsCompleted(progress: UserProgressDTO):number{
-    let res=0;
-    for(let spotProgress of progress.userSpotProgresses){
-      if(spotProgress.dateComplete!=null)
+  howManySpotsCompleted(progress: UserProgressDTO): number {
+    let res = 0;
+    for (let spotProgress of progress.userSpotProgresses) {
+      if (spotProgress.dateComplete != null)
         res++;
     }
     return res;
   }
 
-  getUserProgressInPercents(progress: UserProgressDTO):number {
-    return Math.round((this.howManySpotsCompleted(progress)/this.howManySpotsInQuest(progress.quest))*100);
+  getUserProgressInPercents(progress: UserProgressDTO): number {
+    return Math.round((this.howManySpotsCompleted(progress) / this.howManySpotsInQuest(progress.quest)) * 100);
   }
 
-  isSpotCompleted(spot: SpotDTO, userProgress: UserProgressDTO): boolean{
-    for(let spotProgress of userProgress.userSpotProgresses){
-      if(spotProgress.spotId == spot.spotId && spotProgress.dateComplete != null)
+  isSpotCompleted(spot: SpotDTO, userProgress: UserProgressDTO): boolean {
+    for (let spotProgress of userProgress.userSpotProgresses) {
+      if (spotProgress.spotId == spot.spotId && spotProgress.dateComplete != null)
         return true;
     }
     return false;
   }
 
-  isSpotConfirmed(spot: SpotDTO, userProgress: UserProgressDTO): boolean{
-    for(let spotProgress of userProgress.userSpotProgresses){
-      if(spotProgress.spotId == spot.spotId && spotProgress.spotStatus=='Confirmed')
+  isSpotConfirmed(spot: SpotDTO, userProgress: UserProgressDTO): boolean {
+    for (let spotProgress of userProgress.userSpotProgresses) {
+      if (spotProgress.spotId == spot.spotId && spotProgress.spotStatus == 'Confirmed')
         return true;
     }
     return false;
   }
 
   joinQuest(questId: number) {
-    return this.authHttp.post('userapi/join-quest/' + questId,{}).map((response: Response) => {
+    return this.authHttp.post('userapi/join-quest/' + questId, {}).map((response: Response) => {
       return response;
     });
   }
 
   postSpotPhoto(url: string, questId: number, spotId: number) {
-    return this.authHttp.post('userapi/post-spot-photo/',{url:url, questId:questId, spotId: spotId}).map((response: Response) => {
+    return this.authHttp.post('userapi/post-spot-photo/', {url: url, questId: questId, spotId: spotId}).map((response: Response) => {
       return response;
     });
   }
 
-  getConfirmationsList(){
-    return this.authHttp.get('userapi/get-all-confirmations/',{}).map((response: Response) => {
+  getConfirmationsList() {
+    return this.authHttp.get('userapi/get-all-confirmations/', {}).map((response: Response) => {
       return response.json();
-    });
+    }).subscribe(
+      (confirmations: any[]) => {
+        this.confirmations = confirmations;
+        this._confirmationsCountSubject.next(this.confirmations.length);
+        for (let confirmation of this.confirmations) {
+          confirmation.uploadDate = new Date(confirmation.uploadDate);
+        }
+        this.confirmations.sort((a, b) => {
+          if (a.uploadDate > b.uploadDate)
+            return -1;
+          else
+            return 1;
+        });
+      });
   }
+
   confirmationRequest(userProgressId: number, confirm: Boolean) {
-    return this.authHttp.post('userapi/confirmation-request/'+userProgressId, {confirm:confirm}).map((response: Response) => {
+    return this.authHttp.post('userapi/confirmation-request/' + userProgressId, {confirm: confirm}).map((response: Response) => {
       return response;
     });
   }

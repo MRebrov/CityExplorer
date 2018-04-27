@@ -2,13 +2,13 @@
 <div id="color">
 <div class="container">
   <h1  id="confirmations" class="display-4 text-center">Confirmations</h1>
-  <div *ngIf="spotConfirmations != null && spotConfirmations.length>0; else noDataBlock">
+  <div *ngIf="questService.getLoadedConfirmations() != null && questService.getLoadedConfirmations().length>0; else noDataBlock">
     <div class="collapse col-md-12 col-sm-12" id="collapseMessage">
       <div class="alert alert-primary" role="alert">
         {{errorMsg}}
       </div>
     </div>
-    <div class="card" *ngFor="let confirmation of spotConfirmations">
+    <div class="card" *ngFor="let confirmation of questService.getLoadedConfirmations()">
       <h5 class="card-header">Spot "{{confirmation.spotName}}" in quest "{{confirmation.questName}}"</h5>
       <div class="card-body">
         <div class="row">
@@ -41,7 +41,7 @@
   </div>
 
   <ng-template #noDataBlock>
-    <div *ngIf="spotConfirmations == null; else noConfirmationsBlock">
+    <div *ngIf="questService.getLoadedConfirmations() == null; else noConfirmationsBlock">
       <h5>Loading confirmations...</h5>
     </div>
     <ng-template #noConfirmationsBlock>

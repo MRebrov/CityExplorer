@@ -1,29 +1,22 @@
 <app-header></app-header>
 <div class="color">
   <div class="container">
+    <nav>
+      <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+           aria-controls="nav-home" aria-selected="true">Joint quests</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+           aria-controls="nav-profile" aria-selected="false">Owned quests</a>
+      </div>
+    </nav>
     <div class="row justify-content-center">
-      <div class="col-md-6 col-sm-12">
-        <h1 class="display-4 text-center">My quests</h1>
-        <div id="cont" *ngIf="userProgressList != null && userProgressList.length>0; else noDataBlock">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let progress of userProgressList">
-              <a [routerLink]="['/questpage', progress.quest.questId]">
-                {{progress.quest.name}}
-                <span class="badge badge-success" *ngIf="progress.dateComplete != null">completed</span>
-              </a>
-            </li>
-          </ul>
+      <div class="tab-content col-md-6 col-sm-12" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <app-user-current-quest-list></app-user-current-quest-list>
         </div>
-        <ng-template #noDataBlock>
-          <div *ngIf="userProgressList == null; else noQuestsBlock">
-            <!--<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>-->
-
-            <h5>Loading active quests...</h5>
-          </div>
-          <ng-template #noQuestsBlock>
-            <h5>You have no active quests</h5>
-          </ng-template>
-        </ng-template>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <app-user-owned-quest-list></app-user-owned-quest-list>
+        </div>
       </div>
     </div>
   </div>

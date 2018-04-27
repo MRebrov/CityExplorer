@@ -28,6 +28,8 @@ import {LoginRedirectionService} from './login/login-redirection-service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import {PasswordStrengthBarModule} from "ng2-password-strength-bar";
+import {UserCurrentQuestListComponent} from './user-quest-list/current-quests/user-current-quest-list.component';
+import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-owned-quest-list.component';
 
 
 
@@ -45,6 +47,8 @@ import {PasswordStrengthBarModule} from "ng2-password-strength-bar";
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
     UserQuestListComponent,
+    UserCurrentQuestListComponent,
+    UserOwnedQuestListComponent,
     QuestListComponent,
     QuestPageComponent,
     ConfirmationsListComponent,

@@ -23,7 +23,10 @@
         <a id="userquests" class="nav-link" routerLink="/userquests">My quests</a>
       </li>
       <li>
-        <a id="confirmations" class="nav-link" routerLink="/confirmations">Spot confirmations</a>
+        <a id="confirmations" class="nav-link" routerLink="/confirmations">
+          Spot confirmations
+          <span class="badge badge-light">{{questService.confirmationsCountObs | async}}</span>
+        </a>
       </li>
     </ul>
 

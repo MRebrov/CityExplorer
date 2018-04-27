@@ -1,6 +1,8 @@
 package ru.netcracker.registration.controller;
 
+import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,9 @@ import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.service.impl.UserGroupService;
 import ru.netcracker.registration.service.impl.UserService;
 
+import javax.security.auth.login.CredentialExpiredException;
+import java.net.URI;
+
 @Controller
 @RequestMapping("/confirm")
 public class BurningLinkController {
@@ -23,20 +28,22 @@ public class BurningLinkController {
     private UserService userService;
 
     @GetMapping("/{code}")
-    public @ResponseBody
-    ResponseEntity<?> confirm(@PathVariable String code) {
+    public String confirm(@PathVariable String code) {
         try {
             String email = linksManager.getEmailAndBurnLink(code);
             UserDTO userDTO = userService.get(email);
             userDTO.setGroupID(groupService.get("Default"));
             userService.editPersonalInfo(userDTO);
 
-            return new ResponseEntity<>("User email confirmed successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
+            return "redirect:/login/activated";
+        } catch (CredentialExpiredException e) {
+             return "redirect:/login/expired";
+        }
+        catch (InvalidCredentialsException e){
+            return "redirect:/login/invalid";
+        }
+        catch (Exception e){
+            return e.getMessage();
         }
     }
 }

@@ -11,6 +11,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {AuthObject} from '../auth/authForm';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import {QuestService} from '../quest/quest.service';
 
 /**
  * Сервис на frontend
@@ -22,22 +23,19 @@ export class UserService {
   public _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
 
-  private serverSocketUrl = '/socket'
+  private serverSocketUrl = '/socket';
   private stompClient;
+  public onNotifiedHandler;
 
   constructor(public authHttp: AuthHttp, public http: Http) {
   }
 
-  initializeWebSocketConnection(){
+  private initializeWebSocketConnection() {
     let ws = new SockJS(this.serverSocketUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
-    this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe("/user/confirmation", (message) => {
-        if(message.body) {
-          alert(message.body);
-        }
-      });
+    this.stompClient.connect({}, function (frame) {
+      that.stompClient.subscribe('/user/confirmation', that.onNotifiedHandler);
     });
 
   }

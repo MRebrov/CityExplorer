@@ -7,7 +7,7 @@
       Bootstrap uses classes like 'col-xx-nn'
       -->
       <div class="col-sm-12 col-md-8">
-        <agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="12">
+        <agm-map #gm [latitude]="lat" [longitude]="lng" [zoom]="12" (zoomChange)="zoomChange($event)">
           <agm-marker *ngFor="let m of markers"
                       [latitude]="m.lat"
                       [longitude]="m.lng"

@@ -157,6 +157,16 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
+    public List<QuestDTO> getAllByOwner(String email){
+        List<QuestDTO> res = new ArrayList<>();
+        User owner = userRepository.findByEmail(email);
+        for (Quest q : questRepository.findAllByOwnerId(owner)) {
+            res.add(QuestConverter.convertToDTO(q));
+        }
+        return res;
+    }
+
+    @Override
     public List<QuestDTO> getAllInRange(double lat, double lng, double range) {
         List<Quest> quests = getAll();
         List<QuestDTO> res = new ArrayList<>();

@@ -321,7 +321,16 @@ public class UserController {
 
     @PostMapping("/edit/password")
     public ResponseEntity<?> editPassword(@RequestBody ChangePasswordForm form) {
+
         try {
+            UserDTO userDTO = userService.get(form.getEmail());
+            GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
+            String body = String.format(
+                    "Dear %s! Someone is trying to change password on your account.",
+                    userDTO.getFirstName()
+            );
+            sender.sendMail("Password change attempt", body, "netcracker", userDTO.getEmail());
+
             if (form.getEmail().equals(securityService.findLoggedInEmail())) {
                 userService.editPassword(form.getEmail(), form.getOldPassword(), form.getNewPassword());
                 return new ResponseEntity<>(HttpStatus.OK);

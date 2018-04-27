@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {QuestDTO} from '../quest/quest.model';
 import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
@@ -6,6 +6,7 @@ import {QuestService} from '../quest/quest.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {PhotoDTO} from '../quest/photo.model';
 import {SpotDTO} from '../quest/spot.model';
+import {AgmMap} from '@agm/core';
 
 @Component({
   selector: 'app-map',
@@ -16,10 +17,11 @@ export class MapComponent implements OnInit {
 
   lat: number = 51.6495355;
   lng: number = 39.150856499999996;
-
+  @ViewChild('gm')
+  gm: AgmMap;
   quests: QuestDTO[] = [];
-
   markers: marker[] = [];
+  prevZoom = 0;
 
   icons: string[] = [
     'assets/markers/blue.png',
@@ -41,10 +43,12 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     if (this.questService.getLoadedQuests() == null)
       this.loadLocation();
-    else{
+    else {
       console.log('Using pre-loaded quests');
       this.quests = this.questService.getLoadedQuests();
-      this.updateMarkers();
+
+      let collapseDist = this.evaluateCollapseDist(this.gm.zoom);
+      this.updateMarkers(collapseDist);
     }
 
   }
@@ -53,7 +57,7 @@ export class MapComponent implements OnInit {
     if (window.navigator && window.navigator.geolocation) {
       let options = {
         enableHighAccuracy: true,
-        timeout: 10000
+        timeout: 5000
       };
       window.navigator.geolocation.getCurrentPosition(
         position => {
@@ -93,12 +97,14 @@ export class MapComponent implements OnInit {
       this.loaded = true;
       this.quests = this.questService.getLoadedQuests();
       console.log('Quests for current position loaded successfully');
-      this.updateMarkers();
+
+      let collapseDist = this.evaluateCollapseDist(this.gm.zoom);
+      this.updateMarkers(collapseDist);
     });
 
   }
 
-  updateMarkers() {
+  updateMarkers(collapseDist: number) {
     this.markers = [];
     for (let quest of this.quests) {
       for (let spot of quest.spots) {
@@ -107,7 +113,7 @@ export class MapComponent implements OnInit {
           m.lng,
           parseFloat(spot.lat),
           parseFloat(spot.lng)
-        ) < 20);
+        ) < collapseDist);
         if (existingMarker == null) {
           this.markers.push({
             lat: parseFloat(spot.lat),
@@ -123,7 +129,11 @@ export class MapComponent implements OnInit {
           });
         }
         else {
-          existingMarker.quests.push(quest);
+          if (existingMarker.quests.indexOf(quest) < 0) {
+            existingMarker.quests.push(quest);
+            existingMarker.name = 'Spot available in ' + existingMarker.quests.length + ' quests';
+
+          }
           existingMarker.photos = existingMarker.photos.concat(spot.photos);
         }
       }
@@ -133,7 +143,7 @@ export class MapComponent implements OnInit {
   }
 
   evaluateMarkers() {
-    if (this.markers.length > 0) {
+    if (this.markers.length > 1) {
       this.markers.sort((a, b) => {
         return a.photos.length - b.photos.length;
       });
@@ -143,6 +153,11 @@ export class MapComponent implements OnInit {
         m.iconUrl = this.icons[Math.round((this.icons.length - 1) * ((m.photos.length - min) / (max - min)))];
         m.label = m.photos.length.toString();
       }
+    }
+    else if (this.markers.length == 1) {
+      let m = this.markers[0];
+      m.iconUrl = this.icons[Math.round(this.icons.length / 2)];
+      m.label = m.photos.length.toString();
     }
   }
 
@@ -163,6 +178,37 @@ export class MapComponent implements OnInit {
     return degrees * Math.PI / 180;
   };
 
+  async zoomChange(event) {
+    await new Promise(resolve => {
+      if (event == Math.round(event) && Math.abs(event - this.prevZoom) >= 2) {
+        let collapseDist = this.evaluateCollapseDist(event);
+        this.updateMarkers(collapseDist);
+      }
+    });
+  }
+
+  evaluateCollapseDist(zoom: number): number {
+    if (zoom >= 21)
+      return 0;
+    else if (zoom >= 19)
+      return 2;
+    else if (zoom >= 17)
+      return 20;
+    else if (zoom >= 15)
+      return 50;
+    else if (zoom >= 13)
+      return 200;
+    else if (zoom >= 11)
+      return 800;
+    else if (zoom >= 9)
+      return 3000;
+    else if (zoom >= 7)
+      return 12000;
+    else if (zoom >= 5)
+      return 50000;
+    else
+      return 130000;
+  }
 
 }
 

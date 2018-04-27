@@ -12,31 +12,15 @@ import {Response} from '@angular/http';
 })
 export class ConfirmationsListComponent implements OnInit {
 
-  public spotConfirmations: SpotConfirmationDTO[];
   errorMsg: string;
 
   constructor(public questService: QuestService, private router: Router) {
   }
 
   ngOnInit() {
-    this.questService.getConfirmationsList()
-      .subscribe(
-        (confirmations: any[]) => {
-          this.spotConfirmations = confirmations;
-          for (let confirmation of this.spotConfirmations) {
-            confirmation.uploadDate = new Date(confirmation.uploadDate);
-          }
-          this.spotConfirmations.sort((a,b)=>{
-            if(a.uploadDate> b.uploadDate)
-              return -1;
-            else
-              return 1;
-          });
-        },
-        (error) => {
-          console.log(error);
-          this.router.navigate(['/map']);
-        });
+    if(this.questService.getLoadedConfirmations()==null) {
+      this.questService.getConfirmationsList();
+    }
   }
 
   doConfirmOrReject(spotConfirmationDTO: SpotConfirmationDTO, confirm: boolean) {
@@ -46,8 +30,9 @@ export class ConfirmationsListComponent implements OnInit {
     }).subscribe(
       (response: any) => {
         this.writeMsg((confirm ? 'Confirmation' : 'Rejecton') + 'completed');
-        let index: number = this.spotConfirmations.indexOf(spotConfirmationDTO);
-        this.spotConfirmations.splice(index, 1);
+        let index: number = this.questService.getLoadedConfirmations().indexOf(spotConfirmationDTO);
+        this.questService.getLoadedConfirmations().splice(index, 1);
+        this.questService._confirmationsCountSubject.next(this.questService.getLoadedConfirmations().length);
       });
   }
 

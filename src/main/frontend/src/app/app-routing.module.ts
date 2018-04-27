@@ -17,6 +17,7 @@ import {NotfoundComponent} from './notfound/notfound.component';
 
 const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
+  {path: 'login/:state', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   // {path: '', redirectTo: '/map', pathMatch: 'full'},
   {path: 'vk', component: VkComponent},
