@@ -6,6 +6,7 @@ import ru.netcracker.registration.model.DTO.UserDTO;
 public class BurningLink {
     private String email;
     private DateTime whenSent;
+    private static final String confirmationURI = "https://nc-edu-city-explorer-edu.193b.starter-ca-central-1.openshiftapps.com/confirm/";
 
     public BurningLink(String email){
         this.email=email;
@@ -13,7 +14,7 @@ public class BurningLink {
     }
 
     public String getLink(){
-        return "http://localhost:8081/confirm/"+getCode();
+        return confirmationURI+getCode();
     }
 
     public String getCode(){

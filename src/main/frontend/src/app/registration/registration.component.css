@@ -1,0 +1,20 @@
+#signup {
+  /*position: relative;
+  left: 440px;*/
+  font-family: 'Vollkorn', cursive;
+}
+#signupp {
+  background-color: #F5F5F5;
+  height: 900px;
+}
+
+.container {
+  position: relative;
+  top: 50px;
+}
+
+/*#submit {
+  position: relative;
+  left: 1010px;
+}*/
+

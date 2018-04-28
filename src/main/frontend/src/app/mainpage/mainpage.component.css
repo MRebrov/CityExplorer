@@ -1,0 +1,185 @@
+
+/** {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+/*}*/
+
+* {
+  font-family: 'Vollkorn', cursive;
+  background-color: #green;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  color: #726a84;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+
+.header_area {
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  top: 0;
+  padding: 0 4%;
+}
+
+.menu_area .navbar-brand {
+  font-size: 60px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+  padding: 0;
+}
+
+.menu_area .navbar-brand:hover, .menu_area .navbar-brand:focus {
+  color: #fff;
+}
+
+.menu_area {
+  position: relative;
+  z-index: 2;
+}
+
+.menu_area #nav .nav-link{
+  color: #fff;
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 30px;
+  -webkit-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms;
+  padding: 35px 15px;
+}
+.nav-link > a:hover {
+  color: #0000d0;
+}
+
+.menu_area nav ul li>a:hover {
+  color: rgb(247, 0, 0);
+}
+
+/* Button */
+
+.sing-up-button {
+  text-align: right;
+}
+
+#sign1 .sing-up-button>a {
+  color: #fff;
+  font-weight: 500;
+  display: inline-block;
+  border: 2px solid rgba(13, 58, 84, 1);
+  height: 50px;
+  min-width: 90px;
+  line-height: 46px;
+  text-align: center;
+  border-radius: 25px 25px 0px 25px;
+  text-decoration: none;
+}
+
+#sign2 .sing-up-button>a {
+  color: rgb(236, 236, 236);
+  font-weight: 500;
+  display: inline-block;
+  border: 2px solid rgba(141, 213, 60, 1);
+  height: 50px;
+  min-width: 90px;
+  line-height: 46px;
+  text-align: center;
+  border-radius: 25px 25px 25px 0px;
+  position: absolute;
+  width: 1px;
+  top: -24px;
+  right: -105px;
+}
+
+#sign2 .sing-up-button>a:hover {
+  background: rgba(141, 213, 60, 1);
+  color: #fff;
+  border-color: transparent;
+  -webkit-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms;
+  text-decoration: none;
+}
+
+#sign1 .sing-up-button>a:hover {
+  background: rgba(13, 58, 84, 1);
+  color: #fff;
+  border-color: transparent;
+  -webkit-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms;
+}
+
+/* END */
+
+.wellcome_area {
+  background-image: url(https://wallpaperscraft.ru/image/neboskreby_noch_vid_sverkhu_ogni_goroda_megapolis_110547_1920x1080.jpg);
+  height: 900px;
+  position: relative;
+  z-index: 1;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.wellcome_area:after {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  height: 2px;
+  background-color: #fff;
+  content: '';
+  bottom: 0;
+  z-index: 2;
+}
+
+.welcome-thumb {
+  width: 45%;
+  position: absolute;
+  bottom: -130px;
+  right: 85px;
+  z-index: 9;
+}
+
+.welcome-thumb img {
+  height: auto;
+  width: 100%;
+}
+
+.wellcome-heading > h2 {
+  font-size: 90px;
+  color: #ffffff;
+  font-weight: 700;
+  position: relative;
+  z-index: 3;
+}
+
+.wellcome-heading>p {
+  color: #fff;
+}
+
+.wellcome-heading>h3 {
+  font-size: 332px;
+  position: absolute;
+  top: -154px;
+  font-weight: 900;
+  left: -2px;
+  z-index: -1;
+  color: rgb(255, 255, 255);
+  opacity: 0.2;
+
+}
+
+.wellcome-heading {
+  margin-bottom: 100px;
+}

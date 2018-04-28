@@ -1,0 +1,12 @@
+.row .col agm-map{
+  height: 500px;
+
+}
+textarea{
+  resize: none;
+}
+
+.quest-col{
+  height: 250px;
+  overflow: auto;
+}

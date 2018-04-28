@@ -178,14 +178,17 @@ public class QuestController {
     ResponseEntity<?> joinQuest(@PathVariable Long questId) {
         try {
             String email = securityService.findLoggedInEmail();
-            if(email == null){
+            if (email == null) {
                 return new ResponseEntity<Object>(
                         "Must be authorized to join quest",
                         HttpStatus.UNAUTHORIZED
                 );
             }
-            if(questService.getById(questId).getOwnerEmail().equals(email)) {
+            if (questService.getById(questId).getOwnerEmail().equals(email)) {
                 throw new Exception("Quest owner can not join quest");
+            }
+            if (questService.getUserProgressByUserAndQuest(email, questId) != null) {
+                throw new Exception("You are already in this quest");
             }
             questService.userJoinQuest(email, questId);
             return ResponseEntity.ok("User joined quest");
@@ -249,7 +252,7 @@ public class QuestController {
     ResponseEntity<?> getAllConfirmations() {
         try {
             String email = securityService.findLoggedInEmail();
-            List<SpotConfirmationDTO> confirmationDTOS =questService.getSpotConfirmationsForOwner(email);
+            List<SpotConfirmationDTO> confirmationDTOS = questService.getSpotConfirmationsForOwner(email);
             return new ResponseEntity<Object>(
                     confirmationDTOS,
                     HttpStatus.OK
@@ -262,7 +265,7 @@ public class QuestController {
         }
     }
 
-    private static class ConfirmationWrap{
+    private static class ConfirmationWrap {
         private boolean confirm;
 
         public boolean isConfirm() {
@@ -273,6 +276,7 @@ public class QuestController {
             this.confirm = confirm;
         }
     }
+
     @PostMapping("/confirmation-request/{userSpotProgressId}")
     public @ResponseBody
     ResponseEntity<?> confirmationRequest(@PathVariable Long userSpotProgressId, @RequestBody ConfirmationWrap confirm) {
