@@ -35,6 +35,10 @@ export class QuestComponent implements OnInit {
   questPhotos: File[] = [];
   progress: { percentage: number } = {percentage: 0};
   photoAdded: boolean[] = [];
+  balance: number;
+  cost: number;
+  reward: number;
+  numberOfParticipants: number;
 
   questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
@@ -59,8 +63,29 @@ export class QuestComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().
+    this.userService.getCurrentUser().subscribe(
+      (user: any) => {
+        this.balance = user.balance;
+      });
   }
+
+
+  calculateCost(){
+    var k = this.spots.length;
+    var n = 1;
+    switch(k) {
+      case 2: n = 2;
+        break;
+      case 3: n = 4;
+        break;
+      case 4: n = 7;
+        break;
+      case 5: n = 11;
+        break;
+    }
+    this.cost = this.reward*this.numberOfParticipants*n;
+  }
+
 
   addMarker() {
     //console.log(this.inputForm.quest.name);
