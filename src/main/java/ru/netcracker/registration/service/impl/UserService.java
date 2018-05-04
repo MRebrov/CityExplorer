@@ -122,6 +122,7 @@ public class UserService {
             if(oldUser.getPassword().equals(oldPassword)){
                 oldUser.setPassword(newPassword);
                 repository.save(oldUser);
+
             }
             else{
                 throw new Exception("Old password is not correct");

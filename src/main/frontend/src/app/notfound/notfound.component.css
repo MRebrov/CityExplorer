@@ -1,10 +1,7 @@
+.image {
 
-html,body{
-  height:100%
-}
-.conteiner {
   background-image: url("http://i66.tinypic.com/p87r4.jpg");
-  height: 641px;
+  height: 635px;
 }
 .logo {
   text-align: center;
@@ -12,14 +9,15 @@ html,body{
   height: 250px;
   margin: auto;
   position: absolute;
-  top: 0;
+  top: -100px;
   left: 0;
   right: 0;
   bottom: 0;
 }
 
 .logo b{
-  font: 100 15vh "Do Hyeon";
+  font-family: 'Pacifico', cursive;
+  font-size: 100px;
   color: #fee;
   text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #ff4444, 0 0 0.5em #ff4444, 0 0 0.1em #ff4444, 0 10px 3px #000;
 }
@@ -60,8 +58,6 @@ html,body{
   }
 }
 
-
-/* follow me @nodws */
 #btn-twtr{
   clear:both;
   color:#fff;
@@ -83,6 +79,92 @@ html,body{
   background:rgba(0,0,0,0.2);
   box-shadow:0 0 0px 3px rgba(0,0,0,0.2);
   opacity:0.4
-}#btn-twtr:hover{color:#fff;opacity:1}
 
+}#btn-twtr:hover
+ {color:#fff;
+   opacity:1
+ }
+
+
+.notfound {
+  text-align: center;
+  width: 65%;
+  height: 250px;
+  margin: auto;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.notfound b{
+  font-family: 'Pacifico', cursive;
+  font-size: 100px;
+  color: #fee;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #ff4444, 0 0 0.5em #ff4444, 0 0 0.1em #ff4444, 0 10px 3px #000;
+}
+.notfound b span{
+  animation: blink linear infinite 2s;
+}
+@keyframes blink {
+  78% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  79%{
+    color: #333;
+  }
+  80% {
+
+    text-shadow: none;
+  }
+  81% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  82% {
+    color: #333;
+    text-shadow: none;
+  }
+  83% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  92% {
+    color: #333;
+    text-shadow: none;
+  }
+  92.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+}
+
+#btn-twtr{
+  clear:both;
+  color:#fff;
+  border:2px solid;
+  border-radius:3px;
+  text-align:center;
+  text-decoration:none;
+  display:block;
+  font-family:sans-serif;
+  font-size:14px;
+  width:13em;
+  padding:5px 10px;
+  font-weight:600;
+  position:absolute;
+  bottom:20px;
+  left:0;
+  right:0;
+  margin:0 auto;
+  background:rgba(0,0,0,0.2);
+  box-shadow:0 0 0px 3px rgba(0,0,0,0.2);
+  opacity:0.4
+
+}#btn-twtr:hover
+ {color:#fff;
+   opacity:1
+ }
 

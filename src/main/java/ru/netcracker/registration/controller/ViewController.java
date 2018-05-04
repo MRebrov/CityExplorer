@@ -30,7 +30,7 @@ public class ViewController {
     }
 
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login/*")
     public String login() {
         return "forward:/index.html";
     }

@@ -23,7 +23,10 @@
         <a id="userquests" class="nav-link" routerLink="/userquests">My quests</a>
       </li>
       <li>
-        <a id="confirmations" class="nav-link" routerLink="/confirmations">Spot confirmations</a>
+        <a id="confirmations" class="nav-link" routerLink="/confirmations">
+          Spot confirmations
+          <span class="badge badge-light">{{questService.confirmationsCountObs | async}}</span>
+        </a>
       </li>
     </ul>
 
@@ -36,7 +39,10 @@
         </div>
         <div class="col-md col-sm-12">
           <li>
-            <a id="logout" class="nav-link" (click)="logout()">Logout</a>
+
+            <button type="button" class="btn btn-secondary" (click)="logout()" >Logout</button>
+
+
           </li>
         </div>
       </div>

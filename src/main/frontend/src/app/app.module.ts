@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AuthModule} from './auth/auth.module';
 import {AppComponent} from './app.component';
@@ -27,6 +27,11 @@ import { ConfirmationsListComponent } from './confirmations-list/confirmations-l
 import {LoginRedirectionService} from './login/login-redirection-service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
+import {PasswordStrengthBarModule} from "ng2-password-strength-bar";
+import {UserCurrentQuestListComponent} from './user-quest-list/current-quests/user-current-quest-list.component';
+import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-owned-quest-list.component';
+
+
 
 
 @NgModule({
@@ -42,11 +47,13 @@ import { MainpageComponent } from './mainpage/mainpage.component';
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
     UserQuestListComponent,
+    UserCurrentQuestListComponent,
+    UserOwnedQuestListComponent,
     QuestListComponent,
     QuestPageComponent,
     ConfirmationsListComponent,
     NotfoundComponent,
-    MainpageComponent,
+    MainpageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,9 @@ import { MainpageComponent } from './mainpage/mainpage.component';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB50v0zwR77xBBodMAILSKbUrqay6txODg',
     }),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    PasswordStrengthBarModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent],
   providers: [QuestService, UserService, LoaderService, LoginRedirectionService],

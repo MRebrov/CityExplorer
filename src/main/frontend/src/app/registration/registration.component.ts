@@ -6,6 +6,9 @@ import {Observable} from 'rxjs/Observable';
 import * as CryptoJS from 'crypto-js';
 import {AppComponent} from '../app.component';
 import {Router} from '@angular/router';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {PasswordValidation} from "./password.validation";
+
 
 /**
  * Основной компонент приложения
@@ -14,15 +17,53 @@ import {Router} from '@angular/router';
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css'],
-  providers: []
 })
 export class RegistrationComponent implements OnInit {
   user: User;
   confirmPassword: string;
   errorMsg: string;
+  form: FormGroup;
+  public barLabel: string = "Password strength:";
+  public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
+    this.form = fb.group({
+      'firstName': [null, Validators.required],
+      'email': [null, Validators.compose([Validators.email, Validators.required])],
+      'password': [null, Validators.compose([Validators.minLength(4),
+                                                      Validators.maxLength(24),
+                                                      Validators.required])],
+      'confirmPassword': [null, Validators.required],
+      'birthdate':'',
+      'lastName':'',
+    },{
+      validator: PasswordValidation.MatchPassword
+    })
+  }
 
+  submitForm(data:FormGroup){
+    this.user.firstName = data.controls['firstName'].value;
+    this.user.lastName = data.controls['lastName'].value;
+    this.user.birthday = data.controls['birthdate'].value;
+    this.user.email = data.controls['email'].value;
+
+    var key = CryptoJS.enc.Base64.parse('#base64Key#');
+    var iv = CryptoJS.enc.Base64.parse('#base64IV#');
+
+    let encrypted: string = CryptoJS.AES.encrypt(data.controls['password'].value, key, {iv: iv}).toString();
+    this.user.password = encrypted;
+    this.userService.addUser(this.user).catch((response: Response) => {
+      this.writeError(response.text()); //если ошибка, вывести её
+      return Observable.throw(response);
+    }).subscribe(() => {
+      this.writeError('User registered successfully. We have sent you confirmation link on your email.');
+      //this.showLink();
+      setTimeout(() => {
+        this.router.navigate(['/login'])
+      }, 5000);
+    });
+    console.log(this.user.email + this.user.password);
+    this.user = new User('', '', '', '', '', '');
   }
 
   ngOnInit() {
@@ -87,8 +128,13 @@ export class RegistrationComponent implements OnInit {
       setTimeout(() => {
         this.router.navigate(['/login'])
       }, 5000);
-      ;
+
     }); //Если ошибки нет, сказать что регистрация прошла
+  }
+
+  isValidMail(mail:string){
+    const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return regexp.test(mail);
   }
 
   /**

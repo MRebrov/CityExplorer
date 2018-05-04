@@ -1,5 +1,8 @@
 .row .col agm-map{
-  height: 500px;
+  height: 89%;
+  width: 89%;
+  position: relative;
+  left: 40px;
 
 }
 textarea{
@@ -10,3 +13,31 @@ textarea{
   height: 250px;
   overflow: auto;
 }
+
+
+#font {
+  font-family: 'Vollkorn', cursive;
+  position: relative;
+  text-align: center;
+
+
+}
+#name {
+  height: 30px;
+  width: 30px;
+}
+
+#desc {
+  width: 64%;
+
+}
+#submit{
+  position: relative;
+  width: 64%;
+}
+.color  {
+  background-color: #F5F5F5 ;
+
+}
+
+

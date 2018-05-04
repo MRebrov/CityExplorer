@@ -1,36 +1,33 @@
-/*
+
 .navbar-brand {
-  color: #white;
-  font-family: 'Black Han Sans', sans-serif;
+  color: whitesmoke;
+  font-family: 'Kaushan Script', cursive;
 }
 
-#logout {
-  position: relative;
-  left: 710px;
-}
 
-#profile {
-  position: relative;
-  left: 690px;
+#maplink {
+
+  font-family: 'Playfair Display SC', serif;
+
 }
 
 #confirmations {
-  position:relative;
-  left: 400px;
+
+  font-family: 'Playfair Display SC', serif;
+
 }
 
 #userquests {
   position:relative;
-  left: 350px;
+  font-family: 'Playfair Display SC', serif;
 }
 
 #newquest {
   position:relative;
-  left: 250px;
+  font-family: 'Playfair Display SC', serif;
 }
 
 #vk {
   position: relative;
-  left: 100px;
+  font-family: 'Playfair Display SC', serif;
 }
-*/

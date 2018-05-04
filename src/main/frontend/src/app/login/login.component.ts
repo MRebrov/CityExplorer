@@ -4,8 +4,8 @@ import {UserService} from '../user/user.service';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {AuthObject} from '../auth/authForm';
-import {Router} from '@angular/router';
-import {AppRoutingModule} from "../app-routing.module";
+import {ActivatedRoute, Router} from '@angular/router';
+import {AppRoutingModule} from '../app-routing.module';
 import {LoginRedirectionService} from './login-redirection-service';
 
 @Component({
@@ -19,14 +19,26 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMsg: string;
 
-  constructor(private userService: UserService, private router: Router, private loginRedicrectionService: LoginRedirectionService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private loginRedicrectionService: LoginRedirectionService) {
   }
 
   ngOnInit() {
-    if(this.userService._isAuthenticatedSubject.getValue()){
+    if (this.userService._isAuthenticatedSubject.getValue()) {
       alert('You are authorized! You should log out first');
       this.router.navigate(['/map']);
     }
+
+    this.route.params.subscribe(params => {
+      if(params['state']=='activated'){
+        this.writeError('Your account has been activated successfully. You can sign in now.')
+      }
+      else if(params['state']=='invalid'){
+        this.writeError('Invalid confirmation link.')
+      }
+      else if(params['state']=='expired'){
+        this.writeError('Your confirmation link has expireds.')
+      }
+    });
   }
 
   onFormSubmit(event) {
@@ -69,7 +81,7 @@ export class LoginComponent implements OnInit {
   successLogin() {
     //document.getElementById('collapseLink').classList.add('show');
     setTimeout(() => {
-      this.router.navigate([this.loginRedicrectionService.getPreviousUrl()]);
+      this.router.navigate(['/map']);
     }, 5000);
     ;
 

@@ -131,6 +131,14 @@ public class QuestController {
         return res;
     }
 
+    @GetMapping("/get-quests-by-owner/")
+    public @ResponseBody
+    Iterable<QuestDTO> getQuestsbyOwner() {
+        String email = securityService.findLoggedInEmail();
+        List<QuestDTO> res = questService.getAllByOwner(email);
+        return res;
+    }
+
     @GetMapping("/get-progresses-by-user/")
     public @ResponseBody
     Iterable<UserProgressDTO> getProgressByUser() {

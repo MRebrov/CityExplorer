@@ -11,40 +11,13 @@ import {UserProgressDTO} from '../quest/user-progress.model';
   styleUrls: ['./user-quest-list.component.css']
 })
 export class UserQuestListComponent implements OnInit {
+  public current: boolean = true;
 
-  userProgressList: UserProgressDTO[];
-
-  constructor(private questService: QuestService, private router: Router) {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
-    this.questService.getUserProgressForCurrentUser()
-      .subscribe(
-        (progresses: any[]) => {
-          this.userProgressList = progresses;
-          for (let userProgress of this.userProgressList) {
-            if (userProgress.dateComplete != null)
-              userProgress.dateComplete = new Date(userProgress.dateComplete);
-            userProgress.takingDate = new Date(userProgress.takingDate);
-          }
-          this.userProgressList.sort((a, b) => {
-            if (a.dateComplete == null && b.dateComplete != null)
-              return -1;
-            else if (a.dateComplete != null && b.dateComplete == null)
-              return 1;
-            else {
-              if (a.takingDate > b.takingDate)
-                return -1;
-              else
-                return 1;
-            }
-          });
-          console.log('Progresses loaded successfully');
-        },
-        (error) => {
-          console.log(error);
-          this.router.navigate(['/login']);
-        });
+
   }
 
 }

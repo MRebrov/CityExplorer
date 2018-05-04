@@ -21,6 +21,7 @@ public interface QuestService {
     void save(QuestDTO questDTO, Photo photo, User user);
     void save(QuestDTO questDTO, User user);
     List<QuestDTO> getAllToDTO();
+    List<QuestDTO> getAllByOwner(String email);
     List<QuestDTO> getAllInRange(double lat, double lng, double range);
     List<UserProgressDTO> getUserProgressByUser(String email);
     UserProgressDTO getUserProgressByUserAndQuest(String email, Long questId);

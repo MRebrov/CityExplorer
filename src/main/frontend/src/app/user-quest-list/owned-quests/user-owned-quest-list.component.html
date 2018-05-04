@@ -1,0 +1,21 @@
+<h1 class="display-4 text-center">My own quests</h1>
+<div id="cont" *ngIf="ownedQuests != null && ownedQuests.length>0; else noDataBlock">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let quest of ownedQuests">
+      <a [routerLink]="['/questpage', quest.questId]">
+        {{quest.name}}
+      </a>
+    </li>
+  </ul>
+</div>
+<ng-template #noDataBlock>
+  <div *ngIf="ownedQuests == null; else noQuestsBlock">
+    <!--<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>-->
+
+    <h5>Loading own quests...</h5>
+  </div>
+  <ng-template #noQuestsBlock>
+    <h5>You do not have your own quests</h5>
+  </ng-template>
+</ng-template>
+

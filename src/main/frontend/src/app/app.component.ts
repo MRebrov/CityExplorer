@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {QuestService} from './quest/quest.service';
 import {UserService} from './user/user.service';
 import {Router} from '@angular/router';
@@ -14,16 +14,28 @@ export class AppComponent {
   title = 'app';
 
 
-
-  constructor(private userService: UserService, private loginRedirectionService: LoginRedirectionService) {
+  constructor(private userService: UserService, private loginRedirectionService: LoginRedirectionService, private questService: QuestService) {
 
 
   }
 
 
-
   ngOnInit() {
-    this.userService.initAuth();
+    this.userService.onNotifiedHandler=(message) => {
+      if (message.body) {
+        alert(message.body);
+        this.questService.getConfirmationsList();
+      }
+    };
+    setTimeout(() => {
+      this.userService.initAuth();
+    }, 1500);
+    ;
+    setTimeout(() => {
+      this.questService.getConfirmationsList();//to show confirmations count on header
+    }, 6000);
+    ;
+
     this.loginRedirectionService.init();
   }
 }

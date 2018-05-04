@@ -1,7 +1,9 @@
 package ru.netcracker.registration.mail.burningLinks;
 
+import org.apache.http.auth.InvalidCredentialsException;
 import ru.netcracker.registration.model.DTO.UserDTO;
 
+import javax.security.auth.login.CredentialExpiredException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -39,17 +41,17 @@ public class BurningLinksManager {
         return link.getLink();
     }
 
-    public String getEmailAndBurnLink(String code) throws Exception {
+    public String getEmailAndBurnLink(String code) throws CredentialExpiredException, InvalidCredentialsException {
         BurningLink link = getLink(code);
         if (link != null) {
             if (link.isValid()) {
                 links.remove(link);
                 return link.getEmail();
             } else {
-                throw new Exception("Link expired");
+                throw new CredentialExpiredException("Link expired");
             }
         } else {
-            throw new Exception("Invalid link");
+            throw new InvalidCredentialsException("Invalid link");
         }
     }
 
