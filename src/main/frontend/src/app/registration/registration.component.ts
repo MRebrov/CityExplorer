@@ -63,7 +63,7 @@ export class RegistrationComponent implements OnInit {
       }, 5000);
     });
     console.log(this.user.email + this.user.password);
-    this.user = new User('', '', '', '', '', '');
+    this.user = new User('', '', '', '', '', '', 50);
   }
 
   ngOnInit() {
