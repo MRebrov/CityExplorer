@@ -70,20 +70,24 @@ export class QuestComponent implements OnInit {
   }
 
 
-  calculateCost(){
-    var k = this.spots.length;
-    var n = 1;
-    switch(k) {
-      case 2: n = 2;
-        break;
-      case 3: n = 4;
-        break;
-      case 4: n = 7;
-        break;
-      case 5: n = 11;
-        break;
+  calculateCost(reward: number, numberOfParticipants: number, spots: number){
+    if(this.numberOfParticipants < 10){
+      alert("You must have minimum 10 participants")
+    } else {
+      var k = spots;
+      var n = 1;
+      switch(k) {
+        case 2: n = 2;
+          break;
+        case 3: n = 4;
+          break;
+        case 4: n = 7;
+          break;
+        case 5: n = 11;
+          break;
+      }
+      this.cost = reward*numberOfParticipants*n;
     }
-    this.cost = this.reward*this.numberOfParticipants*n;
   }
 
 
