@@ -13,10 +13,10 @@
   <div *ngIf="userProgressList == null; else noQuestsBlock">
     <!--<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>-->
 
-    <h5>Loading active quests...</h5>
+    <h5 align="center" >Loading active quests...</h5>
   </div>
   <ng-template #noQuestsBlock>
-    <h5>You have no active quests</h5>
+    <h5 align="center" class="noactive">You have no active quests</h5>
   </ng-template>
 </ng-template>
 

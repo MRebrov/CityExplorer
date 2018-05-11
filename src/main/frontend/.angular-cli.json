@@ -25,7 +25,6 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "preloader.js"
-
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -52,6 +51,7 @@
       "project": "e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
     }
+
   ],
   "test": {
     "karma": {
