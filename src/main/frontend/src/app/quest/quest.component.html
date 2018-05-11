@@ -52,10 +52,12 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div>
           <p>Quest cost:  {{cost}}</p>
         </div>
-        <p>Balance:  {{balance}}</p>
+        <div>
+          <p>Balance:  {{balance}}</p>
+        </div>
         <div  id="desc" class="form-group">
           <ngb-accordion #acc="ngbAccordion">
             <ngb-panel  title="Description">
@@ -89,7 +91,6 @@
                      placeholder="{{spot.name}}"
                      [(ngModel)]="spots[i].name"
                      (focus)="activateMarker(i)"
-                     (change)="calculateCost(quest.reward, quest.numberOfParticipants, spots.length)"
               >
             </div>
             <div class="col-4">
@@ -139,7 +140,8 @@
         <!--</div>-->
         <!--</div>-->
         <!--</div>-->
-        <button id="submit" type="submit" class="btn btn-primary btn-block" (click)="createQuest()"> Create </button>
+        <button id="submit" type="submit" class="btn btn-primary btn-block" [disabled]="!enoughMoney"
+                (click)="createQuest()"> Create </button>
 
         <!--</div>-->
     </form>

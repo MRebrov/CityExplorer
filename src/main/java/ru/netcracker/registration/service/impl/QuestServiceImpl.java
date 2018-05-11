@@ -16,7 +16,6 @@ import ru.netcracker.registration.service.SpotInQuestService;
 import ru.netcracker.registration.service.SpotService;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -115,8 +114,11 @@ public class QuestServiceImpl implements QuestService {
         spotInQuest.setPhotoByPhotoId(photo);
         quest.getSpotInQuests().add(spotInQuest);
         quest.setOwnerId(user);
-        //user.setBalance(user.getBalance()-quest.getReward()*quest.getNumberOfParticipants());
-        questRepository.save(quest);
+        if (user.getBalance() - questCostCalculation(quest) >= 0) {
+            user.setBalance(user.getBalance() - questCostCalculation(quest));
+            questRepository.save(quest);
+            userRepository.save(user);
+        }
     }
 
     @Override
@@ -147,8 +149,11 @@ public class QuestServiceImpl implements QuestService {
             spotInQuest.setPhotoByPhotoId(spot.getPhotoBySpotId().stream().findFirst().get());
             quest.getSpotInQuests().add(spotInQuest);
         }
-        //user.setBalance(user.getBalance()-quest.getReward()*quest.getNumberOfParticipants()*quest.getSpotInQuests().size());
-        questRepository.save(quest);
+        if (user.getBalance() - questCostCalculation(quest) >= 0) {
+            user.setBalance(user.getBalance() - questCostCalculation(quest));
+            questRepository.save(quest);
+            userRepository.save(user);
+        }
     }
 
     @Override
@@ -288,7 +293,7 @@ public class QuestServiceImpl implements QuestService {
         }
     }
 
-    /*public Long questCostCalculation(Quest quest) {
+    public int questCostCalculation(Quest quest) {
         int k = quest.getSpotInQuests().size();
         int n = 1;
         switch(k) {
@@ -301,9 +306,8 @@ public class QuestServiceImpl implements QuestService {
             case 5: n = 11;
             break;
         }
-        return Long.valueOf(quest.getNumberOfParticipants()*quest.getReward()*n);
+        return quest.getNumberOfParticipants()*quest.getReward()*n;
     }
-    */
 
     private boolean isQuestConfirmedAndCompleted(User user, Quest quest) {
         UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);

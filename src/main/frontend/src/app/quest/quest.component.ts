@@ -38,7 +38,7 @@ export class QuestComponent implements OnInit {
   balance: number;
   cost: number;
   reward: number;
-  numberOfParticipants: number;
+  enoughMoney: boolean;
 
   questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
@@ -84,6 +84,11 @@ export class QuestComponent implements OnInit {
           break;
       }
       this.cost = reward*numberOfParticipants*n;
+      if(this.cost <= this.balance) {
+        this.enoughMoney = true;
+      } else {
+        this.enoughMoney = false;
+      }
     }
 
 
@@ -123,6 +128,7 @@ export class QuestComponent implements OnInit {
     };
     this.markers.push(newMarker);
     this.photoAdded.push(false);
+    this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }
 
   /*addForm(){
@@ -234,5 +240,6 @@ export class QuestComponent implements OnInit {
     if(this.questPhotos[i] != null){
       this.questPhotos.splice(i,1);
     }
+    this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }
 }
