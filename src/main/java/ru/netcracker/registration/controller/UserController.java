@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.security.TokenUtils;
 import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.mail.mailer.GmailSender;

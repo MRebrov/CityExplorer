@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.*;
-import ru.netcracker.registration.model.DTO.QuestDTO;
-import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
-import ru.netcracker.registration.model.DTO.SpotDTO;
-import ru.netcracker.registration.model.DTO.UserProgressDTO;
+import ru.netcracker.registration.model.DTO.*;
 import ru.netcracker.registration.model.converter.QuestConverter;
 import ru.netcracker.registration.model.converter.UserProgressConverter;
 import ru.netcracker.registration.repository.*;
@@ -17,9 +14,8 @@ import ru.netcracker.registration.service.SpotService;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("QuestService")
 public class QuestServiceImpl implements QuestService {
@@ -157,7 +153,7 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public List<QuestDTO> getAllByOwner(String email){
+    public List<QuestDTO> getAllByOwner(String email) {
         List<QuestDTO> res = new ArrayList<>();
         User owner = userRepository.findByEmail(email);
         for (Quest q : questRepository.findAllByOwnerId(owner)) {
@@ -229,7 +225,7 @@ public class QuestServiceImpl implements QuestService {
         messagingTemplate.convertAndSendToUser(
                 quest.getOwnerId().getEmail(),
                 "/confirmation",
-                "Somebody has complete spot in your quest. Check confirmations page"
+                "Somebody has completed spot in your quest. Check confirmations page"
         );
     }
 
@@ -283,6 +279,25 @@ public class QuestServiceImpl implements QuestService {
             photoRepository.delete(photo);
         }
     }
+
+    @Override
+    public QuestDTO getTopQuest() {
+        List<User> users = (List<User>) userRepository.findAll();
+        Map<QuestDTO, Integer> takenQuests = new HashMap<>();
+        for (User u : users) {
+            List<UserProgressDTO> userQuests = getUserProgressByUser(u.getEmail());
+            userQuests = userQuests.stream().filter(quest -> quest.getDateComplete() != null).collect(Collectors.toList());
+            for (UserProgressDTO quest : userQuests) {
+                if (takenQuests.containsKey(quest.getQuest())) {
+                    takenQuests.replace(quest.getQuest(), takenQuests.get(quest.getQuest()) + 1);
+                } else {
+                    takenQuests.put(quest.getQuest(), 1);
+                }
+            }
+        }
+        return Collections.max(takenQuests.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+    }
+
 
     private boolean isQuestConfirmedAndCompleted(User user, Quest quest) {
         UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);

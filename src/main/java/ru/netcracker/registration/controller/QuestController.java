@@ -299,4 +299,22 @@ public class QuestController {
             );
         }
     }
+
+    @GetMapping("/get-top-quest")
+    public @ResponseBody
+    ResponseEntity<?> getTopQuest(){
+        try {
+            String email = securityService.findLoggedInEmail();
+            QuestDTO topQuest = questService.getTopQuest();
+            return new ResponseEntity<Object>(
+                    topQuest,
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
 }

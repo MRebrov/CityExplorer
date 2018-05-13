@@ -92,7 +92,11 @@
       <p class="lead"><strong>Email:</strong> {{user.email}}</p>
 
       <p class="lead"><strong>Registration date:</strong> {{user.registrationDate}}</p>
-
+      <div class="row">
+        <div class="col-sm-3 col-12">
+          <a *ngIf="isAdmin" class="btn btn-info" routerLink="/admin">Admin panel</a>
+        </div>
+      </div>
     </div>
     <ng-template #loadingBlock>
       <h5>Loading personal info...</h5>

@@ -45,6 +45,11 @@ public class ViewController {
         return "forward:/index.html";
     }
 
+    @RequestMapping(value ="/admin")
+    public String admin(){
+        return "forward:/index.html";
+    }
+
     @RequestMapping(value ="/userPage")
     public String userPage(){
         return "forward:/index.html";

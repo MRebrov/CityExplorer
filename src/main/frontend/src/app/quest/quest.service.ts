@@ -43,6 +43,12 @@ export class QuestService {
     });
   }
 
+  getTopQuest(){
+    return this.http.get('userapi/get-top-quest').map((response: Response) =>{
+      return response.json();
+    });
+  }
+
   postPhoto(file: File, quest: QuestDTO) {
     let formdata: FormData = new FormData();
 

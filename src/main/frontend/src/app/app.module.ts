@@ -30,6 +30,8 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 import {PasswordStrengthBarModule} from "ng2-password-strength-bar";
 import {UserCurrentQuestListComponent} from './user-quest-list/current-quests/user-current-quest-list.component';
 import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-owned-quest-list.component';
+import { AdminComponent } from './admin/admin.component';
+import {ChartsModule} from 'ng2-charts';
 
 
 
@@ -53,7 +55,8 @@ import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-o
     QuestPageComponent,
     ConfirmationsListComponent,
     NotfoundComponent,
-    MainpageComponent
+    MainpageComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-o
     }),
     NgbModule.forRoot(),
     PasswordStrengthBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   bootstrap: [AppComponent],
   providers: [QuestService, UserService, LoaderService, LoginRedirectionService],
