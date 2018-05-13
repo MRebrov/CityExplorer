@@ -16,7 +16,7 @@ const URL = 'http://localhost:8081/userapi/upload-photo/';
 declare const google: any;
 
 const redMarker = 'https://maps.google.com/mapfiles/ms/icons/red-dot.png';
-const greenMarker = 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+const greenMarker = 'https://maps.google.com/mapfiles/ms/icons/green-dot.png';
 
 @Component({
   selector: 'app-quest',
@@ -35,6 +35,9 @@ export class QuestComponent implements OnInit {
   questPhotos: File[] = [];
   progress: { percentage: number } = {percentage: 0};
   photoAdded: boolean[] = [];
+  lng: number;
+  lat: number;
+  loading: boolean = false;
   balance: number;
   cost: number;
   reward: number;
@@ -63,6 +66,7 @@ export class QuestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadLocation();
     this.userService.getCurrentUser().subscribe(
       (user: any) => {
         this.balance = user.balance;
@@ -96,6 +100,40 @@ export class QuestComponent implements OnInit {
     //console.log(this.inputForm.quest.name);
   }
 
+  loadLocation() {
+    if (window.navigator && window.navigator.geolocation) {
+      let options = {
+        enableHighAccuracy: true,
+        timeout: 5000
+      };
+      window.navigator.geolocation.getCurrentPosition(
+        position => {
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+          console.log('Position loaded: ' + position.coords.latitude + ' ' + position.coords.longitude);
+        },
+        error => {
+          switch (error.code) {
+            case 1:
+              console.log('Permission Denied');
+              alert('We strongly recommend you to allow location detection or you will not be able to see quests that are available near you. Once you did, please reload page.');
+              break;
+            case 2:
+              console.log('Position Unavailable');
+              break;
+            case 3:
+              console.log('Timeout');
+              break;
+          }
+        },
+        options
+      );
+    }
+    else {
+      console.log('No navigator or geoposition object found');
+    }
+  }
+
   activateMarker(i) {
     for (var j = 0; j < this.spots.length; j++) {
       this.markers[j].label = '✖';
@@ -112,7 +150,7 @@ export class QuestComponent implements OnInit {
       this.markers[i].label = '✖';
       this.markers[i].draggable = false;
       this.markers[i].iconUrl = redMarker;
-      console.log("name-"+i+"-"+this.spots[i].name);
+      console.log("name-" + i + "-" + this.spots[i].name);
     }
     this.spots.push(new SpotDTO('', this.map.getCenter().lat(), this.map.getCenter().lng()));
     var newMarker: marker = {
@@ -213,7 +251,7 @@ export class QuestComponent implements OnInit {
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById("newMarker"));
   }
 
-  uploadSpotPhoto(spotName:string, i) {
+  uploadSpotPhoto(spotName: string, i) {
     console.log('i: ' + i);
     console.log('spotName: ' + spotName);
     this.spots[i].name = spotName;
@@ -223,6 +261,7 @@ export class QuestComponent implements OnInit {
     this.spots[i].photos[0].photoType = 'spot';
     console.log(this.spots[i].photos[0].uploadDate);
 
+    this.loading = true;
     this.questService.uploadSpotPhoto(this.questPhotos[i]).catch((response) => {
       return Observable.throw(response)
     }).subscribe((data) => {
@@ -231,14 +270,18 @@ export class QuestComponent implements OnInit {
       },
       (error) => {
         console.log(error)
-      });
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   }
 
-  deleteForm(i){
-    this.spots.splice(i,1);
-    this.markers.splice(i,1);
-    if(this.questPhotos[i] != null){
-      this.questPhotos.splice(i,1);
+  deleteForm(i) {
+    this.spots.splice(i, 1);
+    this.markers.splice(i, 1);
+    if (this.questPhotos[i] != null) {
+      this.questPhotos.splice(i, 1);
     }
     this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }

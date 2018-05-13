@@ -1,5 +1,8 @@
 
 <app-header></app-header>
+<div id="spinner" class="spinner" *ngIf="loading">
+  <img id="img-spinner" src="../../assets/markers/loader.gif" alt="Loading"/>
+</div>
 <div class="color">
   <div class="container">
     <h1 id="font">Create your own quest</h1>
@@ -75,7 +78,7 @@
           <div class="form-row">
             <div class="form-group col-9">
               <label>Add spot:
-                <button type="button" class="circle-btn btn btn-outline-success" (click)="addSpotForm()">
+                <button type="button" class="circle-btn btn btn-outline-success" [disabled] = "loading" (click)="addSpotForm()">
                   +
                 </button>
               </label>
@@ -105,15 +108,15 @@
               >
             </div>
             <div class="col-2">
-              <label for="uploadBtn"> &nbsp;</label>
-              <button id="uploadBtn" class="btn btn-info" type="button" [disabled]="!photoAdded[i]"
+              <label for="uploadBtn" class="label-hidden"> hide </label>
+              <button id="uploadBtn" class="btn btn-info" type="button" [disabled]="!photoAdded[i] || loading"
                       (click)="uploadSpotPhoto(spotName.value,i)">
                 upload
               </button>
             </div>
             <div class="col-1">
               <label for="deleteBtn"> &nbsp;</label>
-              <button id="deleteBtn" class="btn btn-warning" type="button" (click)="deleteForm(i)">
+              <button id="deleteBtn" class="btn btn-warning" [disabled] = "loading" type="button" (click)="deleteForm(i)">
                 x
               </button>
             </div>
@@ -141,12 +144,12 @@
         <!--</div>-->
         <!--</div>-->
         <!--</div>-->
-        <button id="submit" type="submit" class="btn btn-primary btn-block" [disabled]="!enoughMoney"
-                (click)="createQuest()"> Create </button>
+        <button id="submit" type="submit" class="btn btn-primary btn-block" (click)="createQuest()"
+                [disabled] = "!enoughMoney || loading || spots[0] == undefined"> Create </button>
 
         <!--</div>-->
-    </form>
-  </div>
+      </form>
+    </div>
   </div>
 </div>
 <!--<div class="col-5">-->
@@ -163,4 +166,3 @@
 <!--</div>-->
 <!--</div>-->
 <!--</div>-->
-
