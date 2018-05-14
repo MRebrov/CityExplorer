@@ -32,6 +32,7 @@ import {UserCurrentQuestListComponent} from './user-quest-list/current-quests/us
 import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-owned-quest-list.component';
 import { AdminComponent } from './admin/admin.component';
 import {ChartsModule} from 'ng2-charts';
+import {SecurityService} from "./security/security.service";
 
 
 
@@ -74,7 +75,7 @@ import {ChartsModule} from 'ng2-charts';
     ChartsModule
   ],
   bootstrap: [AppComponent],
-  providers: [QuestService, UserService, LoaderService, LoginRedirectionService],
+  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService],
   //entryComponents: [InputFormComponent]
 })
 export class AppModule {

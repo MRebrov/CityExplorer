@@ -16,6 +16,17 @@ public class Quest {
     private Collection<SpotInQuest> spotInQuests = new ArrayList<>();
     private User ownerId;
     private Integer numberOfParticipants;
+    private Integer numberOfJoiners;
+
+    @Basic
+    @Column(name = "number_of_joiners", nullable = false)
+    public Integer getNumberOfJoiners() {
+        return numberOfJoiners;
+    }
+
+    public void setNumberOfJoiners(Integer numberOfJoiners) {
+        this.numberOfJoiners = numberOfJoiners;
+    }
 
     @Basic
     @Column(name = "number_of_participants")

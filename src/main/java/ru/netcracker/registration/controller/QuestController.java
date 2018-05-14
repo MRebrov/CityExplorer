@@ -119,6 +119,7 @@ public class QuestController {
     @GetMapping("/get-quests")
     public @ResponseBody
     Iterable<QuestDTO> getQuests() {
+        List<Quest> q = questService.getAll();
         List<QuestDTO> re = questService.getAllToDTO();
         return questService.getAllToDTO();
     }

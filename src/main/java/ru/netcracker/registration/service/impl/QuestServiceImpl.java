@@ -16,12 +16,12 @@ import ru.netcracker.registration.service.SpotInQuestService;
 import ru.netcracker.registration.service.SpotService;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("QuestService")
 public class QuestServiceImpl implements QuestService {
+
 
     @Autowired
     QuestRepository questRepository;
@@ -291,6 +291,40 @@ public class QuestServiceImpl implements QuestService {
             userSpotProgressRepository.delete(userSpotProgress);
             photoRepository.delete(photo);
         }
+    }
+
+    @Override
+    public QuestDTO getTopQuest() {
+
+
+
+
+        List<User> users = (List<User>) userRepository.findAll();
+        Map<Quest, Integer> takenQuests = new HashMap<>();
+        List<UserProgress> progress = (List<UserProgress>) userProgressRepository.findAll();
+        for(UserProgress up: userProgressRepository.findAll()){
+            if(up.getDateComplete() != null){
+//                QuestDTO quest = QuestConverter.convertToDTO(up.getQuestByQuestId());
+                if (takenQuests.containsKey(up.getQuestByQuestId())) {
+                    takenQuests.put(up.getQuestByQuestId(), takenQuests.get(up.getQuestByQuestId()) + 1);
+                } else {
+                    takenQuests.put(up.getQuestByQuestId(), 1);
+                }
+            }
+        }
+
+//        for (User u : users) {
+//            List<UserProgressDTO> userQuests = getUserProgressByUser(u.getEmail());
+//            userQuests = userQuests.stream().filter(quest -> quest.getDateComplete() != null).collect(Collectors.toList());
+//            for (UserProgressDTO quest : userQuests) {
+//                if (takenQuests.containsKey(quest.getQuest())) {
+//                    takenQuests.replace(quest.getQuest(), takenQuests.get(quest.getQuest()) + 1);
+//                } else {
+//                    takenQuests.put(quest.getQuest(), 1);
+//                }
+//            }
+//        }
+        return QuestConverter.convertToDTO(Collections.max(takenQuests.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey());
     }
 
     public int questCostCalculation(Quest quest) {

@@ -89,11 +89,18 @@
               </div>
             </form>
       -->
-      <p class="lead"><strong>Email:</strong> {{user.email}}</p>
+      <div class="row">
+        <p class="lead"><strong>Email:</strong> {{user.email}}</p>
 
-      <p class="lead"><strong>Registration date:</strong> {{user.registrationDate}}</p>
+        <p class="lead"><strong>Registration date:</strong> {{user.registrationDate}}</p>
+        <div class="col-sm-9 col-9">
+          <p class="lead"><strong>Balance:</strong> {{user.balance}}</p>
+        </div>
+        <div class="col-sm-3 col-3">
+          <a *ngIf="isAdmin" class="btn btn-info" routerLink="/admin">Admin panel</a>
+        </div>
+      </div>
 
-      <p class="lead"><strong>Balance:</strong> {{user.balance}}</p>
 
     </div>
     <ng-template #loadingBlock>
