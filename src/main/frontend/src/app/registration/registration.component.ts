@@ -63,7 +63,7 @@ export class RegistrationComponent implements OnInit {
       }, 5000);
     });
     console.log(this.user.email + this.user.password);
-    this.user = new User('', '', '', '', '', '', null);
+    this.user = new User('', '', '', '', '', '', 50);
   }
 
   ngOnInit() {
@@ -71,7 +71,7 @@ export class RegistrationComponent implements OnInit {
       alert('You are authorized! You should log out first');
       this.router.navigate(['/map']);
     }
-    this.user = new User('', '', '', '', '', '', null);
+    this.user = new User('', '', '', '', '', '', 50);
   }
 
   /**

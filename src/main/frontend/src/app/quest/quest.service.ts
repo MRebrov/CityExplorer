@@ -64,7 +64,7 @@ export class QuestService {
   }
 
   postQuestInfo(quest: QuestDTO) {
-    return this.http.post('userapi/upload-info', quest).map(res => res.text());
+    return this.authHttp.post('userapi/upload-info', quest).map(res => res.text());
   }
 
   // loadQuestInfo(quest:QuestDTO){

@@ -8,6 +8,7 @@ import {SpotDTO} from "./spot.model";
 import {LoaderService} from "./loader.service";
 import {PhotoDTO} from "./photo.model";
 import {UserService} from "../user/user.service";
+import {User} from "../user/user.model";
 //import {InputFormComponent} from "./input-form/input-form.component";
 
 
@@ -29,7 +30,7 @@ export class QuestComponent implements OnInit {
   map: any;
   forms: Array<number> = [];
   errorMsg: string;
-  quest: QuestDTO = new QuestDTO('', '', null, 0);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10);
   photos: FileList;
   questPhotos: File[] = [];
   progress: { percentage: number } = {percentage: 0};
@@ -37,6 +38,10 @@ export class QuestComponent implements OnInit {
   lng: number;
   lat: number;
   loading: boolean = false;
+  balance: number;
+  cost: number;
+  reward: number;
+  enoughMoney: boolean;
 
   questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
@@ -62,7 +67,34 @@ export class QuestComponent implements OnInit {
 
   ngOnInit() {
     this.loadLocation();
+    this.userService.getCurrentUser().subscribe(
+      (user: any) => {
+        this.balance = user.balance;
+      });
   }
+
+
+  calculateCost(reward: number, numberOfParticipants: number, spots: number){
+      var k = spots;
+      var n = 1;
+      switch(k) {
+        case 2: n = 2;
+          break;
+        case 3: n = 4;
+          break;
+        case 4: n = 7;
+          break;
+        case 5: n = 11;
+          break;
+      }
+      this.cost = reward*numberOfParticipants*n;
+      if(this.cost <= this.balance) {
+        this.enoughMoney = true;
+      } else {
+        this.enoughMoney = false;
+      }
+    }
+
 
   addMarker() {
     //console.log(this.inputForm.quest.name);
@@ -134,6 +166,7 @@ export class QuestComponent implements OnInit {
     };
     this.markers.push(newMarker);
     this.photoAdded.push(false);
+    this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }
 
   /*addForm(){
@@ -197,7 +230,7 @@ export class QuestComponent implements OnInit {
   }
 
   createQuest() {
-    console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward);
+    console.log(this.quest.name + ' ,' + this.quest.description + ' ,' + this.quest.reward + ' ,' + this.quest.numberOfParticipants);
     this.quest.spots = this.spots;
     this.quest.photoURL = this.spots[0].photos[0].url;
     this.quest.uploadDate = new Date();
@@ -207,7 +240,7 @@ export class QuestComponent implements OnInit {
     }).subscribe((data) => {
       this.writeMsg(data);
     });
-    this.quest = new QuestDTO('', '', null, 0);
+    this.quest = new QuestDTO('', '', null, 0, 10);
     this.spots = [];
     this.questPhotos = [];
     this.markers = [];
@@ -250,5 +283,6 @@ export class QuestComponent implements OnInit {
     if (this.questPhotos[i] != null) {
       this.questPhotos.splice(i, 1);
     }
+    this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }
 }

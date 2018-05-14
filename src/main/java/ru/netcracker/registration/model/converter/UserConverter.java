@@ -21,6 +21,7 @@ public class UserConverter {
         dto.setBirthday(user.getBirthday().getDayOfMonth() + "-" + user.getBirthday().getMonthOfYear() + "-" + user.getBirthday().getYear());
         dto.setRegistrationDate(user.getRegistrationDate().getDayOfMonth() + "-" + user.getRegistrationDate().getMonthOfYear() + "-" + user.getRegistrationDate().getYear());
         dto.setGroupID(user.getGroupID());
+        dto.setBalance(user.getBalance());
 
         return dto;
     }

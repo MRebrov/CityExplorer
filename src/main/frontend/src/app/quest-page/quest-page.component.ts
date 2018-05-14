@@ -17,7 +17,7 @@ export class QuestPageComponent implements OnInit {
   markers: marker[] = [];
   mapLat: number = 51.0;
   mapLng: number = 7.0;
-  quest: QuestDTO = new QuestDTO('', '', null, 0);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
   private photosToUpload: string[] = [];
   errorMsg: string;

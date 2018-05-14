@@ -42,9 +42,24 @@
             <div class="col-3">
               <label for="questReward">Reward</label>
               <input type="number" class="form-control" id="questReward" name="questReward" value=""
-                     [(ngModel)]="quest.reward" required>
+                     [(ngModel)]="quest.reward"
+                     (change)="calculateCost(quest.reward, quest.numberOfParticipants, spots.length)"
+                     required>
+            </div>
+            <div class="col-5">
+              <label for="numberOfParticipants">Number of participants</label>
+              <input type="number" class="form-control" id="numberOfParticipants" name="numberOfParticipants" value=""
+                     [(ngModel)]="quest.numberOfParticipants"
+                     (change)="calculateCost(quest.reward, quest.numberOfParticipants, spots.length)"
+                     required>
             </div>
           </div>
+        </div>
+          <div>
+            <p>Quest cost:  {{cost}}</p>
+          </div>
+        <div>
+          <p>Balance:  {{balance}}</p>
         </div>
         <div  id="desc" class="form-group">
           <ngb-accordion #acc="ngbAccordion">
@@ -130,7 +145,7 @@
         <!--</div>-->
         <!--</div>-->
         <button id="submit" type="submit" class="btn btn-primary btn-block" (click)="createQuest()"
-                [disabled] = "loading || spots[0] == undefined"> Create </button>
+                [disabled] = "!enoughMoney || loading || spots[0] == undefined"> Create </button>
 
         <!--</div>-->
       </form>

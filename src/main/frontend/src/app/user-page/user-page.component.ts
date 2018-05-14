@@ -14,14 +14,13 @@ import * as CryptoJS from 'crypto-js';
 })
 export class UserPageComponent implements OnInit {
 
-  user: User = new User('', '', '', '', '', '', null);
+  user: User = new User('', '', '', '', '', '', 50);
   errorMsgInfo: string;
   errorMsgPassword: string;
 
   oldPassword: string;
   newPassword: string;
   confirmNewPassword: string;
-  isAdmin: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {
   }
@@ -31,7 +30,6 @@ export class UserPageComponent implements OnInit {
       .subscribe(
         (user: any) => {
           this.user = user;
-          this.isAdmin = (this.user.groupID.name == 'Admin');
         },
         (error) => {
           console.log(error);

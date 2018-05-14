@@ -15,6 +15,17 @@ public class Quest {
     private Integer reward;
     private Collection<SpotInQuest> spotInQuests = new ArrayList<>();
     private User ownerId;
+    private Integer numberOfParticipants;
+
+    @Basic
+    @Column(name = "number_of_participants")
+    public Integer getNumberOfParticipants() {
+        return numberOfParticipants;
+    }
+
+    public void setNumberOfParticipants(Integer numberOfParticipants) {
+        this.numberOfParticipants = numberOfParticipants;
+    }
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL)
     public Collection<SpotInQuest> getSpotInQuests() {
