@@ -120,7 +120,8 @@ public class Quest {
         if (description != null ? !description.equals(quest.description) : quest.description != null) return false;
         if (uploadDate != null ? !uploadDate.equals(quest.uploadDate) : quest.uploadDate != null) return false;
         if (reward != null ? !reward.equals(quest.reward) : quest.reward != null) return false;
-
+        if (numberOfParticipants != null ? !numberOfParticipants.equals(quest.numberOfParticipants) : quest.numberOfParticipants != null) return false;
+        if (numberOfJoiners != null ? !numberOfJoiners.equals(quest.numberOfJoiners) : quest.numberOfJoiners != null) return false;
         return true;
     }
 
@@ -131,6 +132,8 @@ public class Quest {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (uploadDate != null ? uploadDate.hashCode() : 0);
         result = 31 * result + (reward != null ? reward.hashCode() : 0);
+        result = 31 * result + (numberOfParticipants != null ? numberOfParticipants.hashCode() : 0);
+        result = 31 * result + (numberOfJoiners != null ? numberOfJoiners.hashCode() : 0);
         return result;
     }
 }

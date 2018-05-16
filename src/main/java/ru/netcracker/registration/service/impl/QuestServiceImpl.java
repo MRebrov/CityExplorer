@@ -113,6 +113,7 @@ public class QuestServiceImpl implements QuestService {
         spotInQuest.setSpotBySpotId(spot);
         spotInQuest.setPhotoByPhotoId(photo);
         quest.getSpotInQuests().add(spotInQuest);
+        quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
         quest.setOwnerId(user);
         if (user.getBalance() - questCostCalculation(quest) >= 0) {
             user.setBalance(user.getBalance() - questCostCalculation(quest));
@@ -129,6 +130,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setReward(questDTO.getReward());
         quest.setUploadDate(questDTO.getUploadDate());
         quest.setNumberOfParticipants(questDTO.getNumberOfParticipants());
+        quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
         quest.setOwnerId(user);
         for (SpotDTO spotDTO : questDTO.getSpots()) {
             Spot spot = new Spot();
@@ -212,6 +214,9 @@ public class QuestServiceImpl implements QuestService {
     @Override
     public void userJoinQuest(String email, Long questId) {
         UserProgress progress = new UserProgress();
+        Quest quest = questRepository.findOne(questId);
+        quest.setNumberOfJoiners(quest.getNumberOfJoiners() + 1);
+        questRepository.save(quest);
         progress.setUserByUserId(userRepository.findByEmail(email));
         progress.setQuestByQuestId(questRepository.findOne(questId));
         progress.setTakingDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));

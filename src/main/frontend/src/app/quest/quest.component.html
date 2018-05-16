@@ -145,7 +145,7 @@
         <!--</div>-->
         <!--</div>-->
         <button id="submit" type="submit" class="btn btn-primary btn-block" (click)="createQuest()"
-                [disabled] = "!enoughMoney || loading || !oneSpotExists"> Create </button>
+                [disabled] = "quest.numberOfParticipants > 10 && cost > 0 && !enoughMoney || loading || !oneSpotExists"> Create </button>
 
         <!--</div>-->
       </form>
