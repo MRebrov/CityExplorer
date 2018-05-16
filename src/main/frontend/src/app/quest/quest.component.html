@@ -16,7 +16,7 @@
 
   <div class="row">
    <div class="col col-md-7 col-xs-12">
-      <agm-map [latitude]="questPlace.lat" [longitude]="questPlace.lng" (mapReady)="mapReady($event)">
+      <agm-map [latitude]="lat" [longitude]="lng" (mapReady)="mapReady($event)">
         <agm-marker *ngFor="let marker of markers; let i = index"
                     [latitude]="marker.lat"
                     [longitude]="marker.lng"
@@ -145,7 +145,7 @@
         <!--</div>-->
         <!--</div>-->
         <button id="submit" type="submit" class="btn btn-primary btn-block" (click)="createQuest()"
-                [disabled] = "cost > 0 && !enoughMoney && loading || spots[0] == undefined"> Create </button>
+                [disabled] = "quest.numberOfParticipants > 10 && cost > 0 && !enoughMoney || loading || !oneSpotExists"> Create </button>
 
         <!--</div>-->
       </form>

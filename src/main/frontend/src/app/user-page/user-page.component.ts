@@ -5,6 +5,7 @@ import {Http, Response} from '@angular/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import * as CryptoJS from 'crypto-js';
+import {SecurityService} from "../security/security.service";
 
 @Component({
   selector: 'app-user-page',
@@ -14,15 +15,16 @@ import * as CryptoJS from 'crypto-js';
 })
 export class UserPageComponent implements OnInit {
 
-  user: User = new User('', '', '', '', '', '', 50);
+  user: User = new User('', '', '', '', '', '', 50, null);
   errorMsgInfo: string;
   errorMsgPassword: string;
 
   oldPassword: string;
   newPassword: string;
   confirmNewPassword: string;
+  isAdmin: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private securityService: SecurityService) {
   }
 
   ngOnInit() {
@@ -30,6 +32,8 @@ export class UserPageComponent implements OnInit {
       .subscribe(
         (user: any) => {
           this.user = user;
+          this.isAdmin = (this.user.groupID.name == 'Admin');
+          this.securityService.changeUser(user);
         },
         (error) => {
           console.log(error);

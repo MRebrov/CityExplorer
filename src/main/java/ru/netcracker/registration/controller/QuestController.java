@@ -119,6 +119,7 @@ public class QuestController {
     @GetMapping("/get-quests")
     public @ResponseBody
     Iterable<QuestDTO> getQuests() {
+        List<Quest> q = questService.getAll();
         List<QuestDTO> re = questService.getAllToDTO();
         return questService.getAllToDTO();
     }
@@ -292,6 +293,24 @@ public class QuestController {
             String email = securityService.findLoggedInEmail();
             questService.setConfirmation(email, userSpotProgressId, confirm.confirm);
             return ResponseEntity.ok("Confirmation/denial was executed");
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @GetMapping("/get-top-quest")
+    public @ResponseBody
+    ResponseEntity<?> getTopQuest(){
+        try {
+            String email = securityService.findLoggedInEmail();
+            QuestDTO topQuest = questService.getTopQuest();
+            return new ResponseEntity<Object>(
+                    topQuest,
+                    HttpStatus.OK
+            );
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),

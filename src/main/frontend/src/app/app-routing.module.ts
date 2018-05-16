@@ -12,6 +12,7 @@ import {QuestPageComponent} from './quest-page/quest-page.component';
 import {ConfirmationsListComponent} from './confirmations-list/confirmations-list.component';
 import {MainpageComponent} from './mainpage/mainpage.component';
 import {NotfoundComponent} from './notfound/notfound.component';
+import {AdminComponent} from "./admin/admin.component";
 
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   // {path: '', redirectTo: '/map', pathMatch: 'full'},
   {path: 'vk', component: VkComponent},
   {path: 'map', component: MapComponent},
+  {path: 'admin', component: AdminComponent},
   {path: 'userPage', component: UserPageComponent},
   {path: 'newquest', component: QuestComponent},
   {path: 'userquests', component: UserQuestListComponent},
@@ -32,7 +34,6 @@ const routes: Routes = [
   {path: '', redirectTo: '/mainpage', pathMatch: 'full'},
   {path: 'notfound', component: NotfoundComponent},
   {path: '**', component: NotfoundComponent },
-
 
 ];
 

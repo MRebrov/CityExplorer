@@ -105,4 +105,36 @@ public class QuestDTO {
     public void setOwnerEmail(String ownerEmail) {
         this.ownerEmail = ownerEmail;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QuestDTO questDTO = (QuestDTO) o;
+
+        if (!questId.equals(questDTO.questId)) return false;
+        if (!name.equals(questDTO.name)) return false;
+        if (!description.equals(questDTO.description)) return false;
+        if (!uploadDate.equals(questDTO.uploadDate)) return false;
+        if (!reward.equals(questDTO.reward)) return false;
+        if (!numberOfParticipants.equals(questDTO.numberOfParticipants)) return false;
+        if (!photoURL.equals(questDTO.photoURL)) return false;
+        if (!spots.equals(questDTO.spots)) return false;
+        return ownerEmail.equals(questDTO.ownerEmail);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = questId.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + uploadDate.hashCode();
+        result = 31 * result + reward.hashCode();
+        result = 31 * result + numberOfParticipants.hashCode();
+        result = 31 * result + photoURL.hashCode();
+        result = 31 * result + spots.hashCode();
+        result = 31 * result + ownerEmail.hashCode();
+        return result;
+    }
 }

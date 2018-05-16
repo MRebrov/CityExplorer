@@ -42,6 +42,8 @@ export class QuestComponent implements OnInit {
   cost: number;
   reward: number;
   enoughMoney: boolean;
+  oneSpotExists: boolean = false;
+  spotsWithPhoto: number[] = [];
 
   questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
@@ -74,26 +76,30 @@ export class QuestComponent implements OnInit {
   }
 
 
-  calculateCost(reward: number, numberOfParticipants: number, spots: number){
-      var k = spots;
-      var n = 1;
-      switch(k) {
-        case 2: n = 2;
-          break;
-        case 3: n = 4;
-          break;
-        case 4: n = 7;
-          break;
-        case 5: n = 11;
-          break;
-      }
-      this.cost = reward*numberOfParticipants*n;
-      if(this.cost <= this.balance) {
-        this.enoughMoney = true;
-      } else {
-        this.enoughMoney = false;
-      }
+  calculateCost(reward: number, numberOfParticipants: number, spots: number) {
+    var k = spots;
+    var n = 1;
+    switch (k) {
+      case 2:
+        n = 2;
+        break;
+      case 3:
+        n = 4;
+        break;
+      case 4:
+        n = 7;
+        break;
+      case 5:
+        n = 11;
+        break;
     }
+    this.cost = reward * numberOfParticipants * n;
+    if (this.cost <= this.balance) {
+      this.enoughMoney = true;
+    } else {
+      this.enoughMoney = false;
+    }
+  }
 
 
   addMarker() {
@@ -267,6 +273,15 @@ export class QuestComponent implements OnInit {
     }).subscribe((data) => {
         console.log(data);
         this.spots[i].photos[0].url = data;
+        // this.oneSpotExists = true;
+        this.spotsWithPhoto.push(i);
+        console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
+        if (this.spotsWithPhoto.length != this.spots.length) {
+          this.oneSpotExists = false;
+        }
+        else {
+          this.oneSpotExists = true;
+        }
       },
       (error) => {
         console.log(error)
@@ -278,10 +293,20 @@ export class QuestComponent implements OnInit {
   }
 
   deleteForm(i) {
+    console.log(this.spotsWithPhoto.indexOf(i));
+    console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
+    if (this.spotsWithPhoto.length != this.spots.length || this.spotsWithPhoto.length == 1) {
+      this.oneSpotExists = false;
+    }
+    this.spotsWithPhoto.splice(this.spotsWithPhoto.indexOf(i),1);
     this.spots.splice(i, 1);
     this.markers.splice(i, 1);
     if (this.questPhotos[i] != null) {
       this.questPhotos.splice(i, 1);
+    }
+    console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
+    if(this.spots.length == this.spotsWithPhoto.length && this.spotsWithPhoto.length != 0){
+      this.oneSpotExists = true;
     }
     this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }

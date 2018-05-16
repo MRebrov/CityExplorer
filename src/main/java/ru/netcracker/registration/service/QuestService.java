@@ -29,4 +29,5 @@ public interface QuestService {
     void userCompleteSpot(String email, Long questId, Long spotId);
     List<SpotConfirmationDTO> getSpotConfirmationsForOwner(String email);
     void setConfirmation(String email, Long userSpotProgressId, Boolean confirm) throws Exception;
+    QuestDTO getTopQuest();
 }
