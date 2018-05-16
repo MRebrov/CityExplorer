@@ -15,6 +15,12 @@
             Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
           </p>
           <p class="card-text">
+            Quest is for: <span class="badge badge-primary">{{quest.numberOfParticipants}}</span> persons
+          </p>
+          <p class="card-text">
+            Places left: <span class="badge badge-danger">{{placesLeft}}</span>
+          </p>
+          <p class="card-text">
             Created on {{quest.uploadDate.toDateString()}}
           </p>
 

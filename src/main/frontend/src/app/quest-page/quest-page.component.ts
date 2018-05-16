@@ -17,10 +17,11 @@ export class QuestPageComponent implements OnInit {
   markers: marker[] = [];
   mapLat: number = 51.0;
   mapLng: number = 7.0;
-  quest: QuestDTO = new QuestDTO('', '', null, 0, 10);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10, 0);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
   private photosToUpload: string[] = [];
   errorMsg: string;
+  placesLeft: number;
 
   constructor(private route: ActivatedRoute, public questService: QuestService, private router: Router) {
   }
@@ -45,6 +46,7 @@ export class QuestPageComponent implements OnInit {
             this.quest = quest;
             this.quest.uploadDate = new Date(this.quest.uploadDate);
             this.updateMarkers();
+            this.calculatePlaces();
           },
           (error) => {
             console.log(error);
@@ -119,6 +121,10 @@ export class QuestPageComponent implements OnInit {
   writeError(error) {
     document.getElementById('collapseMessage').classList.add('show');
     this.errorMsg = error;
+  }
+
+  calculatePlaces() {
+    this.placesLeft = this.quest.numberOfParticipants - this.quest.numberOfJoiners;
   }
 
 }

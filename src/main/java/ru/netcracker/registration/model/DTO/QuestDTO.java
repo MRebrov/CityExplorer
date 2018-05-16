@@ -24,6 +24,16 @@ public class QuestDTO {
     private List<SpotDTO> spots;
     @JsonProperty("ownerEmail")
     private String ownerEmail;
+    @JsonProperty("numberOfJoiners")
+    private Integer numberOfJoiners;
+
+    public Integer getNumberOfJoiners() {
+        return numberOfJoiners;
+    }
+
+    public void setNumberOfJoiners(Integer numberOfJoiners) {
+        this.numberOfJoiners = numberOfJoiners;
+    }
 
     public Long getQuestId() {
         return questId;
