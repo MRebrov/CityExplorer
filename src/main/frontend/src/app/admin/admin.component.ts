@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   }
 
   user: User = new User('', '', '', '', '', '',0, null);
-  topQuest: QuestDTO = new QuestDTO('','',null,0,0);
+  topQuest: QuestDTO = new QuestDTO('','',null,0,0, 0);
   loading:boolean = false;
 
   public lineChartData:Array<any> = [
