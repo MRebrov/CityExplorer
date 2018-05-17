@@ -114,8 +114,9 @@ public class QuestServiceImpl implements QuestService {
         spotInQuest.setPhotoByPhotoId(photo);
         quest.getSpotInQuests().add(spotInQuest);
         quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
+        quest.setStatus("active");
         quest.setOwnerId(user);
-        if (user.getBalance() - questCostCalculation(quest) >= 0) {
+        if (user.getBalance() - questCostCalculation(quest) >= 0 && questCostCalculation(quest) > 0) {
             user.setBalance(user.getBalance() - questCostCalculation(quest));
             questRepository.save(quest);
             userRepository.save(user);
@@ -131,6 +132,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setUploadDate(questDTO.getUploadDate());
         quest.setNumberOfParticipants(questDTO.getNumberOfParticipants());
         quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
+        quest.setStatus("active");
         quest.setOwnerId(user);
         for (SpotDTO spotDTO : questDTO.getSpots()) {
             Spot spot = new Spot();
@@ -151,7 +153,7 @@ public class QuestServiceImpl implements QuestService {
             spotInQuest.setPhotoByPhotoId(spot.getPhotoBySpotId().stream().findFirst().get());
             quest.getSpotInQuests().add(spotInQuest);
         }
-        if (user.getBalance() - questCostCalculation(quest) >= 0) {
+        if (user.getBalance() - questCostCalculation(quest) >= 0 && questCostCalculation(quest) > 0) {
             user.setBalance(user.getBalance() - questCostCalculation(quest));
             questRepository.save(quest);
             userRepository.save(user);
@@ -182,9 +184,11 @@ public class QuestServiceImpl implements QuestService {
         List<Quest> quests = getAll();
         List<QuestDTO> res = new ArrayList<>();
         for (Quest quest : quests) {
-            Spot spot = quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId();
-            if (spotService.distFrom(lat, lng, spot) <= range)
-                res.add(QuestConverter.convertToDTO(quest));
+            if (isQuestActive(quest)) {
+                Spot spot = quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId();
+                if (spotService.distFrom(lat, lng, spot) <= range)
+                    res.add(QuestConverter.convertToDTO(quest));
+            }
         }
         return res;
     }
@@ -215,13 +219,18 @@ public class QuestServiceImpl implements QuestService {
     public void userJoinQuest(String email, Long questId) {
         UserProgress progress = new UserProgress();
         Quest quest = questRepository.findOne(questId);
-        quest.setNumberOfJoiners(quest.getNumberOfJoiners() + 1);
-        questRepository.save(quest);
-        progress.setUserByUserId(userRepository.findByEmail(email));
-        progress.setQuestByQuestId(questRepository.findOne(questId));
-        progress.setTakingDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        if (isQuestActive(quest)) {
+            quest.setNumberOfJoiners(quest.getNumberOfJoiners() + 1);
+            if (isQuestFull(quest)){
+                quest.setStatus("not_visible");
+            }
+            questRepository.save(quest);
+            progress.setUserByUserId(userRepository.findByEmail(email));
+            progress.setQuestByQuestId(questRepository.findOne(questId));
+            progress.setTakingDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 
-        userProgressRepository.save(progress);
+            userProgressRepository.save(progress);
+        }
     }
 
     @Override
@@ -346,6 +355,31 @@ public class QuestServiceImpl implements QuestService {
             break;
         }
         return quest.getNumberOfParticipants()*quest.getReward()*n;
+    }
+
+    private boolean isQuestActive(Quest quest) {
+        if (quest.getStatus().equals("active")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private boolean isQuestFull(Quest quest) {
+        if (quest.getNumberOfParticipants() == quest.getNumberOfJoiners()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isQuestClosed (Quest quest) {
+        if (quest.getStatus().equals("closed")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isQuestConfirmedAndCompleted(User user, Quest quest) {

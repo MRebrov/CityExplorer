@@ -26,6 +26,16 @@ public class QuestDTO {
     private String ownerEmail;
     @JsonProperty("numberOfJoiners")
     private Integer numberOfJoiners;
+    @JsonProperty("status")
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getNumberOfJoiners() {
         return numberOfJoiners;
@@ -121,6 +131,8 @@ public class QuestDTO {
         if (!numberOfParticipants.equals(questDTO.numberOfParticipants)) return false;
         if (!photoURL.equals(questDTO.photoURL)) return false;
         if (!spots.equals(questDTO.spots)) return false;
+        if (!status.equals(questDTO.status)) return false;
+        if (!numberOfJoiners.equals(questDTO.numberOfJoiners)) return false;
         return ownerEmail.equals(questDTO.ownerEmail);
     }
 
@@ -135,6 +147,8 @@ public class QuestDTO {
         result = 31 * result + photoURL.hashCode();
         result = 31 * result + spots.hashCode();
         result = 31 * result + ownerEmail.hashCode();
+        result = 31 * result + numberOfJoiners.hashCode();
+        result = 31 * result + status.hashCode();
         return result;
     }
 }

@@ -41,7 +41,7 @@ export class QuestComponent implements OnInit {
   balance: number;
   cost: number;
   reward: number;
-  enoughMoney: boolean;
+  enoughMoneyParticipantsAndSpots: boolean = false;
   oneSpotExists: boolean = false;
   spotsWithPhoto: number[] = [];
 
@@ -94,10 +94,10 @@ export class QuestComponent implements OnInit {
         break;
     }
     this.cost = reward * numberOfParticipants * n;
-    if (this.cost <= this.balance) {
-      this.enoughMoney = true;
+    if (0 < this.cost && this.cost <= this.balance && numberOfParticipants > 9 && spots < 6) {
+      this.enoughMoneyParticipantsAndSpots = true;
     } else {
-      this.enoughMoney = false;
+      this.enoughMoneyParticipantsAndSpots = false;
     }
   }
 
