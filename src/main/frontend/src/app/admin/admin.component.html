@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-7">
       <div class="row">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 36rem;">
           <div class="card-body">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-7">
+        <div class="col">
           <div style="display: block;">
             <canvas baseChart width="400" height="400"
                     [datasets]="lineChartData"
@@ -54,13 +54,18 @@
                     (chartClick)="chartClicked($event)"></canvas>
           </div>
         </div>
-        <div class="col-md-7" style="margin-bottom: 10px">
-          <button (click)="randomize()">CLICK</button>
-        </div>
       </div>
     </div>
-    <div class="col-5">
-      list quests
+    <div class="list-users col-5" >
+      <p>place for switch between users and quests</p>
+      <label for="users">Search for users: </label>
+      <input id="users" type="text" [(ngModel)] = "term">
+      <div *ngFor=" let user of users |filter:term">
+        <p >
+          {{user.email}}
+          <button class="btn btn-warning" onclick="banUser(user)">Ban</button>
+        </p>
+      </div>
     </div>
   </div>
 </div>

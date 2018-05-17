@@ -13,23 +13,26 @@ import {SecurityService} from "../security/security.service";
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private securityService: SecurityService, private router: Router, private questService: QuestService) {
+  constructor(private securityService: SecurityService,
+              private router: Router,
+              private questService: QuestService,
+              private userService: UserService) {
   }
 
-  user: User = new User('', '', '', '', '', '',0, null);
-  topQuest: QuestDTO = new QuestDTO('','',null,0,0);
-  loading:boolean = false;
+  user: User = new User('', '', '', '', '', '', 0, null);
+  topQuest: QuestDTO = new QuestDTO('', '', null, 0, 0, 0);
+  loading: boolean = false;
+  countUsersByMonths: number[] = [];
+  obj: any;
+  users: User[] = [];
 
-  public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-  ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions:any = {
+  public lineChartData: Array<any> = [{data: [], label: 'New Users'},];
+  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December'];
+  public lineChartOptions: any = {
     responsive: true
   };
-  public lineChartColors:Array<any> = [
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -38,28 +41,12 @@ export class AdminComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
   ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
+  public lineChartLegend: boolean = true;
+  public lineChartType: string = 'line';
 
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
+  public randomize(): void {
+    let _lineChartData: Array<any> = new Array(this.lineChartData.length);
     for (let i = 0; i < this.lineChartData.length; i++) {
       _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
       for (let j = 0; j < this.lineChartData[i].data.length; j++) {
@@ -70,38 +57,69 @@ export class AdminComponent implements OnInit {
   }
 
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 
   ngOnInit() {
-    this.securityService.currentSession.subscribe(
-      (user) => {
-        this.user = user;
-        console.log(user.groupID.name);
-        if(this.user.groupID.name != 'Admin'){
-          this.router.navigate(['/login']);
-        }
-      }
-    );
     this.loading = true;
+    this.userService.getCurrentUser()
+      .subscribe(
+        (user: User) => {
+          if (user.groupID.name != 'Admin') {
+            this.router.navigate(['/login']);
+          }
+
+        }
+      );
+    this.userService.getAllUsers()
+      .subscribe(
+        (users: any[]) => {
+          this.users = users;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    this.userService.getRegistrationStatistics()
+      .subscribe(
+        (users: any[]) => {
+          this.countUsersByMonths = users;
+          this.obj = {data: this.countUsersByMonths, label: 'New users'};
+          let _lineChartData: Array<any> = new Array(this.lineChartData.length);
+          _lineChartData[0] = {data: new Array(users.length), label: this.lineChartData[0].label};
+          _lineChartData[0].data = users;
+          this.lineChartData = _lineChartData;
+          console.log("from users: " + users);
+          console.log("received: " + _lineChartData[0].data);
+          console.log("chart:" + this.lineChartData[0].data);
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
     this.questService.getTopQuest()
       .subscribe(
-        (topQuest: any) =>{
+        (topQuest: any) => {
           this.topQuest = topQuest;
         },
-        (error) =>{
+        (error) => {
           console.log(error);
         },
-        () =>{
+        () => {
           this.loading = false;
         }
       );
 
+
+  }
+  banUser(user){
+    this.users.splice(this.users.indexOf(this.user), 1);
+    //todo: ban user;
   }
 
 
