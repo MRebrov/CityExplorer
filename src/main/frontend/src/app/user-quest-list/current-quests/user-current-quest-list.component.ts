@@ -43,6 +43,7 @@ export class UserCurrentQuestListComponent implements OnInit {
         },
         (error) => {
           console.log(error);
+          alert('Seems like you are not authorized! Please sign in first');
           this.router.navigate(['/login']);
         });
   }

@@ -37,6 +37,7 @@ export class UserPageComponent implements OnInit {
         },
         (error) => {
           console.log(error);
+          alert('You are not authorized! Please sign in first');
           this.router.navigate(['/login']);
         });
 

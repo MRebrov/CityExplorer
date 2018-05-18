@@ -29,6 +29,10 @@ public class ViewController {
         return "forward:/index.html";
     }
 
+    @RequestMapping(value = "/finishgoogleauth/*")
+    public String finishGoogleAuth() {
+        return "forward:/index.html";
+    }
 
     @RequestMapping(value = "/login/*")
     public String login() {

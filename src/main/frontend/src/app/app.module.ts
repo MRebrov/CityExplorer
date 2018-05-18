@@ -33,6 +33,7 @@ import {UserOwnedQuestListComponent} from './user-quest-list/owned-quests/user-o
 import { AdminComponent } from './admin/admin.component';
 import {ChartsModule} from 'ng2-charts';
 import {SecurityService} from "./security/security.service";
+import {FinishGoogleAuthComponent} from './finish-google-auth/finish-google-auth.component';
 
 
 
@@ -54,6 +55,7 @@ import {SecurityService} from "./security/security.service";
     UserOwnedQuestListComponent,
     QuestListComponent,
     QuestPageComponent,
+    FinishGoogleAuthComponent,
     ConfirmationsListComponent,
     NotfoundComponent,
     MainpageComponent,
