@@ -55,6 +55,8 @@ export class UserService {
     });
   }
 
+
+
   editPassword(email: String, oldPassword: String, newPassword: String) {
     return this.authHttp.post('userapi/edit/password/', {
       email: email,
@@ -106,6 +108,18 @@ export class UserService {
     return this.authHttp.get('userapi/get/loggedIn').map((response: Response) => {
       return response.json();
     });
+  }
+
+  getRegistrationStatistics(){
+    return this.authHttp.get('userapi/get/statistics').map((response: Response) =>{
+      return response.json();
+    })
+  }
+
+  getAllUsers(){
+    return this.authHttp.get('userapi/get/all').map((response: Response) =>{
+      return response.json();
+    })
   }
 
   initAuth() {

@@ -17,6 +17,17 @@ public class Quest {
     private User ownerId;
     private Integer numberOfParticipants;
     private Integer numberOfJoiners;
+    private String status;
+
+    @Basic
+    @Column(name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Basic
     @Column(name = "number_of_joiners", nullable = false)

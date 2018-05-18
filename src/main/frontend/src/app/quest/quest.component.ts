@@ -293,12 +293,14 @@ export class QuestComponent implements OnInit {
   }
 
   deleteForm(i) {
-    console.log(this.spotsWithPhoto.indexOf(i));
+    console.log('indexOf(i) = '+this.spotsWithPhoto.indexOf(i));
     console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
     if (this.spotsWithPhoto.length != this.spots.length || this.spotsWithPhoto.length == 1) {
       this.oneSpotExists = false;
     }
-    this.spotsWithPhoto.splice(this.spotsWithPhoto.indexOf(i),1);
+    if(this.spotsWithPhoto.indexOf(i) != -1) {
+      this.spotsWithPhoto.splice(this.spotsWithPhoto.indexOf(i), 1);
+    }
     this.spots.splice(i, 1);
     this.markers.splice(i, 1);
     if (this.questPhotos[i] != null) {

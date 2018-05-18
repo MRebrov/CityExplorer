@@ -7,6 +7,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.netcracker.registration.model.User;
+import ru.netcracker.registration.model.converter.UserConverter;
 import ru.netcracker.registration.security.TokenUtils;
 import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.mail.mailer.GmailSender;
@@ -19,6 +20,9 @@ import ru.netcracker.registration.service.impl.UserService;
 import org.joda.time.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Контроллер, предоставляет набор REST методов, с помощью которых можно работать с базой пользователей
@@ -33,9 +37,17 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
-
+    private List<User> allUsers = new ArrayList<>();
     public UserController(UserService service) {
         userService = service;
+    }
+
+
+    @GetMapping("/get/statistics")
+    public @ResponseBody
+    Iterable<Integer> getStatistics(){
+
+        return userService.getAllMappedByRegistrationDate(allUsers);
     }
 
 
@@ -118,7 +130,14 @@ public class UserController {
     @GetMapping("/get/all")
     public @ResponseBody
     Iterable<UserDTO> getAll() {
-        return userService.getAll();
+        userService.getAll().forEach(u -> {
+            try {
+                allUsers.add(UserConverter.convertToEntity(u));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return allUsers.stream().map(UserConverter::convertToDTO).collect(Collectors.toList());
     }
 
     /**

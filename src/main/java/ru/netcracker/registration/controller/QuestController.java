@@ -203,6 +203,8 @@ public class QuestController {
     ResponseEntity<?> getQuestByName(@PathVariable Long questId) {
         try {
             QuestDTO questDTO = questService.getById(questId);
+//            QuestDTO questDTO = new QuestDTO();
+
             return new ResponseEntity<Object>(
                     questDTO,
                     HttpStatus.OK
