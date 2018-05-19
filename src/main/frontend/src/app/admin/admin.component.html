@@ -35,7 +35,6 @@
             </div>
 
 
-
           </div>
         </div>
       </div>
@@ -56,15 +55,19 @@
         </div>
       </div>
     </div>
-    <div class="list-users col-5" >
+    <div class="list-users col-5">
       <p>place for switch between users and quests</p>
       <label for="users">Search for users: </label>
-      <input id="users" type="text" [(ngModel)] = "term">
+      <input id="users" type="text" [(ngModel)]="term">
       <div *ngFor=" let user of users |filter:term">
-        <p >
-          {{user.email}}
-          <button class="btn btn-warning" onclick="banUser(user)">Ban</button>
-        </p>
+        <div class="row" style="margin-top: 4px">
+          <div class="col-8">
+            {{user.email}}
+          </div>
+          <div class="col-4 text-right">
+            <button class="btn btn-warning" onclick="banUser(user)">Ban</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
