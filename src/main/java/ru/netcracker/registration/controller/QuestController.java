@@ -107,7 +107,16 @@ public class QuestController {
 
     @PostMapping("/upload-info")
     public ResponseEntity<?> uploadInfo(@RequestBody QuestDTO questDTO) {
-        User user = userService.getByEmail(securityService.findLoggedInEmail());
+        String email = securityService.findLoggedInEmail();
+
+        if (email == null) {
+            return new ResponseEntity<Object>(
+                    "Must be authorized to upload quest",
+                    HttpStatus.UNAUTHORIZED
+            );
+        }
+
+        User user = userService.getByEmail(email);
         questService.save(questDTO, user);
         try {
             return ResponseEntity.ok("added successfully");
@@ -134,17 +143,33 @@ public class QuestController {
 
     @GetMapping("/get-quests-by-owner/")
     public @ResponseBody
-    Iterable<QuestDTO> getQuestsbyOwner() {
+    ResponseEntity<?> getQuestsbyOwner() {
         String email = securityService.findLoggedInEmail();
+
+        if (email == null) {
+            return new ResponseEntity<Object>(
+                    "Must be authorized to get his owned quests",
+                    HttpStatus.UNAUTHORIZED
+            );
+        }
+
         List<QuestDTO> res = questService.getAllByOwner(email);
-        return res;
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/get-progresses-by-user/")
     public @ResponseBody
-    Iterable<UserProgressDTO> getProgressByUser() {
+    ResponseEntity<?> getProgressByUser() {
         String email = securityService.findLoggedInEmail();
-        return questService.getUserProgressByUser(email);
+
+        if (email == null) {
+            return new ResponseEntity<Object>(
+                    "Must be authorized to get his quest progresses",
+                    HttpStatus.UNAUTHORIZED
+            );
+        }
+
+        return ResponseEntity.ok(questService.getUserProgressByUser(email));
     }
 
     @GetMapping("/get-progress-for-quest/{questId}")
@@ -152,6 +177,14 @@ public class QuestController {
     ResponseEntity<?> getProgressByName(@PathVariable Long questId) {
         try {
             String email = securityService.findLoggedInEmail();
+
+            if (email == null) {
+                return new ResponseEntity<Object>(
+                        "Must be authorized to upload photo",
+                        HttpStatus.UNAUTHORIZED
+                );
+            }
+
             UserProgressDTO userProgressDTO = questService.getUserProgressByUserAndQuest(email, questId);
             return new ResponseEntity<Object>(
                     userProgressDTO,
@@ -247,6 +280,14 @@ public class QuestController {
     ResponseEntity<?> postSpotPhoto(@RequestBody PostSpotPhotoForm form) {
         try {
             String email = securityService.findLoggedInEmail();
+
+            if (email == null) {
+                return new ResponseEntity<Object>(
+                        "Must be authorized to post spot photo",
+                        HttpStatus.UNAUTHORIZED
+                );
+            }
+
             photoService.save(email, form.url, form.questId, form.spotId);
             questService.userCompleteSpot(email, form.questId, form.spotId);
             return ResponseEntity.ok("Photo was posted");
@@ -263,6 +304,14 @@ public class QuestController {
     ResponseEntity<?> getAllConfirmations() {
         try {
             String email = securityService.findLoggedInEmail();
+
+            if (email == null) {
+                return new ResponseEntity<Object>(
+                        "Must be authorized to get quest confirmations",
+                        HttpStatus.UNAUTHORIZED
+                );
+            }
+
             List<SpotConfirmationDTO> confirmationDTOS = questService.getSpotConfirmationsForOwner(email);
             return new ResponseEntity<Object>(
                     confirmationDTOS,
@@ -293,6 +342,14 @@ public class QuestController {
     ResponseEntity<?> confirmationRequest(@PathVariable Long userSpotProgressId, @RequestBody ConfirmationWrap confirm) {
         try {
             String email = securityService.findLoggedInEmail();
+
+            if (email == null) {
+                return new ResponseEntity<Object>(
+                        "Must be authorized to confirm",
+                        HttpStatus.UNAUTHORIZED
+                );
+            }
+
             questService.setConfirmation(email, userSpotProgressId, confirm.confirm);
             return ResponseEntity.ok("Confirmation/denial was executed");
         } catch (Exception e) {

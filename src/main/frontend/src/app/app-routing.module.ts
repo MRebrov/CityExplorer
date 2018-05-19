@@ -13,6 +13,7 @@ import {ConfirmationsListComponent} from './confirmations-list/confirmations-lis
 import {MainpageComponent} from './mainpage/mainpage.component';
 import {NotfoundComponent} from './notfound/notfound.component';
 import {AdminComponent} from "./admin/admin.component";
+import {FinishGoogleAuthComponent} from './finish-google-auth/finish-google-auth.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'quests', component: QuestListComponent},
   {path: 'confirmations', component: ConfirmationsListComponent},
   {path: 'questpage/:quest-id', component: QuestPageComponent},
+  {path: 'finishgoogleauth/:token', component: FinishGoogleAuthComponent},
   {path: 'mainpage', component: MainpageComponent},
   {path: '', redirectTo: '/mainpage', pathMatch: 'full'},
   {path: 'notfound', component: NotfoundComponent},

@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMsg: string;
 
+  googleauth_redirect_uri: string;
+  googleauth_client_id: string;
+
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private loginRedicrectionService: LoginRedirectionService) {
   }
 
@@ -28,15 +31,25 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/map']);
     }
 
+    this.googleauth_redirect_uri = 'https://' + location.hostname;
+    if (location.port.length > 0) {
+      if (location.port == '4200')
+        this.googleauth_redirect_uri += ':8080';
+      else
+        this.googleauth_redirect_uri += ':' + location.port;
+    }
+    this.googleauth_redirect_uri += '/googleauth/authenticate';
+    this.googleauth_client_id = '416979126475-ttu7rv5k8vjbu4hhv77op8tfnjubksqd.apps.googleusercontent.com';
+
     this.route.params.subscribe(params => {
-      if(params['state']=='activated'){
-        this.writeError('Your account has been activated successfully. You can sign in now.')
+      if (params['state'] == 'activated') {
+        this.writeError('Your account has been activated successfully. You can sign in now.');
       }
-      else if(params['state']=='invalid'){
-        this.writeError('Invalid confirmation link.')
+      else if (params['state'] == 'invalid') {
+        this.writeError('Invalid confirmation link.');
       }
-      else if(params['state']=='expired'){
-        this.writeError('Your confirmation link has expireds.')
+      else if (params['state'] == 'expired') {
+        this.writeError('Your confirmation link has expireds.');
       }
     });
   }
@@ -82,7 +95,7 @@ export class LoginComponent implements OnInit {
     //document.getElementById('collapseLink').classList.add('show');
     setTimeout(() => {
       this.router.navigate(['/map']);
-    }, 5000);
+    }, 3000);
     ;
 
   }

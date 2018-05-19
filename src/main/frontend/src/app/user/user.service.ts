@@ -72,12 +72,20 @@ export class UserService {
       return response;
     });
     resp.subscribe((obj: any) => {
-      this._isAuthenticatedSubject.next(true);
       const authObject: AuthObject = obj.json();
-      localStorage.setItem('id_token', authObject.token);
-      this.initializeWebSocketConnection();
+      this.saveTokenAndConnectWebSocket(authObject.token);
     });
     return resp;
+  }
+
+  authorizeViaGoogle(token:string){
+    this.saveTokenAndConnectWebSocket(token);
+  }
+
+  saveTokenAndConnectWebSocket(token:string){
+    this._isAuthenticatedSubject.next(true);
+    localStorage.setItem('id_token', token);
+    this.initializeWebSocketConnection();
   }
 
   logout() {
