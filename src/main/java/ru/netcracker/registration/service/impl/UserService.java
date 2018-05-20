@@ -1,15 +1,20 @@
 package ru.netcracker.registration.service.impl;
 
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.model.converter.UserConverter;
+import ru.netcracker.registration.repository.UserGroupRepository;
 import ru.netcracker.registration.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Сервис пользователей
@@ -22,12 +27,22 @@ import java.util.List;
 public class UserService {
     public final UserRepository repository;
 
+    @Autowired
+    private UserGroupRepository groupRepository;
+
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
     public User getByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+
+    public void ban(UserDTO userDTO){
+        User user = repository.findByEmail(userDTO.getEmail());
+        user.setGroupID(groupRepository.findUserGroupByName("Banned"));
+        repository.save(user);
     }
 
 
@@ -167,5 +182,50 @@ public class UserService {
      */
     public void delete(String email) {
         repository.deleteByEmail(email);
+    }
+
+
+    public List<UserDTO> findByPattern(UserDTO pattern){
+
+
+        List<User> found;
+        if (!pattern.getEmail().isEmpty() && !pattern.getFirstName().isEmpty() && !pattern.getRegistrationDate().isEmpty()){
+            found = repository.findByEmailContainingOrFirstNameContainingOrRegistrationDateEquals
+                    (pattern.getEmail(), pattern.getFirstName(), LocalDate.parse(pattern.getRegistrationDate(), DateTimeFormat.forPattern("YYYY-M-d")));
+        }
+        else {
+            if(pattern.getEmail().isEmpty()) {
+                if (pattern.getFirstName().isEmpty()) {
+                    found = repository.findByRegistrationDateEquals
+                            (LocalDate.parse(pattern.getRegistrationDate(), DateTimeFormat.forPattern("YYYY-M-d")));
+                }
+                else {
+                    if (pattern.getRegistrationDate().isEmpty()) {
+                        found = repository.findByFirstNameContaining(pattern.getFirstName());
+                    } else {
+                        found = repository.findByFirstNameContainingOrRegistrationDateEquals(pattern.getFirstName(), LocalDate.parse(pattern.getRegistrationDate(), DateTimeFormat.forPattern("YYYY-M-d")));
+                    }
+                }
+            }
+            else {
+                if(pattern.getFirstName().isEmpty()){
+                    if (pattern.getRegistrationDate().isEmpty()){
+                        found = repository.findByEmailContaining(pattern.getEmail());
+                    }
+                    else {
+                        found = repository.findByEmailContainingOrRegistrationDateEquals
+                                (pattern.getEmail(), LocalDate.parse(pattern.getRegistrationDate(), DateTimeFormat.forPattern("YYYY-M-d")));
+                    }
+                }
+                else {
+                    found = repository.findByEmailContainingOrFirstNameContaining
+                            (pattern.getEmail(), pattern.getFirstName());
+                }
+            }
+
+        }
+//                repository.findAllByEmailLikeOrFirstNameLike(pattern.getEmail(), pattern.getFirstName());
+
+        return found.stream().filter(user->!user.getGroupID().getName().endsWith("ed")).map(UserConverter::convertToDTO).collect(Collectors.toList());
     }
 }

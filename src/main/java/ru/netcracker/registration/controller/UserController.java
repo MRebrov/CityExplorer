@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/userapi")
 public class UserController {
+
     private final UserService userService;
     @Autowired
     private UserGroupService groupService;
@@ -173,6 +174,25 @@ public class UserController {
         }
     }
 
+    @PostMapping("get/byCriteria")
+    public @ResponseBody
+    Iterable<UserDTO> getByCriteria(@RequestBody UserDTO pattern){
+        return userService.findByPattern(pattern);
+    }
+
+    @PostMapping("/ban")
+    public ResponseEntity<?> ban(@RequestBody UserDTO toBan){
+        try {
+            userService.ban(toBan);
+            return new ResponseEntity<>("User with e-mail: "+toBan.getEmail()+ " has been successfully banned",HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
     private static class AuthForm {
         String username;
 
@@ -220,6 +240,10 @@ public class UserController {
                         "Please confirm your email first.",
                         HttpStatus.BAD_REQUEST
                 );
+            }
+            if ( userDTO.getGroupID().getName().equals("Banned")){
+                return new ResponseEntity<Object>("Your account have been banned",
+                        HttpStatus.BAD_REQUEST);
             }
             String token = securityService.login(authForm.username, authForm.password);
             return ResponseEntity.ok(new AuthResponse(token));

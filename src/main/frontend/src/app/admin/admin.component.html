@@ -56,19 +56,40 @@
       </div>
     </div>
     <div class="list-users col-5">
-      <p>place for switch between users and quests</p>
-      <label for="users">Search for users: </label>
-      <input id="users" type="text" [(ngModel)]="term">
-      <div *ngFor=" let user of users |filter:term">
+      <switch [status]="userSelected"
+              [onText]="'User'"
+              [offText]="'Quest'"
+              [onColor]="'blue'"
+              [offColor]="'sky-blue'"
+              (statusChange)="changeSwitch($event)">
+      </switch>
+      <p *ngIf="userSelected">Search for users:</p>
+      <p *ngIf="!userSelected">Search for quests:</p>
+      <div class="form-group" *ngIf="userSelected">
+        <label for="mail">Search by email: </label>
+        <input class="form-control" id="mail" type="text" [(ngModel)]="userSearchPattern.email" (change)="checkEmpty($event)">
+
+        <label for="name">Search by name: </label>
+        <input class = "form-control" id="name" type="text" [(ngModel)]="userSearchPattern.firstName" (change)="checkEmpty($event)">
+
+        <label for="date">Search by registration date: </label>
+        <input class="form-control" id="date" type="date" [(ngModel)]="userSearchPattern.registrationDate" (change)="checkEmpty($event)">
+      </div>
+      <button class="btn btn-info" (click)="search(userSelected)">Search</button>
+
+      <br>
+      <div *ngFor="let user of users">
         <div class="row" style="margin-top: 4px">
           <div class="col-8">
-            {{user.email}}
+            {{user.email + ' ('+user.firstName + ' ' + user.lastName+')'}}
           </div>
           <div class="col-4 text-right">
-            <button class="btn btn-warning" onclick="banUser(user)">Ban</button>
+            <button class="btn btn-warning" (click)="banUser(user)">Ban</button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
+

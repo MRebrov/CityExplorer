@@ -35,7 +35,8 @@ import {ChartsModule} from 'ng2-charts';
 import {SecurityService} from "./security/security.service";
 import {FinishGoogleAuthComponent} from './finish-google-auth/finish-google-auth.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
-
+import {BootstrapSwitchModule} from "angular2-bootstrap-switch"
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 
 
@@ -77,6 +78,8 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
     ReactiveFormsModule,
     ChartsModule,
     Ng2SearchPipeModule,
+    BootstrapSwitchModule.forRoot(),
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent],
   providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService],

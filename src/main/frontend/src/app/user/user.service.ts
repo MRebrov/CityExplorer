@@ -122,6 +122,19 @@ export class UserService {
     })
   }
 
+  banUser(user:User){
+    return this.authHttp.post('userapi/ban', user).map((response: Response) =>{
+      return response.text();
+    })
+  }
+
+  getUsersByCriteria(userPattern: User){
+    return this.authHttp.post('userapi/get/byCriteria', userPattern).map((response:Response) =>{
+      return response.json();
+    })
+  }
+
+
   initAuth() {
     console.log('Checking authentication...');
     this.getCurrentUser().subscribe((obj: any) => {

@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {QuestService} from "../quest/quest.service";
 import {QuestDTO} from "../quest/quest.model";
 import {SecurityService} from "../security/security.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-admin',
@@ -25,6 +26,9 @@ export class AdminComponent implements OnInit {
   countUsersByMonths: number[] = [];
   obj: any;
   users: User[] = [];
+  userSelected: boolean = true;
+  userSearchPattern: User = new User('', '', '', '', '', '', 0, null);
+  emptyFields: boolean = true;
 
   public lineChartData: Array<any> = [{data: [], label: 'New Users'},];
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -76,15 +80,6 @@ export class AdminComponent implements OnInit {
 
         }
       );
-    this.userService.getAllUsers()
-      .subscribe(
-        (users: any[]) => {
-          this.users = users;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
     this.userService.getRegistrationStatistics()
       .subscribe(
         (users: any[]) => {
@@ -118,9 +113,33 @@ export class AdminComponent implements OnInit {
 
   }
   banUser(user){
-    this.users.splice(this.users.indexOf(this.user), 1);
-    //todo: ban user;
+    this.users.splice(this.users.indexOf(user), 1);
+    this.userService.banUser(user).catch((response: Response)=>{
+      return Observable.throw(response);
+    }).subscribe((obj: string) => {
+      window.alert(obj);
+    })
   }
 
+  changeSwitch(event){
+    this.userSelected = !this.userSelected;
+  }
+  checkEmpty($event){
+    // if($event.target.value == ''){
+    //   if (this.date == undefined || this.name.trim() == '' || this.email.trim() == ''){
+    //     this.emptyFields = true;
+    //   }
+    // }
+    // this.emptyFields = false;
+  }
+  search(userSelected){
+    if (userSelected){
+      this.userService.getUsersByCriteria(this.userSearchPattern).catch((response: Response) => {
+        return Observable.throw(response);
+      }).subscribe((obj: any[]) => {
+        this.users = obj;
+      });
+    }
+  }
 
 }

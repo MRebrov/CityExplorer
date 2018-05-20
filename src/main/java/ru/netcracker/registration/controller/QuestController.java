@@ -364,7 +364,7 @@ public class QuestController {
     public @ResponseBody
     ResponseEntity<?> getTopQuest(){
         try {
-            String email = securityService.findLoggedInEmail();
+//            String email = securityService.findLoggedInEmail();
             QuestDTO topQuest = questService.getTopQuest();
             return new ResponseEntity<Object>(
                     topQuest,
