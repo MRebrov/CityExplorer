@@ -2,7 +2,7 @@
 <div class="color">
   <div class="container">
     <h5 id="questpage" class="display-4 text-center">Quest page</h5>
-    <div *ngIf="quest.uploadDate!=null; else loadingBlock">
+    <div *ngIf="quest.uploadDate!=null && quest.status < 2; else loadingBlock">
 
       <div class="card">
         <div id="tests" class="card-body">
@@ -28,6 +28,12 @@
             <button type="button" class="btn btn-success"
                     (click)="joinQuest()">
               Join
+            </button>
+          </div>
+          <div *ngIf="quest.status < 2">
+            <button type="button" class="btn btn-success"
+                    (click)="closeQuest()">
+              Close
             </button>
           </div>
           <ng-template #progressBlock>

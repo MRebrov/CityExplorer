@@ -243,7 +243,7 @@ public class QuestController {
             );
         }
     }
-/*
+
     @PostMapping("/close-quest/{questId}")
     public @ResponseBody
     ResponseEntity<?> closeQuest(@PathVariable Long questId) {
@@ -255,14 +255,11 @@ public class QuestController {
                         HttpStatus.UNAUTHORIZED
                 );
             }
-            if (questService.getUserProgressByUserAndQuest(email, questId) != null) {
-                throw new Exception("You are already in this quest");
+            if (!questService.getById(questId).getOwnerEmail().equals(email)) {
+                throw new Exception("Only quest owner can close quest");
             }
-            if (questService.getById(questId).getOwnerEmail().equals(email)) {
-                throw new Exception("Quest owner can not join quest");
-            }
-            questService.userJoinQuest(email, questId);
-            return ResponseEntity.ok("User joined quest");
+            questService.userCloseQuest(email, questId);
+            return ResponseEntity.ok("Quest closed");
         } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
@@ -270,7 +267,7 @@ public class QuestController {
             );
         }
     }
-*/
+
 
     private static class PostSpotPhotoForm {
         private String url;

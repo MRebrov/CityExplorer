@@ -19,8 +19,9 @@ export class QuestDTO {
   public spots: SpotDTO[];
   public cost: number;
   public numberOfJoiners: number;
+  public status: number;
 
-  constructor(name: string, description: string, uploadDate: Date, reward: number, numberOfParticipants: number, numberOfJoiners: number) {
+  constructor(name: string, description: string, uploadDate: Date, reward: number, numberOfParticipants: number, numberOfJoiners: number, status: number) {
     this.name = name;
     this.description = description;
    // this.photo = photo;
@@ -29,5 +30,6 @@ export class QuestDTO {
     this.numberOfParticipants = numberOfParticipants;
     this.numberOfJoiners = numberOfJoiners;
     this.spots=[];
+    this.status = status;
   }
 }

@@ -17,7 +17,7 @@ export class QuestPageComponent implements OnInit {
   markers: marker[] = [];
   mapLat: number = 51.0;
   mapLng: number = 7.0;
-  quest: QuestDTO = new QuestDTO('', '', null, 0, 10, 0);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10, 0, 0);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
   private photosToUpload: string[] = [];
   errorMsg: string;
@@ -75,6 +75,21 @@ export class QuestPageComponent implements OnInit {
 
   joinQuest() {
     this.questService.joinQuest(this.quest.questId).catch((response: Response) => {
+      if (response.status == 401)
+        this.router.navigate(['/login']);
+      else
+        this.writeError(response.text());
+      return Observable.throw(response);
+    })
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          location.reload();
+        });
+  }
+
+  closeQuest() {
+    this.questService.closeQuest(this.quest.questId).catch((response: Response) => {
       if (response.status == 401)
         this.router.navigate(['/login']);
       else
