@@ -17,15 +17,15 @@ public class Quest {
     private User ownerId;
     private Integer numberOfParticipants;
     private Integer numberOfJoiners;
-    private String status;
+    private Integer status;
 
     @Basic
     @Column(name = "status")
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

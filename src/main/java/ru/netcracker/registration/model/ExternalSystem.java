@@ -1,4 +1,4 @@
-package ru.netcracker.registration.model;
+/*package ru.netcracker.registration.model;
 
 import javax.persistence.*;
 
@@ -18,3 +18,4 @@ public class ExternalSystem {
         this.id=id;
     }
 }
+*/

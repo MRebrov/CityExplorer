@@ -27,13 +27,13 @@ public class QuestDTO {
     @JsonProperty("numberOfJoiners")
     private Integer numberOfJoiners;
     @JsonProperty("status")
-    private String status;
+    private Integer status;
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
