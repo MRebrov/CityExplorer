@@ -29,6 +29,7 @@ export class AdminComponent implements OnInit {
   userSelected: boolean = true;
   userSearchPattern: User = new User('', '', '', '', '', '', 0, null);
   emptyFields: boolean = true;
+  load: boolean = false;
 
   public lineChartData: Array<any> = [{data: [], label: 'New Users'},];
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -112,19 +113,21 @@ export class AdminComponent implements OnInit {
 
 
   }
-  banUser(user){
+
+  banUser(user) {
     this.users.splice(this.users.indexOf(user), 1);
-    this.userService.banUser(user).catch((response: Response)=>{
+    this.userService.banUser(user).catch((response: Response) => {
       return Observable.throw(response);
     }).subscribe((obj: string) => {
       window.alert(obj);
     })
   }
 
-  changeSwitch(event){
+  changeSwitch(event) {
     this.userSelected = !this.userSelected;
   }
-  checkEmpty($event){
+
+  checkEmpty($event) {
     // if($event.target.value == ''){
     //   if (this.date == undefined || this.name.trim() == '' || this.email.trim() == ''){
     //     this.emptyFields = true;
@@ -132,13 +135,19 @@ export class AdminComponent implements OnInit {
     // }
     // this.emptyFields = false;
   }
-  search(userSelected){
-    if (userSelected){
+
+  search(userSelected) {
+    this.load = true;
+    if (userSelected) {
       this.userService.getUsersByCriteria(this.userSearchPattern).catch((response: Response) => {
         return Observable.throw(response);
       }).subscribe((obj: any[]) => {
-        this.users = obj;
-      });
+          this.users = obj;
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => this.load = false);
     }
   }
 

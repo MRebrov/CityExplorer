@@ -1,19 +1,24 @@
 package ru.netcracker.registration.configuration;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -39,14 +44,16 @@ public class DatabaseConfig {
     @Value("${spring.jpa.hibernate.use-new-id-generator-mappings}")
     private String HIBERNATE_MAPPINGS;
 
+    @ConfigurationProperties(prefix = "spring.datasource.hikari")
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(DB_DRIVER);
-        dataSource.setUrl(DB_URL);
-        dataSource.setUsername(DB_USERNAME);
-        dataSource.setPassword(DB_PASSWORD);
-        return dataSource;
+        DataSource ds = new HikariDataSource();
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(DB_DRIVER);
+//        dataSource.setUrl(DB_URL);
+//        dataSource.setUsername(DB_USERNAME);
+//        dataSource.setPassword(DB_PASSWORD);
+        return ds;
     }
 
     @Bean
@@ -59,6 +66,7 @@ public class DatabaseConfig {
         hibernateProperties.put("spring.jpa.show-sql", HIBERNATE_SHOW_SQL);
         //hibernateProperties.put("spring.jpa.hibernate.ddl-auto", HIBERNATE_HBM2DDL_AUTO);
         hibernateProperties.put("spring.jpa.hibernate.use-new-id-generator-mappings", HIBERNATE_MAPPINGS);
+        hibernateProperties.put("connection.pool_size", 4);
         sessionFactoryBean.setHibernateProperties(hibernateProperties);
         return sessionFactoryBean;
 

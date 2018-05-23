@@ -1,4 +1,7 @@
 <app-header></app-header>
+<div id="spinner" class="spinner" *ngIf="load">
+  <img id="img-spinner" src="../../assets/markers/loader.gif" alt="Loading"/>
+</div>
 <div class="color" *ngIf="loading">
   <div class="loaderArea">
     <div id="preloader">
