@@ -114,7 +114,7 @@ public class QuestServiceImpl implements QuestService {
         spotInQuest.setPhotoByPhotoId(photo);
         quest.getSpotInQuests().add(spotInQuest);
         quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
-        quest.setStatus("active");
+        quest.setStatus(0);
         quest.setOwnerId(user);
         if (user.getBalance() - questCostCalculation(quest) >= 0 && questCostCalculation(quest) > 0) {
             user.setBalance(user.getBalance() - questCostCalculation(quest));
@@ -132,7 +132,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setUploadDate(questDTO.getUploadDate());
         quest.setNumberOfParticipants(questDTO.getNumberOfParticipants());
         quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
-        quest.setStatus("active");
+        quest.setStatus(0);
         quest.setOwnerId(user);
         for (SpotDTO spotDTO : questDTO.getSpots()) {
             Spot spot = new Spot();
@@ -222,7 +222,7 @@ public class QuestServiceImpl implements QuestService {
         if (isQuestActive(quest)) {
             quest.setNumberOfJoiners(quest.getNumberOfJoiners() + 1);
             if (isQuestFull(quest)){
-                quest.setStatus("not_visible");
+                quest.setStatus(1);
             }
             questRepository.save(quest);
             progress.setUserByUserId(userRepository.findByEmail(email));
@@ -358,7 +358,7 @@ public class QuestServiceImpl implements QuestService {
     }
 
     private boolean isQuestActive(Quest quest) {
-        if (quest.getStatus().equals("active")) {
+        if (quest.getStatus() == 0) {
             return true;
         } else {
             return false;
@@ -374,8 +374,24 @@ public class QuestServiceImpl implements QuestService {
         }
     }
 
+    private boolean isQuestInvisible(Quest quest) {
+        if (quest.getStatus() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private boolean isQuestClosed (Quest quest) {
-        if (quest.getStatus().equals("closed")) {
+        if (quest.getStatus() == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isQuestBanned (Quest quest) {
+        if (quest.getStatus() == 3) {
             return true;
         } else {
             return false;
