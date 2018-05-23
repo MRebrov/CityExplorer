@@ -252,7 +252,7 @@ public class QuestServiceImpl implements QuestService {
         messagingTemplate.convertAndSendToUser(
                 quest.getOwnerId().getEmail(),
                 "/confirmation",
-                "Somebody has complete spot in your quest. Check confirmations page"
+                "Somebody has completed spot in your quest. Check confirmations page"
         );
     }
 
@@ -367,7 +367,7 @@ public class QuestServiceImpl implements QuestService {
     }
 
     private boolean isQuestFull(Quest quest) {
-        if (quest.getNumberOfParticipants() == quest.getNumberOfJoiners()) {
+        if (quest.getNumberOfParticipants().equals(quest.getNumberOfJoiners())) {
             return true;
         } else {
             return false;
