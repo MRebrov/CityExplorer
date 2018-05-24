@@ -45,11 +45,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private UserGroup groupID;
-/*
-    @ManyToOne
-    @JoinColumn(name = "ex_id", nullable = true)
-    private ExternalSystem exID;
-*/
+
     @OneToMany(mappedBy = "user")
     private Collection<Photo> photos;
 
@@ -140,14 +136,7 @@ public class User {
         this.groupID = groupID;
     }
 
-    /*public ExternalSystem getExID() {
-        return exID;
-    }
 
-    public void setExID(ExternalSystem exID) {
-        this.exID = exID;
-    }
-*/
     public long getBalance() {
         return balance;
     }
