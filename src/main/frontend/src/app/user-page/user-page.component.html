@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="color">
   <div class="container">
-    <h1 id="personal" class="display-4 text-center">Personal page</h1>
+    <h1 id="personal" class="display-4 text-center">{{pageTitle}}</h1>
     <div *ngIf="user.email!=''; else loadingBlock">
       <div class="row justify-content-between">
 
@@ -91,14 +91,23 @@
       -->
       <div class="row">
         <p class="lead"><strong>Email:</strong> {{user.email}}</p>
-
         <p class="lead"><strong>Registration date:</strong> {{user.registrationDate}}</p>
-        <div class="col-sm-9 col-9">
-          <p class="lead"><strong>Balance:</strong> {{user.balance}}</p>
-        </div>
-        <div class="col-sm-3 col-3">
-          <a *ngIf="isAdmin" class="btn btn-info" routerLink="/admin">Admin panel</a>
-        </div>
+      </div>
+      <div class="row">
+        <p class="lead"><strong>Balance:</strong> {{user.balance}}</p>
+      </div>
+      <div class="row" *ngIf="isBusiness">
+        &nbsp;
+        <p><strong>get more: </strong></p>
+        &nbsp;
+        <input type="number" [(ngModel)]="out_sum">
+        <button type="button" (click)="donateSubmit()" class="btn btn-dark">Buy</button>
+      </div>
+      <div class="row">
+        <p *ngIf="isBusiness" class="lead"><strong>Business balance:</strong> {{user.businessBalance}}</p>
+      </div>
+      <div class="row">
+        <a *ngIf="isAdmin" class="btn btn-info" routerLink="/admin">Admin panel</a>
       </div>
 
 

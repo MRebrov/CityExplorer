@@ -52,6 +52,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     HeaderComponent,
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
+
     UserQuestListComponent,
     UserCurrentQuestListComponent,
     UserOwnedQuestListComponent,
