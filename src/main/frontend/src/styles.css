@@ -1,7 +1,9 @@
 .color {
   background-color: whitesmoke;
 }
-
+body{
+  background: linear-gradient(90deg, rgba(117, 158, 156,1) 5.926470588235294%,rgba(156, 97, 156,1) 95.92647058823528%);
+}
 
 #preloader {
   position: fixed;

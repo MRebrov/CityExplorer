@@ -14,6 +14,8 @@ import {MainpageComponent} from './mainpage/mainpage.component';
 import {NotfoundComponent} from './notfound/notfound.component';
 import {AdminComponent} from "./admin/admin.component";
 import {FinishGoogleAuthComponent} from './finish-google-auth/finish-google-auth.component';
+import {OffersComponent} from './offers/offers.component';
+import {CreateOfferComponent} from './create-offer/create-offer.component';
 
 
 
@@ -29,6 +31,8 @@ const routes: Routes = [
   {path: 'newquest', component: QuestComponent},
   {path: 'userquests', component: UserQuestListComponent},
   {path: 'quests', component: QuestListComponent},
+  {path: 'offers', component: OffersComponent},
+  {path: 'newoffer', component: CreateOfferComponent},
   {path: 'confirmations', component: ConfirmationsListComponent},
   {path: 'questpage/:quest-id', component: QuestPageComponent},
   {path: 'finishgoogleauth/:token', component: FinishGoogleAuthComponent},
