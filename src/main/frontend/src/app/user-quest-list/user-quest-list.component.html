@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-sm-12">
         <div
-          *ngIf="userService.authenticated != null && userService.authenticated.groupID!=null && userService.authenticated.groupID.name=='Business'">
+          *ngIf="userService.authenticated != null && userService.authenticated.groupID!=null && userService.authenticated.groupID.name=='Business'; else elseblock">
           <app-user-owned-quest-list></app-user-owned-quest-list>
         </div>
         <ng-template #elseblock>

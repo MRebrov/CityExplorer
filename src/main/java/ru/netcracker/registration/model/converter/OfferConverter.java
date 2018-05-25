@@ -12,7 +12,7 @@ public class OfferConverter {
         dto.setCategory(OfferCategoryConverter.convertToDTO(offer.getCategory()));
         dto.setExpireDate(offer.getExpireDate());
         dto.setName(offer.getName());
-        dto.setOwnerName(offer.getOwner().getFirstName()+" "+offer.getOwner().getLastName());
+        dto.setOwnerName(offer.getOwner().getFirstName());
 
         return dto;
     }

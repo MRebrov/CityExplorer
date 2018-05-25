@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.model.UserOffer;
 
+import java.util.List;
+
 @Repository
 public interface UserOfferRepository extends CrudRepository<UserOffer,Long>{
-    Iterable<UserOffer> findAllByUser(User user);
+    List<UserOffer> findAllByUser(User user);
 }
