@@ -9,6 +9,8 @@ public class OfferDTO {
     private String ownerName;
     private int amount;
     private Date expireDate;
+    private String photoURL;
+    private Integer price;
 
     public Long getId() {
         return id;
@@ -56,5 +58,21 @@ public class OfferDTO {
 
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

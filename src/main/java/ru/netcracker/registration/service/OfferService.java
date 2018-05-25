@@ -12,5 +12,5 @@ public interface OfferService {
     List<OfferDTO> getOffersByCategory(String categoryName, int amount, int portion);
     List<UserOfferDTO> getUserOffers(String email);
     List<OfferCategoryDTO> getCategories();
-    void saveOffer(OfferDTO offerDTO, String ownerEmail);
+    void saveOffer(OfferDTO offerDTO, String ownerEmail) throws Exception;
 }

@@ -13,6 +13,8 @@ public class OfferConverter {
         dto.setExpireDate(offer.getExpireDate());
         dto.setName(offer.getName());
         dto.setOwnerName(offer.getOwner().getFirstName());
+        dto.setPhotoURL(offer.getPhotoURL());
+        dto.setPrice(offer.getPrice());
 
         return dto;
     }
@@ -24,6 +26,8 @@ public class OfferConverter {
         entity.setCategory(OfferCategoryConverter.convertToEntity(offerDTO.getCategory()));
         entity.setExpireDate(offerDTO.getExpireDate());
         entity.setName(offerDTO.getName());
+        entity.setPhotoURL(offerDTO.getPhotoURL());
+        entity.setPrice(offerDTO.getPrice());
         return entity;
     }
 }

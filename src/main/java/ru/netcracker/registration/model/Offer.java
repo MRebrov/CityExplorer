@@ -15,6 +15,8 @@ public class Offer {
     private User owner;
     private int amount;
     private Date expireDate;
+    private String photoURL;
+    private Integer price;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +77,26 @@ public class Offer {
 
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
+    }
+
+    @Basic
+    @Column(name = "photo_url")
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
+    @Basic
+    @Column(name = "price")
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override

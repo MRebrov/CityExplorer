@@ -85,10 +85,15 @@ public class OfferServiceImpl implements OfferService{
     }
 
     @Override
-    public void saveOffer(OfferDTO offerDTO, String ownerEmail) {
-        Offer offer = OfferConverter.convertToEntity(offerDTO);
+    public void saveOffer(OfferDTO offerDTO, String ownerEmail) throws Exception{
         User user = userRepository.findByEmail(ownerEmail);
-        offer.setOwner(user);
-        offerRepository.save(offer);
+        if(offerDTO.getPrice()<=user.getBusinessBalance()) {
+            Offer offer = OfferConverter.convertToEntity(offerDTO);
+            offer.setOwner(user);
+            user.setBusinessBalance(user.getBusinessBalance()-offer.getPrice());
+            userRepository.save(user);
+            offerRepository.save(offer);
+        }
+        else throw new Exception("Not enough business cash to create offer");
     }
 }
