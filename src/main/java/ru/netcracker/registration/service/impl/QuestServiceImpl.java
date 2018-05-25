@@ -94,36 +94,6 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public void save(QuestDTO questDTO, Photo photo, User user) {
-        Quest quest = new Quest();
-        Spot spot = new Spot();
-        SpotInQuest spotInQuest = new SpotInQuest();
-        quest.setUploadDate(questDTO.getUploadDate());
-        quest.setReward(questDTO.getReward());
-        quest.setNumberOfParticipants(questDTO.getNumberOfParticipants());
-        quest.setDescription(questDTO.getDescription());
-        quest.setName(questDTO.getName());
-        spot.getPhotoBySpotId().add(photo);
-        //spot.setLng(Double.valueOf(questDTO.getLng()));
-        //spot.setLat(Double.valueOf(questDTO.getLat()));
-        spot.setName(questDTO.getName());
-        spot.setUploadDate(questDTO.getUploadDate());
-        photo.setSpotBySpotId(spot);
-        spotInQuest.setQuest(quest);
-        spotInQuest.setSpotBySpotId(spot);
-        spotInQuest.setPhotoByPhotoId(photo);
-        quest.getSpotInQuests().add(spotInQuest);
-        quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
-        quest.setStatus(0);
-        quest.setOwnerId(user);
-        if (user.getBalance() - questCostCalculation(quest) >= 0 && questCostCalculation(quest) > 0) {
-            user.setBalance(user.getBalance() - questCostCalculation(quest));
-            questRepository.save(quest);
-            userRepository.save(user);
-        }
-    }
-
-    @Override
     public void save(QuestDTO questDTO, User user) {
         Quest quest = new Quest();
         quest.setName(questDTO.getName());
@@ -153,8 +123,11 @@ public class QuestServiceImpl implements QuestService {
             spotInQuest.setPhotoByPhotoId(spot.getPhotoBySpotId().stream().findFirst().get());
             quest.getSpotInQuests().add(spotInQuest);
         }
-        if (user.getBalance() - questCostCalculation(quest) >= 0 && questCostCalculation(quest) > 0) {
-            user.setBalance(user.getBalance() - questCostCalculation(quest));
+
+        int cost=questCostCalculation(quest);
+        if (user.getBalance() - cost >= 0 && cost > 0) {
+            user.setBalance(user.getBalance() - cost);
+            user.setBusinessBalance(user.getBusinessBalance()+cost);
             questRepository.save(quest);
             userRepository.save(user);
         }
