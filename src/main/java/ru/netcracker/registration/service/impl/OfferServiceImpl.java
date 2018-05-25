@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OfferServiceImpl implements OfferService{
+public class OfferServiceImpl implements OfferService {
     @Autowired
     OfferRepository offerRepository;
     @Autowired
@@ -34,17 +34,17 @@ public class OfferServiceImpl implements OfferService{
     @Autowired
     UserRepository userRepository;
 
-    public OfferServiceImpl(){
+    public OfferServiceImpl() {
 
     }
 
     @Override
     public List<OfferDTO> getOffers(int amount, int portion) {
         Iterable<Offer> offers = offerRepository.findAll();
-        List<OfferDTO> dtos=new ArrayList<>();
-        int i=0;
-        for(Offer offer: offers){
-            if(i>=portion*amount && i<(portion+1)*amount){
+        List<OfferDTO> dtos = new ArrayList<>();
+        int i = 0;
+        for (Offer offer : offers) {
+            if (i >= portion * amount && i < (portion + 1) * amount) {
                 dtos.add(OfferConverter.convertToDTO(offer));
             }
             i++;
@@ -56,8 +56,8 @@ public class OfferServiceImpl implements OfferService{
     public List<OfferDTO> getOffersByCategory(String categoryName, int amount, int portion) {
         OfferCategory category = offerCategoryRepository.findOfferCategoryByName(categoryName);
         List<Offer> offers = offerRepository.findAllByCategory(category);
-        List<OfferDTO> dtos=new ArrayList<>();
-        for(Offer offer: offers){
+        List<OfferDTO> dtos = new ArrayList<>();
+        for (Offer offer : offers) {
             dtos.add(OfferConverter.convertToDTO(offer));
         }
         return dtos;
@@ -67,8 +67,8 @@ public class OfferServiceImpl implements OfferService{
     public List<UserOfferDTO> getUserOffers(String email) {
         User user = userRepository.findByEmail(email);
         List<UserOffer> userOffers = userOfferRepository.findAllByUser(user);
-        List<UserOfferDTO> dtos=new ArrayList<>();
-        for(UserOffer userOffer: userOffers){
+        List<UserOfferDTO> dtos = new ArrayList<>();
+        for (UserOffer userOffer : userOffers) {
             dtos.add(UserOfferConverter.convertToDTO(userOffer));
         }
         return dtos;
@@ -78,22 +78,35 @@ public class OfferServiceImpl implements OfferService{
     public List<OfferCategoryDTO> getCategories() {
         Iterable<OfferCategory> categories = offerCategoryRepository.findAll();
         List<OfferCategoryDTO> dtos = new ArrayList<>();
-        for(OfferCategory offerCategory: categories){
+        for (OfferCategory offerCategory : categories) {
             dtos.add(OfferCategoryConverter.convertToDTO(offerCategory));
         }
         return dtos;
     }
 
     @Override
-    public void saveOffer(OfferDTO offerDTO, String ownerEmail) throws Exception{
+    public void purchaseOffer(Long offerId, String email) throws Exception {
+        User user = userRepository.findByEmail(email);
+        Offer offer = offerRepository.findOne(offerId);
+        if (offer.getPrice() <= user.getBalance()) {
+            UserOffer userOffer = new UserOffer();
+            userOffer.setOffer(offer);
+            userOffer.setUser(user);
+            user.setBalance(user.getBalance()-offer.getPrice());
+            userOfferRepository.save(userOffer);
+            userRepository.save(user);
+        } else throw new Exception("Not enough cash to buy offer");
+    }
+
+    @Override
+    public void saveOffer(OfferDTO offerDTO, String ownerEmail) throws Exception {
         User user = userRepository.findByEmail(ownerEmail);
-        if(offerDTO.getPrice()<=user.getBusinessBalance()) {
+        if (offerDTO.getPrice() <= user.getBusinessBalance()) {
             Offer offer = OfferConverter.convertToEntity(offerDTO);
             offer.setOwner(user);
-            user.setBusinessBalance(user.getBusinessBalance()-offer.getPrice());
+            user.setBusinessBalance(user.getBusinessBalance() - offer.getPrice());
             userRepository.save(user);
             offerRepository.save(offer);
-        }
-        else throw new Exception("Not enough business cash to create offer");
+        } else throw new Exception("Not enough business cash to create offer");
     }
 }

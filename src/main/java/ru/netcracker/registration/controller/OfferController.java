@@ -83,4 +83,25 @@ public class OfferController {
             return new ResponseEntity<Object>("failed to save the offer", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/purchase-offer/{offerId}")
+    public @ResponseBody
+    ResponseEntity<?> purchaseOffer(@PathVariable Long offerId) {
+        try {
+            String email = securityService.findLoggedInEmail();
+
+            if (email == null) {
+                return new ResponseEntity<Object>(
+                        "Must be authorized to get your offers",
+                        HttpStatus.UNAUTHORIZED
+                );
+            }
+
+            offerService.purchaseOffer(offerId, email);
+
+            return ResponseEntity.ok("purchased successfully");
+        } catch (Exception e) {
+            return new ResponseEntity<Object>("failed to purchase the offer", HttpStatus.BAD_REQUEST);
+        }
+    }
 }
