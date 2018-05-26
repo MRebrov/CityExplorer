@@ -28,17 +28,7 @@ export class QuestPageComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.questService.getUserProgressByQuest(+params['quest-id'])
-        .subscribe(
-          (progress: any) => {
-            this.userProgress = progress;
-            this.userProgress.takingDate = new Date(this.userProgress.takingDate);
-            if (this.userProgress.dateComplete != null)
-              this.userProgress.dateComplete = new Date(this.userProgress.dateComplete);
-          },
-          (error) => {
-            console.log(error);
-          });
+      this.loadUserProgress(+params['quest-id']);
 
       this.questService.getQuestById(params['quest-id'])
         .subscribe(
@@ -53,6 +43,20 @@ export class QuestPageComponent implements OnInit {
             this.router.navigate(['/map']);
           });
     });
+  }
+
+  loadUserProgress(questId:number){
+    this.questService.getUserProgressByQuest(questId)
+      .subscribe(
+        (progress: any) => {
+          this.userProgress = progress;
+          this.userProgress.takingDate = new Date(this.userProgress.takingDate);
+          if (this.userProgress.dateComplete != null)
+            this.userProgress.dateComplete = new Date(this.userProgress.dateComplete);
+        },
+        (error) => {
+          console.log(error);
+        });
   }
 
   updateMarkers() {
@@ -84,7 +88,7 @@ export class QuestPageComponent implements OnInit {
       .subscribe(
         (response: any) => {
           console.log(response);
-          location.reload();
+          this.loadUserProgress(this.quest.questId);
         });
   }
 
@@ -107,7 +111,7 @@ export class QuestPageComponent implements OnInit {
         .subscribe(
           (response: any) => {
             console.log(response);
-            location.reload();
+            this.loadUserProgress(this.quest.questId);
           },
           (error) => {
             console.log(error);
