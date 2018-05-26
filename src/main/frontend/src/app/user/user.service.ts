@@ -73,16 +73,16 @@ export class UserService {
     });
     resp.subscribe((obj: any) => {
       const authObject: AuthObject = obj.json();
-      this.saveTokenAndConnectWebSocket(authObject.token);
+      this.saveTokenAndConnectWebSocketAndLoadCurrentUser(authObject.token);
     });
     return resp;
   }
 
   authorizeViaGoogle(token: string) {
-    this.saveTokenAndConnectWebSocket(token);
+    this.saveTokenAndConnectWebSocketAndLoadCurrentUser(token);
   }
 
-  saveTokenAndConnectWebSocket(token: string) {
+  saveTokenAndConnectWebSocketAndLoadCurrentUser(token: string) {
     this._isAuthenticatedSubject.next(true);
     localStorage.setItem('id_token', token);
     this.loadAndSaveCurrentUser();
@@ -148,7 +148,7 @@ export class UserService {
     console.log('Checking authentication...');
     this.getCurrentUser().subscribe((obj: any) => {
       this._isAuthenticatedSubject.next(true);
-      this.loadAndSaveCurrentUser();
+      this.authenticated = obj;
       this.initializeWebSocketConnection();
       console.log('App is authenticated');
     }, (error: any) => {

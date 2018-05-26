@@ -46,7 +46,9 @@
                       <input type="number" class="form-control" id="questReward" name="questReward" value=""
                              [(ngModel)]="quest.reward"
                              (change)="calculateCost(quest.reward, quest.numberOfParticipants, spots.length)"
-                             required>
+                             required
+                             min="1"
+                      >
                     </div>
                     <div class="col-5">
                       <label for="numberOfParticipants">Number of participants</label>

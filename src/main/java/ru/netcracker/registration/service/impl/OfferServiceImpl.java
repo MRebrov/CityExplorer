@@ -77,6 +77,17 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public List<OfferDTO> getOwnedOffers(String email) {
+        User user = userRepository.findByEmail(email);
+        List<Offer> offers = offerRepository.findAllByOwner(user);
+        List<OfferDTO> dtos = new ArrayList<>();
+        for (Offer offer : offers) {
+            dtos.add(OfferConverter.convertToDTO(offer));
+        }
+        return dtos;
+    }
+
+    @Override
     public List<OfferCategoryDTO> getCategories() {
         Iterable<OfferCategory> categories = offerCategoryRepository.findAll();
         List<OfferCategoryDTO> dtos = new ArrayList<>();

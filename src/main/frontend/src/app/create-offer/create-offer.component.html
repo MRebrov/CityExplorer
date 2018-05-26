@@ -1,4 +1,84 @@
 <app-header></app-header>
-<p>
-  create-offer works!
-</p>
+<div class="container">
+  <div class="card mt-2 bg-light">
+    <div class="card-body">
+      <h1 id="create-offer-label" class="display-4 text-center">Create new offer</h1>
+      <div class="row justify-content-center">
+        <div class="col-md-9 col-12">
+          <div id="regFormDiv">
+            <form id="create" novalidate>
+              <div class="form-group row">
+            <textarea placeholder="Enter some text for your offer..."
+                      class="form-control"
+                      id="offerName" name="offerName"
+                      [(ngModel)]="offer.name" required>
+            </textarea>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6 col-8">
+                  <label for="offerPhoto">Upload your photo</label>
+                  <input type="file"
+                         id="offerPhoto"
+                         class="form-control-file"
+                         name="offerPhoto"
+                         (change)="selectFile($event)"
+                         required
+                  >
+                </div>
+                <div class="col-2">
+                  <img *ngIf="offer.photoURL" src="{{offer.photoURL}}" height="100px">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="category_select">Choose offer category</label>
+                <select class="form-control" id="category_select" #category_select name="category_select" (change)="onItemChanged(category_select.value)"
+                        required>
+
+                  <option disabled>Choose category</option>
+                  <option *ngFor="let category of categories"
+                          [value]="category.id"
+                  >{{category.name}}
+                  </option>
+                </select>
+              </div>
+              <div class="row">
+                <p>Business balance:
+                  {{balance}}
+                </p>
+              </div>
+              <div class="form-group row">
+                <label for="price">Offer price (cost of creation of offer is equal to it's price)</label>
+                <input type="number" class="form-control" id="price" name="price" value=""
+                       [(ngModel)]="offer.price"
+                       required
+                       min="1"
+                >
+              </div>
+              <div class="form-group row">
+                <label for="expireDate">Offer expire date</label>
+                <input type="date" class="form-control" id="expireDate" name="expireDate" [(ngModel)]="offer.expireDate"
+                >
+              </div>
+            </form>
+            <div class="row justify-content-between">
+              <div class="col-sm-11 col-12">
+                <div class="collapse" id="collapseMessage">
+                  <div class="alert alert-primary" role="alert">
+                    {{errorMsg}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1 col-12">
+                <button id="submit" type="submit" class="btn btn-primary"
+                        (click)="submitForm()">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
