@@ -38,7 +38,7 @@ export class RegistrationComponent implements OnInit {
       'lastName':'',
     },{
       validator: PasswordValidation.MatchPassword
-    })
+    });
   }
 
   submitForm(data:FormGroup){
