@@ -22,6 +22,7 @@ export class QuestPageComponent implements OnInit {
   private photosToUpload: string[] = [];
   errorMsg: string;
   placesLeft: number;
+  loading:boolean=false;
 
   constructor(private route: ActivatedRoute, public questService: QuestService, private router: Router) {
   }
@@ -78,42 +79,52 @@ export class QuestPageComponent implements OnInit {
   }
 
   joinQuest() {
+    this.loading=true;
     this.questService.joinQuest(this.quest.questId).catch((response: Response) => {
       if (response.status == 401)
         this.router.navigate(['/login']);
       else
         this.writeError(response.text());
+      this.loading=false;
       return Observable.throw(response);
     })
       .subscribe(
         (response: any) => {
           console.log(response);
+          this.loading=false;
           this.loadUserProgress(this.quest.questId);
         });
   }
 
   selectFile(event, spotId: number) {
     console.log('selected ' + spotId);
+    this.loading=true;
     this.questService.uploadSpotPhoto(event.target.files[0]).catch((response) => {
+      this.loading=false;
       return Observable.throw(response);
     }).subscribe((data) => {
         console.log(data);
+        this.loading=false;
         this.photosToUpload[spotId] = data;
       },
       (error) => {
+        this.loading=false;
         console.log(error);
       });
   }
 
   postPhoto(spotId: number) {
     if (this.photosToUpload[spotId] != null) {
+      this.loading=true;
       this.questService.postSpotPhoto(this.photosToUpload[spotId], this.quest.questId, spotId)
         .subscribe(
           (response: any) => {
             console.log(response);
+            this.loading=false;
             this.loadUserProgress(this.quest.questId);
           },
           (error) => {
+            this.loading=false;
             console.log(error);
           });
     }
