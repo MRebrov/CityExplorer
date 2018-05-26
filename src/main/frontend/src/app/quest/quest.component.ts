@@ -152,27 +152,32 @@ export class QuestComponent implements OnInit {
   }
 
   addSpotForm() {
-    for (var i = 0; i < this.spots.length; i++) {
-      this.markers[i].label = '✖';
-      this.markers[i].draggable = false;
-      this.markers[i].iconUrl = redMarker;
-      console.log("name-" + i + "-" + this.spots[i].name);
+    if (this.spots.length == 5){
+      window.alert("You cant create a quest with more than 5 spots");
     }
-    this.spots.push(new SpotDTO('', this.map.getCenter().lat(), this.map.getCenter().lng()));
-    var newMarker: marker = {
-      lat: this.map.getCenter().lat(), //inital post (might be initialized being based on browser geoposition)
-      lng: this.map.getCenter().lng(),
-      label: 'O',
-      name: null,
-      iconUrl: greenMarker,
-      description: null,
-      draggable: true,
-      quests: null,
-      photos: null
-    };
-    this.markers.push(newMarker);
-    this.photoAdded.push(false);
-    this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
+    else {
+      for (var i = 0; i < this.spots.length; i++) {
+        this.markers[i].label = '✖';
+        this.markers[i].draggable = false;
+        this.markers[i].iconUrl = redMarker;
+        console.log("name-" + i + "-" + this.spots[i].name);
+      }
+      this.spots.push(new SpotDTO('', this.map.getCenter().lat(), this.map.getCenter().lng()));
+      var newMarker: marker = {
+        lat: this.map.getCenter().lat(), //inital post (might be initialized being based on browser geoposition)
+        lng: this.map.getCenter().lng(),
+        label: 'O',
+        name: null,
+        iconUrl: greenMarker,
+        description: null,
+        draggable: true,
+        quests: null,
+        photos: null
+      };
+      this.markers.push(newMarker);
+      this.photoAdded.push(false);
+      this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
+    }
   }
 
   /*addForm(){
