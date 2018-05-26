@@ -27,6 +27,12 @@ export class OffersService {
     });
   }
 
+  getOwnedOffers() {
+    return this.authHttp.get('userapi/get-owned-offers').map((response: Response) =>{
+      return response.json();
+    });
+  }
+
   getCategories() {
     return this.http.get('userapi/get-categories').map((response: Response) =>{
       return response.json();

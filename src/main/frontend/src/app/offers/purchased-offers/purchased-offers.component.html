@@ -1,3 +1,28 @@
-<p>
-  purchased-offers works!
-</p>
+<h1 class="display-4 text-center">My purchased offers</h1>
+<div id="cont" *ngIf="purchasedOffers != null && purchasedOffers.length>0; else noDataBlock">
+  <div class="row" *ngFor="let userOffer of purchasedOffers">
+    <div class="col">
+      <div class="card text-white {{(userOffer.offer.expireDate>=date)?'bg-success':'bg-danger'}}">
+        <div class="card-header">
+          <h5 class="mb-0">{{userOffer.offer.ownerName}}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{userOffer.offer.name}}</p>
+          <img class="card-img img-thumbnail" src="{{userOffer.offer.photoURL}}" alt="">
+          <p class="card-text"><span class="badge badge-dark">{{userOffer.offer.category.name}}</span></p>
+          <p class="card-text">Price: <span class="badge badge-light">{{userOffer.offer.price}}</span></p>
+          <p class="card-text">Expires date is {{userOffer.offer.expireDate.toDateString()}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noDataBlock>
+  <div *ngIf="purchasedOffers == null; else noOffersBlock">
+
+    <h5>Loading purchased offers...</h5>
+  </div>
+  <ng-template #noOffersBlock>
+    <h5 align="center">You do not have purchased offers</h5>
+  </ng-template>
+</ng-template>

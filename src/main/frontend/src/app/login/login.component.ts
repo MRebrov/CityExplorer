@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   login: string;
   password: string;
   errorMsg: string;
+  loading:boolean=false;
 
   googleauth_redirect_uri: string;
   googleauth_client_id: string;
@@ -73,11 +74,14 @@ export class LoginComponent implements OnInit {
 
     const encrypted: string = CryptoJS.AES.encrypt(this.password, key, {iv: iv}).toString();
 
+    this.loading=true;
     this.userService.authorize(this.login, encrypted).catch((response: Response) => {
       this.writeError(response.text()); // если ошибка, вывести её
+      this.loading=false;
       return Observable.throw(response);
     }).subscribe((obj: any) => {
       this.writeError('User authorized successfully. You will be redirected now...');
+      this.loading=false;
       this.successLogin();
     });
   }
@@ -95,7 +99,7 @@ export class LoginComponent implements OnInit {
     //document.getElementById('collapseLink').classList.add('show');
     setTimeout(() => {
       this.router.navigate(['/map']);
-    }, 3000);
+    }, 2500);
     ;
 
   }

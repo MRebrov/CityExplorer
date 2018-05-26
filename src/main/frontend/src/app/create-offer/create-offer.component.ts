@@ -7,6 +7,7 @@ import {OffersService} from '../offers/offers.service';
 import {UserService} from '../user/user.service';
 import {QuestService} from '../quest/quest.service';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-offer',
@@ -19,7 +20,7 @@ export class CreateOfferComponent implements OnInit {
   categories: OfferCategoryDTO[] = [];
   balance: number;
 
-  constructor(private offerService: OffersService, private userService: UserService, private fb: FormBuilder, private questService:QuestService) {
+  constructor(private router: Router, private offerService: OffersService, private userService: UserService, private fb: FormBuilder, private questService:QuestService) {
 
   }
 
@@ -30,6 +31,10 @@ export class CreateOfferComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       (user: any) => {
         this.balance = user.businessBalance;
+      }, (error) => {
+        console.log(error);
+        alert('You are not authorized! Please sign in first');
+        this.router.navigate(['/login']);
       });
   }
 
