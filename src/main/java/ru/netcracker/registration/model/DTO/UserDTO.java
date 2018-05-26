@@ -8,6 +8,14 @@ import ru.netcracker.registration.model.UserGroup;
  * содержит только те поля, которые могут понадобиться вне backend
  */
 public class UserDTO {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -71,6 +79,15 @@ public class UserDTO {
         this.balance = balance;
     }
 
+    public Long getBusinessBalance() {
+        return businessBalance;
+    }
+
+    public void setBusinessBalance(Long businessBalance) {
+        this.businessBalance = businessBalance;
+    }
+
+    Long id;
     String firstName;
     String lastName;
     String email;
@@ -79,4 +96,5 @@ public class UserDTO {
     String registrationDate;
     UserGroup groupID;
     Long balance;
+    Long businessBalance;
 }

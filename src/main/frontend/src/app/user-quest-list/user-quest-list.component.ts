@@ -13,7 +13,7 @@ import {UserProgressDTO} from '../quest/user-progress.model';
 export class UserQuestListComponent implements OnInit {
   public current: boolean = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public userService:UserService) {
   }
 
   ngOnInit() {

@@ -1,33 +1,12 @@
 
 .navbar-brand {
-  color: whitesmoke;
+  color: white;
   font-family: 'Kaushan Script', cursive;
 }
 
-
-#maplink {
-
+.nav-link {
+  color: white;
   font-family: 'Playfair Display SC', serif;
 
 }
 
-#confirmations {
-
-  font-family: 'Playfair Display SC', serif;
-
-}
-
-#userquests {
-  position:relative;
-  font-family: 'Playfair Display SC', serif;
-}
-
-#newquest {
-  position:relative;
-  font-family: 'Playfair Display SC', serif;
-}
-
-#vk {
-  position: relative;
-  font-family: 'Playfair Display SC', serif;
-}

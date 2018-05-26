@@ -14,6 +14,7 @@ public class UserConverter {
     public static UserDTO convertToDTO(User user) {
         UserDTO dto = new UserDTO();
 
+        dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setEmail(user.getEmail());
@@ -22,6 +23,7 @@ public class UserConverter {
         dto.setRegistrationDate(user.getRegistrationDate().getDayOfMonth() + "-" + user.getRegistrationDate().getMonthOfYear() + "-" + user.getRegistrationDate().getYear());
         dto.setGroupID(user.getGroupID());
         dto.setBalance(user.getBalance());
+        dto.setBusinessBalance(user.getBusinessBalance());
 
         return dto;
     }
@@ -77,6 +79,9 @@ public class UserConverter {
         } catch (Exception e) {
             throw new Exception("Registration date format must be day-month-year");
         }
+
+        target.setBalance(dto.getBalance());
+        target.setBusinessBalance(dto.getBusinessBalance());
 
         return target;
     }

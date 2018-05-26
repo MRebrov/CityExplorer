@@ -36,7 +36,12 @@ import {SecurityService} from "./security/security.service";
 import {FinishGoogleAuthComponent} from './finish-google-auth/finish-google-auth.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import {BootstrapSwitchModule} from "angular2-bootstrap-switch"
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { OffersComponent } from './offers/offers.component';
+import { PurchasedOffersComponent } from './offers/purchased-offers/purchased-offers.component';
+import { OwnedOffersComponent } from './offers/owned-offers/owned-offers.component';
+import { CreateOfferComponent } from './create-offer/create-offer.component';
+import { AvailableOffersComponent } from './offers/available-offers/available-offers.component'
 
 
 
@@ -52,6 +57,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     HeaderComponent,
     HeaderAuthorizedComponent,
     HeaderUnauthorizedComponent,
+
     UserQuestListComponent,
     UserCurrentQuestListComponent,
     UserOwnedQuestListComponent,
@@ -62,6 +68,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     NotfoundComponent,
     MainpageComponent,
     AdminComponent,
+    OffersComponent,
+    PurchasedOffersComponent,
+    OwnedOffersComponent,
+    CreateOfferComponent,
+    AvailableOffersComponent,
   ],
   imports: [
     BrowserModule,

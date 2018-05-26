@@ -14,7 +14,7 @@ import {QuestService} from '../../quest/quest.service';
 export class HeaderAuthorizedComponent implements OnInit {
 
 
-  constructor(private userService: UserService, public questService:QuestService, private router: Router) {
+  constructor(public userService: UserService, public questService:QuestService, private router: Router) {
   }
 
   ngOnInit() {

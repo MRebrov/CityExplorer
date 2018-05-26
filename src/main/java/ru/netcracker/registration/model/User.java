@@ -42,6 +42,9 @@ public class User {
     @Column(name = "balance")
     private long balance;
 
+    @Column(name = "business_balance")
+    private long businessBalance;
+
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private UserGroup groupID;
@@ -145,4 +148,11 @@ public class User {
         this.balance = balance;
     }
 
+    public long getBusinessBalance() {
+        return businessBalance;
+    }
+
+    public void setBusinessBalance(long businessBalance) {
+        this.businessBalance = businessBalance;
+    }
 }
