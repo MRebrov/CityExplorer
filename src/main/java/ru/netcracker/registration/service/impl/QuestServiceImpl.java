@@ -381,7 +381,7 @@ public class QuestServiceImpl implements QuestService {
     }
 
     private boolean isQuestFull(Quest quest) {
-        if (quest.getNumberOfParticipants() == quest.getNumberOfJoiners()) {
+        if (quest.getNumberOfParticipants().equals(quest.getNumberOfJoiners())) {
             return true;
         } else {
             return false;
