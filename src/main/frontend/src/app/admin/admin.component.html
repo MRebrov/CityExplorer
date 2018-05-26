@@ -82,6 +82,7 @@
               <label for="date">Search by registration date: </label>
               <input class="form-control" id="date" type="date" [(ngModel)]="userSearchPattern.registrationDate"
                      (change)="checkEmpty($event)">
+
             </div>
             <button class="btn btn-info" (click)="search(userSelected)">Search</button>
 
