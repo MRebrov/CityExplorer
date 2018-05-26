@@ -6,6 +6,8 @@ import {QuestService} from '../quest/quest.service';
 import {Observable} from 'rxjs/Observable';
 import {Status} from 'tslint/lib/runner';
 import {marker} from '../map/map.component';
+import {User} from "../user/user.model";
+import {UserService} from "../user/user.service";
 
 @Component({
   selector: 'app-quest-page',
@@ -22,11 +24,25 @@ export class QuestPageComponent implements OnInit {
   private photosToUpload: string[] = [];
   errorMsg: string;
   placesLeft: number;
+  user: User;
 
-  constructor(private route: ActivatedRoute, public questService: QuestService, private router: Router) {
+
+  constructor(private route: ActivatedRoute,
+              public questService: QuestService,
+              private router: Router,
+              private userService: UserService) {
   }
 
   ngOnInit() {
+    this.userService.getCurrentUser()
+      .subscribe(
+        (user: User) => {
+          this.user = user;
+        },
+        (error) => {
+          console.log(error);
+        });
+
     this.sub = this.route.params.subscribe(params => {
       this.questService.getUserProgressByQuest(+params['quest-id'])
         .subscribe(
@@ -117,6 +133,14 @@ export class QuestPageComponent implements OnInit {
       console.log('no file loaded');
     }
   }
+
+  reportQuest(questId) {
+    this.questService.reportQuest(questId)
+      .subscribe((obj: string) => {
+        window.alert(obj);
+      })
+  }
+
 
   writeError(error) {
     document.getElementById('collapseMessage').classList.add('show');

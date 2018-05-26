@@ -3,6 +3,7 @@ package ru.netcracker.registration.service.impl;
 import org.hibernate.type.ListType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.DTO.OfferCategoryDTO;
 import ru.netcracker.registration.model.DTO.OfferDTO;
 import ru.netcracker.registration.model.DTO.UserDTO;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class OfferServiceImpl implements OfferService {
     @Autowired
     OfferRepository offerRepository;

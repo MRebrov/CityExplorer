@@ -2,6 +2,7 @@ package ru.netcracker.registration.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.PhotoType;
 import ru.netcracker.registration.repository.PhotoTypeRepository;
 import ru.netcracker.registration.service.PhotoTypeService;
@@ -9,6 +10,7 @@ import ru.netcracker.registration.service.PhotoTypeService;
 import java.util.List;
 
 @Service("PhotoTypeService")
+@Transactional
 public class PhotoTypeServiceImpl implements PhotoTypeService {
 
     @Autowired

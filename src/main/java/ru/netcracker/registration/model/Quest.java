@@ -18,6 +18,18 @@ public class Quest {
     private Integer numberOfParticipants;
     private Integer numberOfJoiners;
     private Integer status;
+    private Integer reports;
+
+
+    @Basic
+    @Column(name = "reports")
+    public Integer getReports() {
+        return reports;
+    }
+
+    public void setReports(Integer reports) {
+        this.reports = reports;
+    }
 
     @Basic
     @Column(name = "status")

@@ -2,6 +2,7 @@ package ru.netcracker.registration.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.netcracker.registration.model.DTO.SpotDTO;
 import ru.netcracker.registration.model.Spot;
@@ -14,6 +15,7 @@ import java.util.List;
 
 
 @Service("SpotService")
+@Transactional
 public class SpotServiceImpl implements SpotService {
 
     @Autowired

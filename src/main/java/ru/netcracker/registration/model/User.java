@@ -45,6 +45,9 @@ public class User {
     @Column(name = "business_balance")
     private long businessBalance;
 
+    @Column(name = "reports")
+    private Integer reports;
+
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private UserGroup groupID;
@@ -54,6 +57,14 @@ public class User {
 
     @OneToMany(mappedBy = "ownerId")
     private Collection<Quest> quests;
+
+    public Integer getReports() {
+        return reports;
+    }
+
+    public void setReports(Integer reports) {
+        this.reports = reports;
+    }
 
     public Collection<Quest> getQuests() {
         return quests;

@@ -3,6 +3,7 @@ package ru.netcracker.registration.repository;
 import org.joda.time.LocalDate;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ru.netcracker.registration.model.User;
 
 import javax.jws.soap.SOAPBinding;

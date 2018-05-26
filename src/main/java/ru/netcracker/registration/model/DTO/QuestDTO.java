@@ -28,6 +28,26 @@ public class QuestDTO {
     private Integer numberOfJoiners;
     @JsonProperty("status")
     private Integer status;
+    @JsonProperty("owner")
+    private UserDTO owner;
+    @JsonProperty("reports")
+    private Integer reports;
+
+    public Integer getReports() {
+        return reports;
+    }
+
+    public void setReports(Integer reports) {
+        this.reports = reports;
+    }
+
+    public UserDTO getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserDTO owner) {
+        this.owner = owner;
+    }
 
     public Integer getStatus() {
         return status;
@@ -131,9 +151,10 @@ public class QuestDTO {
         if (!numberOfParticipants.equals(questDTO.numberOfParticipants)) return false;
         if (!photoURL.equals(questDTO.photoURL)) return false;
         if (!spots.equals(questDTO.spots)) return false;
-        if (!status.equals(questDTO.status)) return false;
+        if (!ownerEmail.equals(questDTO.ownerEmail)) return false;
         if (!numberOfJoiners.equals(questDTO.numberOfJoiners)) return false;
-        return ownerEmail.equals(questDTO.ownerEmail);
+        if (!status.equals(questDTO.status)) return false;
+        return owner.equals(questDTO.owner);
     }
 
     @Override
@@ -149,6 +170,7 @@ public class QuestDTO {
         result = 31 * result + ownerEmail.hashCode();
         result = 31 * result + numberOfJoiners.hashCode();
         result = 31 * result + status.hashCode();
+        result = 31 * result + owner.hashCode();
         return result;
     }
 }

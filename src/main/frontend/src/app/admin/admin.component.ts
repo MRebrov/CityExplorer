@@ -20,16 +20,18 @@ export class AdminComponent implements OnInit {
               private userService: UserService) {
   }
 
-  user: User = new User('', '', '', '', '', '', 0, null,0);
+  user: User = new User('', '', '', '', '', '', 0, null, 0);
   topQuest: QuestDTO = new QuestDTO('', '', null, 0, 0, 0);
   loading: boolean = false;
   countUsersByMonths: number[] = [];
   obj: any;
   users: User[] = [];
   userSelected: boolean = true;
-  userSearchPattern: User = new User('', '', '', '', '', '', 0, null,0);
+  userSearchPattern: User = new User('', '', '', '', '', '', 0, null, 0);
   emptyFields: boolean = true;
   load: boolean = false;
+  quests: QuestDTO[] = [];
+  reportCountConfig: number = 5;
 
   public lineChartData: Array<any> = [{data: [], label: 'New Users'},];
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -59,6 +61,35 @@ export class AdminComponent implements OnInit {
       }
     }
     this.lineChartData = _lineChartData;
+  }
+
+
+  showReportedQuests() {
+    this.questService.getReported(this.reportCountConfig)
+      .subscribe(
+        (quests: QuestDTO[]) => {
+          this.quests = quests;
+        },
+        (error) => {
+          console.log(error);
+        });
+  }
+
+  approveQuest(quest) {
+    this.quests.splice(this.quests.indexOf(quest),1);
+    this.questService.cancelReports(quest)
+      .subscribe((obj: string) => {
+        window.alert(obj);
+      })
+  }
+
+  banQuest(quest) {
+    this.quests.splice(this.quests.indexOf(quest),1);
+    this.questService.banQuest(quest).catch((response: Response) => {
+      return Observable.throw(response);
+    }).subscribe((obj: string) => {
+      window.alert(obj);
+    })
   }
 
   // events

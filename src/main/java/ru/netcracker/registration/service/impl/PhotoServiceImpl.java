@@ -2,6 +2,7 @@ package ru.netcracker.registration.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.Photo;
 import ru.netcracker.registration.repository.PhotoRepository;
 import ru.netcracker.registration.service.PhotoService;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @Service("PhotoService")
+@Transactional
 public class PhotoServiceImpl implements PhotoService {
     @Autowired
     PhotoRepository photoRepository;
