@@ -228,6 +228,9 @@ public class QuestController {
                         HttpStatus.UNAUTHORIZED
                 );
             }
+            if (userService.get(email).getGroupID().getName().equals("Business")) {
+                throw new Exception("Business user can not join quests");
+            }
             if (questService.getById(questId).getOwnerEmail().equals(email)) {
                 throw new Exception("Quest owner can not join quest");
             }

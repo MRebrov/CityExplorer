@@ -11,7 +11,7 @@ import {UserOfferDTO} from '../user-offer.model';
 })
 export class PurchasedOffersComponent implements OnInit {
 
-  private purchasedOffers: UserOfferDTO[];
+  public purchasedOffers: UserOfferDTO[];
   public date: Date;
 
   constructor(private router: Router, private offerService: OffersService) {
