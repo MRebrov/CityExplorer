@@ -18,6 +18,7 @@ import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.DTO.UserSpotProgressDTO;
 import ru.netcracker.registration.model.storage_emulation.QuestStorage;
+import ru.netcracker.registration.other.exception.ReportException;
 import ru.netcracker.registration.security.service.SecurityService;
 import ru.netcracker.registration.service.PhotoService;
 import ru.netcracker.registration.service.PhotoTypeService;
@@ -221,12 +222,15 @@ public class QuestController {
     public @ResponseBody
     ResponseEntity<?> reportQuest(@PathVariable Long questId) {
         try {
-            questService.reportQuest(questId);
+            questService.reportQuest(questId, securityService.findLoggedInEmail());
             return new ResponseEntity<Object>(
                     "Quest has successfully been reported",
                     HttpStatus.OK
             );
         } catch (Exception e) {
+            if (e instanceof ReportException) {
+                return new ResponseEntity<Object>(e.getMessage(), HttpStatus.OK);
+            }
             return new ResponseEntity<Object>(
                     e.getMessage(),
                     HttpStatus.BAD_REQUEST
@@ -261,8 +265,7 @@ public class QuestController {
                     "Quest has successfully been banned",
                     HttpStatus.OK
             );
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<Object>(
                     e.getMessage(),
                     HttpStatus.BAD_REQUEST
@@ -271,7 +274,7 @@ public class QuestController {
     }
 
     @GetMapping("/get-reported/{reportCount}")
-    public Iterable<QuestDTO> getReported(@PathVariable Integer reportCount){
+    public Iterable<QuestDTO> getReported(@PathVariable Integer reportCount) {
         return questService.getReported(reportCount);
     }
 
