@@ -1,7 +1,7 @@
-INSERT INTO user_groups(name) values('Unconfirmed');
-INSERT INTO user_groups(name) values('Default');
-INSERT INTO user_groups(name) values('Admin');
-INSERT INTO user_groups(name) values('Business');
+INSERT INTO user_group(name) values('Unconfirmed');
+INSERT INTO user_group(name) values('Default');
+INSERT INTO user_group(name) values('Admin');
+INSERT INTO user_group(name) values('Business');
 
 INSERT INTO photo_type(name) values('spot');
 
