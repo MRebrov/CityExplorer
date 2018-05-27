@@ -104,7 +104,7 @@ public class DatabaseConfig {
         connector.setScheme("http");
         connector.setPort(8081);
         connector.setSecure(false);
-        connector.setRedirectPort(8080);
+        connector.setRedirectPort(5000);
 
         return connector;
     }
