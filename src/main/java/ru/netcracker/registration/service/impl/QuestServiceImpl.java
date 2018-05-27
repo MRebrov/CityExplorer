@@ -143,6 +143,7 @@ public class QuestServiceImpl implements QuestService {
         quest.setNumberOfJoiners(questDTO.getNumberOfJoiners());
         quest.setStatus(0);
         quest.setOwnerId(user);
+        quest.setReports(0);
         for (SpotDTO spotDTO : questDTO.getSpots()) {
             Spot spot = new Spot();
             SpotInQuest spotInQuest = new SpotInQuest();

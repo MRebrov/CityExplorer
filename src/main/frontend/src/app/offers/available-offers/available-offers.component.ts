@@ -17,7 +17,7 @@ export class AvailableOffersComponent implements OnInit {
   categories: OfferCategoryDTO[] = [];
   page: number = 1;
   loading: boolean = false;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 18;
   selectedCategory: number = -1;
   authUser = null;
 
