@@ -2,6 +2,8 @@ package ru.netcracker.registration.service.impl;
 
 import org.hibernate.type.ListType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.DTO.OfferCategoryDTO;
@@ -42,14 +44,10 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<OfferDTO> getOffers(int amount, int portion) {
-        Iterable<Offer> offers = offerRepository.findAll();
+        Page<Offer> offers = offerRepository.findTopByOrderByExpireDateDesc(new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
-        int i = 0;
         for (Offer offer : offers) {
-            if (i >= portion * amount && i < (portion + 1) * amount) {
-                dtos.add(OfferConverter.convertToDTO(offer));
-            }
-            i++;
+            dtos.add(OfferConverter.convertToDTO(offer));
         }
         return dtos;
     }
@@ -57,7 +55,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<OfferDTO> getOffersByCategory(String categoryName, int amount, int portion) {
         OfferCategory category = offerCategoryRepository.findOfferCategoryByName(categoryName);
-        List<Offer> offers = offerRepository.findAllByCategory(category);
+        Page<Offer> offers = offerRepository.findTopByCategoryOrderByExpireDateDesc(category,new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
         for (Offer offer : offers) {
             dtos.add(OfferConverter.convertToDTO(offer));
@@ -105,7 +103,7 @@ public class OfferServiceImpl implements OfferService {
             UserOffer userOffer = new UserOffer();
             userOffer.setOffer(offer);
             userOffer.setUser(user);
-            user.setBalance(user.getBalance()-offer.getPrice());
+            user.setBalance(user.getBalance() - offer.getPrice());
             userOfferRepository.save(userOffer);
             userRepository.save(user);
         } else throw new Exception("Not enough cash to buy offer");

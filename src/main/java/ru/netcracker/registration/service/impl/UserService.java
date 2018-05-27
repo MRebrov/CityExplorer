@@ -56,6 +56,9 @@ public class UserService {
      */
     public void add(UserDTO userDTO) throws Exception {
         if (repository.findByEmail(userDTO.getEmail()) == null) {
+            userDTO.setBalance(0L);
+            userDTO.setBusinessBalance(0L);
+            userDTO.setReports(0);
             User entity = UserConverter.convertToEntity(userDTO);
             repository.save(entity);
         } else {

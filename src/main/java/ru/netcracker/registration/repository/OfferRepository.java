@@ -1,5 +1,7 @@
 package ru.netcracker.registration.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Repository
 public interface OfferRepository extends CrudRepository<Offer, Long>{
-    List<Offer> findAllByCategory(OfferCategory category);
+    Page<Offer> findTopByOrderByExpireDateDesc(Pageable pageable);
+    Page<Offer> findTopByCategoryOrderByExpireDateDesc(OfferCategory category, Pageable pageable);
     List<Offer> findAllByOwner(User owner);
 }

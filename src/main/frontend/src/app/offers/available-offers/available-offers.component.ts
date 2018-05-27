@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OffersService} from '../offers.service';
 
 @Component({
   selector: 'app-available-offers',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvailableOffersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private offerService: OffersService) { }
 
   ngOnInit() {
   }

@@ -216,6 +216,7 @@ public class GoogleAuthController {
 
             return "redirect:/finishgoogleauth/" + id_token;
         } catch (Exception e) {
+            e.printStackTrace();
             return "redirect:/map";
         }
     }
