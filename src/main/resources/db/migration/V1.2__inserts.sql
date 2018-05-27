@@ -1,3 +1,5 @@
+SET search_path TO nc_project,public;
+
 INSERT INTO user_group(name) values('Unconfirmed');
 INSERT INTO user_group(name) values('Default');
 INSERT INTO user_group(name) values('Admin');
