@@ -32,7 +32,7 @@ public class DatabaseConfig {
     @Value("${spring.datasource.url}")
     private String DB_URL;
     @Value("${spring.datasource.username}")
-    private String DB_USERNAME;*/
+    private String DB_USERNAME;
     @Value("${spring.jpa.database-platform}")
     private String HIBERNATE_DIALECT;
     @Value("${spring.jpa.show-sql}")
@@ -42,7 +42,7 @@ public class DatabaseConfig {
     @Value("${entitymanager.packagesToScan}")
     private String ENTITYMANAGER_PACKAGES_TO_SCAN;
     @Value("${spring.jpa.hibernate.use-new-id-generator-mappings}")
-    private String HIBERNATE_MAPPINGS;
+    private String HIBERNATE_MAPPINGS;*/
 
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     @Bean
@@ -56,7 +56,7 @@ public class DatabaseConfig {
         return dataSource;
     }
 
-    @Bean
+    /*@Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
@@ -71,15 +71,15 @@ public class DatabaseConfig {
         return sessionFactoryBean;
 
 
-    }
+    }*/
 
 
-    @Bean
+   /* @Bean
     public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
-    }
+    }*/
 
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
