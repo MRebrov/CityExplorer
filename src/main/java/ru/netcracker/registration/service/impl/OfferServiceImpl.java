@@ -44,7 +44,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<OfferDTO> getOffers(int amount, int portion) {
-        Page<Offer> offers = offerRepository.findTopByOrderByExpireDateDesc(new PageRequest(portion, amount));
+        Page<Offer> offers = offerRepository.findAllByOrderByExpireDateDesc(new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
         for (Offer offer : offers) {
             dtos.add(OfferConverter.convertToDTO(offer));
@@ -53,9 +53,9 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferDTO> getOffersByCategory(String categoryName, int amount, int portion) {
-        OfferCategory category = offerCategoryRepository.findOfferCategoryByName(categoryName);
-        Page<Offer> offers = offerRepository.findTopByCategoryOrderByExpireDateDesc(category,new PageRequest(portion, amount));
+    public List<OfferDTO> getOffersByCategory(Long categoryId, int amount, int portion) {
+        OfferCategory category = offerCategoryRepository.findOne(categoryId);
+        Page<Offer> offers = offerRepository.findAllByCategoryOrderByExpireDateDesc(category,new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
         for (Offer offer : offers) {
             dtos.add(OfferConverter.convertToDTO(offer));
@@ -99,6 +99,9 @@ public class OfferServiceImpl implements OfferService {
     public void purchaseOffer(Long offerId, String email) throws Exception {
         User user = userRepository.findByEmail(email);
         Offer offer = offerRepository.findOne(offerId);
+        if(isOfferPurchased(user,offer)){
+            throw new Exception("You have already purchased this offer");
+        }
         if (offer.getPrice() <= user.getBalance()) {
             UserOffer userOffer = new UserOffer();
             userOffer.setOffer(offer);
@@ -119,5 +122,10 @@ public class OfferServiceImpl implements OfferService {
             userRepository.save(user);
             offerRepository.save(offer);
         } else throw new Exception("Not enough business cash to create offer");
+    }
+
+    private boolean isOfferPurchased(User user, Offer offer){
+        UserOffer userOffer = userOfferRepository.findUserOfferByUserAndOffer(user, offer);
+        return userOffer!=null;
     }
 }

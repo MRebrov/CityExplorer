@@ -1,8 +1,8 @@
 <h1 class="display-4 text-center">My owned offers</h1>
 <div id="cont" *ngIf="ownedOffers != null && ownedOffers.length>0; else noDataBlock">
-  <div class="row" *ngFor="let offer of ownedOffers">
-    <div class="col">
-      <div class="card">
+  <div class="row">
+    <div class="col-md-4 col-12" *ngFor="let offer of ownedOffers">
+      <div class="card  mb-2">
         <div class="card-header">
           <h5 class="mb-0">{{offer.ownerName}}</h5>
         </div>

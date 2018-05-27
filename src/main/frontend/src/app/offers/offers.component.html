@@ -2,31 +2,37 @@
 <div class="container">
   <div class="card mt-2 bg-light pb-2" id="page-card">
     <div class="row justify-content-center">
-      <div class="col-md-6 col-12">
+      <div class="col-md-10 col-12">
 
         <div
-          *ngIf="userService.authenticated != null && userService.authenticated.groupID!=null && userService.authenticated.groupID.name=='Business'; else elseblock">
+          *ngIf="userService.authenticated != null && userService.authenticated.groupID!=null && userService.authenticated.groupID.name=='Business'; else notBusinessBlock">
           <app-owned-offers></app-owned-offers>
         </div>
-        <ng-template #elseblock>
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                 aria-controls="nav-home" aria-selected="true">Available offers</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                 aria-controls="nav-profile" aria-selected="false">Purchased offers</a>
-            </div>
-
-          </nav>
-
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <app-available-offers></app-available-offers>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <app-purchased-offers></app-purchased-offers>
-            </div>
+        <ng-template #notBusinessBlock>
+          <div
+            *ngIf="userService.authenticated == null; else authBlock">
+            <app-available-offers></app-available-offers>
           </div>
+          <ng-template #authBlock>
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                   aria-controls="nav-home" aria-selected="true">Available offers</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                   aria-controls="nav-profile" aria-selected="false">Purchased offers</a>
+              </div>
+
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <app-available-offers></app-available-offers>
+              </div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <app-purchased-offers></app-purchased-offers>
+              </div>
+            </div>
+          </ng-template>
         </ng-template>
       </div>
     </div>

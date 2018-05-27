@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface OfferRepository extends CrudRepository<Offer, Long>{
-    Page<Offer> findTopByOrderByExpireDateDesc(Pageable pageable);
-    Page<Offer> findTopByCategoryOrderByExpireDateDesc(OfferCategory category, Pageable pageable);
+    Page<Offer> findAllByOrderByExpireDateDesc(Pageable pageable);
+    Page<Offer> findAllByCategoryOrderByExpireDateDesc(OfferCategory category, Pageable pageable);
     List<Offer> findAllByOwner(User owner);
 }
