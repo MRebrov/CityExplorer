@@ -81,7 +81,7 @@ public class DatabaseConfig {
         return transactionManager;
     }*/
 
-    @Bean
+    /*@Bean
     public EmbeddedServletContainerFactory servletContainer() {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
             @Override
@@ -107,6 +107,6 @@ public class DatabaseConfig {
         connector.setRedirectPort(5000);
 
         return connector;
-    }
+    }*/
 
 }
