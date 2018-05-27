@@ -3,15 +3,7 @@
   left: 35%;*/
   font-family: 'Vollkorn', cursive;
 }
-.color {
-  background: linear-gradient(110.0619952321963deg, rgba(117, 158, 156,1) 5.926470588235294%,rgba(156, 97, 156,1) 95.92647058823528%);
-  background-size: 100%;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
+
 
 agm-map{
   height: 360px;

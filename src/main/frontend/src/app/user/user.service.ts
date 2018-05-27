@@ -22,6 +22,7 @@ export class UserService {
 
   public _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
+  public authenticated: User;
 
   private serverSocketUrl = '/socket';
   private stompClient;
@@ -56,7 +57,6 @@ export class UserService {
   }
 
 
-
   editPassword(email: String, oldPassword: String, newPassword: String) {
     return this.authHttp.post('userapi/edit/password/', {
       email: email,
@@ -78,14 +78,23 @@ export class UserService {
     return resp;
   }
 
-  authorizeViaGoogle(token:string){
+  authorizeViaGoogle(token: string) {
     this.saveTokenAndConnectWebSocket(token);
   }
 
-  saveTokenAndConnectWebSocket(token:string){
+  saveTokenAndConnectWebSocket(token: string) {
     this._isAuthenticatedSubject.next(true);
     localStorage.setItem('id_token', token);
+    this.loadAndSaveCurrentUser();
     this.initializeWebSocketConnection();
+  }
+
+  loadAndSaveCurrentUser(){
+    this.getCurrentUser()
+      .subscribe(
+        (user: any) => {
+          this.authenticated = user;
+        });
   }
 
   logout() {
@@ -110,28 +119,28 @@ export class UserService {
     });
   }
 
-  getRegistrationStatistics(){
-    return this.authHttp.get('userapi/get/statistics').map((response: Response) =>{
+  getRegistrationStatistics() {
+    return this.authHttp.get('userapi/get/statistics').map((response: Response) => {
       return response.json();
-    })
+    });
   }
 
-  getAllUsers(){
-    return this.authHttp.get('userapi/get/all').map((response: Response) =>{
+  getAllUsers() {
+    return this.authHttp.get('userapi/get/all').map((response: Response) => {
       return response.json();
-    })
+    });
   }
 
-  banUser(user:User){
-    return this.authHttp.post('userapi/ban', user).map((response: Response) =>{
+  banUser(user: User) {
+    return this.authHttp.post('userapi/ban', user).map((response: Response) => {
       return response.text();
-    })
+    });
   }
 
-  getUsersByCriteria(userPattern: User){
-    return this.authHttp.post('userapi/get/byCriteria', userPattern).map((response:Response) =>{
+  getUsersByCriteria(userPattern: User) {
+    return this.authHttp.post('userapi/get/byCriteria', userPattern).map((response: Response) => {
       return response.json();
-    })
+    });
   }
 
 
@@ -139,6 +148,7 @@ export class UserService {
     console.log('Checking authentication...');
     this.getCurrentUser().subscribe((obj: any) => {
       this._isAuthenticatedSubject.next(true);
+      this.loadAndSaveCurrentUser();
       this.initializeWebSocketConnection();
       console.log('App is authenticated');
     }, (error: any) => {

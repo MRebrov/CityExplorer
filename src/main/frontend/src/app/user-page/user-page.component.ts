@@ -5,7 +5,7 @@ import {Http, Response} from '@angular/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import * as CryptoJS from 'crypto-js';
-import {SecurityService} from "../security/security.service";
+import {SecurityService} from '../security/security.service';
 
 @Component({
   selector: 'app-user-page',
@@ -15,16 +15,26 @@ import {SecurityService} from "../security/security.service";
 })
 export class UserPageComponent implements OnInit {
 
-  user: User = new User('', '', '', '', '', '', 50, null);
+  user: User = new User('', '', '', '', '', '', 50, null, 0);
   errorMsgInfo: string;
   errorMsgPassword: string;
-
   oldPassword: string;
   newPassword: string;
   confirmNewPassword: string;
   isAdmin: boolean = false;
+  isBusiness: boolean = false;
+  pageTitle: string = '';
+
+  mrh_login = 'cityexplorer';
+  out_sum=100;
+  inv_id = 0;
+  inv_desc = 'Buy City Explorer internal currency';
+  is_test=1;
+  pwd1test = 'eIOZnnv04nG42ZyZQk3x';
+  crc: string;
 
   constructor(private userService: UserService, private router: Router, private securityService: SecurityService) {
+
   }
 
   ngOnInit() {
@@ -33,7 +43,19 @@ export class UserPageComponent implements OnInit {
         (user: any) => {
           this.user = user;
           this.isAdmin = (this.user.groupID.name == 'Admin');
+          this.isBusiness = (this.user.groupID.name == 'Business');
           this.securityService.changeUser(user);
+
+          if (this.isAdmin) {
+            this.pageTitle = 'Personal page (Admin account)';
+          }
+          else if (this.isBusiness) {
+            this.pageTitle = 'Personal page (Business account)';
+          }
+          else {
+            this.pageTitle = 'Personal page';
+          }
+
         },
         (error) => {
           console.log(error);
@@ -115,5 +137,12 @@ export class UserPageComponent implements OnInit {
   writeErrorPassword(error) {
     document.getElementById('collapseMessagePassword').classList.add('show');
     this.errorMsgPassword = error;
+  }
+
+  donateSubmit(){
+    this.inv_id=this.user.id;
+    this.crc = CryptoJS.MD5(this.mrh_login + ':'+this.out_sum+':' + this.inv_id + ':' + this.pwd1test).toString();
+    let link:string='https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin='+this.mrh_login+'&InvoiceID='+this.inv_id+'&OutSum='+this.out_sum+'&Description=Buy City Explorer internal currency&SignatureValue='+this.crc+'&isTest=1';
+    location.replace(link);
   }
 }

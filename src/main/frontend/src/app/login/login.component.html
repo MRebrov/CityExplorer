@@ -1,48 +1,50 @@
 <app-header></app-header>
-<div class="color">
-  <div class="container justify-content-md-center">
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-sm-12">
-        <div id="signInFormDiv">
-          <h1 id="sign" class="display-4 text-center" routerLink="/mainpage">Sign in </h1>
-          <form id="signInForm" novalidate>
-            <div class="form-group col-12">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" name="email" value=""
-                     [(ngModel)]="login" required>
-            </div>
-            <div class="form-group col-12">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password"
-                     [(ngModel)]="password" required>
-            </div>
-          </form>
-        </div>
-        <div class="row justify-content-between">
-          <div class="col-sm-10 col-12">
-            <div class="collapse" id="collapseMessage">
-              <div class="alert alert-primary" role="alert">
-                {{errorMsg}}
+<div class="container justify-content-md-center">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <div class="card mt-2 bg-light">
+        <div class="card-body">
+          <div id="signInFormDiv">
+            <h1 id="sign" class="display-4 text-center" routerLink="/mainpage">Sign in </h1>
+            <form id="signInForm" novalidate>
+              <div class="form-group col-12">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" name="email" value=""
+                       [(ngModel)]="login" required>
+              </div>
+              <div class="form-group col-12">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                       [(ngModel)]="password" required>
+              </div>
+            </form>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-sm-10 col-12">
+              <div class="collapse" id="collapseMessage">
+                <div class="alert alert-primary" role="alert">
+                  {{errorMsg}}
+                </div>
               </div>
             </div>
+            <div class="col-sm-2 col-12">
+              <button id="submit" type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Login</button>
+            </div>
           </div>
-          <div class="col-sm-2 col-12">
-            <button id="submit" type="submit" class="btn btn-primary" (click)="onFormSubmit($event)">Login</button>
+          <div class="row">
+            <div class="collapse" id="collapseLink">
+              <a class="btn btn-link" routerLink="/userPage">Go to profile <span class="sr-only"></span></a>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="collapse" id="collapseLink">
-            <a class="btn btn-link" routerLink="/userPage">Go to profile <span class="sr-only"></span></a>
+          <div class="row justify-content-center">
+            <a class="btn btn-success"
+               href="https://accounts.google.com/o/oauth2/auth?redirect_uri={{googleauth_redirect_uri}}&response_type=code&client_id={{googleauth_client_id}}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile"
+            >
+              Sign in via Google
+            </a>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <a class="btn btn-primary btn-lg"
-         href="https://accounts.google.com/o/oauth2/auth?redirect_uri={{googleauth_redirect_uri}}&response_type=code&client_id={{googleauth_client_id}}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile"
-      >
-        Sign in via Google
-      </a>
     </div>
   </div>
 </div>

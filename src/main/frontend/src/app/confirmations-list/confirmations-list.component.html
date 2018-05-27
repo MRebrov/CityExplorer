@@ -1,52 +1,55 @@
 <app-header></app-header>
-<div id="color">
 <div class="container">
-  <h1  id="confirmations" class="display-4 text-center">Confirmations</h1>
-  <div *ngIf="questService.getLoadedConfirmations() != null && questService.getLoadedConfirmations().length>0; else noDataBlock">
-    <div class="collapse col-md-12 col-sm-12" id="collapseMessage">
-      <div class="alert alert-primary" role="alert">
-        {{errorMsg}}
-      </div>
-    </div>
-    <div class="card" *ngFor="let confirmation of questService.getLoadedConfirmations()">
-      <h5 class="card-header">Spot "{{confirmation.spotName}}" in quest "{{confirmation.questName}}"</h5>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-6 col-sm-12">
-            <div class="col-12">
-              <h5>Original photo</h5>
-            </div>
-            <div class="col-12">
-              <img class="img-fluid" src="{{confirmation.mainPhotoURL}}" alt="">
-            </div>
+  <div class="card mt-2 bg-light">
+    <div class="card-body">
+      <h1 id="confirmations" class="display-4 text-center">Confirmations</h1>
+      <div
+        *ngIf="questService.getLoadedConfirmations() != null && questService.getLoadedConfirmations().length>0; else noDataBlock">
+        <div class="collapse col-md-12 col-sm-12" id="collapseMessage">
+          <div class="alert alert-primary" role="alert">
+            {{errorMsg}}
           </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="col-12">
-              <h5>User photo</h5>
+        </div>
+        <div class="card" *ngFor="let confirmation of questService.getLoadedConfirmations()">
+          <h5 class="card-header">Spot "{{confirmation.spotName}}" in quest "{{confirmation.questName}}"</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="col-12">
+                  <h5>Original photo</h5>
+                </div>
+                <div class="col-12">
+                  <img class="img-fluid" src="{{confirmation.mainPhotoURL}}" alt="">
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="col-12">
+                  <h5>User photo</h5>
+                </div>
+                <div class="col-12">
+                  <img class="img-fluid" src="{{confirmation.photoURL}}" alt="">
+                </div>
+              </div>
             </div>
-            <div class="col-12">
-              <img class="img-fluid" src="{{confirmation.photoURL}}" alt="">
+            <p class="card-text">Uploaded on {{confirmation.uploadDate.toDateString()}}</p>
+            <div class="row">
+              <div>
+                <button class="btn btn-success" (click)="doConfirmOrReject(confirmation, true)">Confirm</button>
+                <button class="btn btn-danger" (click)="doConfirmOrReject(confirmation, false)">Reject</button>
+              </div>
             </div>
           </div>
         </div>
-        <p class="card-text">Uploaded on {{confirmation.uploadDate.toDateString()}}</p>
-        <div class="row">
-          <div>
-            <button class="btn btn-success" (click)="doConfirmOrReject(confirmation, true)">Confirm</button>
-            <button class="btn btn-danger" (click)="doConfirmOrReject(confirmation, false)">Reject</button>
-          </div>
-        </div>
       </div>
+
+      <ng-template #noDataBlock>
+        <div *ngIf="questService.getLoadedConfirmations() == null; else noConfirmationsBlock">
+          <h5>Loading confirmations...</h5>
+        </div>
+        <ng-template #noConfirmationsBlock>
+          <h5>You have no confirmations</h5>
+        </ng-template>
+      </ng-template>
     </div>
   </div>
-
-  <ng-template #noDataBlock>
-    <div *ngIf="questService.getLoadedConfirmations() == null; else noConfirmationsBlock">
-      <h5>Loading confirmations...</h5>
-    </div>
-    <ng-template #noConfirmationsBlock>
-      <h5>You have no confirmations</h5>
-    </ng-template>
-  </ng-template>
-</div>
 </div>

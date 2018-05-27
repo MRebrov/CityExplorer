@@ -1,25 +1,19 @@
 <app-header></app-header>
-<div class="color">
-  <div class="container">
-    <nav>
-      <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-           aria-controls="nav-home" aria-selected="true">Joint quests</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-           aria-controls="nav-profile" aria-selected="false">Owned quests</a>
-      </div>
-    </nav>
-    <div class="row justify-content-center">
-      <div class="tab-content col-md-6 col-sm-12" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-          <app-user-current-quest-list></app-user-current-quest-list>
-        </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+<div class="container">
+
+
+  <div class="row justify-content-center">
+    <div class="col-md-9 col-sm-12">
+      <div class="card mt-2 bg-light" id="page-card">
+        <div
+          *ngIf="userService.authenticated != null && userService.authenticated.groupID!=null && userService.authenticated.groupID.name=='Business'; else elseblock">
           <app-user-owned-quest-list></app-user-owned-quest-list>
         </div>
+        <ng-template #elseblock>
+          <app-user-current-quest-list></app-user-current-quest-list>
+        </ng-template>
       </div>
     </div>
   </div>
 </div>
-
 

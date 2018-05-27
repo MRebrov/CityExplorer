@@ -18,7 +18,6 @@ public interface QuestService {
     boolean delete(Long id);
     boolean delete(Quest quest);
     Quest save(Quest quest);
-    void save(QuestDTO questDTO, Photo photo, User user);
     void save(QuestDTO questDTO, User user);
     List<QuestDTO> getAllToDTO();
     List<QuestDTO> getAllByOwner(String email);

@@ -21,8 +21,7 @@ const greenMarker = 'https://maps.google.com/mapfiles/ms/icons/green-dot.png';
 @Component({
   selector: 'app-quest',
   templateUrl: './quest.component.html',
-  styleUrls: ['./quest.component.css'],
-  providers: [QuestService],
+  styleUrls: ['./quest.component.css']
 })
 export class QuestComponent implements OnInit {
 
