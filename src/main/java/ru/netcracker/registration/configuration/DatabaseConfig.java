@@ -44,7 +44,7 @@ public class DatabaseConfig {
     @Value("${spring.jpa.hibernate.use-new-id-generator-mappings}")
     private String HIBERNATE_MAPPINGS;*/
 
-    @ConfigurationProperties(prefix = "spring.datasource.hikari")
+   /* @ConfigurationProperties(prefix = "spring.datasource.hikari")
     @Bean
     public DataSource dataSource() {
         DataSource dataSource = new HikariDataSource();
@@ -54,7 +54,7 @@ public class DatabaseConfig {
 //        dataSource.setUsername(DB_USERNAME);
 //        dataSource.setPassword(DB_PASSWORD);
         return dataSource;
-    }
+    }*/
 
     /*@Bean
     public LocalSessionFactoryBean sessionFactory() {
