@@ -15,8 +15,8 @@ export class OffersService {
     });
   }
 
-  getOffersByCategory(categoryName: string, amount: number, portion: number) {
-    return this.http.get('userapi/get-offers-by-category/'+categoryName+'/'+amount+'/'+portion).map((response: Response) =>{
+  getOffersByCategory(categoryId: number, amount: number, portion: number) {
+    return this.http.get('userapi/get-offers-by-category/'+categoryId+'/'+amount+'/'+portion).map((response: Response) =>{
       return response.json();
     });
   }
@@ -44,6 +44,8 @@ export class OffersService {
   }
 
   purchaseOffer(offerId: number) {
-    return this.authHttp.post('userapi/purchase-offer/'+offerId, {}).map(res => res.text());
+    return this.authHttp.post('userapi/purchase-offer/'+offerId, {}).map((response: Response) => {
+      return response;
+    });
   }
 }

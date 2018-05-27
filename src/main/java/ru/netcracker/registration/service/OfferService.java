@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OfferService {
     List<OfferDTO> getOffers(int amount, int portion);
-    List<OfferDTO> getOffersByCategory(String categoryName, int amount, int portion);
+    List<OfferDTO> getOffersByCategory(Long categoryId, int amount, int portion);
     List<UserOfferDTO> getUserOffers(String email);
     List<OfferDTO> getOwnedOffers(String email);
     List<OfferCategoryDTO> getCategories();

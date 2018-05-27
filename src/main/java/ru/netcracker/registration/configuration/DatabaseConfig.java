@@ -25,14 +25,14 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class DatabaseConfig {
-    @Value("${spring.datasource.driverClassName}")
+    /*@Value("${spring.datasource.driverClassName}")
     private String DB_DRIVER;
     @Value("${spring.datasource.password}")
     private String DB_PASSWORD;
     @Value("${spring.datasource.url}")
     private String DB_URL;
     @Value("${spring.datasource.username}")
-    private String DB_USERNAME;
+    private String DB_USERNAME;*/
     @Value("${spring.jpa.database-platform}")
     private String HIBERNATE_DIALECT;
     @Value("${spring.jpa.show-sql}")
