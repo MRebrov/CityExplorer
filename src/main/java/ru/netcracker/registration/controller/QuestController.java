@@ -217,6 +217,64 @@ public class QuestController {
         }
     }
 
+    @GetMapping("/report-quest/{questId}")
+    public @ResponseBody
+    ResponseEntity<?> reportQuest(@PathVariable Long questId) {
+        try {
+            questService.reportQuest(questId);
+            return new ResponseEntity<Object>(
+                    "Quest has successfully been reported",
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @GetMapping("/cancel-quest-reports/{questId}")
+    public @ResponseBody
+    ResponseEntity<?> approveQuest(@PathVariable Long questId) {
+        try {
+            questService.approve(questId);
+
+            return new ResponseEntity<Object>(
+                    "Quest has successfully been approved",
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @PostMapping("/ban-quest")
+    public @ResponseBody
+    ResponseEntity<?> banQuest(@RequestBody QuestDTO questDTO) {
+        try {
+            questService.ban(questDTO.getQuestId());
+            return new ResponseEntity<Object>(
+                    "Quest has successfully been banned",
+                    HttpStatus.OK
+            );
+        }
+        catch (Exception e){
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @GetMapping("/get-reported/{reportCount}")
+    public Iterable<QuestDTO> getReported(@PathVariable Integer reportCount){
+        return questService.getReported(reportCount);
+    }
+
     @PostMapping("/join-quest/{questId}")
     public @ResponseBody
     ResponseEntity<?> joinQuest(@PathVariable Long questId) {
@@ -392,7 +450,7 @@ public class QuestController {
 
     @GetMapping("/get-top-quest")
     public @ResponseBody
-    ResponseEntity<?> getTopQuest(){
+    ResponseEntity<?> getTopQuest() {
         try {
 //            String email = securityService.findLoggedInEmail();
             QuestDTO topQuest = questService.getTopQuest();

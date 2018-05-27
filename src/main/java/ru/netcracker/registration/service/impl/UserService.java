@@ -4,6 +4,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.model.DTO.UserDTO;
 import ru.netcracker.registration.model.converter.UserConverter;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * Используется контроллером
  */
 @Service
+@Transactional
 public class UserService {
     public final UserRepository repository;
 

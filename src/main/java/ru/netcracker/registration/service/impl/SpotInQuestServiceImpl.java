@@ -1,7 +1,9 @@
 package ru.netcracker.registration.service.impl;
 
+import groovy.transform.TailRecursive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.Quest;
 import ru.netcracker.registration.model.SpotInQuest;
 import ru.netcracker.registration.repository.QuestRepository;
@@ -14,6 +16,7 @@ import java.util.List;
 
 
 @Service("SpotInQuestService")
+@Transactional
 public class SpotInQuestServiceImpl implements SpotInQuestService{
 
     @Autowired

@@ -9,7 +9,7 @@ import {OfferDTO} from '../offer.model';
   styleUrls: ['./owned-offers.component.css']
 })
 export class OwnedOffersComponent implements OnInit {
-  public ownedOffers: OfferDTO[];
+  ownedOffers: OfferDTO[];
 
   constructor(private router: Router, private offerService: OffersService) {
 

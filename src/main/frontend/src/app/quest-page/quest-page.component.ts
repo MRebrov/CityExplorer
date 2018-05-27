@@ -6,6 +6,8 @@ import {QuestService} from '../quest/quest.service';
 import {Observable} from 'rxjs/Observable';
 import {Status} from 'tslint/lib/runner';
 import {marker} from '../map/map.component';
+import {UserService} from "../user/user.service";
+import {User} from "../user/user.model";
 
 @Component({
   selector: 'app-quest-page',
@@ -22,12 +24,26 @@ export class QuestPageComponent implements OnInit {
   private photosToUpload: string[] = [];
   errorMsg: string;
   placesLeft: number;
-  loading:boolean=false;
+  loading: boolean = false;
+  user: User;
 
-  constructor(private route: ActivatedRoute, public questService: QuestService, private router: Router) {
+
+  constructor(private route: ActivatedRoute,
+              public questService: QuestService,
+              private router: Router,
+              private userService: UserService) {
   }
 
   ngOnInit() {
+    this.userService.getCurrentUser()
+      .subscribe(
+        (user: User) => {
+          this.user = user;
+        },
+        (error) => {
+          console.log(error);
+        });
+
     this.sub = this.route.params.subscribe(params => {
       this.loadUserProgress(+params['quest-id']);
 
@@ -46,7 +62,7 @@ export class QuestPageComponent implements OnInit {
     });
   }
 
-  loadUserProgress(questId:number){
+  loadUserProgress(questId: number) {
     this.questService.getUserProgressByQuest(questId)
       .subscribe(
         (progress: any) => {
@@ -78,53 +94,62 @@ export class QuestPageComponent implements OnInit {
     this.mapLng = this.markers[0].lng;
   }
 
+  banQuest(quest) {
+    this.questService.banQuest(quest)
+      .subscribe(
+        (obj: string) => {
+          window.alert(obj);
+        }
+      )
+  }
+
   joinQuest() {
-    this.loading=true;
+    this.loading = true;
     this.questService.joinQuest(this.quest.questId).catch((response: Response) => {
       if (response.status == 401)
         this.router.navigate(['/login']);
       else
         this.writeError(response.text());
-      this.loading=false;
+      this.loading = false;
       return Observable.throw(response);
     })
       .subscribe(
         (response: any) => {
           console.log(response);
-          this.loading=false;
+          this.loading = false;
           this.loadUserProgress(this.quest.questId);
         });
   }
 
   selectFile(event, spotId: number) {
     console.log('selected ' + spotId);
-    this.loading=true;
+    this.loading = true;
     this.questService.uploadSpotPhoto(event.target.files[0]).catch((response) => {
-      this.loading=false;
+      this.loading = false;
       return Observable.throw(response);
     }).subscribe((data) => {
         console.log(data);
-        this.loading=false;
+        this.loading = false;
         this.photosToUpload[spotId] = data;
       },
       (error) => {
-        this.loading=false;
+        this.loading = false;
         console.log(error);
       });
   }
 
   postPhoto(spotId: number) {
     if (this.photosToUpload[spotId] != null) {
-      this.loading=true;
+      this.loading = true;
       this.questService.postSpotPhoto(this.photosToUpload[spotId], this.quest.questId, spotId)
         .subscribe(
           (response: any) => {
             console.log(response);
-            this.loading=false;
+            this.loading = false;
             this.loadUserProgress(this.quest.questId);
           },
           (error) => {
-            this.loading=false;
+            this.loading = false;
             console.log(error);
           });
     }
@@ -132,6 +157,14 @@ export class QuestPageComponent implements OnInit {
       console.log('no file loaded');
     }
   }
+
+  reportQuest(questId) {
+    this.questService.reportQuest(questId)
+      .subscribe((obj: string) => {
+        window.alert(obj);
+      })
+  }
+
 
   writeError(error) {
     document.getElementById('collapseMessage').classList.add('show');

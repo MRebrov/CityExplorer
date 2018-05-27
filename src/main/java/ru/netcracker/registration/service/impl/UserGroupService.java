@@ -1,10 +1,12 @@
 package ru.netcracker.registration.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.UserGroup;
 import ru.netcracker.registration.repository.UserGroupRepository;
 
 @Service
+@Transactional
 public class UserGroupService {
     public final UserGroupRepository repository;
 
