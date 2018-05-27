@@ -80,9 +80,10 @@ export class LoginComponent implements OnInit {
       this.loading=false;
       return Observable.throw(response);
     }).subscribe((obj: any) => {
-      this.writeError('User authorized successfully. You will be redirected now...');
+      // this.writeError('User authorized successfully. You will be redirected now...');
       this.loading=false;
-      this.successLogin();
+      this.router.navigate(['/map']);
+      // this.successLogin();
     });
   }
 
