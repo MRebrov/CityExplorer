@@ -32,17 +32,18 @@ public class BurningLinkController {
         try {
             String email = linksManager.getEmailAndBurnLink(code);
             UserDTO userDTO = userService.get(email);
-            userDTO.setGroupID(groupService.get("Default"));
+            if (userDTO.getGroupID().getName().equals("Unconfirmed_Business"))
+                userDTO.setGroupID(groupService.get("Business"));
+            else if (userDTO.getGroupID().getName().equals("Unconfirmed"))
+                userDTO.setGroupID(groupService.get("Default"));
             userService.editPersonalInfo(userDTO);
 
             return "redirect:/login/activated";
         } catch (CredentialExpiredException e) {
-             return "redirect:/login/expired";
-        }
-        catch (InvalidCredentialsException e){
+            return "redirect:/login/expired";
+        } catch (InvalidCredentialsException e) {
             return "redirect:/login/invalid";
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

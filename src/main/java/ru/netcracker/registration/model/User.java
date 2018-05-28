@@ -58,6 +58,18 @@ public class User {
     @OneToMany(mappedBy = "ownerId")
     private Collection<Quest> quests;
 
+    @OneToMany(mappedBy = "userId")
+    private Collection<Report> reportCollection;
+
+
+    public Collection<Report> getReportCollection() {
+        return reportCollection;
+    }
+
+    public void setReportCollection(Collection<Report> reportCollection) {
+        this.reportCollection = reportCollection;
+    }
+
     public Integer getReports() {
         return reports;
     }

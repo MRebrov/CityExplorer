@@ -143,22 +143,26 @@ export class MapComponent implements OnInit {
   }
 
   evaluateMarkers() {
-    if (this.markers.length > 1) {
+    if (this.markers.length > 0) {
       this.markers.sort((a, b) => {
         return a.photos.length - b.photos.length;
       });
       let min = this.markers[0].photos.length;
       let max = this.markers[this.markers.length - 1].photos.length;
-      for (let m of this.markers) {
-        m.iconUrl = this.icons[Math.round((this.icons.length - 1) * ((m.photos.length - min) / (max - min)))];
-        m.label = m.photos.length.toString();
+      if (max > min) {
+        for (let m of this.markers) {
+          m.iconUrl = this.icons[Math.round((this.icons.length - 1) * ((m.photos.length - min) / (max - min)))];
+          m.label = m.photos.length.toString();
+        }
+      }
+      else {
+        for (let m of this.markers) {
+          m.iconUrl = this.icons[Math.round(this.icons.length / 2)];
+          m.label = m.photos.length.toString();
+        }
       }
     }
-    else if (this.markers.length == 1) {
-      let m = this.markers[0];
-      m.iconUrl = this.icons[Math.round(this.icons.length / 2)];
-      m.label = m.photos.length.toString();
-    }
+
   }
 
   distFrom(lat1: number, lng1: number, lat2: number, lng2: number): number {

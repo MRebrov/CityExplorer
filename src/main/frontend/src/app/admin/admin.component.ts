@@ -72,7 +72,7 @@ export class AdminComponent implements OnInit {
       .subscribe(
         (quests: QuestDTO[]) => {
           this.quests = quests;
-          console.log("length Q: "+this.quests.length);
+          console.log("length Q: " + this.quests.length);
         },
         (error) => {
           console.log(error);
@@ -84,20 +84,27 @@ export class AdminComponent implements OnInit {
   }
 
   approveQuest(quest) {
+    this.load = true;
     this.quests.splice(this.quests.indexOf(quest), 1);
     this.questService.cancelReports(quest)
       .subscribe((obj: string) => {
-        window.alert(obj);
-      })
+          window.alert(obj);
+        },
+        (error) => console.log(error),
+        () => this.load = false)
   }
 
   banQuest(quest) {
+    this.load = true;
     this.quests.splice(this.quests.indexOf(quest), 1);
     this.questService.banQuest(quest).catch((response: Response) => {
       return Observable.throw(response);
-    }).subscribe((obj: string) => {
-      window.alert(obj);
-    })
+    }).subscribe(
+      (obj: string) => {
+        window.alert(obj);
+      },
+      (error) => console.log(error),
+      () => this.load = false)
   }
 
   // events
@@ -185,7 +192,7 @@ export class AdminComponent implements OnInit {
         return Observable.throw(response);
       }).subscribe((obj: any[]) => {
           this.users = obj;
-          console.log("length: "+this.users.length);
+          console.log("length: " + this.users.length);
         },
         (error) => {
           console.log(error);

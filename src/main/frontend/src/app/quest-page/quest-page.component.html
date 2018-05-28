@@ -32,14 +32,14 @@
               Created on {{quest.uploadDate.toDateString()}}
             </p>
             <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name != 'Admin'">
-              Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName + ' ' + quest.owner.lastName}}</a>
-              <button class="btn btn-warning" (click)="reportQuest(quest.questId)">
+              Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName}}</a>
+              <button class="btn btn-warning" [disabled] = "reported" (click)="reportQuest(quest.questId)">
                 Report quest
               </button>
             </p>
 
             <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name == 'Admin'">
-              Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName + ' ' + quest.owner.lastName}}</a>
+              Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName}}</a>
               <button class="btn btn-warning" (click)="banQuest(quest.questId)">
                 Ban quest
               </button>

@@ -11,11 +11,13 @@ import ru.netcracker.registration.model.DTO.SpotDTO;
 import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.converter.QuestConverter;
 import ru.netcracker.registration.model.converter.UserProgressConverter;
+import ru.netcracker.registration.other.exception.ReportException;
 import ru.netcracker.registration.repository.*;
 import ru.netcracker.registration.service.QuestService;
 import ru.netcracker.registration.service.SpotInQuestService;
 import ru.netcracker.registration.service.SpotService;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,29 +48,44 @@ public class QuestServiceImpl implements QuestService {
     @Autowired
     SimpMessagingTemplate messagingTemplate;
 
+    @Autowired
+    ReportRepository reportRepository;
+
     @Override
     public QuestDTO getById(Long id) {
         return QuestConverter.convertToDTO(questRepository.findOne(id));
     }
 
     @Override
-    public Quest getEntityById(Long id){
+    public Quest getEntityById(Long id) {
         return questRepository.findOne(id);
     }
 
     @Override
-    public void reportQuest(Long id) {
-        Quest quest = getEntityById(id);
+    public void reportQuest(Long questId, String userMail) throws ReportException {
+
+        Quest quest = getEntityById(questId);
+        User user = userRepository.findByEmail(userMail);
         User owner = quest.getOwnerId();
-        quest.setReports(quest.getReports()+1);
-        owner.setReports(owner.getReports()+1);
-        questRepository.save(quest);
-        userRepository.save(owner);
+        if (reportRepository.findByQuestIdAndUserId(quest, user) == null) {
+            quest.setReports(quest.getReports() + 1);
+            owner.setReports(owner.getReports() + 1);
+            questRepository.save(quest);
+            userRepository.save(owner);
+            Report report = new Report();
+            report.setQuestId(quest);
+            report.setUserId(user);
+            reportRepository.save(report);
+        }
+        else {
+            throw new ReportException("Report has been already send");
+        }
     }
 
     @Override
     public void approve(Long id) {
         Quest quest = getEntityById(id);
+        reportRepository.deleteAllByQuestId(quest);
         quest.setReports(0);
         questRepository.save(quest);
     }
@@ -164,10 +181,10 @@ public class QuestServiceImpl implements QuestService {
             quest.getSpotInQuests().add(spotInQuest);
         }
 
-        int cost=questCostCalculation(quest);
+        int cost = questCostCalculation(quest);
         if (user.getBalance() - cost >= 0 && cost > 0) {
             user.setBalance(user.getBalance() - cost);
-            user.setBusinessBalance(user.getBusinessBalance()+cost);
+            user.setBusinessBalance(user.getBusinessBalance() + cost);
             questRepository.save(quest);
             userRepository.save(user);
         }
@@ -183,7 +200,7 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public List<QuestDTO> getAllByOwner(String email){
+    public List<QuestDTO> getAllByOwner(String email) {
         List<QuestDTO> res = new ArrayList<>();
         User owner = userRepository.findByEmail(email);
         for (Quest q : questRepository.findAllByOwnerId(owner)) {
@@ -234,7 +251,7 @@ public class QuestServiceImpl implements QuestService {
         Quest quest = questRepository.findOne(questId);
         if (isQuestActive(quest)) {
             quest.setNumberOfJoiners(quest.getNumberOfJoiners() + 1);
-            if (isQuestFull(quest)){
+            if (isQuestFull(quest)) {
                 quest.setStatus(1);
             }
             questRepository.save(quest);
@@ -324,13 +341,11 @@ public class QuestServiceImpl implements QuestService {
     public QuestDTO getTopQuest() {
 
 
-
-
         List<User> users = (List<User>) userRepository.findAll();
         Map<Quest, Integer> takenQuests = new HashMap<>();
         List<UserProgress> progress = (List<UserProgress>) userProgressRepository.findAll();
-        for(UserProgress up: userProgressRepository.findAll()){
-            if(up.getDateComplete() != null){
+        for (UserProgress up : userProgressRepository.findAll()) {
+            if (up.getDateComplete() != null) {
 //                QuestDTO quest = QuestConverter.convertToDTO(up.getQuestByQuestId());
                 if (takenQuests.containsKey(up.getQuestByQuestId())) {
                     takenQuests.put(up.getQuestByQuestId(), takenQuests.get(up.getQuestByQuestId()) + 1);
@@ -357,17 +372,21 @@ public class QuestServiceImpl implements QuestService {
     public int questCostCalculation(Quest quest) {
         int k = quest.getSpotInQuests().size();
         int n = 1;
-        switch(k) {
-            case 2: n = 2;
-            break;
-            case 3: n = 4;
-            break;
-            case 4: n = 7;
-            break;
-            case 5: n = 11;
-            break;
+        switch (k) {
+            case 2:
+                n = 2;
+                break;
+            case 3:
+                n = 4;
+                break;
+            case 4:
+                n = 7;
+                break;
+            case 5:
+                n = 11;
+                break;
         }
-        return quest.getNumberOfParticipants()*quest.getReward()*n;
+        return quest.getNumberOfParticipants() * quest.getReward() * n;
     }
 
     private boolean isQuestActive(Quest quest) {
@@ -395,7 +414,7 @@ public class QuestServiceImpl implements QuestService {
         }
     }
 
-    private boolean isQuestClosed (Quest quest) {
+    private boolean isQuestClosed(Quest quest) {
         if (quest.getStatus() == 2) {
             return true;
         } else {
@@ -403,7 +422,7 @@ public class QuestServiceImpl implements QuestService {
         }
     }
 
-    private boolean isQuestBanned (Quest quest) {
+    private boolean isQuestBanned(Quest quest) {
         if (quest.getStatus() == 3) {
             return true;
         } else {

@@ -47,7 +47,7 @@ public class OfferServiceImpl implements OfferService {
         Page<Offer> offers = offerRepository.findAllByOrderByExpireDateDesc(new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
         for (Offer offer : offers) {
-            if (isOfferValid(offer))
+            if (isOfferValid(offer) && countOfferItemsLeft(offer) > 0)
                 dtos.add(OfferConverter.convertToDTO(offer));
         }
         return dtos;
@@ -59,7 +59,7 @@ public class OfferServiceImpl implements OfferService {
         Page<Offer> offers = offerRepository.findAllByCategoryOrderByExpireDateDesc(category, new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
         for (Offer offer : offers) {
-            if (isOfferValid(offer))
+            if (isOfferValid(offer) && countOfferItemsLeft(offer) > 0)
                 dtos.add(OfferConverter.convertToDTO(offer));
         }
         return dtos;
@@ -104,6 +104,10 @@ public class OfferServiceImpl implements OfferService {
         if (isOfferPurchased(user, offer)) {
             throw new Exception("You have already purchased this offer");
         }
+        if (countOfferItemsLeft(offer) <= 0) {
+            throw new Exception("This offer is sold out");
+        }
+
         if (offer.getPrice() <= user.getBalance()) {
             UserOffer userOffer = new UserOffer();
             userOffer.setOffer(offer);
@@ -117,10 +121,11 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void saveOffer(OfferDTO offerDTO, String ownerEmail) throws Exception {
         User user = userRepository.findByEmail(ownerEmail);
-        if (offerDTO.getPrice() <= user.getBusinessBalance()) {
+        Integer creationCost = offerDTO.getPrice() * offerDTO.getAmount();
+        if (creationCost <= user.getBusinessBalance()) {
             Offer offer = OfferConverter.convertToEntity(offerDTO);
             offer.setOwner(user);
-            user.setBusinessBalance(user.getBusinessBalance() - offer.getPrice());
+            user.setBusinessBalance(user.getBusinessBalance() - creationCost);
             userRepository.save(user);
             offerRepository.save(offer);
         } else throw new Exception("Not enough business cash to create offer");
@@ -134,5 +139,13 @@ public class OfferServiceImpl implements OfferService {
     private boolean isOfferValid(Offer offer) {
         org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
         return offer.getExpireDate().getTime() >= date.toDate().getTime();
+    }
+
+    private Integer countOfferBuyers(Offer offer) {
+        return userOfferRepository.findAllByOffer(offer).size();
+    }
+
+    private Integer countOfferItemsLeft(Offer offer) {
+        return offer.getAmount() - countOfferBuyers(offer);
     }
 }
