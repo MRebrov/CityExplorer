@@ -6,6 +6,8 @@
   <div class="card mt-2 bg-light">
     <div class="card-body">
       <h5 id="questpage" class="display-4 text-center">Quest page</h5>
+      <div *ngIf="quest.status!=3; else bannedBlock">
+      <div *ngIf="quest.status!=2; else closedBlock">
       <div *ngIf="quest.uploadDate!=null && quest.status < 2; else loadingBlock">
 
         <div class="card">
@@ -188,10 +190,19 @@
           </div>
         </div>
       </div>
+      </div>
+      </div>
 
       <ng-template #loadingBlock>
         <h5>Loading quest info...</h5>
       </ng-template>
+      <ng-template #closedBlock>
+        <h5>Quest is closed</h5>
+      </ng-template>
+      <ng-template #bannedBlock>
+        <h5>Quest is banned</h5>
+      </ng-template>
     </div>
   </div>
 </div>
+
