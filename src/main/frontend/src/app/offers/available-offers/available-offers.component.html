@@ -60,7 +60,7 @@
           <p class="card-text">{{offer.name}}</p>
           <img class="card-img img-thumbnail" src="{{offer.photoURL}}" alt="">
           <p class="card-text"><span class="badge badge-dark">{{offer.category.name}}</span></p>
-          <p class="card-text">Price: <span class="badge badge-success">{{offer.price}}</span></p>
+          <p class="card-text">Price: <span class="badge badge-success">{{offer.price}} q.</span></p>
           <p class="card-text">Expires on {{offer.expireDate.toDateString()}}</p>
           <div class="row justify-content-end" *ngIf="authUser!=null">
               <button type="button" class="btn btn-warning" (click)="purchaseClick(offer.id)">
