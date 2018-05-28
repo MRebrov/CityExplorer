@@ -3,6 +3,7 @@ package ru.netcracker.registration.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
 import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
@@ -20,6 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("QuestService")
+@Transactional
 public class QuestServiceImpl implements QuestService {
 
 
@@ -47,6 +49,43 @@ public class QuestServiceImpl implements QuestService {
     @Override
     public QuestDTO getById(Long id) {
         return QuestConverter.convertToDTO(questRepository.findOne(id));
+    }
+
+    @Override
+    public Quest getEntityById(Long id){
+        return questRepository.findOne(id);
+    }
+
+    @Override
+    public void reportQuest(Long id) {
+        Quest quest = getEntityById(id);
+        User owner = quest.getOwnerId();
+        quest.setReports(quest.getReports()+1);
+        owner.setReports(owner.getReports()+1);
+        questRepository.save(quest);
+        userRepository.save(owner);
+    }
+
+    @Override
+    public void approve(Long id) {
+        Quest quest = getEntityById(id);
+        quest.setReports(0);
+        questRepository.save(quest);
+    }
+
+    @Override
+    public void ban(Long id) {
+        Quest quest = getEntityById(id);
+        quest.setStatus(3);
+        questRepository.save(quest);
+    }
+
+    @Override
+    public List<QuestDTO> getReported(Integer reportCount) {
+        return questRepository.findAllByReportsGreaterThanEqual(reportCount)
+                .stream()
+                .map(QuestConverter::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

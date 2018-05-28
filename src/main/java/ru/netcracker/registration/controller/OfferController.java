@@ -56,6 +56,22 @@ public class OfferController {
         return ResponseEntity.ok(userOfferDTOS);
     }
 
+    @GetMapping("/get-owned-offers")
+    public @ResponseBody
+    ResponseEntity<?> getOwnedOffers() {
+        String email = securityService.findLoggedInEmail();
+
+        if (email == null) {
+            return new ResponseEntity<Object>(
+                    "Must be authorized to get owned offers",
+                    HttpStatus.UNAUTHORIZED
+            );
+        }
+
+        List<OfferDTO> offerDTOS = offerService.getOwnedOffers(email);
+        return ResponseEntity.ok(offerDTOS);
+    }
+
     @GetMapping("/get-categories")
     public @ResponseBody
     ResponseEntity<?> getCategories() {

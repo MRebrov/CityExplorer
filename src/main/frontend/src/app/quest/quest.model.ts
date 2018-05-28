@@ -19,6 +19,8 @@ export class QuestDTO {
   public spots: SpotDTO[];
   public cost: number;
   public numberOfJoiners: number;
+  public owner: User;
+  public reports: number;
   public status: number;
 
   constructor(name: string, description: string, uploadDate: Date, reward: number, numberOfParticipants: number, numberOfJoiners: number, status: number) {

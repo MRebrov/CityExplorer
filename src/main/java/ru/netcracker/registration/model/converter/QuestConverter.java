@@ -30,6 +30,8 @@ public class QuestConverter {
         dto.setPhotoURL(quest.getSpotInQuests().stream().findFirst().get().getPhotoByPhotoId().getUrl());
         dto.setNumberOfJoiners(quest.getNumberOfJoiners());
         dto.setStatus(quest.getStatus());
+        dto.setOwner(UserConverter.convertToDTO(quest.getOwnerId()));
+        dto.setReports(quest.getReports());
         //dto.setLat(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLat().toString());
         //dto.setLng(quest.getSpotInQuests().stream().findFirst().get().getSpotBySpotId().getLng().toString());
 
@@ -44,5 +46,7 @@ public class QuestConverter {
 
         return dto;
     }
+
+
 
 }

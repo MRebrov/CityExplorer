@@ -1,4 +1,7 @@
 <app-header></app-header>
+<div id="spinner" class="spinner" *ngIf="loading">
+  <img id="img-spinner" src="../../assets/markers/loader.gif" alt="Loading"/>
+</div>
 <div class="container">
   <div class="card mt-2 bg-light">
     <div class="card-body">
@@ -16,14 +19,37 @@
             <p class="card-text">
               Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
             </p>
-            <p class="card-text">
-              Quest is for: <span class="badge badge-primary">{{quest.numberOfParticipants}}</span> persons
+            <p class="card-text" *ngIf="quest.numberOfParticipants > 1">
+              Quest is for: <span class="badge badge-primary">{{quest.numberOfParticipants}}</span> people
+            </p>
+            <p class="card-text" *ngIf="quest.numberOfParticipants == 1">
+              Quest is for: <span class="badge badge-primary">{{quest.numberOfParticipants}}</span> person
             </p>
             <p class="card-text">
               Places left: <span class="badge badge-danger">{{placesLeft}}</span>
             </p>
             <p class="card-text">
               Created on {{quest.uploadDate.toDateString()}}
+            </p>
+            <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name != 'Admin'">
+              Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName + ' ' + quest.owner.lastName}}</a>
+              <button class="btn btn-warning" (click)="reportQuest(quest.questId)">
+                Report quest
+              </button>
+            </p>
+
+            <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name == 'Admin'">
+              Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName + ' ' + quest.owner.lastName}}</a>
+              <button class="btn btn-warning" (click)="banQuest(quest.questId)">
+                Ban quest
+              </button>
+            </p>
+
+            <p class="card-text" *ngIf="user.id == quest.owner.id">
+              Created by You
+            </p>
+            <p class="card-text" *ngIf="user.id == quest.owner.id">
+              <span class="badge badge-warning"> You cannot report your own quest!</span>
             </p>
 
             <div *ngIf="userProgress.takingDate==null; else progressBlock">
@@ -113,7 +139,7 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              <div class="form-group"
+              <div class="form-group mt-2"
                    *ngIf="userProgress.takingDate!=null && !questService.isSpotCompleted(spot, userProgress); else noUploadBlock">
                 <div class="form-row">
                   <div class="col-md-5 col-sm-12">
@@ -126,13 +152,17 @@
                            required
                     >
                   </div>
-                  <div class="col-md-2 col-sm-12">
+                  <div class="col-md-2 col-sm-5">
+                    <img *ngIf="photosToUpload[spot.spotId]" src="{{photosToUpload[spot.spotId]}}" height="100px">
+                  </div>
+                  <div class="col-md-2 col-sm-5">
                     <br>
                     <button id="uploadBtn{{spot.name}}" class="btn btn-info" (click)="postPhoto(spot.spotId)"
                             type="button">
                       Upload
                     </button>
                   </div>
+
                 </div>
               </div>
               <ng-template #noUploadBlock>

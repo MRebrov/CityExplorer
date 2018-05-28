@@ -12,4 +12,5 @@ import java.util.List;
 public interface QuestRepository extends CrudRepository<Quest, Long> {
     List<Quest> findAllByName(String name);
     List<Quest> findAllByOwnerId(User owner);
+    List<Quest> findAllByReportsGreaterThanEqual(Integer reports);
 }

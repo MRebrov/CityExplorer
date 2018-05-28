@@ -2,6 +2,8 @@ package ru.netcracker.registration.model.DTO;
 
 import ru.netcracker.registration.model.UserGroup;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 /**
  * DTO пользователя
  * Почти эквиваленте н пользователю, но
@@ -87,14 +89,23 @@ public class UserDTO {
         this.businessBalance = businessBalance;
     }
 
-    Long id;
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    String birthday;
-    String registrationDate;
-    UserGroup groupID;
-    Long balance;
-    Long businessBalance;
+    public Integer getReports() {
+        return reports;
+    }
+
+    public void setReports(Integer reports) {
+        this.reports = reports;
+    }
+
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String birthday;
+    private String registrationDate;
+    private UserGroup groupID;
+    private Long balance;
+    private Long businessBalance;
+    private Integer reports;
 }

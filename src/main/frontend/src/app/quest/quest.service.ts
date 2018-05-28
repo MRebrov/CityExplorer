@@ -43,11 +43,30 @@ export class QuestService {
     });
   }
 
-  getTopQuest(){
-    return this.http.get('userapi/get-top-quest').map((response: Response) =>{
+  getTopQuest() {
+    return this.http.get('userapi/get-top-quest').map((response: Response) => {
       return response.json();
     });
   }
+
+  getReported(reportCount: number){
+    return this.authHttp.get('userapi/get-reported/'+ reportCount).map((response: Response) =>{
+      return response.json();
+    })
+  }
+
+  banQuest(quest: QuestDTO){
+    return this.authHttp.post('userapi/ban-quest/', quest).map((response:Response) =>{
+      return response.text();
+    })
+  }
+
+  cancelReports(quest: QuestDTO){
+    return this.authHttp.get('userapi/cancel-quest-reports/' + quest.questId).map((response: Response) =>{
+      return response.text();
+    })
+  }
+
 
   postPhoto(file: File, quest: QuestDTO) {
     let formdata: FormData = new FormData();
@@ -100,8 +119,8 @@ export class QuestService {
     return this.confirmations;
   }
 
-  removeLoadedConfirmations(){
-    this.confirmations=null;
+  removeLoadedConfirmations() {
+    this.confirmations = null;
   }
 
   getUserProgressForCurrentUser() {
@@ -125,6 +144,12 @@ export class QuestService {
   getQuestById(id: number) {
     return this.http.get('userapi/get-quest-by-id/' + id).map((response: Response) => {
       return response.json();
+    });
+  }
+
+  reportQuest(id: number) {
+    return this.authHttp.get('userapi/report-quest/' + id).map((response: Response) => {
+      return response.text();
     });
   }
 
@@ -188,7 +213,11 @@ export class QuestService {
   }
 
   postSpotPhoto(url: string, questId: number, spotId: number) {
-    return this.authHttp.post('userapi/post-spot-photo/', {url: url, questId: questId, spotId: spotId}).map((response: Response) => {
+    return this.authHttp.post('userapi/post-spot-photo/', {
+      url: url,
+      questId: questId,
+      spotId: spotId
+    }).map((response: Response) => {
       return response;
     });
   }

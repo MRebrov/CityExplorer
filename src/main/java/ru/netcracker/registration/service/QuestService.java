@@ -29,5 +29,10 @@ public interface QuestService {
     List<SpotConfirmationDTO> getSpotConfirmationsForOwner(String email);
     void setConfirmation(String email, Long userSpotProgressId, Boolean confirm) throws Exception;
     QuestDTO getTopQuest();
+    Quest getEntityById(Long id);
+    void reportQuest(Long id);
+    void approve(Long id);
+    void ban(Long id);
+    List<QuestDTO> getReported(Integer reportCount);
     void userCloseQuest(String email, Long questId);
 }

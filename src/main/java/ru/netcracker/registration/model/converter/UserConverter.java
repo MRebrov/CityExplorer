@@ -24,7 +24,7 @@ public class UserConverter {
         dto.setGroupID(user.getGroupID());
         dto.setBalance(user.getBalance());
         dto.setBusinessBalance(user.getBusinessBalance());
-
+        dto.setReports(user.getReports());
         return dto;
     }
 
@@ -82,7 +82,7 @@ public class UserConverter {
 
         target.setBalance(dto.getBalance());
         target.setBusinessBalance(dto.getBusinessBalance());
-
+        target.setReports(dto.getReports());
         return target;
     }
 

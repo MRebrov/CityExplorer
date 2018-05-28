@@ -3,6 +3,7 @@ package ru.netcracker.registration.service.impl;
 import org.hibernate.type.ListType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.DTO.OfferCategoryDTO;
 import ru.netcracker.registration.model.DTO.OfferDTO;
 import ru.netcracker.registration.model.DTO.UserDTO;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class OfferServiceImpl implements OfferService {
     @Autowired
     OfferRepository offerRepository;
@@ -70,6 +72,17 @@ public class OfferServiceImpl implements OfferService {
         List<UserOfferDTO> dtos = new ArrayList<>();
         for (UserOffer userOffer : userOffers) {
             dtos.add(UserOfferConverter.convertToDTO(userOffer));
+        }
+        return dtos;
+    }
+
+    @Override
+    public List<OfferDTO> getOwnedOffers(String email) {
+        User user = userRepository.findByEmail(email);
+        List<Offer> offers = offerRepository.findAllByOwner(user);
+        List<OfferDTO> dtos = new ArrayList<>();
+        for (Offer offer : offers) {
+            dtos.add(OfferConverter.convertToDTO(offer));
         }
         return dtos;
     }

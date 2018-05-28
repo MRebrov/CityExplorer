@@ -42,6 +42,7 @@ import { PurchasedOffersComponent } from './offers/purchased-offers/purchased-of
 import { OwnedOffersComponent } from './offers/owned-offers/owned-offers.component';
 import { CreateOfferComponent } from './create-offer/create-offer.component';
 import { AvailableOffersComponent } from './offers/available-offers/available-offers.component'
+import {OffersService} from './offers/offers.service';
 
 
 
@@ -93,7 +94,7 @@ import { AvailableOffersComponent } from './offers/available-offers/available-of
     BrowserAnimationsModule
   ],
   bootstrap: [AppComponent],
-  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService],
+  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService, OffersService],
   //entryComponents: [InputFormComponent]
 })
 export class AppModule {

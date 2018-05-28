@@ -47,13 +47,13 @@ public class DatabaseConfig {
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     @Bean
     public DataSource dataSource() {
-        DataSource ds = new HikariDataSource();
+        DataSource dataSource = new HikariDataSource();
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //        dataSource.setDriverClassName(DB_DRIVER);
 //        dataSource.setUrl(DB_URL);
 //        dataSource.setUsername(DB_USERNAME);
 //        dataSource.setPassword(DB_PASSWORD);
-        return ds;
+        return dataSource;
     }
 
     @Bean
