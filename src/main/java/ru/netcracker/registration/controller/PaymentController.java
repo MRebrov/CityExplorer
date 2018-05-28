@@ -41,10 +41,11 @@ public class PaymentController {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(hashable.getBytes());
             byte[] digest = md.digest();
-            String hashtext = DatatypeConverter.printHexBinary(digest).toLowerCase();
+            String hashtext = DatatypeConverter.printHexBinary(digest);
             System.out.println("Received hash: "+signatureValue);
             System.out.println("Calculated hash: "+hashtext);
-            if (hashtext.equals(signatureValue.toLowerCase())) {
+            if (hashtext.compareToIgnoreCase(signatureValue)==0) {
+                System.out.println("Hashes match");
                 UserDTO userDTO = userService.get(invId);
                 System.out.println("User got");
                 if (userDTO != null && userDTO.getGroupID().getName().equals("Business")) {
