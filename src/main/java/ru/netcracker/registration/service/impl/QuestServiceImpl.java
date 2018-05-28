@@ -246,15 +246,14 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
-    public void userCloseQuest(String email, Long questId) {
-        List<SpotConfirmationDTO> confirmationDTOS = getSpotConfirmationsForOwner(email);
-        if (confirmationDTOS.isEmpty()) {
-            Quest quest = questRepository.findOne(questId);
-            if (isQuestActive(quest) || isQuestInvisible(quest)) {
-                quest.setStatus(2);
-            }
-            questRepository.save(quest);
+    public void userCloseQuest(Long questId) {
+        Quest quest = questRepository.findOne(questId);
+        String ownerEmail = quest.getOwnerId().getEmail();
+        List<SpotConfirmationDTO> confirmationDTOS = getSpotConfirmationsForOwner(ownerEmail);
+        if (confirmationDTOS.isEmpty() && (isQuestActive(quest) || isQuestInvisible(quest))) {
+            quest.setStatus(2);
         }
+        questRepository.save(quest);
     }
 
     @Override

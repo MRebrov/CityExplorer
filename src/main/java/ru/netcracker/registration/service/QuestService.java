@@ -34,5 +34,5 @@ public interface QuestService {
     void approve(Long id);
     void ban(Long id);
     List<QuestDTO> getReported(Integer reportCount);
-    void userCloseQuest(String email, Long questId);
+    void userCloseQuest(Long questId);
 }

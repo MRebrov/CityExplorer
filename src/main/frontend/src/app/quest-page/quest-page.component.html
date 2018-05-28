@@ -17,7 +17,7 @@
               photos
             </p>
             <p class="card-text">
-              Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
+              Reward: <span class="badge badge-warning">{{quest.reward}}</span> coins
             </p>
             <p class="card-text" *ngIf="quest.numberOfParticipants > 1">
               Quest is for: <span class="badge badge-primary">{{quest.numberOfParticipants}}</span> people
@@ -60,7 +60,7 @@
 
             </div>
 
-            <div *ngIf="quest.status < 2">
+            <div *ngIf="user.id == quest.owner.id && quest.status < 2">
               <button type="button" class="btn btn-success"
                       (click)="closeQuest()">
                 Close

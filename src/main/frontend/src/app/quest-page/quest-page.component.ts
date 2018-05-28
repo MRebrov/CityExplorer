@@ -132,7 +132,8 @@ export class QuestPageComponent implements OnInit {
       .subscribe(
         (response: any) => {
           console.log(response);
-          location.reload();
+          this.loading = false;
+          this.quest.status = 2;
         });
   }
 

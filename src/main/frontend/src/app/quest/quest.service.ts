@@ -207,7 +207,7 @@ export class QuestService {
   }
 
   closeQuest(questId: number) {
-    return this.authHttp.post('userapi/close-quest' + questId, {}).map((response: Response) => {
+    return this.authHttp.get('userapi/close-quest/' + questId, {}).map((response: Response) => {
       return response;
     })
   }
