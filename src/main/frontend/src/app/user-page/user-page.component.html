@@ -101,7 +101,7 @@
               <p class="lead"><strong>Registration date:</strong> {{user.registrationDate}}</p>
             </div>
             <div class="row">
-              <p class="lead"><strong>Balance:</strong> {{user.balance}}</p>
+              <p class="lead"><strong>Balance:</strong> {{user.balance}} q.</p>
             </div>
             <div class="row" *ngIf="isBusiness">
               &nbsp;
@@ -111,7 +111,7 @@
               <button type="button" (click)="donateSubmit()" class="btn btn-dark">Buy</button>
             </div>
             <div class="row">
-              <p *ngIf="isBusiness" class="lead"><strong>Business balance:</strong> {{user.businessBalance}}</p>
+              <p *ngIf="isBusiness" class="lead"><strong>Business balance:</strong> {{user.businessBalance}} b.q.</p>
             </div>
             <div class="row">
               <a *ngIf="isAdmin" class="btn btn-info" routerLink="/admin">Admin panel</a>
