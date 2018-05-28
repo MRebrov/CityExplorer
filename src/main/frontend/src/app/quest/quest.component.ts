@@ -43,6 +43,8 @@ export class QuestComponent implements OnInit {
   enoughMoneyParticipantsAndSpots: boolean = false;
   oneSpotExists: boolean = false;
   spotsWithPhoto: number[] = [];
+  p_label: string[] = [];
+  uploaded: boolean[] = [];
 
   questPlace: marker = {
     lat: 51.690, //inital post (might be initialized being based on browser geoposition)
@@ -151,7 +153,7 @@ export class QuestComponent implements OnInit {
   }
 
   addSpotForm() {
-    if (this.spots.length == 5){
+    if (this.spots.length == 5) {
       window.alert("You cant create a quest with more than 5 spots");
     }
     else {
@@ -162,6 +164,7 @@ export class QuestComponent implements OnInit {
         console.log("name-" + i + "-" + this.spots[i].name);
       }
       this.spots.push(new SpotDTO('', this.map.getCenter().lat(), this.map.getCenter().lng()));
+      this.p_label.push("photo");
       var newMarker: marker = {
         lat: this.map.getCenter().lat(), //inital post (might be initialized being based on browser geoposition)
         lng: this.map.getCenter().lng(),
@@ -175,6 +178,7 @@ export class QuestComponent implements OnInit {
       };
       this.markers.push(newMarker);
       this.photoAdded.push(false);
+      this.uploaded.push(false);
       this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
     }
   }
@@ -232,6 +236,7 @@ export class QuestComponent implements OnInit {
     this.photos = event.target.files;
     this.questPhotos[i] = this.photos[0];
     this.photoAdded[i] = true;
+    this.p_label[i] = this.photos[0].name;
   }
 
   writeMsg(error) {
@@ -279,7 +284,8 @@ export class QuestComponent implements OnInit {
         this.spots[i].photos[0].url = data;
         // this.oneSpotExists = true;
         this.spotsWithPhoto.push(i);
-        console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
+        this.uploaded.splice(i, 1, true);
+        console.log(this.spotsWithPhoto.length + '-=-=- spots: ' + this.spots.length);
         if (this.spotsWithPhoto.length != this.spots.length) {
           this.oneSpotExists = false;
         }
@@ -297,12 +303,12 @@ export class QuestComponent implements OnInit {
   }
 
   deleteForm(i) {
-    console.log('indexOf(i) = '+this.spotsWithPhoto.indexOf(i));
-    console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
+    console.log('indexOf(i) = ' + this.spotsWithPhoto.indexOf(i));
+    console.log(this.spotsWithPhoto.length + '-=-=- spots: ' + this.spots.length);
     if (this.spotsWithPhoto.length != this.spots.length || this.spotsWithPhoto.length == 1) {
       this.oneSpotExists = false;
     }
-    if(this.spotsWithPhoto.indexOf(i) != -1) {
+    if (this.spotsWithPhoto.indexOf(i) != -1) {
       this.spotsWithPhoto.splice(this.spotsWithPhoto.indexOf(i), 1);
     }
     this.spots.splice(i, 1);
@@ -310,10 +316,12 @@ export class QuestComponent implements OnInit {
     if (this.questPhotos[i] != null) {
       this.questPhotos.splice(i, 1);
     }
-    console.log(this.spotsWithPhoto.length+'-=-=- spots: '+ this.spots.length);
-    if(this.spots.length == this.spotsWithPhoto.length && this.spotsWithPhoto.length != 0){
+    console.log(this.spotsWithPhoto.length + '-=-=- spots: ' + this.spots.length);
+    if (this.spots.length == this.spotsWithPhoto.length && this.spotsWithPhoto.length != 0) {
       this.oneSpotExists = true;
     }
+    this.p_label.splice(i, 1);
+    this.uploaded.splice(i, 1);
     this.calculateCost(this.quest.reward, this.quest.numberOfParticipants, this.spots.length);
   }
 }

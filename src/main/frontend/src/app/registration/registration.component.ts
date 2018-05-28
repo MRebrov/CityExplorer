@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit {
   public barLabel: string = 'Password strength:';
   public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
   loading: boolean = false;
+  isBusiness = false;
 
   constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
     this.form = fb.group({
@@ -54,21 +55,29 @@ export class RegistrationComponent implements OnInit {
     let encrypted: string = CryptoJS.AES.encrypt(data.controls['password'].value, key, {iv: iv}).toString();
     this.user.password = encrypted;
 
-    this.loading=true;
-    this.userService.addUser(this.user).catch((response: Response) => {
+    this.loading = true;
+
+    let errorHandler=(response: Response) => {
       this.writeError(response.text()); //если ошибка, вывести её
-      this.loading=false;
+      this.loading = false;
       return Observable.throw(response);
-    }).subscribe(() => {
+    };
+    let successHandler = () => {
       this.writeError('User registered successfully. We have sent you confirmation link on your email.');
       //this.showLink();
-      this.loading=false;
+      this.loading = false;
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 5000);
-    });
+    };
+
+    if(!this.isBusiness)
+      this.userService.addUser(this.user).catch(errorHandler).subscribe(successHandler);
+    else
+      this.userService.addBusinessUser(this.user).catch(errorHandler).subscribe(successHandler);
+
     console.log(this.user.email + this.user.password);
-    this.user = new User('', '', '', '', '', '', 50, null, 0);
+    this.user = new User('', '', '', '', '', '', 0, null, 0);
   }
 
   ngOnInit() {
@@ -76,7 +85,7 @@ export class RegistrationComponent implements OnInit {
       alert('You are authorized! You should log out first');
       this.router.navigate(['/map']);
     }
-    this.user = new User('', '', '', '', '', '', 50, null, 0);
+    this.user = new User('', '', '', '', '', '', 0, null, 0);
   }
 
   /**
@@ -154,4 +163,9 @@ export class RegistrationComponent implements OnInit {
   showLink() {
     document.getElementById('collapseLink').classList.add('show');
   }
+
+  checked(event) {
+    this.isBusiness = event.target.checked;
+  }
+
 }

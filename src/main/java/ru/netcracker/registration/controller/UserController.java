@@ -174,6 +174,32 @@ public class UserController {
         }
     }
 
+    @PostMapping("/add-business")
+    public ResponseEntity<?> postBusiness(@RequestBody UserDTO userDTO) {
+        try {
+            userDTO.setRegistrationDate(LocalDate.now().toString(DateTimeFormat.forPattern("d-M-YYYY")));
+            userDTO.setGroupID(groupService.get("Unconfirmed_Business"));
+            userService.addBusinessUser(userDTO);
+            //String token = securityService.login(userDTO.getEmail(), userDTO.getPassword());
+
+            GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
+            String link = BurningLinksManager.getInstance().addNew(userDTO.getEmail());
+            String body = String.format(
+                    "Hello, %s! Your email address has been used to register a business account on our service.\nTo confirm registration, follow this link: %s",
+                    userDTO.getFirstName(),
+                    link
+            );
+            sender.sendMail("Confirm registration", body, "netcracker", userDTO.getEmail());
+            //return ResponseEntity.ok(new AuthResponse(token));
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
     @PostMapping("get/byCriteria")
     public @ResponseBody
     Iterable<UserDTO> getByCriteria(@RequestBody UserDTO pattern){

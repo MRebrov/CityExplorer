@@ -50,6 +50,10 @@ export class UserService {
     return this.http.post('userapi/add', user).map(res => res.json);
   }
 
+  addBusinessUser(user: User) {
+    return this.http.post('userapi/add-business', user).map(res => res.json);
+  }
+
   editUser(user: User) {
     return this.authHttp.post('userapi/edit/personalInfo', user).map((response: Response) => {
       return response;
@@ -99,6 +103,7 @@ export class UserService {
 
   logout() {
     this._isAuthenticatedSubject.next(false);
+    this.authenticated=null;
     localStorage.removeItem('id_token');
     this.stompClient.disconnect();
     return this.http.post('userapi/logout', {}).map((response: Response) => {

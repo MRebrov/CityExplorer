@@ -32,6 +32,8 @@ export class AdminComponent implements OnInit {
   load: boolean = false;
   quests: QuestDTO[] = [];
   reportCountConfig: number = 5;
+  requestUserSent: boolean = false;
+  requestQuestSent: boolean = false;
 
   public lineChartData: Array<any> = [{data: [], label: 'New Users'},];
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -65,31 +67,44 @@ export class AdminComponent implements OnInit {
 
 
   showReportedQuests() {
+    this.load = true;
     this.questService.getReported(this.reportCountConfig)
       .subscribe(
         (quests: QuestDTO[]) => {
           this.quests = quests;
+          console.log("length Q: " + this.quests.length);
         },
         (error) => {
           console.log(error);
+        },
+        () => {
+          this.load = false;
+          this.requestQuestSent = true;
         });
   }
 
   approveQuest(quest) {
-    this.quests.splice(this.quests.indexOf(quest),1);
+    this.load = true;
+    this.quests.splice(this.quests.indexOf(quest), 1);
     this.questService.cancelReports(quest)
       .subscribe((obj: string) => {
-        window.alert(obj);
-      })
+          window.alert(obj);
+        },
+        (error) => console.log(error),
+        () => this.load = false)
   }
 
   banQuest(quest) {
-    this.quests.splice(this.quests.indexOf(quest),1);
+    this.load = true;
+    this.quests.splice(this.quests.indexOf(quest), 1);
     this.questService.banQuest(quest).catch((response: Response) => {
       return Observable.throw(response);
-    }).subscribe((obj: string) => {
-      window.alert(obj);
-    })
+    }).subscribe(
+      (obj: string) => {
+        window.alert(obj);
+      },
+      (error) => console.log(error),
+      () => this.load = false)
   }
 
   // events
@@ -103,15 +118,18 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.userService.getCurrentUser()
-      .subscribe(
-        (user: User) => {
-          if (user.groupID.name != 'Admin') {
-            this.router.navigate(['/login']);
-          }
-
-        }
-      );
+    if (this.userService.authenticated == null || this.userService.authenticated.groupID.name != 'Admin') {
+      this.router.navigate(['/login']);
+    }
+    // this.userService.getCurrentUser()
+    //   .subscribe(
+    //     (user: User) => {
+    //       if (user.groupID.name != 'Admin') {
+    //         this.router.navigate(['/login']);
+    //       }
+    //
+    //     }
+    //   );
     this.userService.getRegistrationStatistics()
       .subscribe(
         (users: any[]) => {
@@ -174,11 +192,15 @@ export class AdminComponent implements OnInit {
         return Observable.throw(response);
       }).subscribe((obj: any[]) => {
           this.users = obj;
+          console.log("length: " + this.users.length);
         },
         (error) => {
           console.log(error);
         },
-        () => this.load = false);
+        () => {
+          this.load = false;
+          this.requestUserSent = true;
+        });
     }
   }
 

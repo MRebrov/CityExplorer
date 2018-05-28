@@ -3,7 +3,7 @@
   font-family: 'Kaushan Script', cursive;
 }
 
-#maplink {
+#maplink, #promotionsLink{
+  color: #ffffff;
   font-family: 'Playfair Display SC', serif;
-  color: white;
 }

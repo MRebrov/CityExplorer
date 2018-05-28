@@ -4,9 +4,8 @@
   font-family: 'Kaushan Script', cursive;
 }
 
-.nav-link {
-  color: white;
+#maplink, #promotionsLink, #userquestsLink, #newquestLink, #newofferLink, #confirmationsLink{
+  color: #ffffff;
   font-family: 'Playfair Display SC', serif;
-
 }
 

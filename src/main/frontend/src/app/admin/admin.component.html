@@ -2,7 +2,7 @@
 <div class="card mt-2 bg-light">
   <div class="card-body">
     <div id="spinner" class="spinner" *ngIf="load">
-      <img id="img-spinner" src="../../assets/markers/loader.gif" alt="Loading"/>
+      <img id="img-spinner" src="../../assets/markers/load.gif" alt="Loading"/>
     </div>
     <div class="color" *ngIf="loading">
       <div class="loaderArea">
@@ -35,7 +35,7 @@
                     <span class="sr-only">Next</span>
                   </a>
                   <h5 class="card-title">Top 1 Quest</h5>
-                  <p class="card-text"><a [routerLink] = "['/questPage', topQuest.questId]">{{topQuest.name}}</a></p>
+                  <p class="card-text"><a [routerLink]="['/questpage',topQuest.questId]">{{topQuest.name}}</a></p>
                   <p class="card-text">{{topQuest.description}}</p>
                 </div>
 
@@ -98,6 +98,12 @@
                   </div>
                 </div>
               </div>
+              <div class="row" *ngIf="requestUserSent && users.length == 0">
+                <div class="col-12">
+                  <i class="fas fa-frown"></i>
+                  No users found
+                </div>
+              </div>
             </div>
           </div>
           <div *ngIf="!userSelected">
@@ -110,10 +116,10 @@
             <button class=" btn btn-info" (click)="showReportedQuests()">Show reported</button>
             <br>
             <div class="list">
-              <div *ngFor="let quest of quests" >
+              <div *ngFor="let quest of quests">
                 <div class="row" style="margin-top: 4px">
                   <div class="col-5">
-                    <a [routerLink] = "['/questpage', quest.questId]">{{quest.name}} </a>
+                    <a [routerLink]="['/questpage', quest.questId]">{{quest.name}} </a>
                   </div>
                   <div class="col-2">
                     Reports: <span class="badge badge-danger">{{quest.reports}}</span>
@@ -125,6 +131,12 @@
                   <div class="col-4 text-center">
                     <button class="btn btn-success" (click)="approveQuest(quest)">Approve</button>
                   </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="requestQuestSent && quests.length == 0">
+                <div class="col-12">
+                  <i class="fas fa-frown"></i>
+                  No quests found
                 </div>
               </div>
             </div>

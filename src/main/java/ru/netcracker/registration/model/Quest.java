@@ -19,7 +19,17 @@ public class Quest {
     private Integer numberOfJoiners;
     private Integer status;
     private Integer reports;
+    private Collection<Report> reportCollection;
 
+
+    @OneToMany(mappedBy = "questId", cascade = CascadeType.PERSIST)
+    public Collection<Report> getReportCollection() {
+        return reportCollection;
+    }
+
+    public void setReportCollection(Collection<Report> reportCollection) {
+        this.reportCollection = reportCollection;
+    }
 
     @Basic
     @Column(name = "reports")
@@ -138,25 +148,34 @@ public class Quest {
 
         Quest quest = (Quest) o;
 
-        if (questId != null ? !questId.equals(quest.questId) : quest.questId != null) return false;
-        if (name != null ? !name.equals(quest.name) : quest.name != null) return false;
-        if (description != null ? !description.equals(quest.description) : quest.description != null) return false;
-        if (uploadDate != null ? !uploadDate.equals(quest.uploadDate) : quest.uploadDate != null) return false;
-        if (reward != null ? !reward.equals(quest.reward) : quest.reward != null) return false;
-        if (numberOfParticipants != null ? !numberOfParticipants.equals(quest.numberOfParticipants) : quest.numberOfParticipants != null) return false;
-        if (numberOfJoiners != null ? !numberOfJoiners.equals(quest.numberOfJoiners) : quest.numberOfJoiners != null) return false;
-        return true;
+        if (!questId.equals(quest.questId)) return false;
+        if (!name.equals(quest.name)) return false;
+        if (!description.equals(quest.description)) return false;
+        if (!uploadDate.equals(quest.uploadDate)) return false;
+        if (!reward.equals(quest.reward)) return false;
+        if (!spotInQuests.equals(quest.spotInQuests)) return false;
+        if (!ownerId.equals(quest.ownerId)) return false;
+        if (!numberOfParticipants.equals(quest.numberOfParticipants)) return false;
+        if (!numberOfJoiners.equals(quest.numberOfJoiners)) return false;
+        if (!status.equals(quest.status)) return false;
+        if (!reports.equals(quest.reports)) return false;
+        return reportCollection.equals(quest.reportCollection);
     }
 
     @Override
     public int hashCode() {
-        int result = questId != null ? questId.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (uploadDate != null ? uploadDate.hashCode() : 0);
-        result = 31 * result + (reward != null ? reward.hashCode() : 0);
-        result = 31 * result + (numberOfParticipants != null ? numberOfParticipants.hashCode() : 0);
-        result = 31 * result + (numberOfJoiners != null ? numberOfJoiners.hashCode() : 0);
+        int result = questId.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + uploadDate.hashCode();
+        result = 31 * result + reward.hashCode();
+        result = 31 * result + spotInQuests.hashCode();
+        result = 31 * result + ownerId.hashCode();
+        result = 31 * result + numberOfParticipants.hashCode();
+        result = 31 * result + numberOfJoiners.hashCode();
+        result = 31 * result + status.hashCode();
+        result = 31 * result + reports.hashCode();
+        result = 31 * result + reportCollection.hashCode();
         return result;
     }
 }

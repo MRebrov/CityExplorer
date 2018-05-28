@@ -2,6 +2,8 @@ package ru.netcracker.registration.service.impl;
 
 import org.hibernate.type.ListType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.netcracker.registration.model.DTO.OfferCategoryDTO;
@@ -42,25 +44,23 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public List<OfferDTO> getOffers(int amount, int portion) {
-        Iterable<Offer> offers = offerRepository.findAll();
+        Page<Offer> offers = offerRepository.findAllByOrderByExpireDateDesc(new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
-        int i = 0;
         for (Offer offer : offers) {
-            if (i >= portion * amount && i < (portion + 1) * amount) {
+            if (isOfferValid(offer) && countOfferItemsLeft(offer) > 0)
                 dtos.add(OfferConverter.convertToDTO(offer));
-            }
-            i++;
         }
         return dtos;
     }
 
     @Override
-    public List<OfferDTO> getOffersByCategory(String categoryName, int amount, int portion) {
-        OfferCategory category = offerCategoryRepository.findOfferCategoryByName(categoryName);
-        List<Offer> offers = offerRepository.findAllByCategory(category);
+    public List<OfferDTO> getOffersByCategory(Long categoryId, int amount, int portion) {
+        OfferCategory category = offerCategoryRepository.findOne(categoryId);
+        Page<Offer> offers = offerRepository.findAllByCategoryOrderByExpireDateDesc(category, new PageRequest(portion, amount));
         List<OfferDTO> dtos = new ArrayList<>();
         for (Offer offer : offers) {
-            dtos.add(OfferConverter.convertToDTO(offer));
+            if (isOfferValid(offer) && countOfferItemsLeft(offer) > 0)
+                dtos.add(OfferConverter.convertToDTO(offer));
         }
         return dtos;
     }
@@ -101,11 +101,18 @@ public class OfferServiceImpl implements OfferService {
     public void purchaseOffer(Long offerId, String email) throws Exception {
         User user = userRepository.findByEmail(email);
         Offer offer = offerRepository.findOne(offerId);
+        if (isOfferPurchased(user, offer)) {
+            throw new Exception("You have already purchased this offer");
+        }
+        if (countOfferItemsLeft(offer) <= 0) {
+            throw new Exception("This offer is sold out");
+        }
+
         if (offer.getPrice() <= user.getBalance()) {
             UserOffer userOffer = new UserOffer();
             userOffer.setOffer(offer);
             userOffer.setUser(user);
-            user.setBalance(user.getBalance()-offer.getPrice());
+            user.setBalance(user.getBalance() - offer.getPrice());
             userOfferRepository.save(userOffer);
             userRepository.save(user);
         } else throw new Exception("Not enough cash to buy offer");
@@ -114,12 +121,31 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void saveOffer(OfferDTO offerDTO, String ownerEmail) throws Exception {
         User user = userRepository.findByEmail(ownerEmail);
-        if (offerDTO.getPrice() <= user.getBusinessBalance()) {
+        Integer creationCost = offerDTO.getPrice() * offerDTO.getAmount();
+        if (creationCost <= user.getBusinessBalance()) {
             Offer offer = OfferConverter.convertToEntity(offerDTO);
             offer.setOwner(user);
-            user.setBusinessBalance(user.getBusinessBalance() - offer.getPrice());
+            user.setBusinessBalance(user.getBusinessBalance() - creationCost);
             userRepository.save(user);
             offerRepository.save(offer);
         } else throw new Exception("Not enough business cash to create offer");
+    }
+
+    private boolean isOfferPurchased(User user, Offer offer) {
+        UserOffer userOffer = userOfferRepository.findUserOfferByUserAndOffer(user, offer);
+        return userOffer != null;
+    }
+
+    private boolean isOfferValid(Offer offer) {
+        org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
+        return offer.getExpireDate().getTime() >= date.toDate().getTime();
+    }
+
+    private Integer countOfferBuyers(Offer offer) {
+        return userOfferRepository.findAllByOffer(offer).size();
+    }
+
+    private Integer countOfferItemsLeft(Offer offer) {
+        return offer.getAmount() - countOfferBuyers(offer);
     }
 }

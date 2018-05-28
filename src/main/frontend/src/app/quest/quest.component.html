@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div id="spinner" class="spinner" *ngIf="loading">
-  <img id="img-spinner" src="../../assets/markers/loader.gif" alt="Loading"/>
+  <img id="img-spinner" src="../../assets/markers/load.gif" alt="Loading"/>
 </div>
 <div class="container-fluid">
   <div class="card mt-2 bg-light">
@@ -36,7 +36,7 @@
               <form id="newQuestForm" novalidate>
                 <div class="form-group">
                   <div class="form-row">
-                    <div class="col-">
+                    <div class="col-9">
                       <label for="questName">Name</label>
                       <input id="name" type="text" class="form-control" id="questName" name="questName" value=""
                              [(ngModel)]="quest.name" required>
@@ -50,7 +50,11 @@
                              min="1"
                       >
                     </div>
-                    <div class="col-5">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-7">
                       <label for="numberOfParticipants">Number of participants</label>
                       <input type="number" class="form-control" id="numberOfParticipants" name="numberOfParticipants"
                              value=""
@@ -58,26 +62,38 @@
                              (change)="calculateCost(quest.reward, quest.numberOfParticipants, spots.length)"
                              required>
                     </div>
+
+
+                    <div class="col-5">
+                      <fieldset disabled>
+                        <label for="questCost">Quest cost:</label>
+                        <input type="text" id="questCost" class="form-control" placeholder="{{cost}}" [(ngModel)]="cost">
+                      </fieldset>
+                    </div>
+
                   </div>
                 </div>
-                <div>
-                  <p>Quest cost: {{cost}} coins</p>
-                </div>
+
+
                 <div>
                   <p>Balance: {{balance}} coins</p>
                 </div>
-                <div id="desc" class="form-group">
-                  <ngb-accordion #acc="ngbAccordion">
-                    <ngb-panel title="Description">
-                      <ng-template ngbPanelContent>
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-12">
+                      <ngb-accordion #acc="ngbAccordion">
+                        <ngb-panel title="Description">
+                          <ng-template ngbPanelContent>
               <textarea rows="8" cols="80" placeholder="Enter a short description for your quest..."
                         class="form-control"
                         id="questDescription" name="questDescription"
                         [(ngModel)]="quest.description" required> </textarea>
 
-                      </ng-template>
-                    </ngb-panel>
-                  </ngb-accordion>
+                          </ng-template>
+                        </ngb-panel>
+                      </ngb-accordion>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
                   <div class="form-row">
@@ -85,7 +101,7 @@
                       <label>Add spot:
                         <button type="button" class="circle-btn btn btn-outline-success" [disabled]="loading"
                                 (click)="addSpotForm()">
-                          +
+                          <i class="fas fa-plus"></i>
                         </button>
                       </label>
                     </div>
@@ -103,29 +119,37 @@
                              (focus)="activateMarker(i)"
                       >
                     </div>
-                    <div class="col-4">
-                      <label for="spotPhoto">Photo</label>
-                      <input type="file"
-                             id="spotPhoto"
-                             class="form-control-file"
-                             name="spotPhoto"
-                             (change)="selectFile($event, i)"
-                             required
-                      >
+                    <div class="col-5">
+                      <label for="file-in" class="label-hidden" style="margin-top: 1rem"></label>
+                      <div class="custom-file" id="file-in">
+                        <label for="file" class="custom-file-label">{{p_label[i]}}</label>
+                        <input type="file"
+                               id="file"
+                               class="custom-file-input"
+                               name="spotPhoto"
+                               (change)="selectFile($event, i)"
+                               required
+                        >
+                        <!--<span class="custom-file-control"></span>-->
+                      </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-1">
                       <label for="uploadBtn" class="label-hidden"> hide </label>
                       <button id="uploadBtn" class="btn btn-info" type="button" [disabled]="!photoAdded[i] || loading"
                               (click)="uploadSpotPhoto(spotName.value,i)">
-                        upload
+                        <i class="fas fa-cloud-upload-alt"></i>
                       </button>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1" style="margin-left: 1em">
                       <label for="deleteBtn"> &nbsp;</label>
                       <button id="deleteBtn" class="btn btn-warning" [disabled]="loading" type="button"
                               (click)="deleteForm(i)">
-                        x
+                        <i class="fas fa-times"></i>
                       </button>
+                    </div>
+                    <div *ngIf="uploaded[i]" class="col-1" style="color: green; margin-left: 0.1em">
+                      <label for="status" class="label-hidden"> d &nbsp;</label>
+                      <i class="fas fa-check" id="status"></i>
                     </div>
                   </div>
                 </div>

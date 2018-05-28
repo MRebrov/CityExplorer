@@ -1,8 +1,8 @@
 <h1 class="display-4 text-center">My purchased offers</h1>
 <div id="cont" *ngIf="purchasedOffers != null && purchasedOffers.length>0; else noDataBlock">
-  <div class="row" *ngFor="let userOffer of purchasedOffers">
-    <div class="col">
-      <div class="card text-white {{(userOffer.offer.expireDate>=date)?'bg-success':'bg-danger'}}">
+  <div class="row">
+    <div class="col-md-4 col-12" *ngFor="let userOffer of purchasedOffers">
+      <div class="card  mb-2 text-white {{(userOffer.offer.expireDate>=date)?'bg-success':'bg-danger'}}">
         <div class="card-header">
           <h5 class="mb-0">{{userOffer.offer.ownerName}}</h5>
         </div>

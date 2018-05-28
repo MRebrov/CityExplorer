@@ -1,3 +1,83 @@
-<p>
-  available-offers works!
-</p>
+<div id="spinner" class="spinner" *ngIf="loading">
+  <img id="img-spinner" src="../../assets/markers/load.gif" alt="Loading"/>
+</div>
+<h1 class="display-4 text-center">Available offers</h1>
+<div class="row">
+  <div class="col">
+    <select class="form-control" id="category_select" #category_select name="category_select"
+            (change)="onItemChanged(category_select.value)"
+            required>
+
+      <option value="-1">All categories</option>
+      <option *ngFor="let category of categories"
+              [value]="category.id"
+      >{{category.name}}
+      </option>
+    </select>
+  </div>
+  <div class="col">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item">
+          <a (click)="prevPage()" class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">{{page}}</a></li>
+        <li class="page-item">
+          <a (click)="nextPage()" class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="col" *ngIf="authUser!=null">
+    <p>Balance:
+      {{authUser.balance}}
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="collapse" id="collapseMessage">
+    <div class="alert alert-primary" role="alert">
+      {{errorMsg}}
+    </div>
+  </div>
+</div>
+<div id="cont" *ngIf="availableOffers != null && availableOffers.length>0; else noDataBlock">
+  <div class="row" >
+    <div class="col-md-4 col-12" *ngFor="let offer of availableOffers">
+      <div class="card mb-2">
+        <div class="card-header">
+          <h5 class="mb-0">{{offer.ownerName}}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{offer.name}}</p>
+          <img class="card-img img-thumbnail" src="{{offer.photoURL}}" alt="">
+          <p class="card-text"><span class="badge badge-dark">{{offer.category.name}}</span></p>
+          <p class="card-text">Price: <span class="badge badge-success">{{offer.price}}</span></p>
+          <p class="card-text">Expires on {{offer.expireDate.toDateString()}}</p>
+          <div class="row justify-content-end" *ngIf="authUser!=null">
+              <button type="button" class="btn btn-warning" (click)="purchaseClick(offer.id)">
+                Purchase
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noDataBlock>
+  <div *ngIf="availableOffers == null; else noOffersBlock">
+
+    <h5>Loading available offers...</h5>
+  </div>
+  <ng-template #noOffersBlock>
+    <h5 align="center">No available offers found</h5>
+  </ng-template>
+</ng-template>

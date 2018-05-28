@@ -26,6 +26,7 @@ export class QuestPageComponent implements OnInit {
   placesLeft: number;
   loading: boolean = false;
   user: User;
+  reported: boolean = false;
 
 
   constructor(private route: ActivatedRoute,
@@ -177,8 +178,10 @@ export class QuestPageComponent implements OnInit {
   reportQuest(questId) {
     this.questService.reportQuest(questId)
       .subscribe((obj: string) => {
-        window.alert(obj);
-      })
+          window.alert(obj);
+        },
+        (error) => console.log(error),
+        () => this.reported = true);
   }
 
 

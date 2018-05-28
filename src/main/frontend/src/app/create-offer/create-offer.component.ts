@@ -20,8 +20,9 @@ export class CreateOfferComponent implements OnInit {
   categories: OfferCategoryDTO[] = [];
   balance: number;
 
-  constructor(private router: Router, private offerService: OffersService, private userService: UserService, private fb: FormBuilder, private questService:QuestService) {
-
+  constructor(private router: Router, private offerService: OffersService, private userService: UserService, private fb: FormBuilder, private questService: QuestService) {
+    this.offer.amount = 0;
+    this.offer.price = 0;
   }
 
   ngOnInit() {
@@ -39,35 +40,35 @@ export class CreateOfferComponent implements OnInit {
   }
 
   submitForm() {
-    if(this.offer.name==null||this.offer.name.length==0){
-      this.writeError("Please write some text for an offer");
+    if (this.offer.name == null || this.offer.name.length == 0) {
+      this.writeError('Please write some text for an offer');
       return;
     }
-    if(this.offer.price==null){
-      this.writeError("Please specify offer price");
+    if (this.offer.price == null) {
+      this.writeError('Please specify offer price');
       return;
     }
-    if(this.offer.category==null){
-      this.writeError("Please specify category");
+    if (this.offer.category == null) {
+      this.writeError('Please specify category');
       return;
     }
-    if(this.balance<this.offer.price){
-      this.writeError("Not enough business cash to create offer");
+    if (this.balance < this.offer.price) {
+      this.writeError('Not enough business cash to create offer');
       return;
     }
-    if(this.offer.photoURL==null){
-      this.writeError("Please choose some photo");
+    if (this.offer.photoURL == null) {
+      this.writeError('Please choose some photo');
       return;
     }
-    if(this.offer.expireDate==null){
-      this.writeError("Please specify offer expire date");
+    if (this.offer.expireDate == null) {
+      this.writeError('Please specify offer expire date');
       return;
     }
 
-    this.offerService.saveOffer(this.offer).subscribe((data:any) => {
+    this.offerService.saveOffer(this.offer).subscribe((data: any) => {
         console.log(data);
-        this.writeError("Offer created successfully");
-        this.offer=new OfferDTO();
+        this.writeError('Offer created successfully');
+        this.offer = new OfferDTO();
       },
       (error) => {
         this.writeError(error);
@@ -79,7 +80,7 @@ export class CreateOfferComponent implements OnInit {
       return Observable.throw(response);
     }).subscribe((data) => {
         console.log(data);
-        this.offer.photoURL=data;
+        this.offer.photoURL = data;
       },
       (error) => {
         console.log(error);
@@ -91,8 +92,14 @@ export class CreateOfferComponent implements OnInit {
     this.errorMsg = error;
   }
 
-  onItemChanged(value){
-    this.offer.category=this.categories.find((a)=>{return a.id==value;});
+  onItemChanged(value) {
+    this.offer.category = this.categories.find((a) => {
+      return a.id == value;
+    });
+  }
+
+  getCreationCost() {
+    return this.offer.amount * this.offer.price;
   }
 
 }

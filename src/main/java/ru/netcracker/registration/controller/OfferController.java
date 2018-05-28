@@ -32,11 +32,11 @@ public class OfferController {
         return ResponseEntity.ok(offers);
     }
 
-    @GetMapping("/get-offers-by-category/{categoryName}/{amount}/{portion}")
+    @GetMapping("/get-offers-by-category/{categoryId}/{amount}/{portion}")
     public @ResponseBody
-    ResponseEntity<?> getOffersByCategory(@PathVariable String categoryName,@PathVariable int amount, @PathVariable int portion) {
+    ResponseEntity<?> getOffersByCategory(@PathVariable Long categoryId,@PathVariable int amount, @PathVariable int portion) {
 
-        List<OfferDTO> offers = offerService.getOffersByCategory(categoryName, amount, portion);
+        List<OfferDTO> offers = offerService.getOffersByCategory(categoryId, amount, portion);
         return ResponseEntity.ok(offers);
     }
 
@@ -117,7 +117,7 @@ public class OfferController {
 
             return ResponseEntity.ok("purchased successfully");
         } catch (Exception e) {
-            return new ResponseEntity<Object>("failed to purchase the offer", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

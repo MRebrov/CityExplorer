@@ -7,6 +7,7 @@ import ru.netcracker.registration.model.DTO.UserProgressDTO;
 import ru.netcracker.registration.model.Photo;
 import ru.netcracker.registration.model.Quest;
 import ru.netcracker.registration.model.User;
+import ru.netcracker.registration.other.exception.ReportException;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface QuestService {
     void setConfirmation(String email, Long userSpotProgressId, Boolean confirm) throws Exception;
     QuestDTO getTopQuest();
     Quest getEntityById(Long id);
-    void reportQuest(Long id);
+    void reportQuest(Long questId, String userMail) throws ReportException;
     void approve(Long id);
     void ban(Long id);
     List<QuestDTO> getReported(Integer reportCount);
