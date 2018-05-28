@@ -9,7 +9,10 @@ import ru.netcracker.registration.model.UserOffer;
 import java.util.List;
 
 @Repository
-public interface UserOfferRepository extends CrudRepository<UserOffer,Long>{
+public interface UserOfferRepository extends CrudRepository<UserOffer, Long> {
     List<UserOffer> findAllByUser(User user);
+
     UserOffer findUserOfferByUserAndOffer(User user, Offer offer);
+
+    List<UserOffer> findAllByOffer(Offer offer);
 }
