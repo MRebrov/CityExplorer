@@ -10,18 +10,18 @@
         <form [formGroup]="form" id="regForm" novalidate>
           <div class="row">
             <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['firstName'].valid}">
-              <label id="name" for="firstName">First name</label>
+              <label id="name" for="firstName">{{isBusiness?'Company':'First'}} name</label>
               <input type="text" class="form-control" id="firstName" name="firstName" value=""
                      [formControl]="form.controls['firstName']"
               >
               <div *ngIf="form.controls['firstName'].hasError('required') &&
                         form.controls['firstName'].touched" class="alert alert-danger">
-                You must enter a first name.
+                You must enter a {{isBusiness?'Company':'First'}} name.
               </div>
               <!--[(ngModel)]="user.firstName" -->
               <!--required -->
             </div>
-            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['lastName'].valid}">
+            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['lastName'].valid}" *ngIf="!isBusiness">
               <label for="lastName">Last name</label>
               <input type="text" class="form-control" id="lastName" name="lastName"
                      [formControl]="form.controls['lastName']"
@@ -29,8 +29,6 @@
               <!--[(ngModel)]="user.lastName" -->
               <!--required-->
             </div>
-          </div>
-          <div class="row">
             <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['email'].valid}">
               <label for="email">Email address</label>
               <input type="email" class="form-control" id="email" name="email"
@@ -49,7 +47,7 @@
             <!--<div *ngIf="isValidMail(user.email)">-->
 
             <!--</div>-->
-            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['birthdate'].valid}">
+            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['birthdate'].valid}" *ngIf="!isBusiness">
               <label for="birthday">Birthday</label>
               <input type="date" class="form-control" id="birthday" name="birthday"
                      [formControl]="form.controls['birthdate']"
@@ -58,8 +56,6 @@
               <!--[(ngModel)]="user.birthday" -->
               <!--required-->
             </div>
-          </div>
-          <div class="row">
             <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['password'].valid}">
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" name="password"
@@ -98,6 +94,12 @@
                 [barLabel]="barLabel"
                 [barColors]="myColors">
               </ng2-password-strength-bar>
+            </div>
+            <div class="col-6">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" (change)="checked($event)" class="custom-control-input" id="account-type-check">
+                <label class="custom-control-label" for="account-type-check">Business account</label>
+              </div>
             </div>
           </div>
         </form>
