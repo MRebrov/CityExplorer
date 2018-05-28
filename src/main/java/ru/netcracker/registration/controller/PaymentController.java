@@ -41,9 +41,9 @@ public class PaymentController {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(hashable.getBytes());
             byte[] digest = md.digest();
-            String hashtext = DatatypeConverter.printHexBinary(digest).toLowerCase();
-            if (hashtext.equals(signatureValue)) {
-                UserDTO userDTO = userService.get(invId);
+            String hashtext = DatatypeConverter.printHexBinary(digest);
+            if (hashtext.compareToIgnoreCase(signatureValue)==0) {
+                UserDTO userDTO = userService.get(Integer.valueOf(invId));
                 if (userDTO != null && userDTO.getGroupID().getName().equals("Business")) {
                     userDTO.setBalance(userDTO.getBalance() + Double.valueOf(outSum).longValue());
                     userService.editPersonalInfo(userDTO);
