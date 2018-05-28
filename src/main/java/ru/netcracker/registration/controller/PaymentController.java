@@ -46,7 +46,7 @@ public class PaymentController {
             System.out.println("Calculated hash: "+hashtext);
             if (hashtext.compareToIgnoreCase(signatureValue)==0) {
                 System.out.println("Hashes match");
-                UserDTO userDTO = userService.get(invId);
+                UserDTO userDTO = userService.get(Integer.valueOf(invId));
                 System.out.println("User got");
                 if (userDTO != null && userDTO.getGroupID().getName().equals("Business")) {
                     System.out.println("User is business");
