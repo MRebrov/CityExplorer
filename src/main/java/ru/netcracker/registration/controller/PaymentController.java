@@ -42,11 +42,16 @@ public class PaymentController {
             md.update(hashable.getBytes());
             byte[] digest = md.digest();
             String hashtext = DatatypeConverter.printHexBinary(digest).toLowerCase();
+            System.out.println("Received hash: "+signatureValue);
+            System.out.println("Calculated hash: "+hashtext);
             if (hashtext.equals(signatureValue)) {
                 UserDTO userDTO = userService.get(invId);
+                System.out.println("User got");
                 if (userDTO != null && userDTO.getGroupID().getName().equals("Business")) {
+                    System.out.println("User is business");
                     userDTO.setBalance(userDTO.getBalance() + Double.valueOf(outSum).longValue());
                     userService.editPersonalInfo(userDTO);
+                    System.out.println("User saved");
                 }
             }
             return ResponseEntity.ok("ok");
