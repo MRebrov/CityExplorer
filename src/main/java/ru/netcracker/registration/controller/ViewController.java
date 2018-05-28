@@ -3,16 +3,26 @@ package ru.netcracker.registration.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.netcracker.registration.other.ScheduledTasts;
+import ru.netcracker.registration.other.TaskPrint;
 import ru.netcracker.registration.security.service.SecurityService;
+
+import java.util.concurrent.ScheduledFuture;
 
 @Controller
 public class ViewController {
     @Autowired
     private SecurityService securityService;
+
+
+    @Autowired
+    ScheduledTasts tasts;
 
     @RequestMapping(value = "/userquests")
     public String quests() {
@@ -26,6 +36,7 @@ public class ViewController {
 
     @RequestMapping(value = "/mainpage")
     public String mainpage() {
+        tasts.change(new TaskPrint("from main page"));
         return "forward:/index.html";
     }
 

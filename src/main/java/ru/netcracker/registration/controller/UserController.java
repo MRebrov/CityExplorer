@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.model.converter.UserConverter;
+import ru.netcracker.registration.other.ScheduledTasts;
+import ru.netcracker.registration.other.TaskPrint;
 import ru.netcracker.registration.security.TokenUtils;
 import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.mail.mailer.GmailSender;
@@ -38,6 +40,7 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+
     private List<User> allUsers = new ArrayList<>();
     public UserController(UserService service) {
         userService = service;
@@ -47,7 +50,7 @@ public class UserController {
     @GetMapping("/get/statistics")
     public @ResponseBody
     Iterable<Integer> getStatistics(){
-
+//        tasks.change(new TaskPrint("from userapi=-=-=-=-=-=-=-=-=-=-=-"));
         return userService.getAllMappedByRegistrationDate(allUsers);
     }
 
