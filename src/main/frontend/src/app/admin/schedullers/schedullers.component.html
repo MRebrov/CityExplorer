@@ -1,0 +1,77 @@
+<h1 class="display-4 text-center">Scheduled tasks</h1>
+
+<div class="container">
+  <table class="table table-hover" *ngIf="forms.length != 0">
+    <thead>
+    <tr>
+      <th>
+        #
+      </th>
+
+      <th>
+        Task
+      </th>
+
+      <th>
+        Execution date-time
+      </th>
+
+      <th>
+        Option
+      </th>
+
+      <th>
+
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let form of forms; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{form.task}}</td>
+      <td>{{form.execution}}</td>
+      <td>{{form.option}}</td>
+      <td>
+        <button class="btn btn-warning" (click)="deleteFromTable(i)">
+          <i class="fas fa-times"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="form-group">
+    <div class="form-row">
+      <div class="form-group col-4">
+        <label for="actions">Task:</label>
+        <select class="form-control" id="actions" [(ngModel)] = "toAdd.task">
+          <option *ngFor="let opt of opts" [value]="opt" >{{opt}}</option>
+        </select>
+      </div>
+      <div class="form-group col-5">
+        <label for="date">Execution date-time:</label>
+        <input type="datetime-local" id="date" class="form-control" [(ngModel)]="toAdd.execution">
+      </div>
+      <div class="form-group col-2">
+        <label>Option:</label>
+        <switch
+          [status]="reportSelected"
+          [onText]="'Report'"
+          [offText]="'Clear'"
+          [onColor]="'blue'"
+          [offColor]="'sky-blue'"
+          (statusChange)="changeSwitch($event)">
+        </switch>
+      </div>
+      <div class="col-1">
+        <label for="plus" class="label-hide">hidden</label>
+        <button id="plus" type="button" class="circle-btn btn btn-outline-success" [disabled]="loading"
+                (click)="addSpotForm()">
+          <i class="fas fa-plus"></i>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>

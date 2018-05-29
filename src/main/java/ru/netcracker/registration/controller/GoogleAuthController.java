@@ -16,6 +16,8 @@ import ru.netcracker.registration.security.service.SecurityService;
 import ru.netcracker.registration.service.impl.UserGroupService;
 import ru.netcracker.registration.service.impl.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/googleauth")
 public class GoogleAuthController {
@@ -164,18 +166,20 @@ public class GoogleAuthController {
     }
 
     @GetMapping("/authenticate")
-    public String googleAuth(@RequestParam(value = "code") String code) {
+    public String googleAuth(@RequestParam(value = "code") String code, HttpServletRequest httpServletRequest) {
         try {
             String url = "https://accounts.google.com/o/oauth2/token";
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            String currentUrl=httpServletRequest.getRequestURL().toString();
 
             MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
             map.add("code", code);
             map.add("client_id", client_id);
             map.add("client_secret", client_secret);
             map.add("grant_type", "authorization_code");
-            map.add("redirect_uri", "https://localhost:8080/googleauth/authenticate");
+            map.add("redirect_uri", currentUrl);
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 

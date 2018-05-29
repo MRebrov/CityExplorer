@@ -66,6 +66,20 @@ public class UserService {
         }
     }
 
+    public void addBusinessUser(UserDTO userDTO) throws Exception{
+        if (repository.findByEmail(userDTO.getEmail()) == null) {
+            userDTO.setBalance(0L);
+            userDTO.setBusinessBalance(0L);
+            userDTO.setReports(0);
+            userDTO.setLastName("Company");
+            userDTO.setBirthday("1990-1-1");
+            User entity = UserConverter.convertToEntity(userDTO);
+            repository.save(entity);
+        } else {
+            throw new Exception("User with such email is already registered");
+        }
+    }
+
     /**
      * Найти пользователя по ID
      *

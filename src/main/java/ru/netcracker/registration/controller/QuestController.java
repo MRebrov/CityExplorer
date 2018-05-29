@@ -120,9 +120,9 @@ public class QuestController {
         User user = userService.getByEmail(email);
         questService.save(questDTO, user);
         try {
-            return ResponseEntity.ok("added successfully");
+            return ResponseEntity.ok("Quest created successfully");
         } catch (Exception e) {
-            return new ResponseEntity<Object>("failed to add the quest", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>("Failed to create the quest", HttpStatus.BAD_REQUEST);
         }
     }
 

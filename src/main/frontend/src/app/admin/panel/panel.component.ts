@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from "../user/user.service";
-import {User} from "../user/user.model";
+import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs/Observable";
+import {QuestDTO} from "../../quest/quest.model";
+import {User} from "../../user/user.model";
+import {SecurityService} from "../../security/security.service";
 import {Router} from "@angular/router";
-import {QuestService} from "../quest/quest.service";
-import {QuestDTO} from "../quest/quest.model";
-import {SecurityService} from "../security/security.service";
-import {Observable} from "rxjs";
+import {QuestService} from "../../quest/quest.service";
+import {UserService} from "../../user/user.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-panel',
+  templateUrl: './panel.component.html',
+  styleUrls: ['./panel.component.css']
 })
-export class AdminComponent implements OnInit {
+export class PanelComponent implements OnInit {
 
   constructor(private securityService: SecurityService,
               private router: Router,

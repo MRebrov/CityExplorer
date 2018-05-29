@@ -40,6 +40,21 @@ public class ViewController {
         return "forward:/index.html";
     }
 
+    @RequestMapping(value = "/newquest")
+    public String newquest() {
+        return "forward:/index.html";
+    }
+
+    @RequestMapping(value = "/newoffer")
+    public String newoffer() {
+        return "forward:/index.html";
+    }
+
+    @RequestMapping(value = "/offers")
+    public String offers() {
+        return "forward:/index.html";
+    }
+
     @RequestMapping(value = "/finishgoogleauth/*")
     public String finishGoogleAuth() {
         return "forward:/index.html";

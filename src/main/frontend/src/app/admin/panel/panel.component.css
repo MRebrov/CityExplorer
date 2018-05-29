@@ -2,7 +2,11 @@
   color: #000000;
   font-family: 'Vollkorn', cursive;
 }
-
+.list{
+  margin-top: 2em;
+  overflow: auto;
+  height: 90vh;
+}
 .spinner {
   position: fixed;
   top: 50%;
