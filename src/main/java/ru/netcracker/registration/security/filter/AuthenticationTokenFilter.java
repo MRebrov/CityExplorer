@@ -38,7 +38,7 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
 
         HttpServletResponse resp = (HttpServletResponse) response;
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE");
         resp.setHeader("Access-Control-Max-Age", "3600");
         resp.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, " + TokenUtils.tokenHeader);
 
