@@ -44,9 +44,10 @@ p {
 }
 
 .menu_area #nav .nav-link{
-  color: #fff;
+  color: #F5F5F5;
+  font-family: 'Merriweather', serif;
   display: block;
-  font-size: 15px;
+  font-size: 21px;
   font-weight: 500;
   border-radius: 30px;
   -webkit-transition-duration: 500ms;
