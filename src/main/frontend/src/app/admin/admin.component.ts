@@ -20,8 +20,8 @@ export class AdminComponent implements OnInit {
               private userService: UserService) {
   }
 
-  user: User = new User('', '', '', '', '', '', 0, null, 0);
-  topQuest: QuestDTO = new QuestDTO('', '', null, 0, 0, 0);
+  user: User = new User('', '', '', '', '', '', 0, null,0);
+  topQuest: QuestDTO = new QuestDTO('', '', null, 0, 0, 0, 0);
   loading: boolean = false;
   countUsersByMonths: number[] = [];
   obj: any;

@@ -103,6 +103,7 @@ export class UserService {
 
   logout() {
     this._isAuthenticatedSubject.next(false);
+    this.authenticated=null;
     localStorage.removeItem('id_token');
     this.stompClient.disconnect();
     return this.http.post('userapi/logout', {}).map((response: Response) => {

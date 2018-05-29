@@ -29,7 +29,7 @@ export class QuestComponent implements OnInit {
   map: any;
   forms: Array<number> = [];
   errorMsg: string;
-  quest: QuestDTO = new QuestDTO('', '', null, 0, 10, 0);
+  quest: QuestDTO = new QuestDTO('', '', null, 0, 10, 0, 0);
   photos: FileList;
   questPhotos: File[] = [];
   progress: { percentage: number } = {percentage: 0};
@@ -255,7 +255,7 @@ export class QuestComponent implements OnInit {
     }).subscribe((data) => {
       this.writeMsg(data);
     });
-    this.quest = new QuestDTO('', '', null, 0, 10, 0);
+    this.quest = new QuestDTO('', '', null, 0, 10, 0, 0);
     this.spots = [];
     this.questPhotos = [];
     this.markers = [];

@@ -73,6 +73,8 @@
         </div>
         <div id="size" class="col-sm-12 col-md-4" *ngIf="quests.length>0; else noQuestsBlock">
           <h5 id="questnea">Quests nearby</h5>
+          <label class="radio-inline"><input type="radio" name="optradio" checked="true" (click)="sortByPopularity()">By popularity</label>
+          <label class="radio-inline"><input type="radio" name="optradio" (click)="sortByReward()">By reward</label>
           <div id="accordion">
             <div class="card" *ngFor="let quest of quests">
               <div class="card-header" [id]="'heading'+quest.name">
@@ -97,7 +99,7 @@
                     photos</p>
                   <div class="row">
                     <div class='col-8'>
-                      Reward: <span class="badge badge-warning">{{quest.reward}}</span> points
+                      Reward: <span class="badge badge-warning">{{quest.reward}} q.</span> points
                     </div>
                     <div class="col-4">
                       <button type="button" [routerLink]="['/questpage', quest.questId]"

@@ -263,26 +263,39 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
+    public void userCloseQuest(Long questId) {
+        Quest quest = questRepository.findOne(questId);
+        String ownerEmail = quest.getOwnerId().getEmail();
+        List<SpotConfirmationDTO> confirmationDTOS = getSpotConfirmationsForOwner(ownerEmail);
+        if (confirmationDTOS.isEmpty() && (isQuestActive(quest) || isQuestInvisible(quest))) {
+            quest.setStatus(2);
+        }
+        questRepository.save(quest);
+    }
+
+    @Override
     public void userCompleteSpot(String email, Long questId, Long spotId) {
         SpotInQuest spotInQuest = spotInQuestService.getBySpotAndQuest(spotId, questId);
         User user = userRepository.findByEmail(email);
         Quest quest = questRepository.findOne(questId);
         UserProgress userProgress = userProgressRepository.findByUserByUserIdAndAndQuestByQuestId(user, quest);
 
-        Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        UserSpotProgress userSpotProgress = new UserSpotProgress();
-        userSpotProgress.setDateComplete(currentDate);
-        userSpotProgress.setSpotsInQuestsBySpotInQuestId(spotInQuest);
-        userSpotProgress.setSpotStatus("Unconfirmed");
-        userSpotProgress.setUserProgressByUserProgressId(userProgress);
+        if (quest.getStatus() < 2) {
+            Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            UserSpotProgress userSpotProgress = new UserSpotProgress();
+            userSpotProgress.setDateComplete(currentDate);
+            userSpotProgress.setSpotsInQuestsBySpotInQuestId(spotInQuest);
+            userSpotProgress.setSpotStatus("Unconfirmed");
+            userSpotProgress.setUserProgressByUserProgressId(userProgress);
 
-        userSpotProgressRepository.save(userSpotProgress);
+            userSpotProgressRepository.save(userSpotProgress);
 
-        messagingTemplate.convertAndSendToUser(
-                quest.getOwnerId().getEmail(),
-                "/confirmation",
-                "Somebody has completed spot in your quest. Check confirmations page"
-        );
+            messagingTemplate.convertAndSendToUser(
+                    quest.getOwnerId().getEmail(),
+                    "/confirmation",
+                    "Somebody has complete spot in your quest. Check confirmations page"
+            );
+        }
     }
 
     public List<SpotConfirmationDTO> getSpotConfirmationsForOwner(String email) {

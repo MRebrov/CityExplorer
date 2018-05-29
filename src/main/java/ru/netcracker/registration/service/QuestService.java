@@ -35,4 +35,5 @@ public interface QuestService {
     void approve(Long id);
     void ban(Long id);
     List<QuestDTO> getReported(Integer reportCount);
+    void userCloseQuest(Long questId);
 }
