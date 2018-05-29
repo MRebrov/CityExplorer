@@ -6,7 +6,9 @@
   <div class="card mt-2 bg-light">
     <div class="card-body">
       <h5 id="questpage" class="display-4 text-center">Quest page</h5>
-      <div *ngIf="quest.uploadDate!=null; else loadingBlock">
+      <div *ngIf="quest.status!=3; else bannedBlock">
+      <div *ngIf="quest.status!=2; else closedBlock">
+      <div *ngIf="quest.uploadDate!=null && quest.status < 2; else loadingBlock">
 
         <div class="card">
           <div id="tests" class="card-body">
@@ -31,24 +33,24 @@
             <p class="card-text">
               Created on {{quest.uploadDate.toDateString()}}
             </p>
-            <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name != 'Admin'">
+            <p class="card-text" *ngIf="user!=null && user.id != quest.owner.id && user.groupID.name != 'Admin'">
               Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName}}</a>
               <button class="btn btn-warning" [disabled] = "reported" (click)="reportQuest(quest.questId)">
                 Report quest
               </button>
             </p>
 
-            <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name == 'Admin'">
+            <p class="card-text" *ngIf="user!=null && user.id != quest.owner.id && user.groupID.name == 'Admin'">
               Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName}}</a>
               <button class="btn btn-warning" (click)="banQuest(quest.questId)">
                 Ban quest
               </button>
             </p>
 
-            <p class="card-text" *ngIf="user.id == quest.owner.id">
+            <p class="card-text" *ngIf="user!=null && user.id == quest.owner.id">
               Created by You
             </p>
-            <p class="card-text" *ngIf="user.id == quest.owner.id">
+            <p class="card-text" *ngIf="user!=null && user.id == quest.owner.id">
               <span class="badge badge-warning"> You cannot report your own quest!</span>
             </p>
 
@@ -59,6 +61,14 @@
               </button>
 
             </div>
+
+            <div *ngIf="user!=null && user.id == quest.owner.id && quest.status < 2">
+              <button type="button" class="btn btn-success"
+                      (click)="closeQuest()">
+                Close
+              </button>
+            </div>
+
             <ng-template #progressBlock>
               <div *ngIf="userProgress.dateComplete==null; else completedBlock">
                 <div class="alert alert-primary col-md-8 col-sm-12" role="alert">
@@ -180,10 +190,19 @@
           </div>
         </div>
       </div>
+      </div>
+      </div>
 
       <ng-template #loadingBlock>
         <h5>Loading quest info...</h5>
       </ng-template>
+      <ng-template #closedBlock>
+        <h5>Quest is closed</h5>
+      </ng-template>
+      <ng-template #bannedBlock>
+        <h5>Quest is banned</h5>
+      </ng-template>
     </div>
   </div>
 </div>
+

@@ -104,10 +104,6 @@ export class QuestService {
       for (let quest of this.quests) {
         quest.uploadDate = new Date(quest.uploadDate);
       }
-      this.quests.sort((a, b) => {
-        return this.howManyUserPhotosInQuest(b) -
-          this.howManyUserPhotosInQuest(a);
-      });
     });
   }
 
@@ -207,7 +203,9 @@ export class QuestService {
   }
 
   closeQuest(questId: number) {
-
+    return this.authHttp.get('userapi/close-quest/' + questId, {}).map((response: Response) => {
+      return response;
+    })
   }
 
   postSpotPhoto(url: string, questId: number, spotId: number) {
