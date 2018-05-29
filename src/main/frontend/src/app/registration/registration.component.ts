@@ -35,6 +35,7 @@ export class RegistrationComponent implements OnInit {
       'password': [null, Validators.compose([Validators.minLength(4),
         Validators.maxLength(24),
         Validators.required])],
+
       'confirmPassword': [null, Validators.required],
       'birthdate': '',
       'lastName': '',

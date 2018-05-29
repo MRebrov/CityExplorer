@@ -21,7 +21,7 @@ export class PanelComponent implements OnInit {
   }
 
   user: User = new User('', '', '', '', '', '', 0, null, 0);
-  topQuest: QuestDTO = new QuestDTO('', '', null, 0, 0, 0);
+  topQuest: QuestDTO = new QuestDTO('', '', null, 0, 0, 0, 0);
   loading: boolean = false;
   countUsersByMonths: number[] = [];
   obj: any;

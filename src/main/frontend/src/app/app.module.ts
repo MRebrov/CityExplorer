@@ -46,6 +46,7 @@ import {OffersService} from './offers/offers.service';
 import { SchedullersComponent } from './admin/schedullers/schedullers.component';
 import { PanelComponent } from './admin/panel/panel.component';
 import { ReportsComponent } from './admin/reports/reports.component';
+import {SchedullerService} from "./admin/schedullers/scheduller.service";
 
 
 
@@ -100,7 +101,7 @@ import { ReportsComponent } from './admin/reports/reports.component';
     BrowserAnimationsModule
   ],
   bootstrap: [AppComponent],
-  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService, OffersService],
+  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService, OffersService, SchedullerService],
   //entryComponents: [InputFormComponent]
 })
 export class AppModule {

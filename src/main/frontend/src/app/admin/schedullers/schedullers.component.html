@@ -19,9 +19,8 @@
       <th>
         Option
       </th>
-
       <th>
-
+        Status
       </th>
     </tr>
     </thead>
@@ -31,11 +30,13 @@
       <td>{{form.task}}</td>
       <td>{{form.execution}}</td>
       <td>{{form.option}}</td>
-      <td>
-        <button class="btn btn-warning" (click)="deleteFromTable(i)">
-          <i class="fas fa-times"></i>
-        </button>
+      <td *ngIf="form.finished" style="color: green;">
+        <i class="fas fa-check"></i>
       </td>
+      <td *ngIf="!form.finished">
+        <i class="fas fa-spinner"></i>
+      </td>
+
     </tr>
     </tbody>
   </table>
@@ -65,7 +66,7 @@
       </div>
       <div class="col-1">
         <label for="plus" class="label-hide">hidden</label>
-        <button id="plus" type="button" class="circle-btn btn btn-outline-success" [disabled]="loading"
+        <button id="plus" type="button" class="circle-btn btn btn-outline-success"
                 (click)="addSpotForm()">
           <i class="fas fa-plus"></i>
         </button>

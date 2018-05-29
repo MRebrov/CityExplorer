@@ -1,5 +1,6 @@
 package ru.netcracker.registration.service.impl;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import ru.netcracker.registration.service.SpotService;
 
 import javax.jws.soap.SOAPBinding;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -271,6 +275,52 @@ public class QuestServiceImpl implements QuestService {
             quest.setStatus(2);
         }
         questRepository.save(quest);
+    }
+
+    @Override
+    public List<Quest> findInactive() {
+
+        List<Quest> res = new ArrayList<>();
+        List<Quest> quests = (List<Quest>) questRepository.findAllByStatusEquals(0);
+        for(Quest q: quests){
+            List<SpotInQuest> spotInQuests = (List<SpotInQuest>) q.getSpotInQuests();
+            for(SpotInQuest spot: spotInQuests){
+                if(ChronoUnit.DAYS.between(LocalDate.now(), (Temporal) spot.getSpotBySpotId().getUploadDate())>20){
+                    List<UserSpotProgress> usp = (List<UserSpotProgress>) spot.getUserSpotProgressesBySpotsInQuestsId();
+                    for(UserSpotProgress progress: usp){
+                        if(progress.getSpotStatus().equals("Unconfirmed")){
+                            res.add(q);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+
+
+    @Override
+    public List<Quest> findSuspicious() {
+        List<Quest> res = new ArrayList<>();
+        List<Quest> quests = (List<Quest>) questRepository.findAllByStatusEquals(0);
+        for (Quest q: quests){
+            if((q.getSpotInQuests().size()<3||q.getNumberOfParticipants()>40) && q.getReward() > 100){
+                res.add(q);
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public void deleteOdd() {
+        questRepository.deleteAllByStatusGreaterThanEqual(3);
+    }
+
+    @Override
+    public void deleteIterable(Iterable<Quest> quests) {
+        questRepository.delete(quests);
     }
 
     @Override

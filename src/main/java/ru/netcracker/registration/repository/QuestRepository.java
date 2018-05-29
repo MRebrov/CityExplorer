@@ -13,4 +13,6 @@ public interface QuestRepository extends CrudRepository<Quest, Long> {
     List<Quest> findAllByName(String name);
     List<Quest> findAllByOwnerId(User owner);
     List<Quest> findAllByReportsGreaterThanEqual(Integer reports);
+    List<Quest> findAllByStatusEquals(Integer status);
+    void deleteAllByStatusGreaterThanEqual(Integer status);
 }
