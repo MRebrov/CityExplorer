@@ -21,6 +21,13 @@ export class PurchasedOffersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadOffers();
+    document.getElementById("nav-profile-tab").addEventListener("click",()=>{
+      this.loadOffers();
+    });
+  }
+
+  loadOffers(){
     this.offerService.getMyOffers().subscribe(
       (offers: any[]) => {
         this.purchasedOffers = offers;
