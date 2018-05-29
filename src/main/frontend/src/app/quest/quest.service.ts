@@ -104,10 +104,6 @@ export class QuestService {
       for (let quest of this.quests) {
         quest.uploadDate = new Date(quest.uploadDate);
       }
-      this.quests.sort((a, b) => {
-        return this.howManyUserPhotosInQuest(b) -
-          this.howManyUserPhotosInQuest(a);
-      });
     });
   }
 

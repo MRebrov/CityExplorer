@@ -33,24 +33,24 @@
             <p class="card-text">
               Created on {{quest.uploadDate.toDateString()}}
             </p>
-            <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name != 'Admin'">
+            <p class="card-text" *ngIf="user!=null && user.id != quest.owner.id && user.groupID.name != 'Admin'">
               Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName}}</a>
               <button class="btn btn-warning" [disabled] = "reported" (click)="reportQuest(quest.questId)">
                 Report quest
               </button>
             </p>
 
-            <p class="card-text" *ngIf="user.id != quest.owner.id && user.groupID.name == 'Admin'">
+            <p class="card-text" *ngIf="user!=null && user.id != quest.owner.id && user.groupID.name == 'Admin'">
               Created by <a routerLink="/user/{{quest.owner.id}}">{{quest.owner.firstName}}</a>
               <button class="btn btn-warning" (click)="banQuest(quest.questId)">
                 Ban quest
               </button>
             </p>
 
-            <p class="card-text" *ngIf="user.id == quest.owner.id">
+            <p class="card-text" *ngIf="user!=null && user.id == quest.owner.id">
               Created by You
             </p>
-            <p class="card-text" *ngIf="user.id == quest.owner.id">
+            <p class="card-text" *ngIf="user!=null && user.id == quest.owner.id">
               <span class="badge badge-warning"> You cannot report your own quest!</span>
             </p>
 
@@ -62,7 +62,7 @@
 
             </div>
 
-            <div *ngIf="user.id == quest.owner.id && quest.status < 2">
+            <div *ngIf="user!=null && user.id == quest.owner.id && quest.status < 2">
               <button type="button" class="btn btn-success"
                       (click)="closeQuest()">
                 Close

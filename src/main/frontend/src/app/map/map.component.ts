@@ -47,6 +47,7 @@ export class MapComponent implements OnInit {
       console.log('Using pre-loaded quests');
       this.quests = this.questService.getLoadedQuests();
 
+      this.sortByPopularity();
       let collapseDist = this.evaluateCollapseDist(this.gm.zoom);
       this.updateMarkers(collapseDist);
     }
@@ -98,10 +99,28 @@ export class MapComponent implements OnInit {
       this.quests = this.questService.getLoadedQuests();
       console.log('Quests for current position loaded successfully');
 
+      this.sortByPopularity();
       let collapseDist = this.evaluateCollapseDist(this.gm.zoom);
       this.updateMarkers(collapseDist);
     });
 
+  }
+
+  sortByPopularity() {
+    if (this.quests != null) {
+      this.quests.sort((a, b) => {
+        return this.questService.howManyUserPhotosInQuest(b) -
+          this.questService.howManyUserPhotosInQuest(a);
+      });
+    }
+  }
+
+  sortByReward() {
+    if (this.quests != null) {
+      this.quests.sort((a, b) => {
+        return b.reward - a.reward
+      });
+    }
   }
 
   updateMarkers(collapseDist: number) {
