@@ -60,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/userapi/get/all/**").hasAuthority("Admin")
-                .antMatchers("/admin").hasAuthority("Admin")
                 .antMatchers("/userapi/ban").hasAuthority("Admin")
                 .antMatchers("/userapi/get/**", "/userapi/delete/**", "/userapi/edit/**").authenticated()
                 .anyRequest().permitAll();

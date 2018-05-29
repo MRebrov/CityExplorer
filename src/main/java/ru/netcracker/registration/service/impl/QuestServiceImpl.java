@@ -76,8 +76,7 @@ public class QuestServiceImpl implements QuestService {
             report.setQuestId(quest);
             report.setUserId(user);
             reportRepository.save(report);
-        }
-        else {
+        } else {
             throw new ReportException("Report has been already send");
         }
     }
@@ -340,20 +339,22 @@ public class QuestServiceImpl implements QuestService {
     @Override
     public QuestDTO getTopQuest() {
 
-
-        List<User> users = (List<User>) userRepository.findAll();
         Map<Quest, Integer> takenQuests = new HashMap<>();
         List<UserProgress> progress = (List<UserProgress>) userProgressRepository.findAll();
-        for (UserProgress up : userProgressRepository.findAll()) {
-            if (up.getDateComplete() != null) {
+        if (progress.isEmpty()){
+            QuestDTO questDTO = QuestConverter.convertToDTO(questRepository.findOne(37L));
+            return questDTO;
+        }
+            for (UserProgress up : progress) {
+                if (up.getDateComplete() != null) {
 //                QuestDTO quest = QuestConverter.convertToDTO(up.getQuestByQuestId());
-                if (takenQuests.containsKey(up.getQuestByQuestId())) {
-                    takenQuests.put(up.getQuestByQuestId(), takenQuests.get(up.getQuestByQuestId()) + 1);
-                } else {
-                    takenQuests.put(up.getQuestByQuestId(), 1);
+                    if (takenQuests.containsKey(up.getQuestByQuestId())) {
+                        takenQuests.put(up.getQuestByQuestId(), takenQuests.get(up.getQuestByQuestId()) + 1);
+                    } else {
+                        takenQuests.put(up.getQuestByQuestId(), 1);
+                    }
                 }
             }
-        }
 
 //        for (User u : users) {
 //            List<UserProgressDTO> userQuests = getUserProgressByUser(u.getEmail());
