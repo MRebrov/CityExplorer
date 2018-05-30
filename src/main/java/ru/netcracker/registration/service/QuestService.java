@@ -36,4 +36,8 @@ public interface QuestService {
     void ban(Long id);
     List<QuestDTO> getReported(Integer reportCount);
     void userCloseQuest(Long questId);
+    List<Quest> findInactive();
+    List<Quest> findSuspicious();
+    void deleteOdd();
+    void deleteIterable(Iterable<Quest> quests);
 }

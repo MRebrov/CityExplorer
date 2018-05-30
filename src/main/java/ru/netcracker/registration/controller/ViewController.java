@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.netcracker.registration.other.ScheduledTasks;
+import ru.netcracker.registration.other.TaskPrint;
 import ru.netcracker.registration.security.service.SecurityService;
 
 @Controller
 public class ViewController {
     @Autowired
     private SecurityService securityService;
+
 
     @RequestMapping(value = "/userquests")
     public String quests() {

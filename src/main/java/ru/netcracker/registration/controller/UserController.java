@@ -3,16 +3,15 @@ package ru.netcracker.registration.controller;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.netcracker.registration.mail.mailer.NetcrackerMailCredentials;
 import ru.netcracker.registration.model.User;
 import ru.netcracker.registration.model.converter.UserConverter;
 import ru.netcracker.registration.security.TokenUtils;
 import ru.netcracker.registration.mail.burningLinks.BurningLinksManager;
 import ru.netcracker.registration.mail.mailer.GmailSender;
 import ru.netcracker.registration.model.DTO.UserDTO;
-import ru.netcracker.registration.model.UserGroup;
 import ru.netcracker.registration.security.service.SecurityService;
 import ru.netcracker.registration.service.impl.UserGroupService;
 import ru.netcracker.registration.service.impl.UserService;
@@ -38,6 +37,7 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+
     private List<User> allUsers = new ArrayList<>();
     public UserController(UserService service) {
         userService = service;
@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping("/get/statistics")
     public @ResponseBody
     Iterable<Integer> getStatistics(){
-
+//        tasks.change(new TaskPrint("from userapi=-=-=-=-=-=-=-=-=-=-=-"));
         return userService.getAllMappedByRegistrationDate(allUsers);
     }
 
@@ -156,7 +156,7 @@ public class UserController {
             userService.add(userDTO);
             //String token = securityService.login(userDTO.getEmail(), userDTO.getPassword());
 
-            GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
+            GmailSender sender = new GmailSender(NetcrackerMailCredentials.email, NetcrackerMailCredentials.password);
             String link = BurningLinksManager.getInstance().addNew(userDTO.getEmail());
             String body = String.format(
                     "Hello, %s! Your email address has been used to register on our service.\nTo confirm registration, follow this link: %s",
@@ -395,7 +395,7 @@ public class UserController {
 
         try {
             UserDTO userDTO = userService.get(form.getEmail());
-            GmailSender sender = new GmailSender("netcracker.training.center@gmail.com", "netcracker2018");
+            GmailSender sender = new GmailSender(NetcrackerMailCredentials.email, NetcrackerMailCredentials.password);
             String body = String.format(
                     "Dear %s! Someone is trying to change password on your account.",
                     userDTO.getFirstName()

@@ -23,7 +23,6 @@ export class HeaderAuthorizedComponent implements OnInit {
 
   logout() {
     this.userService.logout().subscribe((obj: any) => {
-      this.questService.removeLoadedConfirmations();
       this.router.navigate(['/']);
     });
 

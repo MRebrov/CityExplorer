@@ -1,0 +1,136 @@
+<h1 class="display-4 text-center">Admin panel</h1>
+<div id="spinner" class="spinner" *ngIf="load">
+  <img id="img-spinner" src="../../../assets/markers/load.gif" alt="Loading"/>
+</div>
+<div class="container" *ngIf="!loading">
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="card" style="width: 30rem;">
+          <div class="card-body">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img class="d-block w-100" src="{{topQuest.spots[0].photos[0].url}}" alt="First slide">
+                </div>
+                <div class="carousel-item" *ngFor="let spot of topQuest.spots.slice(1)">
+                  <img class="d-block w-100" src="{{spot.photos[0].url}}" alt="Second slide">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+              <h5 class="card-title">Top 1 Quest</h5>
+              <p class="card-text"><a [routerLink]="['/questpage',topQuest.questId]">{{topQuest.name}}</a></p>
+              <p class="card-text">{{topQuest.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <switch [status]="userSelected"
+              [onText]="'User'"
+              [offText]="'Quest'"
+              [onColor]="'blue'"
+              [offColor]="'sky-blue'"
+              (statusChange)="changeSwitch($event)">
+      </switch>
+      <div *ngIf="userSelected">
+        <p>Search for users:</p>
+        <div class="form-group">
+          <label for="mail">Search by email: </label>
+          <input class="form-control" id="mail" type="text" [(ngModel)]="userSearchPattern.email"
+                 (change)="checkEmpty($event)">
+
+          <label for="name">Search by name: </label>
+          <input class="form-control" id="name" type="text" [(ngModel)]="userSearchPattern.firstName"
+                 (change)="checkEmpty($event)">
+
+          <label for="date">Search by registration date: </label>
+          <input class="form-control" id="date" type="date" [(ngModel)]="userSearchPattern.registrationDate"
+                 (change)="checkEmpty($event)">
+
+        </div>
+        <button class="btn btn-info" (click)="search(userSelected)" [disabled] = "loading">Search</button>
+
+        <br>
+        <div class="list">
+          <div *ngFor="let user of users">
+            <div class="row" style="margin-top: 4px">
+              <div class="col-8">
+                {{user.email + ' ('+user.firstName + ' ' + user.lastName+')'}}
+              </div>
+              <div class="col-4 text-right">
+                <button class="btn btn-warning" (click)="banUser(user)" [disabled] = "loading">Ban</button>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="requestUserSent && users.length == 0">
+            <div class="col-12">
+              <i class="fas fa-frown"></i>
+              No users found
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!userSelected">
+        <p>Search for quests:</p>
+        <div class="form-group">
+          <label for="reportCount">Report count: </label>
+          <input class="form-control" id="reportCount" type="number" [(ngModel)]="reportCountConfig"
+                 (change)="checkEmpty($event)">
+        </div>
+        <button class=" btn btn-info" (click)="showReportedQuests()" [disabled] = "loading">Show reported</button>
+        <br>
+        <div class="list">
+          <div *ngFor="let quest of quests">
+            <div class="row" style="margin-top: 4px">
+              <div class="col-4">
+                <a [routerLink]="['/questpage', quest.questId]">{{quest.name}} </a>
+              </div>
+              <div class="col-3">
+                Reports: <span class="badge badge-danger">{{quest.reports}}</span>
+              </div>
+
+              <div class="col-1 text-right">
+                <button class="btn btn-warning" (click)="banQuest(quest)" [disabled] = "loading">Ban</button>
+              </div>
+              <div class="col-4 text-center">
+                <button class="btn btn-success" (click)="approveQuest(quest)" [disabled] = "loading">Approve</button>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="requestQuestSent && quests.length == 0">
+            <div class="col-12">
+              <i class="fas fa-frown"></i>
+              No quests found
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

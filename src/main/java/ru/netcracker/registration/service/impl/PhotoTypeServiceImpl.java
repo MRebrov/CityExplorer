@@ -39,6 +39,7 @@ public class PhotoTypeServiceImpl implements PhotoTypeService {
 
     @Override
     public boolean delete(PhotoType photoType) {
+
         photoTypeRepository.delete(photoType);
         return true;
     }

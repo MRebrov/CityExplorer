@@ -59,45 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-
-                //ADMIN REQUESTS
-                .antMatchers(
-                        "/userapi/get/all/**"
-                ).hasAuthority("Admin")
-
-                //AUTHENTICATED REQUESTS
-                .antMatchers(
-                        "/userapi/get/**",
-                        "/userapi/delete/**",
-                        "/userapi/edit/**",
-                        "/userPage**",
-                        "/userquests**",
-                        "/upload-photo**",
-                        "/upload-info**",
-                        "/get-quests-by-owner**",
-                        "/get-progresses-by-user**",
-                        "/get-progress-for-quest**",
-                        "/report-quest",
-                        "/cancel-quest-reports"
-                ).authenticated()
-
-                //BUSINESS REQUESTS
-                .antMatchers(
-                        "/newquest**",
-                        "/newoffer**",
-                        "/confirmations**",
-                        "/get-all-confirmations**",
-                        "/confirmation-request**",
-                        "/get-owned-offers**",
-                        "/save-offer**"
-                ).hasAnyAuthority("Business", "Admin")
-
-                //NORMAL USER REQUESTS
-                .antMatchers(
-                        "/join-quest**",
-                        "/get-my-offers**",
-                        "/purchase-offer**"
-                ).hasAnyAuthority("Default", "Admin")
+                .antMatchers("/userapi/get/all/**").hasAuthority("Admin")
+                .antMatchers("/userapi/ban").hasAuthority("Admin")
+                .antMatchers("/userapi/get/**", "/userapi/delete/**", "/userapi/edit/**").authenticated()
                 .anyRequest().permitAll();
 
         // Custom JWT based authentication

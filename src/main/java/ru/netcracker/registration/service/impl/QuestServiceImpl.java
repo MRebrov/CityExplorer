@@ -1,9 +1,12 @@
 package ru.netcracker.registration.service.impl;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.netcracker.registration.mail.mailer.GmailSender;
+import ru.netcracker.registration.mail.mailer.NetcrackerMailCredentials;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
 import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
@@ -19,6 +22,9 @@ import ru.netcracker.registration.service.SpotService;
 
 import javax.jws.soap.SOAPBinding;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -76,8 +82,7 @@ public class QuestServiceImpl implements QuestService {
             report.setQuestId(quest);
             report.setUserId(user);
             reportRepository.save(report);
-        }
-        else {
+        } else {
             throw new ReportException("Report has been already send");
         }
     }
@@ -275,6 +280,52 @@ public class QuestServiceImpl implements QuestService {
     }
 
     @Override
+    public List<Quest> findInactive() {
+
+        List<Quest> res = new ArrayList<>();
+        List<Quest> quests = (List<Quest>) questRepository.findAllByStatusEquals(0);
+        for(Quest q: quests){
+            List<SpotInQuest> spotInQuests = (List<SpotInQuest>) q.getSpotInQuests();
+            for(SpotInQuest spot: spotInQuests){
+                if(ChronoUnit.DAYS.between(LocalDate.now(), (Temporal) spot.getSpotBySpotId().getUploadDate())>20){
+                    List<UserSpotProgress> usp = (List<UserSpotProgress>) spot.getUserSpotProgressesBySpotsInQuestsId();
+                    for(UserSpotProgress progress: usp){
+                        if(progress.getSpotStatus().equals("Unconfirmed")){
+                            res.add(q);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+
+
+    @Override
+    public List<Quest> findSuspicious() {
+        List<Quest> res = new ArrayList<>();
+        List<Quest> quests = (List<Quest>) questRepository.findAllByStatusEquals(0);
+        for (Quest q: quests){
+            if((q.getSpotInQuests().size()<3||q.getNumberOfParticipants()>40) && q.getReward() > 100){
+                res.add(q);
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public void deleteOdd() {
+        questRepository.deleteAllByStatusGreaterThanEqual(3);
+    }
+
+    @Override
+    public void deleteIterable(Iterable<Quest> quests) {
+        questRepository.delete(quests);
+    }
+
+    @Override
     public void userCompleteSpot(String email, Long questId, Long spotId) {
         SpotInQuest spotInQuest = spotInQuestService.getBySpotAndQuest(spotId, questId);
         User user = userRepository.findByEmail(email);
@@ -331,9 +382,12 @@ public class QuestServiceImpl implements QuestService {
             throw new Exception("User is not owner of the quest");
         }
 
+        GmailSender sender = new GmailSender(NetcrackerMailCredentials.email, NetcrackerMailCredentials.password);
+
         if (confirm) {
             userSpotProgress.setSpotStatus("Confirmed");
             userSpotProgressRepository.save(userSpotProgress);
+
             //if quest is totally completed and confirmed
             if (isQuestConfirmedAndCompleted(user, quest)) {
                 user.setBalance(user.getBalance() + quest.getReward());
@@ -343,30 +397,50 @@ public class QuestServiceImpl implements QuestService {
                 userProgress.setDateComplete(currentDate);
                 userProgressRepository.save(userProgress);
             }
+
+            //notify by email
+            String body = String.format(
+                    "Dear %s! We are happy to tell that Your photo in quest \"%s\": spot \"%s\" was confirmed.",
+                    user.getFirstName(),
+                    quest.getName(),
+                    userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId().getName()
+            );
+            sender.sendMail("Photo confirmed", body, "netcracker", user.getEmail());
         } else {
             Photo photo = photoRepository.findByUserAndAndSpotBySpotId(user, userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId());
             userSpotProgressRepository.delete(userSpotProgress);
             photoRepository.delete(photo);
+
+            //notify by email
+            String body = String.format(
+                    "Dear %s! Unfortunately, Your photo in quest \"%s\": spot \"%s\" was rejected.",
+                    user.getFirstName(),
+                    quest.getName(),
+                    userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId().getName()
+            );
+            sender.sendMail("Photo rejected", body, "netcracker", user.getEmail());
         }
     }
 
     @Override
     public QuestDTO getTopQuest() {
 
-
-        List<User> users = (List<User>) userRepository.findAll();
         Map<Quest, Integer> takenQuests = new HashMap<>();
         List<UserProgress> progress = (List<UserProgress>) userProgressRepository.findAll();
-        for (UserProgress up : userProgressRepository.findAll()) {
-            if (up.getDateComplete() != null) {
+        if (progress.isEmpty()){
+            QuestDTO questDTO = QuestConverter.convertToDTO(questRepository.findOne(37L));
+            return questDTO;
+        }
+            for (UserProgress up : progress) {
+                if (up.getDateComplete() != null) {
 //                QuestDTO quest = QuestConverter.convertToDTO(up.getQuestByQuestId());
-                if (takenQuests.containsKey(up.getQuestByQuestId())) {
-                    takenQuests.put(up.getQuestByQuestId(), takenQuests.get(up.getQuestByQuestId()) + 1);
-                } else {
-                    takenQuests.put(up.getQuestByQuestId(), 1);
+                    if (takenQuests.containsKey(up.getQuestByQuestId())) {
+                        takenQuests.put(up.getQuestByQuestId(), takenQuests.get(up.getQuestByQuestId()) + 1);
+                    } else {
+                        takenQuests.put(up.getQuestByQuestId(), 1);
+                    }
                 }
             }
-        }
 
 //        for (User u : users) {
 //            List<UserProgressDTO> userQuests = getUserProgressByUser(u.getEmail());

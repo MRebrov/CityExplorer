@@ -118,9 +118,9 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    if (this.userService.authenticated == null || this.userService.authenticated.groupID.name != 'Admin') {
-      this.router.navigate(['/login']);
-    }
+    // if (this.userService.authenticated == null || this.userService.authenticated.groupID.name != 'Admin') {
+    //   this.router.navigate(['/login']);
+    // }
     // this.userService.getCurrentUser()
     //   .subscribe(
     //     (user: User) => {

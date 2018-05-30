@@ -26,9 +26,8 @@ export class UserService {
 
   private serverSocketUrl = '/socket';
   private stompClient;
-  public onNotifiedHandler;
 
-  constructor(public authHttp: AuthHttp, public http: Http) {
+  constructor(public authHttp: AuthHttp, public http: Http, public questService: QuestService) {
   }
 
   private initializeWebSocketConnection() {
@@ -36,7 +35,12 @@ export class UserService {
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function (frame) {
-      that.stompClient.subscribe('/user/confirmation', that.onNotifiedHandler);
+      that.stompClient.subscribe('/user/confirmation', (message) => {
+        if (message.body) {
+          alert(message.body);
+          this.questService.getConfirmationsList();
+        }
+      });
     });
 
   }
@@ -77,23 +81,24 @@ export class UserService {
     });
     resp.subscribe((obj: any) => {
       const authObject: AuthObject = obj.json();
-      this.saveTokenAndConnectWebSocketAndLoadCurrentUser(authObject.token);
+      this.afterLogin(authObject.token);
     });
     return resp;
   }
 
   authorizeViaGoogle(token: string) {
-    this.saveTokenAndConnectWebSocketAndLoadCurrentUser(token);
+    this.afterLogin(token);
   }
 
-  saveTokenAndConnectWebSocketAndLoadCurrentUser(token: string) {
+  afterLogin(token: string) {
     this._isAuthenticatedSubject.next(true);
     localStorage.setItem('id_token', token);
     this.loadAndSaveCurrentUser();
+    this.questService.getConfirmationsList();
     this.initializeWebSocketConnection();
   }
 
-  loadAndSaveCurrentUser(){
+  loadAndSaveCurrentUser() {
     this.getCurrentUser()
       .subscribe(
         (user: any) => {
@@ -103,9 +108,10 @@ export class UserService {
 
   logout() {
     this._isAuthenticatedSubject.next(false);
-    this.authenticated=null;
+    this.authenticated = null;
     localStorage.removeItem('id_token');
     this.stompClient.disconnect();
+    this.questService.removeLoadedConfirmations();
     return this.http.post('userapi/logout', {}).map((response: Response) => {
       return response;
     });
@@ -154,6 +160,7 @@ export class UserService {
     this.getCurrentUser().subscribe((obj: any) => {
       this._isAuthenticatedSubject.next(true);
       this.authenticated = obj;
+      this.questService.getConfirmationsList();
       this.initializeWebSocketConnection();
       console.log('App is authenticated');
     }, (error: any) => {

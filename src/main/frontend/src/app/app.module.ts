@@ -43,6 +43,10 @@ import { OwnedOffersComponent } from './offers/owned-offers/owned-offers.compone
 import { CreateOfferComponent } from './create-offer/create-offer.component';
 import { AvailableOffersComponent } from './offers/available-offers/available-offers.component'
 import {OffersService} from './offers/offers.service';
+import { SchedullersComponent } from './admin/schedullers/schedullers.component';
+import { PanelComponent } from './admin/panel/panel.component';
+import { ReportsComponent } from './admin/reports/reports.component';
+import {SchedullerService} from "./admin/schedullers/scheduller.service";
 
 
 
@@ -74,6 +78,9 @@ import {OffersService} from './offers/offers.service';
     OwnedOffersComponent,
     CreateOfferComponent,
     AvailableOffersComponent,
+    SchedullersComponent,
+    PanelComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +101,7 @@ import {OffersService} from './offers/offers.service';
     BrowserAnimationsModule
   ],
   bootstrap: [AppComponent],
-  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService, OffersService],
+  providers: [QuestService, UserService, LoaderService, LoginRedirectionService, SecurityService, OffersService, SchedullerService],
   //entryComponents: [InputFormComponent]
 })
 export class AppModule {

@@ -1,4 +1,7 @@
 <app-header></app-header>
+<div id="spinner" class="spinner" *ngIf="loading">
+  <img id="img-spinner" src="../../assets/markers/load.gif" alt="Loading"/>
+</div>
 <div class="container">
   <div class="card mt-2 bg-light">
     <div class="card-body">
@@ -18,15 +21,13 @@
                 <div class="col-12">
                   <div class="form-group row">
                     <div class="col-md-6 col-8">
-                      <label for="offerPhoto">Upload your photo</label>
-                      <input type="file"
-                             id="offerPhoto"
-                             class="form-control-file"
-                             name="offerPhoto"
-                             (change)="selectFile($event)"
-                             required
-                      >
+                      <label for="offerPhotoBlock">Upload your photo</label>
+                      <div class="custom-file" id="offerPhotoBlock">
+                        <input type="file" class="custom-file-input" id="offerPhoto" name="offerPhoto" (change)="selectFile($event)" required>
+                        <label class="custom-file-label" for="offerPhoto">{{fileName}}</label>
+                      </div>
                     </div>
+
                     <div class="col-2">
                       <img *ngIf="offer.photoURL" src="{{offer.photoURL}}" height="100px">
                     </div>

@@ -1,3 +1,6 @@
+<div id="spinner" class="spinner" *ngIf="loading">
+  <img id="img-spinner" src="../../assets/markers/load.gif" alt="Loading"/>
+</div>
 <h1 class="display-4 text-center">My purchased offers</h1>
 <div id="cont" *ngIf="purchasedOffers != null && purchasedOffers.length>0; else noDataBlock">
   <div class="row">
