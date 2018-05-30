@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {OffersService} from '../offers.service';
 import {OfferDTO} from '../offer.model';
@@ -14,23 +14,26 @@ export class PurchasedOffersComponent implements OnInit {
 
   purchasedOffers: UserOfferDTO[];
   public date: Date;
+  loading: boolean = false;
 
   constructor(private router: Router, private offerService: OffersService) {
-    this.date=new Date();
-    this.date.setHours(0,0,0,0);
+    this.date = new Date();
+    this.date.setHours(0, 0, 0, 0);
   }
 
   ngOnInit() {
     this.loadOffers();
-    document.getElementById("nav-profile-tab").addEventListener("click",()=>{
+    document.getElementById('nav-profile-tab').addEventListener('click', () => {
       this.loadOffers();
     });
   }
 
-  loadOffers(){
+  loadOffers() {
+    this.loading = true;
     this.offerService.getMyOffers().subscribe(
       (offers: any[]) => {
         this.purchasedOffers = offers;
+        this.loading = false;
         for (let userOffer of this.purchasedOffers) {
           userOffer.offer.expireDate = new Date(userOffer.offer.expireDate);
         }
@@ -44,6 +47,7 @@ export class PurchasedOffersComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        this.loading = false;
         alert('Seems like you are not authorized! Please sign in first');
         this.router.navigate(['/login']);
       });

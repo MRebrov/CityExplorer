@@ -21,19 +21,10 @@ export class AppComponent {
 
 
   ngOnInit() {
-    this.userService.onNotifiedHandler=(message) => {
-      if (message.body) {
-        alert(message.body);
-        this.questService.getConfirmationsList();
-      }
-    };
+
     setTimeout(() => {
       this.userService.initAuth();
     }, 1500);
-    ;
-    setTimeout(() => {
-      this.questService.getConfirmationsList();//to show confirmations count on header
-    }, 6000);
     ;
 
     this.loginRedirectionService.init();

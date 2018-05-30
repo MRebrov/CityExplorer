@@ -13,15 +13,18 @@ import {UserProgressDTO} from '../../quest/user-progress.model';
 export class UserOwnedQuestListComponent implements OnInit {
 
   ownedQuests: QuestDTO[];
+  loading: boolean = false;
 
   constructor(private questService: QuestService, private router: Router) {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.questService.getQuestsByOwner()
       .subscribe(
         (quests: any[]) => {
           this.ownedQuests = quests;
+          this.loading = false;
           for (let quest of this.ownedQuests) {
             quest.uploadDate = new Date(quest.uploadDate);
           }
@@ -35,6 +38,7 @@ export class UserOwnedQuestListComponent implements OnInit {
         },
         (error) => {
           console.log(error);
+          this.loading = false;
           alert('Seems like you are not authorized! Please sign in first');
           this.router.navigate(['/login']);
         });

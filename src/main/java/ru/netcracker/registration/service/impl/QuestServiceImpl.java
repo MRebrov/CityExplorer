@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.netcracker.registration.mail.mailer.GmailSender;
+import ru.netcracker.registration.mail.mailer.NetcrackerMailCredentials;
 import ru.netcracker.registration.model.*;
 import ru.netcracker.registration.model.DTO.QuestDTO;
 import ru.netcracker.registration.model.DTO.SpotConfirmationDTO;
@@ -380,9 +382,12 @@ public class QuestServiceImpl implements QuestService {
             throw new Exception("User is not owner of the quest");
         }
 
+        GmailSender sender = new GmailSender(NetcrackerMailCredentials.email, NetcrackerMailCredentials.password);
+
         if (confirm) {
             userSpotProgress.setSpotStatus("Confirmed");
             userSpotProgressRepository.save(userSpotProgress);
+
             //if quest is totally completed and confirmed
             if (isQuestConfirmedAndCompleted(user, quest)) {
                 user.setBalance(user.getBalance() + quest.getReward());
@@ -392,10 +397,28 @@ public class QuestServiceImpl implements QuestService {
                 userProgress.setDateComplete(currentDate);
                 userProgressRepository.save(userProgress);
             }
+
+            //notify by email
+            String body = String.format(
+                    "Dear %s! We are happy to tell that Your photo in quest \"%s\": spot \"%s\" was confirmed.",
+                    user.getFirstName(),
+                    quest.getName(),
+                    userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId().getName()
+            );
+            sender.sendMail("Photo confirmed", body, "netcracker", user.getEmail());
         } else {
             Photo photo = photoRepository.findByUserAndAndSpotBySpotId(user, userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId());
             userSpotProgressRepository.delete(userSpotProgress);
             photoRepository.delete(photo);
+
+            //notify by email
+            String body = String.format(
+                    "Dear %s! Unfortunately, Your photo in quest \"%s\": spot \"%s\" was rejected.",
+                    user.getFirstName(),
+                    quest.getName(),
+                    userSpotProgress.getSpotsInQuestsBySpotInQuestId().getSpotBySpotId().getName()
+            );
+            sender.sendMail("Photo rejected", body, "netcracker", user.getEmail());
         }
     }
 

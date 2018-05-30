@@ -21,7 +21,8 @@ export class QuestPageComponent implements OnInit {
   mapLng: number = 7.0;
   quest: QuestDTO = new QuestDTO('', '', null, 0, 10, 0, 0);
   userProgress: UserProgressDTO = new UserProgressDTO(null, null);
-  private photosToUpload: string[] = [];
+  photosToUpload: string[] = [];
+  photoTitles:string[]=[];
   errorMsg: string;
   placesLeft: number;
   loading: boolean = false;
@@ -36,13 +37,16 @@ export class QuestPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading=true;
     this.userService.getCurrentUser()
       .subscribe(
         (user: User) => {
           this.user = user;
+          this.loading=false;
         },
         (error) => {
           console.log(error);
+          this.loading=false;
         });
 
     this.sub = this.route.params.subscribe(params => {
@@ -148,6 +152,7 @@ export class QuestPageComponent implements OnInit {
         console.log(data);
         this.loading = false;
         this.photosToUpload[spotId] = data;
+        this.photoTitles[spotId]=event.target.files[0].name;
       },
       (error) => {
         this.loading = false;

@@ -16,9 +16,11 @@ import {Router} from '@angular/router';
 })
 export class CreateOfferComponent implements OnInit {
   errorMsg: string;
+  fileName = 'Choose photo...';
   offer: OfferDTO = new OfferDTO();
   categories: OfferCategoryDTO[] = [];
   balance: number;
+  loading: boolean = false;
 
   constructor(private router: Router, private offerService: OffersService, private userService: UserService, private fb: FormBuilder, private questService: QuestService) {
     this.offer.amount = 0;
@@ -65,25 +67,32 @@ export class CreateOfferComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this.offerService.saveOffer(this.offer).subscribe((data: any) => {
         console.log(data);
+        this.loading = false;
         this.writeError('Offer created successfully');
         this.offer = new OfferDTO();
       },
       (error) => {
+        this.loading = false;
         this.writeError(error);
       });
   }
 
   selectFile(event) {
+    this.loading = true;
     this.questService.uploadSpotPhoto(event.target.files[0]).catch((response) => {
       return Observable.throw(response);
     }).subscribe((data) => {
         console.log(data);
+        this.loading = false;
         this.offer.photoURL = data;
+        this.fileName = event.target.files[0].name;
       },
       (error) => {
         console.log(error);
+        this.loading = false;
       });
   }
 

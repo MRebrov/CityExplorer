@@ -1,3 +1,6 @@
+<div id="spinner" class="spinner" *ngIf="loading">
+  <img id="img-spinner" src="../../assets/markers/load.gif" alt="Loading"/>
+</div>
 <h1 class="display-4 text-center">My joined quests</h1>
 <div id="cont" *ngIf="userProgressList != null && userProgressList.length>0; else noDataBlock">
   <ul class="list-group">
@@ -13,7 +16,7 @@
   <div *ngIf="userProgressList == null; else noQuestsBlock">
     <!--<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>-->
 
-    <h5 align="center" >Loading active quests...</h5>
+    <h5 align="center">Loading active quests...</h5>
   </div>
   <ng-template #noQuestsBlock>
     <h5 align="center" class="noactive">You have no active quests</h5>

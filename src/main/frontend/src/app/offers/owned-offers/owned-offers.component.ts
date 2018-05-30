@@ -10,15 +10,18 @@ import {OfferDTO} from '../offer.model';
 })
 export class OwnedOffersComponent implements OnInit {
   ownedOffers: OfferDTO[];
+  loading: boolean = false;
 
   constructor(private router: Router, private offerService: OffersService) {
 
   }
 
   ngOnInit() {
+    this.loading = true;
     this.offerService.getOwnedOffers().subscribe(
       (offers: any[]) => {
         this.ownedOffers = offers;
+        this.loading = false;
         for (let offer of this.ownedOffers) {
           offer.expireDate = new Date(offer.expireDate);
         }
@@ -32,6 +35,7 @@ export class OwnedOffersComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        this.loading = false;
         alert('Seems like you are not authorized! Please sign in first');
         this.router.navigate(['/login']);
       });
