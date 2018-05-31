@@ -189,7 +189,7 @@ public class QuestServiceImpl implements QuestService {
         int cost = questCostCalculation(quest);
         if (user.getBalance() - cost >= 0 && cost > 0) {
             user.setBalance(user.getBalance() - cost);
-            user.setBusinessBalance(user.getBusinessBalance() + cost);
+            user.setBusinessBalance(user.getBusinessBalance() - cost);
             questRepository.save(quest);
             userRepository.save(user);
         }

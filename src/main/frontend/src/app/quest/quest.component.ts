@@ -4,11 +4,11 @@ import {QuestDTO} from './quest.model';
 import {QuestService} from './quest.service';
 import {HttpClient, HttpResponse, HttpEventType} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {SpotDTO} from "./spot.model";
-import {LoaderService} from "./loader.service";
-import {PhotoDTO} from "./photo.model";
-import {UserService} from "../user/user.service";
-import {User} from "../user/user.model";
+import {SpotDTO} from './spot.model';
+import {LoaderService} from './loader.service';
+import {PhotoDTO} from './photo.model';
+import {UserService} from '../user/user.service';
+import {User} from '../user/user.model';
 //import {InputFormComponent} from "./input-form/input-form.component";
 
 
@@ -34,8 +34,8 @@ export class QuestComponent implements OnInit {
   questPhotos: File[] = [];
   progress: { percentage: number } = {percentage: 0};
   photoAdded: boolean[] = [];
-  lng: number;
-  lat: number;
+  lat: number = 51.6495355;
+  lng: number = 39.150856499999996;
   loading: boolean = false;
   balance: number;
   cost: number;
@@ -59,7 +59,7 @@ export class QuestComponent implements OnInit {
   };
 
   markers: marker[] = [];
-  spots: SpotDTO[] = [];
+  public spots: SpotDTO[] = [];
 
   //@ViewChild('parent', {read : ViewContainerRef}) container: ViewContainerRef;
   //@ViewChild(InputFormComponent) inputForm: InputFormComponent;
@@ -154,17 +154,17 @@ export class QuestComponent implements OnInit {
 
   addSpotForm() {
     if (this.spots.length == 5) {
-      window.alert("You cant create a quest with more than 5 spots");
+      window.alert('You cant create a quest with more than 5 spots');
     }
     else {
       for (var i = 0; i < this.spots.length; i++) {
         this.markers[i].label = '✖';
         this.markers[i].draggable = false;
         this.markers[i].iconUrl = redMarker;
-        console.log("name-" + i + "-" + this.spots[i].name);
+        console.log('name-' + i + '-' + this.spots[i].name);
       }
       this.spots.push(new SpotDTO('', this.map.getCenter().lat(), this.map.getCenter().lng()));
-      this.p_label.push("photo");
+      this.p_label.push('photo');
       var newMarker: marker = {
         lat: this.map.getCenter().lat(), //inital post (might be initialized being based on browser geoposition)
         lng: this.map.getCenter().lng(),
@@ -207,7 +207,7 @@ export class QuestComponent implements OnInit {
   getPos($event, i) {
     this.spots[i].lng = $event.coords.lng;
     this.spots[i].lat = $event.coords.lat;
-    console.log(this.spots[i].lng, "   ", this.spots[i].lat);
+    console.log(this.spots[i].lng, '   ', this.spots[i].lat);
   }
 
   // upload() {
@@ -251,7 +251,7 @@ export class QuestComponent implements OnInit {
     this.quest.uploadDate = new Date();
     this.questService.postQuestInfo(this.quest).catch((response: Response) => {
       this.writeMsg(response.text());
-      return Observable.throw(response)
+      return Observable.throw(response);
     }).subscribe((data) => {
       this.writeMsg(data);
     });
@@ -263,13 +263,12 @@ export class QuestComponent implements OnInit {
 
   mapReady(event) {
     this.map = event;
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById("newMarker"));
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('newMarker'));
   }
 
-  uploadSpotPhoto(spotName: string, i) {
+  uploadSpotPhoto(i) {
     console.log('i: ' + i);
-    console.log('spotName: ' + spotName);
-    this.spots[i].name = spotName;
+    console.log('spotName: ' + this.spots[i].name);
     this.spots[i].uploadDate = new Date();
     this.spots[i].photos = [new PhotoDTO('', '')];
     this.spots[i].photos[0].uploadDate = new Date();
@@ -278,7 +277,7 @@ export class QuestComponent implements OnInit {
 
     this.loading = true;
     this.questService.uploadSpotPhoto(this.questPhotos[i]).catch((response) => {
-      return Observable.throw(response)
+      return Observable.throw(response);
     }).subscribe((data) => {
         console.log(data);
         this.spots[i].photos[0].url = data;
@@ -294,7 +293,7 @@ export class QuestComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error)
+        console.log(error);
       },
       () => {
         this.loading = false;

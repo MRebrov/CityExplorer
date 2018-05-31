@@ -21,7 +21,8 @@
               <!--[(ngModel)]="user.firstName" -->
               <!--required -->
             </div>
-            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['lastName'].valid}" *ngIf="!isBusiness">
+            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['lastName'].valid}"
+                 *ngIf="!isBusiness">
               <label for="lastName">Last name</label>
               <input type="text" class="form-control" id="lastName" name="lastName"
                      [formControl]="form.controls['lastName']"
@@ -47,7 +48,8 @@
             <!--<div *ngIf="isValidMail(user.email)">-->
 
             <!--</div>-->
-            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['birthdate'].valid}" *ngIf="!isBusiness">
+            <div class="form-group col-md-6 col-sm-12" [ngClass]="{'has-error':!form.controls['birthdate'].valid}"
+                 *ngIf="!isBusiness">
               <label for="birthday">Birthday</label>
               <input type="date" class="form-control" id="birthday" name="birthday"
                      [formControl]="form.controls['birthdate']"
@@ -103,21 +105,20 @@
             </div>
           </div>
         </form>
-        <div class="row justify-content-between">
-          <div class="col-sm-11 col-12">
+        <div class="row">
+          <div class="col">
             <div class="collapse" id="collapseMessage">
               <div class="alert alert-primary" role="alert">
                 {{errorMsg}}
               </div>
             </div>
           </div>
-          <div class="col-md-1 col-12">
-            <button id="submit" type="submit" class="btn btn-primary" [disabled]="!form.valid"
-                    (click)="submitForm(form)">
-              Submit
-            </button>
-          </div>
-
+        </div>
+        <div class="row justify-content-end">
+          <button id="submit" type="submit" class="btn btn-primary" [disabled]="!form.valid"
+                  (click)="submitForm(form)">
+            Submit
+          </button>
         </div>
         <div class="collapse" id="collapseLink">
           <a class="btn btn-link" routerLink="/login">Go to login page <span class="sr-only"></span></a>
