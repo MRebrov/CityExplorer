@@ -34,7 +34,7 @@ export class UserService {
     let ws = new SockJS(this.serverSocketUrl);
     this.stompClient = Stomp.over(ws);
     let that = this;
-    this.stompClient.connect({}, function (frame) {
+    this.stompClient.connect({}, (frame)=> {
       that.stompClient.subscribe('/user/confirmation', (message) => {
         if (message.body) {
           alert(message.body);

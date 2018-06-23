@@ -67,7 +67,7 @@
                     <div class="col-5">
                       <fieldset disabled>
                         <label for="questCost">Quest cost (q.):</label>
-                        <input type="text" id="questCost" class="form-control" placeholder="{{cost}}" [(ngModel)]="cost">
+                        <input type="text" id="questCost" name ="questCost" class="form-control" placeholder="{{cost}}" [(ngModel)]="cost">
                       </fieldset>
                     </div>
 
@@ -111,20 +111,20 @@
                 <div id="form" class="quest-col form-group">
                   <div class="form-row" *ngFor="let spot of spots; let i = index">
                     <div class="col-3">
-                      <label for="spotName">Spot name</label>
+                      <label for="spotName{{i}}">Spot name</label>
                       <input #spotName type="text" class="form-control"
-                             id="spotName" name="spotName"
+                             id="spotName{{i}}" name="spotName{{i}}"
                              placeholder="{{spot.name}}"
                              [(ngModel)]="spots[i].name"
                              (focus)="activateMarker(i)"
                       >
                     </div>
                     <div class="col-5">
-                      <label for="file-in" class="label-hidden" style="margin-top: 1rem"></label>
-                      <div class="custom-file" id="file-in">
-                        <label for="file" class="custom-file-label">{{p_label[i]}}</label>
+                      <label for="file-in{{i}}" class="label-hidden" style="margin-top: 1rem"></label>
+                      <div class="custom-file" id="file-in{{i}}">
+                        <label for="file{{i}}" class="custom-file-label">{{p_label[i]}}</label>
                         <input type="file"
-                               id="file"
+                               id="file{{i}}"
                                class="custom-file-input"
                                name="spotPhoto"
                                (change)="selectFile($event, i)"
@@ -134,22 +134,22 @@
                       </div>
                     </div>
                     <div class="col-1">
-                      <label for="uploadBtn" class="label-hidden"> hide </label>
-                      <button id="uploadBtn" class="btn btn-info" type="button" [disabled]="!photoAdded[i] || loading"
-                              (click)="uploadSpotPhoto(spotName.value,i)">
+                      <label for="uploadBtn{{i}}" class="label-hidden"> hide </label>
+                      <button id="uploadBtn{{i}}" class="btn btn-info" type="button" [disabled]="!photoAdded[i] || loading"
+                              (click)="uploadSpotPhoto(i)">
                         <i class="fas fa-cloud-upload-alt"></i>
                       </button>
                     </div>
                     <div class="col-1" style="margin-left: 1em">
-                      <label for="deleteBtn"> &nbsp;</label>
-                      <button id="deleteBtn" class="btn btn-warning" [disabled]="loading" type="button"
+                      <label for="deleteBtn{{i}}"> &nbsp;</label>
+                      <button id="deleteBtn{{i}}" class="btn btn-warning" [disabled]="loading" type="button"
                               (click)="deleteForm(i)">
                         <i class="fas fa-times"></i>
                       </button>
                     </div>
                     <div *ngIf="uploaded[i]" class="col-1" style="color: green; margin-left: 0.1em">
-                      <label for="status" class="label-hidden"> d &nbsp;</label>
-                      <i class="fas fa-check" id="status"></i>
+                      <label for="status{{i}}" class="label-hidden"> d &nbsp;</label>
+                      <i class="fas fa-check" id="status{{i}}"></i>
                     </div>
                   </div>
                 </div>
